@@ -12,6 +12,7 @@ let loadWindow() =
    
    // Your awesome code goes here and you have strongly typed access to the XAML via "window"
    
+   window.Root
 
 [<STAThread>]
 (new Application()).Run(loadWindow()) |> ignore

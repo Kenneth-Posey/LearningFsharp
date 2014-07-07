@@ -2,6 +2,5 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="" Height="450" Width="500">
-    <Button Content="This is a test button" Name="cTestButton" Click="runtheclick" HorizontalAlignment="Left" Margin="219,285,0,0" VerticalAlignment="Top" Width="75"/>
 
 </Window>
