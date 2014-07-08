@@ -1,0 +1,11 @@
+<summary>
+<para>
+Wisconsin Diagnostic Breast Cancer (WDBC)
+</para>
+<para>
+Number of instances: 569 (357 benign, 212 malignant)
+</para>
+<para>
+Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass.  They describe characteristics of the cell nuclei present in the image.
+</para>
+</summary>

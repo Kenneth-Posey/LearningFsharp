@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>F# Sample Readme - Samples101</title>
+</head>
+<body>
+    <h1>F# 3.0 Sample Readme</h1>    
+    <h2>Prerequisites and Machine Setup&nbsp;</h2>
+    <p>This sample package requires Visual Studio 2012 RTM.</p>
+    <h3>SQL Server (Optional)</h3>
+    <p>Because the SQL sample requires the local database to be setup. You need to set up a local SQL database named FSharpSample with sa password 
+        = FSharpSample1234. You can use CreateFSharpSampleDatabase.sql or setup.exe to setup your database 
+        tables and populate sample data. 
+        If you decide not to setup the database, some of the samples won&#39;t be compiled 
+        into the final binary result.</p>
+    <p>If you see a security dialog about trusting type provider, please click "Yes" to trust the type provider in order to make the sample run correctly.</p>
+    <h3>Web Service Access (Optional)</h3>
+    <p>You need to sign up for a free account on
+        <a href="https://datamarket.azure.com/account/info">
+        https://datamarket.azure.com/account/info</a> and
+        <a href="https://www.bingmapsportal.com/application/index/1034110">
+        https://www.bingmapsportal.com/application/index/1034110</a> if you intend to 
+        run the web service samples. After you sign up on both web sites, you can 
+        replace the ADM user ID, ADM account ID, and Bing developer account information 
+        at the end of Support.Helper.fs.</p>
+    <h3>Office Setup (Optional)</h3>
+    <p>In order to run the office interop samples, you need to setup Word and Excel 2010 
+        on your computer.</p>
+    <h2>Description</h2>
+    <p>This program allows the user to view and execute many short blocks of code that 
+        demonstrate many of the language features for F# and some of the library 
+        functionality in FSharp.Core.dll.</p>
+    <h2>Files</h2>
+    <ul>
+    <li><b>sample.fs -</b> Defines attributes to mark samples in code and provides the functionality to build the list
+    of samples by searching through the .fs files in the project folder for correctly attributed methods.</li>
+		<li><b>program.fs -</b> Generates the list of samples and checks the command line arguments to determine
+    whether to run all of the samples automatically or the display the UI for the sample browser.</li>
+    <li><b>sampleform.fs -</b> Contains the UI code for the window that presents the list of samples to be
+    browsed and executed.</li>
+		<li><strong>Support.Helper.fs</strong> - util functions for sample 
+		package.</li>
+    <li><b>Samples.Beginners.fs -</b> Defines samples demonstrating much of the basic functionality in F#.</li>
+    <li><b>Samples.Intermediate.fs -</b> Defines samples demonstrating built-in data structures like Set and Map
+    as well as more advanced object oriented constructs like interfaces.</li>
+		<li style="height: 19px"><strong>Samples.Linq.fs </strong>- LINQ query 
+		samples</li>
+		<li style="height: 19px"><strong>Samples.UnitTestSample.fs </strong>- 
+		Unit test sample</li>
+		<li><strong>Samples.ParallelComputation.fs</strong> - shows how F# can 
+		make parallel computation.</li>
+		<li><strong>Samples.DataAccess.SQL.fs</strong> - Type Provider samples, including 
+            SQL datbase, web service, and resource file.</li>
+		<li><strong>Samples.OfficeInteropSample.fs</strong> - shows how to use 
+		F# to interact with Office applications, such as MS Word 2010.</li>
+		<li><strong>Samples.DataAccess.AzureMarketPlace.fs</strong> - Azure 
+		Data market samples</li>
+		<li><strong>Samples.Others.fs</strong> - Defines samples demostrating 
+		some other topics, such as design patterns, active patterns.</li>
+    <li><b>SampleForm.resx -</b> Resource file containing serialized icon and image data for the UI.</li>
+		<li><strong>
+		Support.DataClasses.dbml</strong>, <strong>Support_Resource.resx</strong>,
+		<strong>Support.Model.edmx</strong>, and <strong>Support.ExcelFile.xlsx</strong> 
+		are files used by sample code.</li>
+    </ul>
+    <h3>
+        License: <span class="Apple-style-span" 
+            style="color: rgb(51, 51, 51); font-family: 'Segoe UI', 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 16px; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); ">
+        <a href="javascript:showEula()" 
+            style="border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; border-style: initial; border-color: initial; font-weight: inherit; font-style: inherit; font-family: inherit; margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; outline-width: 0px; outline-style: initial; outline-color: initial; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; color: rgb(0, 102, 221); cursor: pointer; text-decoration: none; ">
+        Apache License, Version 2.0</a></span></h3>
+</body>
+</html>

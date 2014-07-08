@@ -1,0 +1,11 @@
+<summary>
+<para>
+Car Evaluation Database
+</para>
+<para>
+Number of Instances: 1728
+</para>
+<para>
+Car Evaluation Database was derived from a simple hierarchical decision model. Because of known underlying concept structure, this database may be particularly useful for testing constructive induction and structure discovery methods. 
+</para>
+</summary>

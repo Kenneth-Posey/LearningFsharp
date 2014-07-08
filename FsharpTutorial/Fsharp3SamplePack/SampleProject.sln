@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 11
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SampleProject", "SampleProject\SampleProject.fsproj", "{D03A8734-1248-4F07-B23A-D16288242D58}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BAAB5D0D-668F-4B52-878A-370880754BF6}"
+	ProjectSection(SolutionItems) = preProject
+		CreateFSharpSampleDatabase.sql = CreateFSharpSampleDatabase.sql
+		FSharpSampleProject.sln = FSharpSampleProject.sln
+		Readme.txt = Readme.txt
+		SampleBuildTask.exe = SampleBuildTask.exe
+		Setup.exe = Setup.exe
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D03A8734-1248-4F07-B23A-D16288242D58}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D03A8734-1248-4F07-B23A-D16288242D58}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{D03A8734-1248-4F07-B23A-D16288242D58}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{D03A8734-1248-4F07-B23A-D16288242D58}.Debug|x86.ActiveCfg = Debug|x86
+		{D03A8734-1248-4F07-B23A-D16288242D58}.Debug|x86.Build.0 = Debug|x86
+		{D03A8734-1248-4F07-B23A-D16288242D58}.Release|Any CPU.ActiveCfg = Release|x86
+		{D03A8734-1248-4F07-B23A-D16288242D58}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{D03A8734-1248-4F07-B23A-D16288242D58}.Release|Mixed Platforms.Build.0 = Release|x86
+		{D03A8734-1248-4F07-B23A-D16288242D58}.Release|x86.ActiveCfg = Release|x86
+		{D03A8734-1248-4F07-B23A-D16288242D58}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

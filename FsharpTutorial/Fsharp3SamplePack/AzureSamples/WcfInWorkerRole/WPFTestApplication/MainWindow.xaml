@@ -1,0 +1,73 @@
+﻿<Window x:Class="WPFTestApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Worker Role WCF Service Test Client"
+        FontFamily="Calibri"
+        Height="350" Width="525">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Azure Worker Role WCF Loan Calculator"
+                   FontSize="18" FontWeight="SemiBold" Foreground="Brown" />
+
+        <Border Grid.Row="1"
+                BorderThickness="1" Margin="0, 5, 0, 0"
+                BorderBrush="Blue" CornerRadius="5">
+            <Grid Margin="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0"
+                               Text="Total loan ($)" />
+                    <TextBlock Grid.Row="1" Grid.Column="0"
+                               Margin="0, 0, 10, 0"
+                               Text="Anual interest rate (%)" />
+                    <TextBlock Grid.Row="2" Grid.Column="0"
+                               Text="Term (month)" />
+
+                    <ComboBox Grid.Row="0" Grid.Column="1"
+                              x:Name="cmbTotalLoan"
+                              SelectionChanged="cmbbox_SelectionChanged"
+                              HorizontalAlignment="Stretch" />
+                    <ComboBox Grid.Row="1" Grid.Column="1"
+                              x:Name="cmbAnualInterest"
+                              SelectionChanged="cmbbox_SelectionChanged"
+                              HorizontalAlignment="Stretch" />
+                    <ComboBox Grid.Row="2" Grid.Column="1"
+                              x:Name="cmbTermInMonth"
+                              SelectionChanged="cmbbox_SelectionChanged"
+                              HorizontalAlignment="Stretch" />
+                </Grid>
+
+                <TextBlock Grid.Row="1" HorizontalAlignment="Right"
+                           x:Name="txtCalculationResult"
+                           Foreground="Green"
+                           Margin="0, 5, 5, 5" Text="NA" />
+
+                <Button Grid.Row="2" Content="Calculate" Click="Calculate_Click" />
+                <!-- uncomment to test other F# data type-->
+                <!--<Button Grid.Row="2" Content="Calculate2" Click="Calculate2_Click" />-->
+                <!--<Button Grid.Row="2" Content="Calculate3" Click="Calculate3_Click" />-->
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

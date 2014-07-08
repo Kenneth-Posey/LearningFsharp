@@ -1,0 +1,11 @@
+<summary>
+<para>
+Poker Hand Dataset 
+</para>
+<para>
+Number of Instances: 25010 training, 1,000,000 testing
+</para>
+<para>
+Each record is an example of a hand consisting of five playing cards drawn from a standard deck of 52. Each card is described using two attributes (suit and rank), for a total of 10 predictive attributes. There is one Class attribute that describes the “Poker Hand”. The order of cards is important, which is why there are 480 possible Royal Flush hands as compared to 4 (one for each suit – explained in more detail below).
+</para>
+</summary>

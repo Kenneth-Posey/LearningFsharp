@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Thumbnails", "Thumbnails\Thumbnails.ccproj", "{DB5E1617-EEF3-4E97-A3F9-AD79F45E526D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thumbnails_WebRole", "Thumbnails_WebRole\Thumbnails_WebRole.csproj", "{64185257-8BF3-4ADD-B807-61294A53B083}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Thumbnails_WorkerRole", "Thumbnails_WorkerRole\Thumbnails_WorkerRole.fsproj", "{270A94DE-C558-40FB-A423-103056DD37D3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{270A94DE-C558-40FB-A423-103056DD37D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{270A94DE-C558-40FB-A423-103056DD37D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{270A94DE-C558-40FB-A423-103056DD37D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{270A94DE-C558-40FB-A423-103056DD37D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64185257-8BF3-4ADD-B807-61294A53B083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64185257-8BF3-4ADD-B807-61294A53B083}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64185257-8BF3-4ADD-B807-61294A53B083}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64185257-8BF3-4ADD-B807-61294A53B083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB5E1617-EEF3-4E97-A3F9-AD79F45E526D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB5E1617-EEF3-4E97-A3F9-AD79F45E526D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB5E1617-EEF3-4E97-A3F9-AD79F45E526D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB5E1617-EEF3-4E97-A3F9-AD79F45E526D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

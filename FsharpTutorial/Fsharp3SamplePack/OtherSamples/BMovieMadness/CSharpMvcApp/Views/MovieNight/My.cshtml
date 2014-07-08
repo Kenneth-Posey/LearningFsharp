@@ -1,0 +1,91 @@
+﻿@model FSharpMvc.Models.MyPageViewModel
+
+@{
+    ViewBag.Title = "My movies";
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+<script type="text/javascript" src="~/Scripts/knockout-2.1.0.js"></script>
+<script type="text/javascript" src="~/Scripts/Utils.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var MoviesModel = function (movies, genres) {
+            var self = this;
+
+            self.Movies = ko.observableArray(movies);
+            self.Genres = ko.observableArray(genres);
+            self.AddMovie = function(data) {
+                doAdd('@Url.Action("AddMovie")', self.Movies, data);
+            }
+            self.AddGenre = function(data) { 
+                doAdd('@Url.Action("AddGenre")', self.Genres, data);
+            }
+            self.DeleteMovie = function(data) {
+                doDelete('@Url.Action("DeleteMovie")', 'movieId', self.Movies, data);
+            }
+            self.DeleteGenre = function(data) {
+                doDelete('@Url.Action("DeleteGenre")', 'userGenreId', self.Genres, data);
+            }
+        };
+        var movies = [
+        @foreach(var m in Model.Movies) {
+           @Html.Raw(Json.Encode(m));@:,
+           }
+        ];
+
+        var genres = [
+        @foreach(var m in Model.Genres) {
+            @Html.Raw(Json.Encode(m));@:,
+            }
+        ];
+
+        var viewModel = new MoviesModel(movies, genres);
+        initializeAutocomplete('#movie-name', '@Url.Action("SuggestMovie")', 'selectedMovie', '#add-movie', viewModel.AddMovie);
+        initializeAutocomplete('#genre-name', '@Url.Action("SuggestGenre")', 'selectedGenre', '#add-genre', viewModel.AddGenre);
+
+        ko.applyBindings(viewModel);
+    });
+</script>
+<table>
+    <tr>
+        <td><h3>Preferred B-Movie Genres</h3></td>
+    </tr>
+    <tr>
+        <td>
+            <input id="genre-name" /> <input id="add-genre" type="button" value="Add" />
+        </td>
+    </tr>
+    <tr>
+        <td style="display:block">
+            <ul data-bind="foreach: Genres" style="list-style-type:none">
+                <li style="padding:10px">
+                    <span style="font-weight:bold" data-bind="text: Name"></span>
+                    <a href="#" data-bind="click : $parent.DeleteGenre ">Remove</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+
+    <tr>
+        <td><h3>Movies I've Already Seen</h3></td>
+    </tr>
+    <tr>
+        <td>
+            <input id="movie-name" /> <input id="add-movie" type="button" value="Add" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div style="width:800px; height:230px" data-bind="visible: Movies().length > 0">
+                <ul data-bind="foreach: Movies" style="list-style-type:none">
+                    <li style="float:left; width:200px; height:250px; padding:10px">
+                        <div style="padding:4px; font-weight:bold" data-bind="text: Title"></div>
+                        <a data-bind="attr: {href: NetflixUrl}" target="_blank"><img data-bind="attr: {src: LargeUrl, title: Synopsis}" /></a>
+                        <a href="#" data-bind="click : $parent.DeleteMovie " style="display:block">Remove</a>
+                    </li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+</table>

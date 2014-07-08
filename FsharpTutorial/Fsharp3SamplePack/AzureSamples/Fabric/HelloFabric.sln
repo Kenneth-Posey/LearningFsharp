@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "HelloFabric", "HelloFabric\HelloFabric.ccproj", "{92A8A8A0-32EB-4385-AEA8-077A71FE6B17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloFabric_WebRole", "HelloFabric_WebRole\HelloFabric_WebRole.csproj", "{416C47A6-D6B3-41B7-BA43-910E54E1D31E}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsHelloFabric_WorkerRole", "FsHelloFabric_WorkerRole\FsHelloFabric_WorkerRole.fsproj", "{4029911F-B253-481E-91B0-CDFB53E6D783}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92A8A8A0-32EB-4385-AEA8-077A71FE6B17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92A8A8A0-32EB-4385-AEA8-077A71FE6B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92A8A8A0-32EB-4385-AEA8-077A71FE6B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92A8A8A0-32EB-4385-AEA8-077A71FE6B17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{416C47A6-D6B3-41B7-BA43-910E54E1D31E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{416C47A6-D6B3-41B7-BA43-910E54E1D31E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{416C47A6-D6B3-41B7-BA43-910E54E1D31E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{416C47A6-D6B3-41B7-BA43-910E54E1D31E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4029911F-B253-481E-91B0-CDFB53E6D783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4029911F-B253-481E-91B0-CDFB53E6D783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4029911F-B253-481E-91B0-CDFB53E6D783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4029911F-B253-481E-91B0-CDFB53E6D783}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

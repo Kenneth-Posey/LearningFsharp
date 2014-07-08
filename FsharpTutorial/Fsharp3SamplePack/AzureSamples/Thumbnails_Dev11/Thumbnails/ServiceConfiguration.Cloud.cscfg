@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ServiceConfiguration serviceName="Thumbnails" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration">
+  <Role name="Thumbnails_WorkerRole">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <!-- Add your storage account information and uncomment this to target Windows Azure storage.
+        <Setting name="DataConnectionString" value="DefaultEndpointsProtocol=https;AccountName=YourAccountName;AccountKey=YourAccountKey" />
+        <Setting name="DiagnosticsConnectionString" value="DefaultEndpointsProtocol=https;AccountName=DiagnosticsAccountName;AccountKey=DiagnosticsAccountKey" />
+      -->
+      <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+    </ConfigurationSettings>
+  </Role>
+  <Role name="Thumbnails_WebRole">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <!-- Add your storage account information and uncomment this to target Windows Azure storage.
+        <Setting name="DataConnectionString" value="DefaultEndpointsProtocol=https;AccountName=YourAccountName;AccountKey=YourAccountKey" />
+        <Setting name="DiagnosticsConnectionString" value="DefaultEndpointsProtocol=https;AccountName=DiagnosticsAccountName;AccountKey=DiagnosticsAccountKey" />
+      -->
+      <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+    </ConfigurationSettings>
+  </Role>
+</ServiceConfiguration>

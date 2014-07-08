@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FSharpSampleModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="FSharpSampleModelStoreContainer">
+          <EntitySet Name="Course" EntityType="FSharpSampleModel.Store.Course" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CourseSelection" EntityType="FSharpSampleModel.Store.CourseSelection" store:Type="Tables" store:Schema="dbo" store:Name="CourseSelection">
+            <DefiningQuery>SELECT 
+      [CourseSelection].[StudentID] AS [StudentID], 
+      [CourseSelection].[CourseID] AS [CourseID], 
+      [CourseSelection].[ID] AS [ID]
+      FROM [dbo].[CourseSelection] AS [CourseSelection]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Student" EntityType="FSharpSampleModel.Store.Student" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="foreignKey" Association="FSharpSampleModel.Store.foreignKey">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="CourseSelection" EntitySet="CourseSelection" />
+          </AssociationSet>
+          <AssociationSet Name="foreignKey2" Association="FSharpSampleModel.Store.foreignKey2">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="CourseSelection" EntitySet="CourseSelection" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="int" Nullable="false" />
+          <Property Name="CourseName" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'FSharpSample.dbo.CourseSelection' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="CourseSelection">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="CourseID" Type="int" />
+          <Property Name="ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Age" Type="int" />
+        </EntityType>
+        <Association Name="foreignKey">
+          <End Role="Student" Type="FSharpSampleModel.Store.Student" Multiplicity="1" />
+          <End Role="CourseSelection" Type="FSharpSampleModel.Store.CourseSelection" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="CourseSelection">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foreignKey2">
+          <End Role="Course" Type="FSharpSampleModel.Store.Course" Multiplicity="0..1" />
+          <End Role="CourseSelection" Type="FSharpSampleModel.Store.CourseSelection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="CourseSelection">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FSharpSampleModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="FSharpSampleModel.Course" />
+          <EntitySet Name="CourseSelections" EntityType="FSharpSampleModel.CourseSelection" />
+          <EntitySet Name="Students" EntityType="FSharpSampleModel.Student" />
+          <AssociationSet Name="foreignKey2" Association="FSharpSampleModel.foreignKey2">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="CourseSelection" EntitySet="CourseSelections" />
+          </AssociationSet>
+          <AssociationSet Name="foreignKey" Association="FSharpSampleModel.foreignKey">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="CourseSelection" EntitySet="CourseSelections" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="CourseSelections" Relationship="FSharpSampleModel.foreignKey2" FromRole="Course" ToRole="CourseSelection" />
+        </EntityType>
+        <EntityType Name="CourseSelection">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="CourseID" Type="Int32" />
+          <Property Name="ID" Type="Int32" />
+          <NavigationProperty Name="Course" Relationship="FSharpSampleModel.foreignKey2" FromRole="CourseSelection" ToRole="Course" />
+          <NavigationProperty Name="Student" Relationship="FSharpSampleModel.foreignKey" FromRole="CourseSelection" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Age" Type="Int32" />
+          <NavigationProperty Name="CourseSelection" Relationship="FSharpSampleModel.foreignKey" FromRole="Student" ToRole="CourseSelection" />
+        </EntityType>
+        <Association Name="foreignKey2">
+          <End Role="Course" Type="FSharpSampleModel.Course" Multiplicity="0..1" />
+          <End Role="CourseSelection" Type="FSharpSampleModel.CourseSelection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CourseID" />
+            </Principal>
+            <Dependent Role="CourseSelection">
+              <PropertyRef Name="CourseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foreignKey">
+          <End Role="Student" Type="FSharpSampleModel.Student" Multiplicity="1" />
+          <End Role="CourseSelection" Type="FSharpSampleModel.CourseSelection" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="CourseSelection">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FSharpSampleModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Courses"><EntityTypeMapping TypeName="FSharpSampleModel.Course"><MappingFragment StoreEntitySet="Course">
+            <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+            <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="CourseSelections"><EntityTypeMapping TypeName="FSharpSampleModel.CourseSelection"><MappingFragment StoreEntitySet="CourseSelection">
+            <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+            <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+            <ScalarProperty Name="ID" ColumnName="ID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Students"><EntityTypeMapping TypeName="FSharpSampleModel.Student"><MappingFragment StoreEntitySet="Student">
+            <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Age" ColumnName="Age" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSharpMVC3Web", "FSharpMVC3Web\FSharpMVC3Web.csproj", "{8110EFEF-DAC2-4030-A55B-73BBB36C44D0}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpMVC3App", "FSharpMVC3App\FSharpMVC3App.fsproj", "{86B242C9-4F6E-4BA9-B427-A9D6D2C97E53}"
+EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "FSharpMVC3Web.Azure", "FSharpMVC3Web.Azure\FSharpMVC3Web.Azure.ccproj", "{D3774957-5413-4826-8800-780D256B6969}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8110EFEF-DAC2-4030-A55B-73BBB36C44D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8110EFEF-DAC2-4030-A55B-73BBB36C44D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8110EFEF-DAC2-4030-A55B-73BBB36C44D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8110EFEF-DAC2-4030-A55B-73BBB36C44D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86B242C9-4F6E-4BA9-B427-A9D6D2C97E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86B242C9-4F6E-4BA9-B427-A9D6D2C97E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86B242C9-4F6E-4BA9-B427-A9D6D2C97E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86B242C9-4F6E-4BA9-B427-A9D6D2C97E53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3774957-5413-4826-8800-780D256B6969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3774957-5413-4826-8800-780D256B6969}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3774957-5413-4826-8800-780D256B6969}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3774957-5413-4826-8800-780D256B6969}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

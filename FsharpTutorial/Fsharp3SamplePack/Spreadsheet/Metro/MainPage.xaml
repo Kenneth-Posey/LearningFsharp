@@ -1,0 +1,117 @@
+﻿<metroStyleControls:LayoutAwarePage
+    x:Name="pageRoot"
+    x:Class="Metro.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:metroStyleControls="using:Metro.Common"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+  <Grid x:Name="LayoutRoot" Background="White">
+    <TextBlock Text="{Binding SourceCode}" FontSize="20" FontFamily="Consolas" Foreground="LightGray"/>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+      <StackPanel.Resources>
+        <Style x:Key="CellBorder" TargetType="Border">
+          <Setter Property="BorderThickness" Value="0.5"/>
+          <Setter Property="BorderBrush" Value="LightGray"/>
+        </Style>
+        <Style x:Key="CaptionBorder" TargetType="Border" BasedOn="{StaticResource CellBorder}">
+          <Setter Property="Background" Value="LightBlue"/>
+        </Style>
+        <Style x:Key="TextContainer" TargetType="TextBlock">
+          <Setter Property="FontSize" Value="26"/>
+          <Setter Property="FontFamily" Value="Segoe UI"/>
+          <Setter Property="Width" Value="200"/>
+          <Setter Property="Height" Value="60"/>
+        </Style>
+
+        <Style x:Key="CaptionText" TargetType="TextBlock" BasedOn="{StaticResource TextContainer}">
+          <Setter Property="TextAlignment" Value="Center"/>
+          <Setter Property="Foreground" Value="DimGray"/>
+        </Style>
+        <Style x:Key="ValueEditor" TargetType="TextBox">
+          <Setter Property="Width" Value="200"/>
+          <Setter Property="Height" Value="60"/>
+          <Setter Property="FontSize" Value="26"/>
+          <Setter Property="FontFamily" Value="Segoe UI"/>
+
+        </Style>
+        <Style x:Key="ValueText" TargetType="TextBlock" BasedOn="{StaticResource TextContainer}">
+          <Setter Property="TextAlignment" Value="Center"/>
+          <Setter Property="VerticalAlignment" Value="Center"/>
+          <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+      </StackPanel.Resources>
+      <Border Style="{StaticResource CellBorder}">
+        <StackPanel>
+
+          <ItemsControl ItemsSource="{Binding Headers}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <VirtualizingStackPanel Orientation="Horizontal" />
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border Style="{StaticResource CaptionBorder}">
+                  <TextBlock Text="{Binding}" Style="{StaticResource CaptionText}"/>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+
+          <ItemsControl ItemsSource="{Binding Rows}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                  <Border Style="{StaticResource CaptionBorder}">
+                    <TextBlock Text="{Binding Index}" Style="{StaticResource CaptionText}"/>
+                  </Border>
+                  <ItemsControl ItemsSource="{Binding Cells}">
+                    <ItemsControl.ItemsPanel>
+                      <ItemsPanelTemplate>
+                        <VirtualizingStackPanel  Orientation="Horizontal"/>
+                      </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate>
+                        <Border Style="{StaticResource CellBorder}">
+                          <Grid>
+                            <TextBox
+                              Name="editor"
+                              Tag="{Binding ElementName=textContainer}"
+                              Visibility="Collapsed"
+                              LostFocus="OnLostFocus"
+                              KeyUp="OnKeyUp"
+                              Text ="{Binding RawValue}"
+                              Style="{StaticResource ValueEditor}"/>
+                            <TextBlock
+                              Name="textContainer"
+                              Tag="{Binding ElementName=editor}"
+                              Visibility="Visible"
+                              Text="{Binding Value}"
+                              Style="{StaticResource ValueText}"
+                              PointerPressed="OnPointerPressed"
+                              ToolTipService.Placement="Mouse">
+                              <ToolTipService.ToolTip>
+                                <ToolTip Visibility="{Binding TooltipVisibility}">
+                                  <TextBlock Text="{Binding Tooltip}" Style="{StaticResource TextContainer}" Visibility="{Binding TooltipVisibility}"/>
+                                </ToolTip>
+                              </ToolTipService.ToolTip>
+                            </TextBlock>
+                          </Grid>
+                        </Border>
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+                </StackPanel>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </Grid>
+</metroStyleControls:LayoutAwarePage>

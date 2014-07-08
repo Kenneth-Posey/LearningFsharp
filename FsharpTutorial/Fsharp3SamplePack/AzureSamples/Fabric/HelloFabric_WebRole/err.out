@@ -1,0 +1,16 @@
+Set-ExecutionPolicy : Access to the registry key 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft
+.PowerShell' is denied.
+At line:1 char:20
++ Set-ExecutionPolicy <<<<  Unrestricted
+    + CategoryInfo          : NotSpecified: (:) [Set-ExecutionPolicy], UnauthorizedAccessException
+    + FullyQualifiedErrorId : System.UnauthorizedAccessException,Microsoft.PowerShell.Commands.SetExecutionPolicyComma 
+   nd
+ 
+Exception calling "GetLocalResource" with "1" argument(s): "External component has thrown an exception."
+At C:\Users\davidmu\documents\Visual Studio 2010\projects\windows_azure_hellofabric_sample\c#\hellofabric_webrole\worka
+round.ps1:19 char:95
++     $DiagStorePath = [Microsoft.WindowsAzure.ServiceRuntime.RoleEnvironment]::GetLocalResource <<<< ($DiagnosticStore
+).RootPath
+    + CategoryInfo          : NotSpecified: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : DotNetMethodException
+ 

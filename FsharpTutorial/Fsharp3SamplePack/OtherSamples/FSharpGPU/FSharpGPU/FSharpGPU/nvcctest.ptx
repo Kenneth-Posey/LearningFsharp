@@ -1,0 +1,77 @@
+	.version 1.4
+	.target sm_10, map_f64_to_f32
+	// compiled with C:\Program Files (x86)\NVIDIA GPU Computing Toolkit\CUDA\v4.0\bin\/../open64/lib//be.exe
+	// nvopencc 4.0 built on 2011-05-13
+
+	//-----------------------------------------------------------
+	// Compiling C:/Users/TALIU~1.RED/AppData/Local/Temp/tmpxft_00002938_00000000-11_nvcctest.cpp3.i (C:/Users/TALIU~1.RED/AppData/Local/Temp/ccBI#.a12632)
+	//-----------------------------------------------------------
+
+	//-----------------------------------------------------------
+	// Options:
+	//-----------------------------------------------------------
+	//  Target:ptx, ISA:sm_10, Endian:little, Pointer Size:32
+	//  -O3	(Optimization level)
+	//  -g0	(Debug level)
+	//  -m2	(Report advisories)
+	//-----------------------------------------------------------
+
+	.file	1	"C:/Users/TALIU~1.RED/AppData/Local/Temp/tmpxft_00002938_00000000-10_nvcctest.cudafe2.gpu"
+	.file	2	"c:\program files (x86)\microsoft visual studio 10.0\vc\include\codeanalysis\sourceannotations.h"
+	.file	3	"C:\Program Files (x86)\NVIDIA GPU Computing Toolkit\CUDA\v4.0\bin\/../include\crt/device_runtime.h"
+	.file	4	"C:\Program Files (x86)\NVIDIA GPU Computing Toolkit\CUDA\v4.0\bin\/../include\host_defines.h"
+	.file	5	"C:\Program Files (x86)\NVIDIA GPU Computing Toolkit\CUDA\v4.0\bin\/../include\builtin_types.h"
+	.file	6	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\device_types.h"
+	.file	7	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\driver_types.h"
+	.file	8	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\surface_types.h"
+	.file	9	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\texture_types.h"
+	.file	10	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\vector_types.h"
+	.file	11	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\builtin_types.h"
+	.file	12	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\host_defines.h"
+	.file	13	"C:\Program Files (x86)\NVIDIA GPU Computing Toolkit\CUDA\v4.0\bin\/../include\device_launch_parameters.h"
+	.file	14	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\crt\storage_class.h"
+	.file	15	"C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/../../../VC/INCLUDE\time.h"
+	.file	16	"nvcctest.cu"
+	.file	17	"C:\Program Files (x86)\NVIDIA GPU Computing Toolkit\CUDA\v4.0\bin\/../include\common_functions.h"
+	.file	18	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\math_functions.h"
+	.file	19	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\math_constants.h"
+	.file	20	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\device_functions.h"
+	.file	21	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\sm_11_atomic_functions.h"
+	.file	22	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\sm_12_atomic_functions.h"
+	.file	23	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\sm_13_double_functions.h"
+	.file	24	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\sm_20_atomic_functions.h"
+	.file	25	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\sm_20_intrinsics.h"
+	.file	26	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\surface_functions.h"
+	.file	27	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\texture_fetch_functions.h"
+	.file	28	"c:\program files (x86)\nvidia gpu computing toolkit\cuda\v4.0\include\math_functions_dbl_ptx1.h"
+
+
+	.entry kernel
+	{
+	.loc	16	2	0
+$LDWbegin_kernel:
+	.loc	16	4	0
+	exit;
+$LDWend_kernel:
+	} // kernel
+
+	.entry add (
+		.param .s32 __cudaparm_add_a,
+		.param .s32 __cudaparm_add_b,
+		.param .u32 __cudaparm_add_c,
+		.param .s32 __cudaparm_add_cLen0)
+	{
+	.reg .u32 %r<6>;
+	.loc	16	6	0
+$LDWbegin_add:
+	.loc	16	8	0
+	ld.param.s32 	%r1, [__cudaparm_add_a];
+	ld.param.s32 	%r2, [__cudaparm_add_b];
+	add.s32 	%r3, %r1, %r2;
+	ld.param.u32 	%r4, [__cudaparm_add_c];
+	st.global.s32 	[%r4+0], %r3;
+	.loc	16	9	0
+	exit;
+$LDWend_add:
+	} // add
+

@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Samples.Hadoop", "Samples.Hadoop.fsproj", "{F1819BA9-F0BF-49C3-8F5F-D12BB7B2FE54}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "HadoopProxy", "Proxy\HadoopProxy.fsproj", "{B561A37E-9D04-47B9-9EAB-6F12A173AB4D}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "HadoopHiveProxyLib", "Proxy\HadoopHiveProxyLib.fsproj", "{9F418A31-04FA-403F-AE14-F9AA30FDEC69}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "HadoopHdfsProxyLib", "Proxy\HadoopHdfsProxyLib.fsproj", "{713E38A0-CE8A-40AD-8613-BE880411F7A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1819BA9-F0BF-49C3-8F5F-D12BB7B2FE54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1819BA9-F0BF-49C3-8F5F-D12BB7B2FE54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1819BA9-F0BF-49C3-8F5F-D12BB7B2FE54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1819BA9-F0BF-49C3-8F5F-D12BB7B2FE54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B561A37E-9D04-47B9-9EAB-6F12A173AB4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B561A37E-9D04-47B9-9EAB-6F12A173AB4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B561A37E-9D04-47B9-9EAB-6F12A173AB4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B561A37E-9D04-47B9-9EAB-6F12A173AB4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F418A31-04FA-403F-AE14-F9AA30FDEC69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F418A31-04FA-403F-AE14-F9AA30FDEC69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F418A31-04FA-403F-AE14-F9AA30FDEC69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F418A31-04FA-403F-AE14-F9AA30FDEC69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{713E38A0-CE8A-40AD-8613-BE880411F7A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{713E38A0-CE8A-40AD-8613-BE880411F7A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{713E38A0-CE8A-40AD-8613-BE880411F7A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{713E38A0-CE8A-40AD-8613-BE880411F7A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
