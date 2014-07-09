@@ -1,45 +1,50 @@
 ﻿// Learn more about F# at http://fsharp.net
 // See the 'F# Tutorial' project for more help.
 
-open System
-open System.Threading
-
 module TileTypes = 
     type Orientation = 
-        | Vertical = 0
-        | Horizontal = 1
+        | Vertical      = 0
+        | Horizontal    = 1
     
     type Terrain = 
         | Water = 0
-        | Rock = 1
-        | Land = 2
+        | Rock  = 1
+        | Land  = 2
 
     type Shipinfo = 
         {
-            Length : int;
-            Width : int;
-            Direction : Orientation
+            Length      : int
+            Width       : int
+            Direction   : Orientation
         }
 
     type Shiptype =
-        | Frigate of Info : Shipinfo
-        | Destroyer of Info : Shipinfo
-        | Cruiser of Info : Shipinfo
+        | Frigate       of Info : Shipinfo
+        | Destroyer     of Info : Shipinfo
+        | Cruiser       of Info : Shipinfo
         | Battlecruiser of Info : Shipinfo
-        | Carrier of Info : Shipinfo
+        | Battleship    of Info : Shipinfo
+        | Carrier       of Info : Shipinfo
 
-    type gridSquare = 
-        | Ship of Kind : Shiptype
-        | Terrain of Kind : Terrain 
+    type GridSquare = 
+        | ShipTile      of Shiptype : Shiptype
+        | TerrainTile   of Terrain  : Terrain 
 
-
+        
+open System
+open System.Threading
 open TileTypes
+
 [<EntryPoint>]
 let main pArgumentValueArray = 
 
-    let grid = [| for x in 1 .. 11 ->
-                    gridSquare.Terrain
-                    |]
+    let defaultship     = { Length = 1; Width = 1; Direction = Orientation.Vertical }
+    let frigate         = { defaultship with Length = 2 }
+    let destroyer       = { defaultship with Length = 3 }
+    let cruiser         = { defaultship with Length = 4 } 
+    let battlecruiser   = { defaultship with Length = 3; Width = 2 }
+
+
 
 
 
