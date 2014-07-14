@@ -44,6 +44,7 @@ let main pArgumentValueArray =
     let cruiser         = { defaultship with Length = 4 } 
     let battlecruiser   = { defaultship with Length = 3; Width = 2 }
 
+    printfn "%A" frigate
 
 
 
