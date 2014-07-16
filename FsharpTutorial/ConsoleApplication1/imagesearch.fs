@@ -6,6 +6,8 @@ open System.Runtime.InteropServices
 
 module imagesearch = 
     type BitmapSearchClass() = 
+        // Largely inspired by this article
+        // http://msdn.microsoft.com/en-us/library/system.drawing.imaging.bitmapdata.aspx
         static member loadBitmapIntoArray (pBitmap:Bitmap) =
             let tBitmapRectangle = Rectangle(0, 0, pBitmap.Width, pBitmap.Height)
             
@@ -43,5 +45,14 @@ module imagesearch =
             let mutable tSmallDomain = 0
 
 
-            // Dat return
+            // General plan for looping
+            // - Split single array for small image into 2d array of arrays
+            // - Split single array for large image into 2d array of arrays
+            // - Iterate through each array in large array looking for first value from small array
+            // - If first value is found, then check for complete row
+            // - If row is complete then check for second row (and so on)
+            // - Stop searching horizontally when remaining pixels are smaller than search image width
+            // - Stop searching vertically when remaining pixels are smaller than search image height 
+
+            // Must return from function
             0
