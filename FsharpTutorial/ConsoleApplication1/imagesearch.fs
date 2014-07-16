@@ -1,32 +1,25 @@
-﻿open System
+open System
 open System.Drawing
 open System.Drawing.Imaging
 open System.Runtime.InteropServices
 
 
-module imagesearch = 
-    type BitmapSearchClass() = 
+module ImageSearch = 
+    type BitmapSearch() = 
         // Largely inspired by this article
         // http://msdn.microsoft.com/en-us/library/system.drawing.imaging.bitmapdata.aspx
-        static member loadBitmapIntoArray (pBitmap:Bitmap) =
-            let tBitmapRectangle = Rectangle(0, 0, pBitmap.Width, pBitmap.Height)
+        static member LoadBitmapIntoArray (pBitmap:Bitmap) =
+            let tBitmapData = pBitmap.LockBits( Rectangle(Point.Empty, pBitmap.Size), 
+                                                ImageLockMode.ReadOnly, 
+                                                PixelFormat.Format24bppRgb )  
             
-            let tLockMode = ImageLockMode.ReadOnly
-            let tImageFormat = PixelFormat.Format24bppRgb
+            let tImageArrayLength = Math.Abs(tBitmapData.Stride) * pBitmap.Height
+            let tImageDataArray = Array.zeroCreate<byte> tImageByteLength
             
-            let tBitmapData = pBitmap.LockBits(tBitmapRectangle, tLockMode, tImageFormat) 
-            let tIntPtr = tBitmapData.Scan0
+            Marshal.Copy(tImageDataArray, 0, tBitmapData.Scan0, tImageArrayLength)
+            pBitmap.UnlockBits(tBitmapData)
 
-            let tImageByteLength = Math.Abs(tBitmapData.Stride) * pBitmap.Height
-
-            // Zerocreate creates the "empty" array
-            let tImageRGBValues : byte array = Array.zeroCreate tImageByteLength
-
-            do Marshal.Copy(tImageRGBValues, 0, tIntPtr, tImageByteLength)
-
-            do pBitmap.UnlockBits(tBitmapData)
-
-            tImageRGBValues, pBitmap.Width, pBitmap.Height
+            tImageDataArray, pBitmap.Width, pBitmap.Height
 
         member this.searchBitmap (pSmallBitmap:Bitmap) (pLargeBitmap:Bitmap) (pTolerance:Double) = 
             
