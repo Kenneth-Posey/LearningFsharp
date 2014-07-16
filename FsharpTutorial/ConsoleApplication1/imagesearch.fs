@@ -14,7 +14,7 @@ module ImageSearch =
                                                 PixelFormat.Format24bppRgb )  
             
             let tImageArrayLength = Math.Abs(tBitmapData.Stride) * pBitmap.Height
-            let tImageDataArray = Array.zeroCreate<byte> tImageByteLength
+            let tImageDataArray = Array.zeroCreate<byte> tImageArrayLength
             
             Marshal.Copy(tImageDataArray, 0, tBitmapData.Scan0, tImageArrayLength)
             pBitmap.UnlockBits(tBitmapData)
@@ -23,8 +23,8 @@ module ImageSearch =
 
         member this.searchBitmap (pSmallBitmap:Bitmap) (pLargeBitmap:Bitmap) (pTolerance:Double) = 
             
-            let tSmallBytes, tSmallWidth, tSmallHeight = BitmapSearchClass.loadBitmapIntoArray pSmallBitmap
-            let tLargeBytes, tLargeWidth, tLargeHeight = BitmapSearchClass.loadBitmapIntoArray pLargeBitmap
+            let tSmallBytes, tSmallWidth, tSmallHeight = BitmapSearch.LoadBitmapIntoArray pSmallBitmap
+            let tLargeBytes, tLargeWidth, tLargeHeight = BitmapSearch.LoadBitmapIntoArray pLargeBitmap
 
             let tMargin = Convert.ToInt32(255.0 * pTolerance)
             let mutable tLocation = Rectangle.Empty
