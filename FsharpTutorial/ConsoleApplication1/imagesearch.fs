@@ -1,40 +1,40 @@
 ﻿open System
 open System.Drawing
 open System.Drawing.Imaging
+open System.Runtime.InteropServices
+
 
 module imagesearch = 
     type BitmapSearchClass() = 
-        let searchBitmap (pSmallBitmap:Bitmap) (pLargeBitmap:Bitmap) (pTolerance:Double) = 
-            let tSmallRectangle = Rectangle(0, 0, pSmallBitmap.Width, pSmallBitmap.Height)
-            let tLargeRectangle = Rectangle(0, 0, pLargeBitmap.Width, pLargeBitmap.Height)
-        
+        static member loadBitmapIntoArray (pBitmap:Bitmap) =
+            let tBitmapRectangle = Rectangle(0, 0, pBitmap.Width, pBitmap.Height)
+            
             let tLockMode = ImageLockMode.ReadOnly
             let tImageFormat = PixelFormat.Format24bppRgb
+            
+            let tBitmapData = pBitmap.LockBits(tBitmapRectangle, tLockMode, tImageFormat) 
+            let tIntPtr = tBitmapData.Scan0
 
-            let tSmallBitmapData = pSmallBitmap.LockBits(tSmallRectangle, tLockMode, tImageFormat)
-            let tLargeBitmapData = pLargeBitmap.LockBits(tLargeRectangle, tLockMode, tImageFormat)
+            let tImageByteLength = Math.Abs(tBitmapData.Stride) * pBitmap.Height
 
-            let tSmallScanWidth = tSmallBitmapData.Stride
-            let tLargeScanWidth = tLargeBitmapData.Stride
+            // Zerocreate creates the "empty" array
+            let tImageRGBValues : byte array = Array.zeroCreate tImageByteLength
 
-            let tSmallWidth = pSmallBitmap.Width * 3
-            let tSmallHeight = pSmallBitmap.Height
+            do Marshal.Copy(tImageRGBValues, 0, tIntPtr, tImageByteLength)
 
-            let tLargeWidth = pLargeBitmap.Width
-            let tLargeHeight = pLargeBitmap.Height - pSmallBitmap.Height + 1
+            do pBitmap.UnlockBits(tBitmapData)
+
+            tImageRGBValues, pBitmap.Width, pBitmap.Height
+
+        member this.searchBitmap (pSmallBitmap:Bitmap) (pLargeBitmap:Bitmap) (pTolerance:Double) = 
+            
+            let tSmallBytes, tSmallWidth, tSmallHeight = BitmapSearchClass.loadBitmapIntoArray pSmallBitmap
+            let tLargeBytes, tLargeWidth, tLargeHeight = BitmapSearchClass.loadBitmapIntoArray pLargeBitmap
 
             let tMargin = Convert.ToInt32(255.0 * pTolerance)
             let mutable tLocation = Rectangle.Empty
+            let mutable tMatchFound = false
             
-            let mutable tSmallScan : nativeint = tSmallBitmapData.Scan0
-            let mutable tLargeScan : nativeint = tLargeBitmapData.Scan0 
-
-            let tSmallOffset = tSmallScanWidth - pSmallBitmap.Width * 3
-            let tLargeOffset = tLargeScanWidth - pLargeBitmap.Width * 3
-
-            let mutable tSmallBackup = tSmallScan
-            let mutable tLargeBackup = tLargeScan
-
             let mutable tMatchFound = false
             let mutable tLargeRange = 0
             let mutable tLargeDomain = 0
@@ -42,26 +42,6 @@ module imagesearch =
             let mutable tSmallRange = 0
             let mutable tSmallDomain = 0
 
-            while tMatchFound = false && tLargeRange < tLargeHeight do
-                while tMatchFound = false && tLargeDomain < tLargeWidth do
-                    
-                    tSmallBackup <- tSmallScan
-                    tLargeBackup <- tLargeScan
-
-                    while tMatchFound = false && tSmallRange < tSmallHeight do
-                        while tMatchFound = false && tSmallDomain < tSmallWidth do
-                            if tSmallScan.ToInt32() = tLargeScan.ToInt32() then 
-                                tMatchFound <- true
-                            else
-                                tSmallScan <- tSmallScan + 1n
-                                tLargeScan <- tLargeScan + 1n
-
-                        tSmallScan <- tSmallBackup + tSmallScanWidth * (1n + tSmallRange :> nativeint)
-                        tLargeScan <- tLargeBackup + tLargeScanWidth * (1 + tSmallRange)
-
-                                
-                    tLargeRange <- tLargeRange + 1
-                    tLargeDomain <- tLargeDomain + 1
 
             // Dat return
             0
