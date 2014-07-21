@@ -18,9 +18,9 @@ module ImageSearch =
         Marshal.Copy(tImageDataArray, 0, tBitmapData.Scan0, tImageArrayLength)
         pBitmap.UnlockBits(tBitmapData)
 
-        tImageDataArray, pBitmap.Width, pBitmap.Height
+        pBitmap.Width, tImageDataArray
 
-    let Transform2D (pArrayWidth:int) (pArray:byte[]) = 
+    let Transform2D ( (pArrayWidth:int), (pArray:byte[]) ) = 
         let tHeight = pArray.Length / pArrayWidth
 
         let tImageArray = [|
@@ -33,13 +33,11 @@ module ImageSearch =
         tImageArray
 
     let SearchBitmap (pSmallBitmap:Bitmap) (pLargeBitmap:Bitmap) = 
-            
-        let tSmallBytes, tSmallWidth, tSmallHeight = LoadBitmapIntoArray pSmallBitmap
-        let tLargeBytes, tLargeWidth, tLargeHeight = LoadBitmapIntoArray pLargeBitmap
-    
+        
+        let tSmallArray = Transform2D <| LoadBitmapIntoArray pSmallBitmap 
+        let tLargeArray = Transform2D <| LoadBitmapIntoArray pLargeBitmap
+
         let mutable tMatchFound = false
-        let mutable tLargeDomain = tLargeWidth - tSmallWidth 
-        let mutable tLargeRange = tLargeHeight - tSmallHeight
         
 
 
