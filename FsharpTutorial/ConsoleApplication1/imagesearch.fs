@@ -22,18 +22,15 @@ module ImageSearch =
 
     let Transform2D (pArrayWidth:int) (pArray:byte[]) = 
         let tHeight = pArray.Length / pArrayWidth
-        let tImageArray = Array.zeroCreate<byte[]> tHeight
 
-        let mutable tStart = 0
-        let mutable tFinish = tStart + pArrayWidth - 1                          // 0 indexed array
-
-        for tRowIndex in [ 0 .. tHeight ] do
-            tImageArray.[tRowIndex] <- pArray.[tStart .. tFinish]
-            tStart <- tStart + pArrayWidth
-            tFinish <- tFinish + pArrayWidth
-
+        let tImageArray = [|
+            for tRowIndex in [ 0 .. tHeight - 1] do
+                let tStart  = tRowIndex * pArrayWidth
+                let tFinish = tStart + pArrayWidth - 1 
+                yield pArray.[tStart .. tFinish]
+        |]
+        
         tImageArray
-
 
     let SearchBitmap (pSmallBitmap:Bitmap) (pLargeBitmap:Bitmap) = 
             
