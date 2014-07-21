@@ -9,7 +9,7 @@ module ImageSearch =
         let tBitmapData = pBitmap.LockBits( Rectangle(Point.Empty, pBitmap.Size), 
                                             ImageLockMode.ReadOnly, 
                                             PixelFormat.Format24bppRgb )  
-            
+        // Bitmap.Stride can be negative to indicate different orientation of the bitmap
         let tImageArrayLength = Math.Abs(tBitmapData.Stride) * pBitmap.Height
         let tImageDataArray = Array.zeroCreate<byte> tImageArrayLength
             
