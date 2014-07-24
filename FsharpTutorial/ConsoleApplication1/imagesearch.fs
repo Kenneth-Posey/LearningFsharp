@@ -13,7 +13,6 @@ module ImageSearch =
         let tImageArrayLength = Math.Abs(tBitmapData.Stride) * pBitmap.Height
         let tImageDataArray = Array.zeroCreate<byte> tImageArrayLength
             
-        // Marshal.Copy(tImageDataArray, 0, tBitmapData.Scan0, tImageArrayLength)
         Marshal.Copy(tBitmapData.Scan0, tImageDataArray, 0, tImageArrayLength)
         pBitmap.UnlockBits(tBitmapData)
 
