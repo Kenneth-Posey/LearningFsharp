@@ -2,7 +2,7 @@
 open System.Drawing
 open System.Drawing.Imaging
 open System.Runtime.InteropServices
-
+open System.Diagnostics
 
 module ImageSearch = 
     let LoadBitmapIntoArray (pBitmap:Bitmap) =
@@ -88,15 +88,8 @@ module ImageSearch =
                 tHeightIndex <- tHeightIndex + 1
 
         tMatch, tWidthIndex, tHeightIndex
-
-    [<EntryPoint>]
-    let main (args:string[]) = 
         
-        use tSmallBitmap = new Bitmap("testimage2.bmp")
-        use tLargeBitmap = new Bitmap("testimage1.bmp")
-
-        let tSuccess, xCoord, yCoord = SearchBitmap tSmallBitmap tLargeBitmap
-
+    let TestFunctions () =
         let tTestSmall = [|
                             [| 0; 0; 0; 0 |]
                             [| 0; 1; 1; 0 |]
@@ -115,7 +108,21 @@ module ImageSearch =
                             [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
                          |]
         
-        let result = SearchSubset tTestSmall tTestLarge (1, 1)
+        let tTrueResult = SearchSubset tTestSmall tTestLarge ( 1, 1 )
+        let tFalseResult = SearchSubset tTestSmall tTestLarge ( 1, 2 )
+        Debug.Assert( ( tTrueResult = true ) )
+        Debug.Assert( ( tFalseResult = false ) )
+
+        ()
+
+    [<EntryPoint>]
+    let main (args:string[]) = 
+        
+        use tSmallBitmap = new Bitmap("testimage2.bmp")
+        use tLargeBitmap = new Bitmap("testimage1.bmp")
+
+        let tSuccess, xCoord, yCoord = SearchBitmap tSmallBitmap tLargeBitmap
+
 
         // General plan for looping
         // - Split single array for small image into 2d array of arrays
