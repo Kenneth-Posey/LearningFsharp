@@ -33,15 +33,66 @@ module ImageSearch =
                 |]
         |]
 
+    let SearchSubset (tSmallArray:(byte * byte * byte)[][]) (tLargeArray:(byte * byte * byte)[][]) (pCoordinate:(int * int)) =
+        let tSmallHeight = tSmallArray.Length
+        let tSmallWidth = tSmallArray.[0].Length
+
+        let tHeightIndex = fst pCoordinate
+        let tWidthIndex = snd pCoordinate
+        let mutable tSmallHeightIndex = 0
+        let mutable tSmallWidthIndex = 0
+        let mutable tMatch = true
+
+        try 
+            while ( tSmallHeightIndex < tSmallHeight ) && tMatch do
+                while ( tSmallWidthIndex < tSmallWidth ) && tMatch do
+                    let tLargeCurrentValue = tLargeArray.[tHeightIndex + tSmallHeightIndex].[tWidthIndex + tSmallWidthIndex]
+                    let tSmallCurrentValue = tSmallArray.[tSmallHeightIndex].[tSmallWidthIndex]
+
+                    if tSmallCurrentValue = tLargeCurrentValue then
+                        tSmallHeightIndex <- tSmallHeightIndex + 1
+                        tSmallWidthIndex <- tSmallWidthIndex + 1         
+                    else
+                        tMatch <- false
+
+            tMatch
+        with
+            | _ -> false
+
     let SearchBitmap (pSmallBitmap:Bitmap) (pLargeBitmap:Bitmap) = 
         
         let tSmallArray = Transform2D <| LoadBitmapIntoArray pSmallBitmap 
         let tLargeArray = Transform2D <| LoadBitmapIntoArray pLargeBitmap
-
-        let mutable tMatchFound = false
         
+        let tSearchWidth = pLargeBitmap.Width - pSmallBitmap.Width
+        let tSearchHeight = pLargeBitmap.Height - pSmallBitmap.Height
 
+        let mutable tHeightIndex = 0
+        let mutable tWidthIndex = 0
+        let mutable tMatch = false
+        let mutable tContinue = true
 
+        while tHeightIndex < tSearchHeight && tMatch do
+            while tWidthIndex < tSearchWidth && tMatch do
+                let tCurrentValue = tLargeArray.[tHeightIndex].[tWidthIndex]
+                let tFirstSmallPixel = tSmallArray.[0].[0]
+
+                if tCurrentValue = tFirstSmallPixel then
+                    tMatch <- SearchSubset tSmallArray tLargeArray ( tHeightIndex, tWidthIndex )
+                    if tMatch then tContinue <- false
+                else
+                    tHeightIndex <- tHeightIndex + 1
+                    tWidthIndex <- tWidthIndex + 1
+
+        tMatch, tHeightIndex, tWidthIndex
+
+    [<EntryPoint>]
+    let main (args:string[]) = 
+        
+        let tSmallBitmap = new Bitmap("testimage1.jpg")
+        let tLargeBitmap = new Bitmap("testimage2.jpg")
+
+        let tSuccess, xCoord, yCoord = SearchBitmap tSmallBitmap tLargeBitmap
 
         // General plan for looping
         // - Split single array for small image into 2d array of arrays
