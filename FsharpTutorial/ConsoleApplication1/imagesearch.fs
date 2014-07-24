@@ -90,34 +90,45 @@ module ImageSearch =
         tMatch, tWidthIndex, tHeightIndex
         
     let TestFunctions () =
-        let tTestSmall = [|
-                            [| 0; 0; 0; 0 |]
-                            [| 0; 1; 1; 0 |]
-                            [| 0; 1; 1; 0 |]
-                            [| 0; 0; 0; 0 |]
-                         |]
+        try 
+            let tTestSmall = [|
+                                [| 0; 0; 0; 0 |]
+                                [| 0; 1; 1; 0 |]
+                                [| 0; 1; 1; 0 |]
+                                [| 0; 0; 0; 0 |]
+                             |]
         
-        let tTestLarge = [|
-                            [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                            [| 1; 0; 0; 0; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                            [| 1; 0; 1; 1; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                            [| 1; 0; 1; 1; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                            [| 1; 0; 0; 0; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                            [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                            [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                            [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                         |]
+            let tTestLarge = [|
+                                [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                                [| 1; 0; 0; 0; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                                [| 1; 0; 1; 1; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                                [| 1; 0; 1; 1; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                                [| 1; 0; 0; 0; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                                [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                                [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                                [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                             |]
         
-        let tTrueResult = SearchSubset tTestSmall tTestLarge ( 1, 1 )
-        let tFalseResult = SearchSubset tTestSmall tTestLarge ( 1, 2 )
-        Debug.Assert( ( tTrueResult = true ) )
-        Debug.Assert( ( tFalseResult = false ) )
+            let tTrueResult = SearchSubset tTestSmall tTestLarge ( 1, 1 )
+            let tFalseResult = SearchSubset tTestSmall tTestLarge ( 2, 2 )
 
-        ()
+            Debug.Assert( ( tTrueResult = true ), "Failed to find sub-array" )
+            Debug.Assert( ( tFalseResult = false ), "False positive in finding sub-array")
+            
+            true // Successfully completed tests
+
+        with
+        | _ -> false // Something borked
+
+        
 
     [<EntryPoint>]
     let main (args:string[]) = 
         
+        let tTestSuccess = TestFunctions()
+
+        ignore <| tTestSuccess
+
         use tSmallBitmap = new Bitmap("testimage2.bmp")
         use tLargeBitmap = new Bitmap("testimage1.bmp")
 
