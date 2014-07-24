@@ -84,13 +84,13 @@ module ImageSearch =
                     tHeightIndex <- tHeightIndex + 1
                     tWidthIndex <- tWidthIndex + 1
 
-        tMatch, tHeightIndex, tWidthIndex
+        tMatch, tWidthIndex, tHeightIndex
 
     [<EntryPoint>]
     let main (args:string[]) = 
         
-        let tSmallBitmap = new Bitmap("testimage1.jpg")
-        let tLargeBitmap = new Bitmap("testimage2.jpg")
+        use tSmallBitmap = new Bitmap("testimage1.jpg")
+        use tLargeBitmap = new Bitmap("testimage2.jpg")
 
         let tSuccess, xCoord, yCoord = SearchBitmap tSmallBitmap tLargeBitmap
 
