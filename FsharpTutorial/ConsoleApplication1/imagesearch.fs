@@ -13,7 +13,8 @@ module ImageSearch =
         let tImageArrayLength = Math.Abs(tBitmapData.Stride) * pBitmap.Height
         let tImageDataArray = Array.zeroCreate<byte> tImageArrayLength
             
-        Marshal.Copy(tImageDataArray, 0, tBitmapData.Scan0, tImageArrayLength)
+        // Marshal.Copy(tImageDataArray, 0, tBitmapData.Scan0, tImageArrayLength)
+        Marshal.Copy(tBitmapData.Scan0, tImageDataArray, 0, tImageArrayLength)
         pBitmap.UnlockBits(tBitmapData)
 
         pBitmap.Width, tImageDataArray
@@ -23,8 +24,8 @@ module ImageSearch =
 
         [|
             for tHeightIndex in 0 .. tHeight - 1 do
-                let tStart  = tHeightIndex * pArrayWidth
-                let tFinish = tStart + pArrayWidth - 1 
+                let tStart  = tHeightIndex * ( pArrayWidth * 3 - 1 )
+                let tFinish = tStart + pArrayWidth * 3 - 1 
                 yield [|    
                     for tWidthIndex in tStart .. 3 .. tFinish do
                         yield ( pArray.[tWidthIndex]
@@ -44,16 +45,16 @@ module ImageSearch =
         let mutable tMatch = true
 
         try 
-            while ( tSmallHeightIndex < tSmallHeight ) && tMatch do
-                while ( tSmallWidthIndex < tSmallWidth ) && tMatch do
+            while ( tSmallHeightIndex < tSmallHeight - 1 ) && tMatch do
+                while ( tSmallWidthIndex < tSmallWidth - 1 ) && tMatch do
                     let tLargeCurrentValue = tLargeArray.[tHeightIndex + tSmallHeightIndex].[tWidthIndex + tSmallWidthIndex]
                     let tSmallCurrentValue = tSmallArray.[tSmallHeightIndex].[tSmallWidthIndex]
 
                     if tSmallCurrentValue = tLargeCurrentValue then
-                        tSmallHeightIndex <- tSmallHeightIndex + 1
                         tSmallWidthIndex <- tSmallWidthIndex + 1         
                     else
                         tMatch <- false
+                tSmallHeightIndex <- tSmallHeightIndex + 1
 
             tMatch
         with
@@ -72,25 +73,28 @@ module ImageSearch =
         let mutable tMatch = false
         let mutable tContinue = true
 
-        while tHeightIndex < tSearchHeight && tMatch do
-            while tWidthIndex < tSearchWidth && tMatch do
+        while ( tHeightIndex < tSearchHeight - 1 ) && tContinue do
+            while ( tWidthIndex < tSearchWidth - 1 ) && tContinue do
                 let tCurrentValue = tLargeArray.[tHeightIndex].[tWidthIndex]
                 let tFirstSmallPixel = tSmallArray.[0].[0]
 
                 if tCurrentValue = tFirstSmallPixel then
                     tMatch <- SearchSubset tSmallArray tLargeArray ( tHeightIndex, tWidthIndex )
                     if tMatch then tContinue <- false
-                else
-                    tHeightIndex <- tHeightIndex + 1
+
+                if tMatch = false && tContinue = true then
                     tWidthIndex <- tWidthIndex + 1
+
+            if tMatch = false && tContinue = true then
+                tHeightIndex <- tHeightIndex + 1
 
         tMatch, tWidthIndex, tHeightIndex
 
     [<EntryPoint>]
     let main (args:string[]) = 
         
-        use tSmallBitmap = new Bitmap("testimage1.jpg")
-        use tLargeBitmap = new Bitmap("testimage2.jpg")
+        use tSmallBitmap = new Bitmap("testimage2.bmp")
+        use tLargeBitmap = new Bitmap("testimage1.bmp")
 
         let tSuccess, xCoord, yCoord = SearchBitmap tSmallBitmap tLargeBitmap
 
