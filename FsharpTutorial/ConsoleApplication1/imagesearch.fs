@@ -24,7 +24,7 @@ module ImageSearch =
         [|
             for tHeightIndex in 0 .. tHeight - 1 do
                 let tStart  = tHeightIndex * ( pArrayWidth * 3 - 1 )
-                let tFinish = tStart + pArrayWidth * 3 - 1 
+                let tFinish = tStart + pArrayWidth * 3
                 yield [|    
                     for tWidthIndex in tStart .. 3 .. tFinish do
                         yield ( pArray.[tWidthIndex]
@@ -33,7 +33,7 @@ module ImageSearch =
                 |]
         |]
 
-    let SearchSubset (tSmallArray:(byte * byte * byte)[][]) (tLargeArray:(byte * byte * byte)[][]) (pCoordinate:(int * int)) =
+    let SearchSubset (tSmallArray:'a[][]) (tLargeArray:'a[][]) (pCoordinate:(int * int)) =
         let tSmallHeight = tSmallArray.Length
         let tSmallWidth = tSmallArray.[0].Length
 
@@ -96,6 +96,26 @@ module ImageSearch =
         use tLargeBitmap = new Bitmap("testimage1.bmp")
 
         let tSuccess, xCoord, yCoord = SearchBitmap tSmallBitmap tLargeBitmap
+
+        let tTestSmall = [|
+                            [| 0; 0; 0; 0 |]
+                            [| 0; 1; 1; 0 |]
+                            [| 0; 1; 1; 0 |]
+                            [| 0; 0; 0; 0 |]
+                         |]
+        
+        let tTestLarge = [|
+                            [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                            [| 1; 0; 0; 0; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                            [| 1; 0; 1; 1; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                            [| 1; 0; 1; 1; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                            [| 1; 0; 0; 0; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                            [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                            [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                            [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
+                         |]
+        
+        let result = SearchSubset tTestSmall tTestLarge (1, 1)
 
         // General plan for looping
         // - Split single array for small image into 2d array of arrays
