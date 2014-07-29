@@ -7,7 +7,7 @@ open System.Runtime.InteropServices
 
 open MathAlgorithms
 
-module ImageSearch = 
+module ImageFunctions = 
     let LoadBitmapIntoArray (pBitmap:Bitmap) =
         let tBitmapData = pBitmap.LockBits( Rectangle(Point.Empty, pBitmap.Size), 
                                             ImageLockMode.ReadOnly, 
@@ -23,11 +23,31 @@ module ImageSearch =
         // Notes:
         // Image pixel data is stored BGR ( blue green red )
         // Image data is padded to be divisible by 4 (int32 width)
+        
+    let Transform2D ( (pDimension:int*int*int), (pArray:byte[]) ) = 
+        let tWidth, tHeight, tStride = pDimension
+
+        [|
+            for tHeightIndex in 0 .. ( tHeight - 1 ) do
+                let tStart  = tHeightIndex * tStride
+                let tFinish = ( tStart + tWidth * 3 ) - 1
+                yield [|    
+                    for tWidthIndex in tStart .. 3 .. tFinish do
+                        yield ( pArray.[tWidthIndex]
+                              , pArray.[tWidthIndex + 1] 
+                              , pArray.[tWidthIndex + 2] )
+                |]
+        |]
+
+
+
+module ImageSearch = 
+    open ImageFunctions
 
     let SearchBitmap (pSmallBitmap:Bitmap) (pLargeBitmap:Bitmap) = 
         
-        let tSmallArray = ArrayFunctions.Transform2D <| LoadBitmapIntoArray pSmallBitmap 
-        let tLargeArray = ArrayFunctions.Transform2D <| LoadBitmapIntoArray pLargeBitmap
+        let tSmallArray = Transform2D <| LoadBitmapIntoArray pSmallBitmap 
+        let tLargeArray = Transform2D <| LoadBitmapIntoArray pLargeBitmap
         
         let tSearchWidth = pLargeBitmap.Width - pSmallBitmap.Width
         let tSearchHeight = pLargeBitmap.Height - pSmallBitmap.Height

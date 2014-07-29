@@ -1,21 +1,6 @@
 ﻿namespace MathAlgorithms
 
 module ArrayFunctions = 
-    let Transform2D ( (pDimension:int*int*int), (pArray:byte[]) ) = 
-        let tWidth, tHeight, tStride = pDimension
-
-        [|
-            for tHeightIndex in 0 .. ( tHeight - 1 ) do
-                let tStart  = tHeightIndex * tStride
-                let tFinish = ( tStart + tWidth * 3 ) - 1
-                yield [|    
-                    for tWidthIndex in tStart .. 3 .. tFinish do
-                        yield ( pArray.[tWidthIndex]
-                              , pArray.[tWidthIndex + 1] 
-                              , pArray.[tWidthIndex + 2] )
-                |]
-        |]
-
     // Generic because it makes testing easier, yay math
     let SearchSubset (tSmallArray:'a[][]) (tLargeArray:'a[][]) (pCoordinate:(int * int)) =
         let tSmallHeight = tSmallArray.Length

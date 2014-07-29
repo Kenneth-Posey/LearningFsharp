@@ -1,7 +1,8 @@
 ﻿namespace Testing
 
-open FsharpImaging
-open MathAlgorithms
+open FsharpImaging.ImageFunctions
+open FsharpImaging.ImageSearch
+open MathAlgorithms.ArrayFunctions
 open System.Diagnostics
 open System.Drawing
 
@@ -28,8 +29,8 @@ module ImageSearchTest =
                                 [| 1; 1; 1; 1; 1; 1; 1; 0; 2; 3; 4;|]
                              |]
         
-            let tTrueResult = ArrayFunctions.SearchSubset tTestSmall tTestLarge ( 2, 2 )
-            let tFalseResult = ArrayFunctions.SearchSubset tTestSmall tTestLarge ( 3, 3 )
+            let tTrueResult = SearchSubset tTestSmall tTestLarge ( 2, 2 )
+            let tFalseResult = SearchSubset tTestSmall tTestLarge ( 3, 3 )
 
             Debug.Assert( ( tTrueResult = true ), "Failed to find sub-array" )
             Debug.Assert( ( tFalseResult = false ), "False positive in finding sub-array")
@@ -42,7 +43,7 @@ module ImageSearchTest =
     let Test_LoadBitmapIntoArray () =      
         try
             let tSmallBitmap = new Bitmap("C:\Users\kposey\Pictures\searchimage.bmp")
-            let tResultTuple, tResultArray = ImageSearch.LoadBitmapIntoArray tSmallBitmap
+            let tResultTuple, tResultArray = LoadBitmapIntoArray tSmallBitmap
 
             true
         with
@@ -51,7 +52,7 @@ module ImageSearchTest =
     let Test_Transform2D () =
         try
             let tSmallBitmap = new Bitmap("C:\Users\kposey\Pictures\searchimage.bmp")
-            let tResultArray = ArrayFunctions.Transform2D <| ImageSearch.LoadBitmapIntoArray tSmallBitmap
+            let tResultArray = Transform2D <| LoadBitmapIntoArray tSmallBitmap
             
             true
         with

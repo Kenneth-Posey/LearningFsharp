@@ -1,31 +1,21 @@
-﻿module Main
+﻿namespace MainProgram
 
-open FsharpImaging.ImageSearch
-open Testing
-open System.Drawing
-open System.Diagnostics
+module Main = 
+
+    open FsharpImaging
+    open Testing
+    open System.Drawing
 
     [<EntryPoint>]
     let main (args:string[]) = 
         
         ImageSearchTest.TestFunctions() |> ignore
 
-        // use tSmallBitmap = new Bitmap("testimage2.bmp")
-        // use tLargeBitmap = new Bitmap("testimage1.bmp")
-        
-        use tSmallBitmap = new Bitmap("searchimage.bmp")
-        use tLargeBitmap = new Bitmap("containingimage.bmp")
+        use tSmallBitmap = new Bitmap("testimage2.bmp")
+        use tLargeBitmap = new Bitmap("testimage1.bmp")
 
-        let stopW = new Stopwatch()
-        
-        let mutable it = 0
-        stopW.Start() |> ignore
-        while it < 20 do
-            let tSuccess, xCoord, yCoord = SearchBitmap tSmallBitmap tLargeBitmap
-            it <- it + 1    
-        stopW.Stop() |> ignore
-        
-        printfn "%A" stopW.ElapsedMilliseconds
+        let tSuccess, xCoord, yCoord = ImageSearch.SearchBitmap tSmallBitmap tLargeBitmap
+
 
         // General plan for looping
         // - Split single array for small image into 2d array of arrays
