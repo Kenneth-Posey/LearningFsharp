@@ -14,7 +14,6 @@ open System.Drawing
 
         let tSuccess, xCoord, yCoord = SearchBitmap tSmallBitmap tLargeBitmap
 
-
         // General plan for looping
         // - Split single array for small image into 2d array of arrays
         // - Split single array for large image into 2d array of arrays

@@ -43,6 +43,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArrayFunctions.fs" />
     <Compile Include="ImageSearch.fs" />
     <Compile Include="UnitTest.fs" />
   </ItemGroup>
