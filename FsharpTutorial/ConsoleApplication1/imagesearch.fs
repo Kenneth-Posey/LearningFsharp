@@ -1,8 +1,9 @@
-﻿open System
+﻿namespace FsharpImaging
+
+open System
 open System.Drawing
 open System.Drawing.Imaging
 open System.Runtime.InteropServices
-open System.Diagnostics
 
 module ImageSearch = 
     let LoadBitmapIntoArray (pBitmap:Bitmap) =
@@ -33,6 +34,7 @@ module ImageSearch =
                 |]
         |]
 
+    // Generic because it makes testing easier, yay math
     let SearchSubset (tSmallArray:'a[][]) (tLargeArray:'a[][]) (pCoordinate:(int * int)) =
         let tSmallHeight = tSmallArray.Length
         let tSmallWidth = tSmallArray.[0].Length
@@ -88,61 +90,3 @@ module ImageSearch =
                 tHeightIndex <- tHeightIndex + 1
 
         tMatch, tWidthIndex, tHeightIndex
-        
-    let TestFunctions () =
-        try 
-            let tTestSmall = [|
-                                [| 0; 0; 0; 0 |]
-                                [| 0; 1; 1; 0 |]
-                                [| 0; 1; 1; 0 |]
-                                [| 0; 0; 0; 0 |]
-                             |]
-        
-            let tTestLarge = [|
-                                [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                                [| 1; 0; 0; 0; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                                [| 1; 0; 1; 1; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                                [| 1; 0; 1; 1; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                                [| 1; 0; 0; 0; 0; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                                [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                                [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                                [| 1; 1; 1; 1; 1; 1; 0; 2; 3; 4; 5; 1; 0; |]
-                             |]
-        
-            let tTrueResult = SearchSubset tTestSmall tTestLarge ( 1, 1 )
-            let tFalseResult = SearchSubset tTestSmall tTestLarge ( 2, 2 )
-
-            Debug.Assert( ( tTrueResult = true ), "Failed to find sub-array" )
-            Debug.Assert( ( tFalseResult = false ), "False positive in finding sub-array")
-            
-            true // Successfully completed tests
-
-        with
-        | _ -> false // Something borked
-
-        
-
-    [<EntryPoint>]
-    let main (args:string[]) = 
-        
-        let tTestSuccess = TestFunctions()
-
-        ignore <| tTestSuccess
-
-        use tSmallBitmap = new Bitmap("testimage2.bmp")
-        use tLargeBitmap = new Bitmap("testimage1.bmp")
-
-        let tSuccess, xCoord, yCoord = SearchBitmap tSmallBitmap tLargeBitmap
-
-
-        // General plan for looping
-        // - Split single array for small image into 2d array of arrays
-        // - Split single array for large image into 2d array of arrays
-        // - Iterate through each array in large array looking for first value from small array
-        // - If first value is found, then check for complete row
-        // - If row is complete then check for second row (and so on)
-        // - Stop searching horizontally when remaining pixels are smaller than search image width
-        // - Stop searching vertically when remaining pixels are smaller than search image height 
-
-        // Must return from function
-        0

@@ -48,9 +48,11 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.fs" />
     <None Include="App.config" />
-    <Compile Include="imagesearch.fs" />
+    <Compile Include="Program.fs" />
+    <Compile Include="ImageSearch.fs" />
+    <Compile Include="UnitTest.fs" />
+    <Compile Include="Main.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
