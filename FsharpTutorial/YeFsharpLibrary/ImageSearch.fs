@@ -24,8 +24,6 @@ module ImageSearch =
 
         // Notes:
         // Image pixel data is stored BGR ( blue green red )
-        // If stride is positive, then image is upside down ( bottom right -> upper left )
-        // If stride is negative, then image is rightside up ( upper left -> bottom right )
         // Image data is padded to be divisible by 4 (int32 width)
 
     let SearchBitmap (pSmallBitmap:Bitmap) (pLargeBitmap:Bitmap) = 
