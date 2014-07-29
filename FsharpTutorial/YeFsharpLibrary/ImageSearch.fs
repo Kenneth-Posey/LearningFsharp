@@ -50,6 +50,7 @@ module ImageSearch =
                     tWidthIndex <- tWidthIndex + 1
 
             if tMatch = false && tContinue = true then
+                tWidthIndex  <- 0                       // Reset to search next row
                 tHeightIndex <- tHeightIndex + 1
 
         tMatch, tWidthIndex, tHeightIndex

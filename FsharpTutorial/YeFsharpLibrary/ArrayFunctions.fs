@@ -37,6 +37,8 @@ module ArrayFunctions =
                         tSmallWidthIndex <- tSmallWidthIndex + 1         
                     else
                         tMatch <- false
+
+                tSmallWidthIndex  <- 0
                 tSmallHeightIndex <- tSmallHeightIndex + 1
 
             tMatch

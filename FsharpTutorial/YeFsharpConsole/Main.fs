@@ -7,10 +7,13 @@ open System.Drawing
     [<EntryPoint>]
     let main (args:string[]) = 
         
-        ImageSearchTest.TestFunctions() |> ignore
+        // ImageSearchTest.TestFunctions() |> ignore
 
         use tSmallBitmap = new Bitmap("testimage2.bmp")
         use tLargeBitmap = new Bitmap("testimage1.bmp")
+        
+//        use tSmallBitmap = new Bitmap("searchimage.bmp")
+//        use tLargeBitmap = new Bitmap("containingimage.bmp")
 
         let tSuccess, xCoord, yCoord = SearchBitmap tSmallBitmap tLargeBitmap
 
