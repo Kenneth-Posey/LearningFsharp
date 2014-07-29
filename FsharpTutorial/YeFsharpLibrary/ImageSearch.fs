@@ -18,9 +18,7 @@ module ImageSearch =
         Marshal.Copy(tBitmapData.Scan0, tImageDataArray, 0, tImageArrayLength)
         pBitmap.UnlockBits(tBitmapData)
 
-        printfn "%A" tImageDataArray
-
-        pBitmap.Width, tImageDataArray
+        ( pBitmap.Width, pBitmap.Height, tBitmapData.Stride ), tImageDataArray
 
         // Notes:
         // Image pixel data is stored BGR ( blue green red )

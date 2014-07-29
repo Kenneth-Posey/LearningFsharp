@@ -42,7 +42,7 @@ module ImageSearchTest =
     let Test_LoadBitmapIntoArray () =      
         try
             let tSmallBitmap = new Bitmap("C:\Users\kposey\Pictures\searchimage.bmp")
-            let tResultHeight, tResultArray = ImageSearch.LoadBitmapIntoArray tSmallBitmap
+            let tResultTuple, tResultArray = ImageSearch.LoadBitmapIntoArray tSmallBitmap
 
             true
         with
