@@ -1,6 +1,4 @@
 LearningFsharp
 ==============
 
-This is where I keep my scattered notes and bits of code for learning F#.
-
-[This imagesearch function is cool](https://github.com/Kenneth-Posey/LearningFsharp/blob/master/FsharpTutorial/YeFsharpLibrary/ImageSearch.fs)
+The imagesearch functionality in pure F# that I'm working on [in the FsharpImaging.fs file](https://github.com/Kenneth-Posey/LearningFsharp/tree/master/FsharpTutorial/YeFsharpLibrary) is pretty cool.
