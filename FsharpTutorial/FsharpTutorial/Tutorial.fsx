@@ -701,8 +701,8 @@ module CodeGolfSlimShady =
     
     let answer2 =
         // Alternate version (longer)
-        let a=["I'm ";"Slim ";"Shady";"the real ";"lease stand up"]
-        printf"%s"<|a.[0]+a.[1]+a.[2]+". Yes, "+a.[0]+a.[3]+a.[2]+".\nAll you other "+a.[1]+a.[2]+"s are just imitating.\nSo, won't "+a.[3]+a.[1]+a.[2]+" p"+a.[4]+"?\nP"+a.[4]+". P"+a.[4]+"."
+        let a,b,c,d,e="I'm ","Slim ","Shady","the real ","lease stand up"
+        printf"%s"<|a+b+c+". Yes, "+a+d+c+".\nAll you other "+b+c+"s are just imitating.\nSo, won't "+d+b+c+" p"+e+"?\nP"+e+". P"+e+"."
 
 
 
