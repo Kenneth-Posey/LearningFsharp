@@ -694,6 +694,35 @@ module NumberStringsExample =
         printf "%s " (nstrs.Cardinal(i))
     printfn ""
 
+module CodeGolfSlimShady = 
+    let answer1 = 
+        // http://codegolf.stackexchange.com/questions/35516/the-real-slim-shady/35726#35726    
+        printf"%A"<|System.String.Format("{0}{1}{2}. Yes, {0}{3}{2}.\nAll you other {1}{2}s are just imitating.\nSo, won't {3}{1}{2} p{4}?\nP{4}. P{4}.","I'm ","Slim ","Shady","the real ","lease stand up")
+    
+    let answer2 =
+        // Alternate version (longer)
+        let a=["I'm ";"Slim ";"Shady";"the real ";"lease stand up"]
+        printf"%s"<|a.[0]+a.[1]+a.[2]+". Yes, "+a.[0]+a.[3]+a.[2]+".\nAll you other "+a.[1]+a.[2]+"s are just imitating.\nSo, won't "+a.[3]+a.[1]+a.[2]+" p"+a.[4]+"?\nP"+a.[4]+". P"+a.[4]+"."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #if COMPILED
 module BoilerPlateForForm = 
     [<System.STAThread>]
