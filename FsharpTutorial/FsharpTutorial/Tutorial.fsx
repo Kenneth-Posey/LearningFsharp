@@ -701,6 +701,7 @@ module CodeGolfSlimShady =
     
     let answer2 =
         // Alternate version (longer)
+        // http://codegolf.stackexchange.com/questions/35516/the-real-slim-shady/35726#35726 
         let a,b,c,d,e="I'm ","Slim ","Shady","the real ","lease stand up"
         printf"%s"<|a+b+c+". Yes, "+a+d+c+".\nAll you other "+b+c+"s are just imitating.\nSo, won't "+d+b+c+" p"+e+"?\nP"+e+". P"+e+"."
 
