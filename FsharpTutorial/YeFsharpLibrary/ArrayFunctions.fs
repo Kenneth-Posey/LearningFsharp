@@ -27,5 +27,7 @@ module ArrayFunctions =
                 tSmallHeightIndex <- tSmallHeightIndex + 1
 
             tMatch
-        with
-            | _ -> false
+        with // Not really sure what I want to do with error handling atm
+            | :? System.ArgumentOutOfRangeException -> false
+            | :? System.ArgumentNullException       -> false
+            | :? System.ArgumentException           -> false
