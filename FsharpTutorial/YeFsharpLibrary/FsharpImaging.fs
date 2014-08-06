@@ -9,23 +9,23 @@ open MathAlgorithms
 
 module ImageFunctions = 
     let LoadBitmapIntoArray (pBitmap:Bitmap) =
-        let tBitmapData = pBitmap.LockBits( Rectangle(Point.Empty, pBitmap.Size), 
-                                            ImageLockMode.ReadOnly, 
-                                            PixelFormat.Format24bppRgb )  
+        let tBitmapData = pBitmap.LockBits( Rectangle(Point.Empty, pBitmap.Size) 
+                                          , ImageLockMode.ReadOnly
+                                          , PixelFormat.Format24bppRgb )  
         let tImageArrayLength = Math.Abs(tBitmapData.Stride) * pBitmap.Height
         let tImageDataArray = Array.zeroCreate<byte> tImageArrayLength
             
         Marshal.Copy(tBitmapData.Scan0, tImageDataArray, 0, tImageArrayLength)
         pBitmap.UnlockBits(tBitmapData)
 
-        ( pBitmap.Width, pBitmap.Height, tBitmapData.Stride ), tImageDataArray
+        ( pBitmap.Width , pBitmap.Height , tBitmapData.Stride ) , tImageDataArray
 
         // Notes:
         // Image pixel data is stored BGR ( blue green red )
         // Image data is padded to be divisible by 4 (int32 width)
         
-    let Transform2D ( (pDimension:int*int*int), (pArray:byte[]) ) = 
-        let tWidth, tHeight, tStride = pDimension
+    let Transform2D ( (pDimension:int*int*int) , (pArray:byte[]) ) = 
+        let tWidth , tHeight , tStride = pDimension
 
         [|
             for tHeightIndex in 0 .. ( tHeight - 1 ) do
@@ -60,11 +60,11 @@ module ImageSearch =
                 let currentLargePixel = largeArray.[heightIndex].[widthIndex]
 
                 match ( widthIndex < searchWidth , currentLargePixel = firstSmallPixel ) with
-                | ( true , true  ) ->  let foundImage = ArrayFunctions.SearchSubset smallArray largeArray ( heightIndex, widthIndex )
-                                       if foundImage then widthIndex , foundImage
-                                       else ContinueLoop ()
-                | ( true , false ) -> ContinueLoop ()
-                | ( false, _     ) -> widthIndex , false
+                | ( true  , true  ) ->  let foundImage = ArrayFunctions.SearchSubset smallArray largeArray ( heightIndex, widthIndex )
+                                        if foundImage then widthIndex , foundImage
+                                        else ContinueLoop ()
+                | ( true  , false ) -> ContinueLoop ()
+                | ( false , _     ) -> widthIndex , false
 
             WidthLoopRec heightIndex 0 
 
@@ -72,7 +72,7 @@ module ImageSearch =
             let rec HeightLoopRec heightIndex =
                 let widthIndex, foundImage = WidthLoop heightIndex
 
-                match ( foundImage, heightIndex < searchHeight ) with
+                match ( foundImage , heightIndex < searchHeight ) with
                 | ( false , true  ) -> HeightLoopRec ( heightIndex + 1 ) 
                 | ( _     , _     ) -> foundImage , widthIndex , heightIndex
                 
