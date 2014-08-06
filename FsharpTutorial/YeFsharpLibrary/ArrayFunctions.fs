@@ -2,31 +2,34 @@
 
 module ArrayFunctions = 
     // Generic because it makes testing easier, yay math
-    let SearchSubset (tSmallArray:'a[][]) (tLargeArray:'a[][]) (pCoordinate:(int * int)) =
-        let tSmallHeight = tSmallArray.Length
-        let tSmallWidth = tSmallArray.[0].Length
-
-        let tHeightIndex = fst pCoordinate
-        let tWidthIndex = snd pCoordinate
-        let mutable tSmallHeightIndex = 0
-        let mutable tSmallWidthIndex = 0
-        let mutable tMatch = true
+    let IsSubMatrix (smallArray:'a[][]) (largeArray:'a[][]) (startCoordinate:(int * int)) =
+        let searchHeight , searchWidth = smallArray.Length - 1 , smallArray.[0].Length - 1
+        let startHeight  , startWidth  = startCoordinate
 
         try 
-            while ( tSmallHeightIndex < tSmallHeight - 1 ) && tMatch do
-                while ( tSmallWidthIndex < tSmallWidth - 1 ) && tMatch do
-                    let tLargeCurrentValue = tLargeArray.[tHeightIndex + tSmallHeightIndex].[tWidthIndex + tSmallWidthIndex]
-                    let tSmallCurrentValue = tSmallArray.[tSmallHeightIndex].[tSmallWidthIndex]
+            let WidthLoop heightIndex = 
+                let rec WidthLoopRec heightIndex widthIndex =
+                    let largeValue = largeArray.[startHeight + heightIndex].[startWidth + widthIndex]
+                    let smallValue = smallArray.[heightIndex].[widthIndex]
 
-                    if tSmallCurrentValue = tLargeCurrentValue then
-                        tSmallWidthIndex <- tSmallWidthIndex + 1         
-                    else
-                        tMatch <- false
+                    match ( smallValue = largeValue , widthIndex < searchWidth) with
+                    | ( true  , true  ) -> WidthLoopRec heightIndex (widthIndex + 1)
+                    | ( true  , false ) -> true 
+                    | ( false , _     ) -> false
+                WidthLoopRec heightIndex 0
 
-                tSmallWidthIndex  <- 0
-                tSmallHeightIndex <- tSmallHeightIndex + 1
+            let HeightLoop () =
+                let rec HeightLoopRec heightIndex = 
+                    let isMatch = WidthLoop heightIndex
 
-            tMatch
+                    match ( isMatch , heightIndex < searchHeight) with
+                    | ( true  , true  ) -> HeightLoopRec ( heightIndex + 1 )
+                    | ( true  , false ) -> true
+                    | ( false , _     ) -> false
+                HeightLoopRec 0
+
+            HeightLoop ()
+            
         with // Not really sure what I want to do with error handling atm
             | :? System.ArgumentOutOfRangeException -> false
             | :? System.ArgumentNullException       -> false

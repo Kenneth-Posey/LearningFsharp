@@ -29,8 +29,8 @@ module ImageSearchTest =
                                 [| 1; 1; 1; 1; 1; 1; 1; 0; 2; 3; 4;|]
                              |]
         
-            let tTrueResult = SearchSubset tTestSmall tTestLarge ( 2, 2 )
-            let tFalseResult = SearchSubset tTestSmall tTestLarge ( 3, 3 )
+            let tTrueResult = IsSubMatrix tTestSmall tTestLarge ( 2, 2 )
+            let tFalseResult = IsSubMatrix tTestSmall tTestLarge ( 3, 3 )
 
             Debug.Assert( ( tTrueResult = true ), "Failed to find sub-array" )
             Debug.Assert( ( tFalseResult = false ), "False positive in finding sub-array")

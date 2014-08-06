@@ -60,7 +60,7 @@ module ImageSearch =
                 let currentLargePixel = largeArray.[heightIndex].[widthIndex]
 
                 match ( widthIndex < searchWidth , currentLargePixel = firstSmallPixel ) with
-                | ( true  , true  ) ->  let foundImage = ArrayFunctions.SearchSubset smallArray largeArray ( heightIndex, widthIndex )
+                | ( true  , true  ) ->  let foundImage = ArrayFunctions.IsSubMatrix smallArray largeArray ( heightIndex, widthIndex )
                                         if foundImage then widthIndex , foundImage
                                         else ContinueLoop ()
                 | ( true  , false ) -> ContinueLoop ()
