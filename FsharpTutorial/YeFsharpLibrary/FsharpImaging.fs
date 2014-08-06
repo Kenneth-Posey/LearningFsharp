@@ -49,20 +49,35 @@ module ImageSearch =
         let tSmallArray = Transform2D <| LoadBitmapIntoArray pSmallBitmap 
         let tLargeArray = Transform2D <| LoadBitmapIntoArray pLargeBitmap
         
-        let SearchWidth = pLargeBitmap.Width - pSmallBitmap.Width - 1          // Account for 0 index
-        let SearchHeight = pLargeBitmap.Height - pSmallBitmap.Height - 1       // Account for 0 index
+        let SearchWidth = pLargeBitmap.Width - pSmallBitmap.Width
+        let SearchHeight = pLargeBitmap.Height - pSmallBitmap.Height
 
         // let mutable tHeightIndex = 0
         // let mutable tWidthIndex = 0
         // let mutable tMatch = false
         // let mutable tContinue = true
         
-        let tFirstSmallPixel = tSmallArray.[0].[0]
-
-        let WidthLoop pHeightIndex pWidthIndex pWidthContinue =
+        let FirstSmallPixel = tSmallArray.[0].[0]
+        
+        let WidthLoop pHeightIndex =
             let rec WidthLoopRec pHeightIndex pWidthIndex pWidthContinue =
+                let ContinueLoop () = WidthLoopRec pHeightIndex (pWidthIndex + 1) true
                 match ( pWidthIndex < SearchWidth , pWidthContinue ) with
-                | ( true, true ) -> 1, true, true
+                // Currently within image search bounds and no image found
+                | ( true , true ) -> 
+                    let CurrentPixel = tLargeArray.[pHeightIndex].[pWidthIndex]
+                    if CurrentPixel = FirstSmallPixel then 
+                        let Match = ArrayFunctions.SearchSubset tSmallArray tLargeArray ( pHeightIndex, pWidthIndex )
+                        if Match then
+                            pWidthIndex, false, true
+                        else
+                           ContinueLoop ()
+                    else
+                        ContinueLoop ()
+                // Currently inside of image search bounds and NO continue => image found  
+                | ( true , false ) -> pWidthIndex, false, true
+                // Currently outside of image search bounds and no image found
+                | ( false, false ) -> 0, false, false
                 | ( _ , _ )      -> 0, false, false
             WidthLoopRec pHeightIndex 0 true
 
@@ -70,7 +85,7 @@ module ImageSearch =
             let rec HeightLoopRec pHeightIndex pHeightContinue =
                 let WidthIndex, WidthContinue, FoundImage = 
                     match ( pHeightIndex < SearchHeight , pHeightContinue ) with
-                    | ( _     , true  ) -> WidthLoop pHeightIndex 0 true // Image not found, continue
+                    | ( true  , true  ) -> WidthLoop pHeightIndex // Image not found, continue
                     | ( true  , false ) -> 0, false, false // Image found, don't continue
                     | ( false , false ) -> 0, false, false // Image not found, don't continue
 
