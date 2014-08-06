@@ -63,34 +63,33 @@ module ImageSearch =
                 | ( true , true ) -> 
                     if largeArray.[heightIndex].[widthIndex] = firstSmallPixel then 
                         let foundImage = ArrayFunctions.SearchSubset smallArray largeArray ( heightIndex, widthIndex )
-                        if foundImage then widthIndex, false, true
+                        if foundImage then widthIndex,  true
                         else ContinueLoop ()
                     else ContinueLoop ()
                 // Currently inside of image search bounds and NO continue => image found  
-                | ( true , false ) -> widthIndex, false, true
+                | ( true , false ) -> widthIndex,  true
                 // Currently outside of image search bounds and no image found
-                | ( false, false ) -> 0, false, false
-                | ( _ , _ )        -> 0, false, false
+                | ( false, false ) -> 0, false
+                | ( _ , _ )        -> 0, false
 
             WidthLoopRec heightIndex 0 true
 
         let HeightLoop () =
             let rec HeightLoopRec heightIndex heightContinue =
-                let widthIndex, widthContinue, foundImage = 
+                let widthIndex, foundImage = 
                     match ( heightIndex < searchHeight , heightContinue ) with
-                    | ( true  , true  ) -> WidthLoop heightIndex // Image not found, continue
-                    | ( true  , false ) -> 0, false, false // Image found, don't continue
-                    | ( false , _     ) -> 0, false, false // Image not found, don't continue
+                    | ( true  , true  ) -> WidthLoop ( heightIndex + 1 ) // Image not found, continue
+                    | ( true  , false ) -> 0, true  // Image found, don't continue
+                    | ( false , _     ) -> 0, false // Image not found, don't continue
 
-                match (widthContinue, foundImage) with
-                | ( true  , _     ) -> HeightLoopRec ( heightIndex + 1 ) true
-                | ( false , true  ) -> true, widthIndex, heightIndex
-                | ( false , false ) -> false, widthIndex, heightIndex
+                match ( foundImage, heightContinue ) with
+                | ( false , true  ) -> HeightLoopRec ( heightIndex + 1 ) true
+                | ( _     , false ) -> foundImage, widthIndex, heightIndex
                 
             HeightLoopRec 0 true    // pHeightIndex pContinue
 
         do HeightLoop |> ignore
-
+        // This needs to be removed
         false, 0, 0
 
         // while ( tHeightIndex < tSearchHeight - 1 ) && tContinue do
