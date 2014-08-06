@@ -87,7 +87,7 @@ module ImageSearch =
                     match ( pHeightIndex < SearchHeight , pHeightContinue ) with
                     | ( true  , true  ) -> WidthLoop pHeightIndex // Image not found, continue
                     | ( true  , false ) -> 0, false, false // Image found, don't continue
-                    | ( false , false ) -> 0, false, false // Image not found, don't continue
+                    | ( false , _     ) -> 0, false, false // Image not found, don't continue
 
                 match (WidthContinue, FoundImage) with
                 | ( true  , _     ) -> HeightLoopRec ( pHeightIndex + 1 ) true
