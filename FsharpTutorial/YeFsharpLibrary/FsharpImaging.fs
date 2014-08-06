@@ -55,56 +55,27 @@ module ImageSearch =
         let firstSmallPixel = smallArray.[0].[0]
         
         let WidthLoop heightIndex =
-            let rec WidthLoopRec heightIndex widthIndex widthContinue =
-                let ContinueLoop () = WidthLoopRec heightIndex (widthIndex + 1) true
+            let rec WidthLoopRec heightIndex widthIndex =
+                let ContinueLoop () = WidthLoopRec heightIndex (widthIndex + 1)
+                let currentLargePixel = largeArray.[heightIndex].[widthIndex]
 
-                match ( widthIndex < searchWidth , widthContinue ) with
-                // Currently within image search bounds and no image found
-                | ( true , true ) -> 
-                    if largeArray.[heightIndex].[widthIndex] = firstSmallPixel then 
-                        let foundImage = ArrayFunctions.SearchSubset smallArray largeArray ( heightIndex, widthIndex )
-                        if foundImage then widthIndex,  true
-                        else ContinueLoop ()
-                    else ContinueLoop ()
-                // Currently inside of image search bounds and NO continue => image found  
-                | ( true , false ) -> widthIndex,  true
-                // Currently outside of image search bounds and no image found
-                | ( false, false ) -> 0, false
-                | ( _ , _ )        -> 0, false
+                match ( widthIndex < searchWidth , currentLargePixel = firstSmallPixel ) with
+                | ( true , true  ) ->  let foundImage = ArrayFunctions.SearchSubset smallArray largeArray ( heightIndex, widthIndex )
+                                       if foundImage then widthIndex , foundImage
+                                       else ContinueLoop ()
+                | ( true , false ) -> ContinueLoop ()
+                | ( false, _     ) -> widthIndex , false
 
-            WidthLoopRec heightIndex 0 true
+            WidthLoopRec heightIndex 0 
 
         let HeightLoop () =
-            let rec HeightLoopRec heightIndex heightContinue =
-                let widthIndex, foundImage = 
-                    match ( heightIndex < searchHeight , heightContinue ) with
-                    | ( true  , true  ) -> WidthLoop ( heightIndex + 1 ) // Image not found, continue
-                    | ( true  , false ) -> 0, true  // Image found, don't continue
-                    | ( false , _     ) -> 0, false // Image not found, don't continue
+            let rec HeightLoopRec heightIndex =
+                let widthIndex, foundImage = WidthLoop heightIndex
 
-                match ( foundImage, heightContinue ) with
-                | ( false , true  ) -> HeightLoopRec ( heightIndex + 1 ) true
-                | ( _     , false ) -> foundImage, widthIndex, heightIndex
+                match ( foundImage, heightIndex < searchHeight ) with
+                | ( false , true  ) -> HeightLoopRec ( heightIndex + 1 ) 
+                | ( _     , _     ) -> foundImage , widthIndex , heightIndex
                 
-            HeightLoopRec 0 true    // pHeightIndex pContinue
-
-        do HeightLoop |> ignore
-        // This needs to be removed
-        false, 0, 0
-
-        // while ( tHeightIndex < tSearchHeight - 1 ) && tContinue do
-        //     while ( tWidthIndex < tSearchWidth - 1 ) && tContinue do
-        //         let tCurrentValue = tLargeArray.[tHeightIndex].[tWidthIndex]
-        // 
-        //         if tCurrentValue = tFirstSmallPixel then
-        //             tMatch <- ArrayFunctions.SearchSubset tSmallArray tLargeArray ( tHeightIndex, tWidthIndex )
-        //             if tMatch then tContinue <- false
-        // 
-        //         if tMatch = false && tContinue = true then
-        //             tWidthIndex <- tWidthIndex + 1
-        // 
-        //     if tMatch = false && tContinue = true then
-        //         tWidthIndex  <- 0                       // Reset to search next row
-        //         tHeightIndex <- tHeightIndex + 1
-        // 
-        // tMatch, tWidthIndex, tHeightIndex
+            HeightLoopRec 0 
+            
+        HeightLoop ()

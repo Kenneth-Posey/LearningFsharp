@@ -9,7 +9,7 @@ module Main =
     [<EntryPoint>]
     let main (args:string[]) = 
         
-        ImageSearchTest.TestFunctions() |> ignore
+        // ImageSearchTest.TestFunctions() |> ignore
 
         use tSmallBitmap = new Bitmap("testimage2.bmp")
         use tLargeBitmap = new Bitmap("testimage1.bmp")
