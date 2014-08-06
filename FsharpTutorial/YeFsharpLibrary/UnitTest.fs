@@ -52,7 +52,7 @@ module ImageSearchTest =
     let Test_Transform2D () =
         try
             let tSmallBitmap = new Bitmap("C:\Users\kposey\Pictures\searchimage.bmp")
-            let tResultArray = Transform2D <| LoadBitmapIntoArray tSmallBitmap
+            let tResultArray = TransformImageArrayInto2D <| LoadBitmapIntoArray tSmallBitmap
             
             true
         with

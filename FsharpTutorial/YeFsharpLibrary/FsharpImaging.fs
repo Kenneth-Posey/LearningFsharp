@@ -8,34 +8,34 @@ open System.Runtime.InteropServices
 open MathAlgorithms
 
 module ImageFunctions = 
-    let LoadBitmapIntoArray (pBitmap:Bitmap) =
-        let tBitmapData = pBitmap.LockBits( Rectangle(Point.Empty, pBitmap.Size) 
-                                          , ImageLockMode.ReadOnly
-                                          , PixelFormat.Format24bppRgb )  
-        let tImageArrayLength = Math.Abs(tBitmapData.Stride) * pBitmap.Height
-        let tImageDataArray = Array.zeroCreate<byte> tImageArrayLength
+    let LoadBitmapIntoArray (sourceBitmap:Bitmap) =
+        let sourceBitmapData = sourceBitmap.LockBits( Rectangle(Point.Empty, sourceBitmap.Size) 
+                                                    , ImageLockMode.ReadOnly
+                                                    , PixelFormat.Format24bppRgb )  
+        let imageArrayLength = Math.Abs(sourceBitmapData.Stride) * sourceBitmap.Height
+        let imageDataArray = Array.zeroCreate<byte> imageArrayLength
             
-        Marshal.Copy(tBitmapData.Scan0, tImageDataArray, 0, tImageArrayLength)
-        pBitmap.UnlockBits(tBitmapData)
+        Marshal.Copy(sourceBitmapData.Scan0, imageDataArray, 0, imageArrayLength)
+        sourceBitmap.UnlockBits(sourceBitmapData)
 
-        ( pBitmap.Width , pBitmap.Height , tBitmapData.Stride ) , tImageDataArray
+        ( sourceBitmap.Width , sourceBitmap.Height , sourceBitmapData.Stride ) , imageDataArray
 
         // Notes:
         // Image pixel data is stored BGR ( blue green red )
         // Image data is padded to be divisible by 4 (int32 width)
         
-    let Transform2D ( (pDimension:int*int*int) , (pArray:byte[]) ) = 
-        let tWidth , tHeight , tStride = pDimension
+    let TransformImageArrayInto2D ( (imageData:int*int*int) , (sourceArray:byte[]) ) = 
+        let width , height , stride = imageData
 
         [|
-            for tHeightIndex in 0 .. ( tHeight - 1 ) do
-                let tStart  = tHeightIndex * tStride
-                let tFinish = ( tStart + tWidth * 3 ) - 1
+            for heightIndex in 0 .. ( height - 1 ) do
+                let startIndex  = heightIndex * stride
+                let finishIndex = ( startIndex + width * 3 ) - 1
                 yield [|    
-                    for tWidthIndex in tStart .. 3 .. tFinish do
-                        yield ( pArray.[tWidthIndex]
-                              , pArray.[tWidthIndex + 1] 
-                              , pArray.[tWidthIndex + 2] )
+                    for widthIndex in startIndex .. 3 .. finishIndex do
+                        yield ( sourceArray.[widthIndex]
+                              , sourceArray.[widthIndex + 1] 
+                              , sourceArray.[widthIndex + 2] )
                 |]
         |]
 
@@ -46,8 +46,8 @@ module ImageSearch =
 
     let SearchBitmap (smallBitmap:Bitmap) (largeBitmap:Bitmap) = 
         
-        let smallArray = Transform2D <| LoadBitmapIntoArray smallBitmap 
-        let largeArray = Transform2D <| LoadBitmapIntoArray largeBitmap
+        let smallArray = TransformImageArrayInto2D <| LoadBitmapIntoArray smallBitmap 
+        let largeArray = TransformImageArrayInto2D <| LoadBitmapIntoArray largeBitmap
         
         let searchWidth = largeBitmap.Width - smallBitmap.Width
         let searchHeight = largeBitmap.Height - smallBitmap.Height
