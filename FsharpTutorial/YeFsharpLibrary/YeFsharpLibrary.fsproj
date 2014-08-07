@@ -46,8 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DllImports.fs" />
-    <Compile Include="SimulatorKeyboard.fs" />
     <Compile Include="SimulatorMouse.fs" />
+    <Compile Include="SimulatorKeyboard.fs" />
     <Compile Include="ArrayFunctions.fs" />
     <Compile Include="FsharpImaging.fs" />
     <Compile Include="UnitTest.fs" />
