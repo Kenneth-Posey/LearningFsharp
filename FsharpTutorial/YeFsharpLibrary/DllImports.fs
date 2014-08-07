@@ -10,16 +10,23 @@ module DllImports =
 
         module private Internal = 
             [<DllImport( "user32.dll", CallingConvention = CallingConvention.Cdecl )>]
-            extern void internal mouse_event(int flags, int dX, int dY, int buttons, int extraInfo)
+            extern void mouse_event(int flags, int dX, int dY, int buttons, int extraInfo)
         
-        let MouseEvent(flags, dX, dY, buttons, extraInfo) = Internal.mouse_event(flags, dX, dY, buttons, extraInfo)
+        let MouseEvent flags dX dY buttons extraInfo = Internal.mouse_event(flags, dX, dY, buttons, extraInfo)
 
     module KeyboardControl = 
         module private Internal = 
             [<DllImport( "user32.dll", CallingConvention = CallingConvention.Cdecl )>]
             extern void keybd_event(byte key, byte scan, int flags, int extraInfo)
 
-        let KeyboardEvent(key, scan, flags, extraInfo) = Internal.keybd_event(key, scan, flags, extraInfo)
+        let KeyboardEvent key scan flags extraInfo = Internal.keybd_event(key, scan, flags, extraInfo)
+
+        [<DllImport( "user32.dll" )>]
+        extern int GetKeyboardState(byte[] keyState)
+
+        [<DllImport( "user32.dll" , CharSet = CharSet.Auto
+                                  , CallingConvention = CallingConvention.StdCall )>]
+        extern int16 GetKeyState(int key)
 
     module WindowControl = 
         type HookProc = delegate of ( int * int * IntPtr ) -> int
