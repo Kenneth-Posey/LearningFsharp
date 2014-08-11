@@ -63,7 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="GlobalHook.cs" />
     <Compile Include="KeyboardHook.cs" />
     <Compile Include="KeyboardSimulator.cs" />
