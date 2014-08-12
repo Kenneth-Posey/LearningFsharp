@@ -9,14 +9,23 @@ module Keyboard =
 
     type Controller = 
         /// Set keystate to down
+        static member private KeyEvent key code = 
+            KeyboardControl.KeyboardEvent key 0uy code 0
+            
+        /// Modifies the alt/ctrl/shift key code to correct value
+        static member ParseKey key =
+            match key with
+            | Keys.Alt     -> byte 18
+            | Keys.Control -> byte 17
+            | Keys.Shift   -> byte 16
+            | _            -> byte key  // No need for transformation
+
         static member KeyDown key =
-            let event k = KeyboardControl.KeyboardEvent k 0uy EventCode.KeyDown 0 
-            event <| Controller.ParseKey key
+            Controller.KeyEvent <| (Controller.ParseKey key), EventCode.KeyDown
 
         /// Set keystate to up
         static member KeyUp key = 
-            let event k = KeyboardControl.KeyboardEvent k 0uy EventCode.KeyUp 0 
-            event <| Controller.ParseKey key
+            Controller.KeyEvent <| (Controller.ParseKey key), EventCode.KeyUp
 
         /// Presses and releases key
         static member KeyPress key =
@@ -56,15 +65,7 @@ module Keyboard =
             | Open      -> ctrl Keys.O
             | New       -> ctrl Keys.N
             | Print     -> ctrl Keys.P
-            | _         -> ()           // Unrecognized shortcut
 
-        /// Modifies the alt/ctrl/shift key code to correct value
-        static member ParseKey key =
-            match key with
-            | Keys.Alt     -> byte 18
-            | Keys.Control -> byte 17
-            | Keys.Shift   -> byte 16
-            | _            -> byte key  // No need for transformation
 
 
 
