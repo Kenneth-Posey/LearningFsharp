@@ -2,69 +2,50 @@
 
 module Mouse = 
     open System
+    open System.Drawing
+    open System.Windows.Forms
+
+    open SimulatorTypes.Mouse.Constants
     open WindowsInterop.DllImports
 
-    module Constants = 
-        /// Available mouse buttons
-        type ButtonCode = 
-        | Left       = 0x2
-        | Right      = 0x8
-        | Middle     = 0x20
+    type Controller () =
+        member this.Position 
+            with get () = new Point( Cursor.Position.X, Cursor.Position.Y )
+            and  set (value) = Cursor.Position <- value
 
-        /// Available mouse events
-        type EventCode = 
-        | Move       = 0x1
-        | LeftDown   = 0x2
-        | LeftUp     = 0x4
-        | RightDown  = 0x8
-        | RightUp    = 0x10
-        | MiddleDown = 0x20
-        | MiddleUp   = 0x40
-        | WheelTurn  = 0x800
-        | Absolute   = 0x8000
+        member this.X
+            with get () = Cursor.Position.X
+            and  set (value) = Cursor.Position <- new Point( value, this.Y )
 
-    module Structures = 
-        type Point =
-        | X of int
-        | Y of int
+        member this.Y
+            with get () = Cursor.Position.Y
+            and  set (value) = Cursor.Position <- new Point( this.X, value )
+                        
+        member this.MouseDown button = 
+            MouseControl.MouseEvent button 0 0 0 0
+            
+        member this.MouseUp button = 
+            MouseControl.MouseEvent (button * 2) 0 0 0 0
+            
+        member this.Click button = 
+            this.MouseDown button
+            this.MouseUp button
 
-        type MouseHook = 
-        | Point         of Point
-        | Hwnd          of int
-        | WHitTestCode  of int
-        | DwExtraInfo   of int
+        member this.DoubleClick button = 
+            this.Click button
+            this.Click button
 
-        type MouseLLHook = 
-        | Point         of Point
-        | MouseData     of int
-        | Flags         of int
-        | Time          of int
-        | DwExtraInfo   of int
+        member this.ScrollMouseWheel delta = 
+            MouseControl.MouseEvent EventCode.WheelTurn 0 0 delta 0
 
-        type KeyboardHook = 
-        | VkCode        of int
-        | ScanCode      of int
-        | Flags         of int
-        | Time          of int
-        | DwExtraInfo   of int
+        member this.ShowCursor () = 
+            MouseControl.ShowCursor true
+
+        member this.HideCursor () =
+            MouseControl.ShowCursor false
+
+            
+
 
         
-    module WindowsAPI = 
-        
-        type Hooks = 
-        | Mouse = 7
-        | MouseLL = 14
-
-        type Messages = 
-        | MouseMove   = 0x200
-        | LeftDown    = 0x201
-        | LeftUp      = 0x202
-        | RightDown   = 0x204
-        | RightUp     = 0x205
-        | MiddleDown  = 0x207
-        | MiddleUp    = 0x208
-        | LeftClick   = 0x203
-        | RightClick  = 0x206
-        | MiddleClick = 0x109
-        | MouseWheel  = 0x020A
 

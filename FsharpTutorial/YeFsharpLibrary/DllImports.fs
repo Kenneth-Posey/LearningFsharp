@@ -5,16 +5,19 @@ module DllImports =
     open System.Runtime.InteropServices
 
     module MouseControl =         
-        [<DllImport( "user32.dll", CallingConvention = CallingConvention.Cdecl )>]
-        extern void ShowCursor(bool show)
-
+        /// A private internal module lets us call the Dll with a nicer name
         module private Internal = 
             [<DllImport( "user32.dll", CallingConvention = CallingConvention.Cdecl )>]
             extern void mouse_event(int flags, int dX, int dY, int buttons, int extraInfo)
         
         let MouseEvent flags dX dY buttons extraInfo = Internal.mouse_event(flags, dX, dY, buttons, extraInfo)
+        
+        [<DllImport( "user32.dll", CallingConvention = CallingConvention.Cdecl )>]
+        extern void ShowCursor(bool show)
+
 
     module KeyboardControl = 
+        /// A private internal module lets us call the Dll with a nicer name
         module private Internal = 
             [<DllImport( "user32.dll", CallingConvention = CallingConvention.Cdecl )>]
             extern void keybd_event(byte key, byte scan, int flags, int extraInfo)
