@@ -71,6 +71,7 @@ module SimulatorTypes =
 
             /// Available keyboard events
             type EventCode = 
+                static member KeyDown     = 0x0
                 static member ExtendedKey = 0x1
                 static member KeyUp       = 0x2
 
