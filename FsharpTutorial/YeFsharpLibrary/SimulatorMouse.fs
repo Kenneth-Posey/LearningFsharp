@@ -49,4 +49,22 @@ module Mouse =
         | DwExtraInfo   of int
 
         
+    module WindowsAPI = 
+        
+        type Hooks = 
+        | Mouse = 7
+        | MouseLL = 14
+
+        type Messages = 
+        | MouseMove   = 0x200
+        | LeftDown    = 0x201
+        | LeftUp      = 0x202
+        | RightDown   = 0x204
+        | RightUp     = 0x205
+        | MiddleDown  = 0x207
+        | MiddleUp    = 0x208
+        | LeftClick   = 0x203
+        | RightClick  = 0x206
+        | MiddleClick = 0x109
+        | MouseWheel  = 0x020A
 
