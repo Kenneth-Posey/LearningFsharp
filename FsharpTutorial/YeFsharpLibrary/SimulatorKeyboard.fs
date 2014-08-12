@@ -8,11 +8,11 @@ module Keyboard =
     open SimulatorTypes.Keyboard.Constants
 
     type Controller = 
-        /// Set keystate to down
+        /// Passes parameters + default values to Dll wrapper
         static member private KeyEvent key code = 
             KeyboardControl.KeyboardEvent key 0uy code 0
             
-        /// Modifies the alt/ctrl/shift key code to correct value
+        /// Transforms the alt/ctrl/shift key code to correct value
         static member ParseKey key =
             match key with
             | Keys.Alt     -> byte 18
@@ -20,12 +20,13 @@ module Keyboard =
             | Keys.Shift   -> byte 16
             | _            -> byte key  // No need for transformation
 
+        // Set keystate to down
         static member KeyDown key =
-            Controller.KeyEvent <| (Controller.ParseKey key), EventCode.KeyDown
+            Controller.KeyEvent <| Controller.ParseKey key, EventCode.KeyDown
 
         /// Set keystate to up
         static member KeyUp key = 
-            Controller.KeyEvent <| (Controller.ParseKey key), EventCode.KeyUp
+            Controller.KeyEvent <| Controller.ParseKey key, EventCode.KeyUp
 
         /// Presses and releases key
         static member KeyPress key =
