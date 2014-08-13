@@ -102,6 +102,9 @@ module SimulatorTypes =
             | Time        of int
             | DwExtraInfo of int
 
+    // Equivalent for GlobalHook.cs
+    // Temporarily shelved
+    // 
     // module Hook = 
     //     open System
     //     type Global () =

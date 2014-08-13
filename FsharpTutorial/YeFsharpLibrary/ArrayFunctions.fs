@@ -12,8 +12,8 @@ module ArrayFunctions =
                     let largeValue = largeArray.[startHeight + heightIndex].[startWidth + widthIndex]
                     let smallValue = smallArray.[heightIndex].[widthIndex]
 
-                    match ( smallValue = largeValue , widthIndex < searchWidth) with
-                    | ( true  , true  ) -> WidthLoopRec heightIndex (widthIndex + 1)
+                    match ( smallValue = largeValue , widthIndex < searchWidth ) with
+                    | ( true  , true  ) -> WidthLoopRec heightIndex ( widthIndex + 1 )
                     | ( true  , false ) -> true 
                     | ( false , _     ) -> false
                 WidthLoopRec heightIndex 0

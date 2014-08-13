@@ -44,10 +44,16 @@ module ImageFunctions =
 module ImageSearch = 
     open ImageFunctions
 
+    /// Attempts to locate one smaller bitmap inside the other larger bitmap
+    //  Strictly speaking the type annotations aren't necessary, but
+    //  it's important for C# interoperability
     let SearchBitmap (smallBitmap:Bitmap) (largeBitmap:Bitmap) = 
         
         let smallArray = TransformImageArrayInto2D <| LoadBitmapIntoArray smallBitmap 
         let largeArray = TransformImageArrayInto2D <| LoadBitmapIntoArray largeBitmap
+
+        // Simplification for readability
+        let isSubMatrix heightIndex widthIndex = ArrayFunctions.IsSubMatrix smallArray largeArray ( heightIndex, widthIndex )
         
         let searchWidth = largeBitmap.Width - smallBitmap.Width
         let searchHeight = largeBitmap.Height - smallBitmap.Height
@@ -56,11 +62,12 @@ module ImageSearch =
         
         let WidthLoop heightIndex =
             let rec WidthLoopRec heightIndex widthIndex =
-                let ContinueLoop () = WidthLoopRec heightIndex (widthIndex + 1)
+                // Simplification for readability
+                let ContinueLoop () = WidthLoopRec heightIndex ( widthIndex + 1 )
                 let currentLargePixel = largeArray.[heightIndex].[widthIndex]
 
                 match ( widthIndex < searchWidth , currentLargePixel = firstSmallPixel ) with
-                | ( true  , true  ) ->  let foundImage = ArrayFunctions.IsSubMatrix smallArray largeArray ( heightIndex, widthIndex )
+                | ( true  , true  ) ->  let foundImage = isSubMatrix heightIndex widthIndex
                                         if foundImage then widthIndex , foundImage
                                         else ContinueLoop ()
                 | ( true  , false ) -> ContinueLoop ()
