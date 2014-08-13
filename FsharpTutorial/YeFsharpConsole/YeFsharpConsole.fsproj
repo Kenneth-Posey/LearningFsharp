@@ -43,6 +43,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleTest.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
   <ItemGroup>

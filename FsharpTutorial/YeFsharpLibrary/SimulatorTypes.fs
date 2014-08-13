@@ -101,3 +101,21 @@ module SimulatorTypes =
             | Flags       of int
             | Time        of int
             | DwExtraInfo of int
+
+    // module Hook = 
+    //     open System
+    //     type Global () =
+    //         type HookProc = delegate of int * int * IntPtr -> int
+    // 
+    //         member this.hookType
+    //             with get ()      = this.hookType
+    //             and  set (value) = this.hookType <- value
+    //         member this.handleToHook 
+    //             with get ()      = this.handleToHook
+    //             and  set (value) = this.handleToHook <- value
+    //         member this.isStarted
+    //             with get ()      = this.isStarted
+    //             and  set (value) = this.isStarted <- value
+    //         new () = Global ()
+    // 
+    //         

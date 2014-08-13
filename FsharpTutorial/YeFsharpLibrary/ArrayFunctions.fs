@@ -28,6 +28,15 @@ module ArrayFunctions =
                     | ( false , _     ) -> false
                 HeightLoopRec 0
 
+                // let asyncGroup = Async.Parallel [ for heightIndex in 0 .. searchHeight -> 
+                //                                     async { return HeightLoopRec heightIndex , heightIndex } ]
+                // let asyncResult = Async.RunSynchronously asyncGroup
+                // 
+                // let resultBools =  asyncResult |> Array.map (fun (x, y) -> x)
+                // let result = resultBools |> Array.fold (fun acc elem -> ())
+                // 
+                // false
+
             HeightLoop ()
             
         with // Not really sure what I want to do with error handling atm

@@ -5,10 +5,12 @@ module Main =
     open FsharpImaging
     open Testing
     open System.Drawing
-
+    
     [<EntryPoint>]
     let main (args:string[]) = 
         
+        // consoletest([|""|]) |> ignore
+
         ImageSearchTest.TestFunctions() |> ignore
 
         use tSmallBitmap = new Bitmap("testimage2.bmp")
