@@ -1,9 +1,46 @@
 ﻿namespace Neuro
 
+module ActivationFunction =
+    type IActivationFunction = 
+        abstract member Function    : double -> double
+        abstract member Derivative  : double -> double
+        abstract member Derivative2 : double -> double
+
+    type BipolarSigmoidFunction () as this = 
+        do 
+            this.alpha <- 2.0
+
+        member this.alpha
+            with get () : double = this.alpha
+            and  set (value:double) = this.alpha <- value
+
 module Neuron = 
     open System
+    open ActivationFunction
     open MathAlgorithms.Threadsafe
     open MathAlgorithms.MathStructures
+
+    type ActivationNeuron () as this =
+        do 
+            this.threshold <- 0.0
+
+        new (alpha:double) = ActivationNeuron (alpha)
+
+        member private this.threshold
+            with get () : double = this.threshold
+            and  set (value:double) = this.threshold <- value
+
+        member this.Threshold
+            with get () = this.threshold
+            and  set value = this.threshold <- value
+
+        member private this.activationFunction
+            with get () : IActivationFunction = this.activationFunction
+            and  set (value:IActivationFunction) = this.activationFunction <- value
+
+        member this.ActivationFunction
+            with get () = this.activationFunction
+            and  set value = this.activationFunction <- value
 
     [<AbstractClass>]
     type NeuronBase (inputs:int) as this = 
@@ -59,7 +96,6 @@ module Neuron =
         member this.RandRange
             with get () : Range = this.randomRange
             and  set (value:Range) = this.randomRange <- value
-
 
 
 
