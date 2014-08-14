@@ -53,7 +53,7 @@ module ImageSearch =
         let largeArray = TransformImageArrayInto2D <| LoadBitmapIntoArray largeBitmap
 
         // Simplification for readability
-        let isSubMatrix heightIndex widthIndex = ArrayFunctions.IsSubMatrix smallArray largeArray ( heightIndex, widthIndex )
+        let isSubMatrix x = ArrayFunctions.IsSubMatrix smallArray largeArray x
         
         let searchWidth = largeBitmap.Width - smallBitmap.Width
         let searchHeight = largeBitmap.Height - smallBitmap.Height
@@ -67,7 +67,7 @@ module ImageSearch =
                 let currentLargePixel = largeArray.[heightIndex].[widthIndex]
 
                 match ( widthIndex < searchWidth , currentLargePixel = firstSmallPixel ) with
-                | ( true  , true  ) ->  let foundImage = isSubMatrix heightIndex widthIndex
+                | ( true  , true  ) ->  let foundImage = isSubMatrix ( heightIndex , widthIndex ) 
                                         if foundImage then widthIndex , foundImage
                                         else ContinueLoop ()
                 | ( true  , false ) -> ContinueLoop ()
