@@ -30,10 +30,28 @@ module ActivationFunction =
     type BipolarSigmoidFunction () as this = 
         do 
             this.alpha <- 2.0
+        new (alpha:double) = BipolarSigmoidFunction(alpha)
+
+        interface IActivationFunctionWithCloneable with
+            member this.Function (x:double) =
+                ( 2.0 / ( 1.0 + Math.Exp( this.alpha * x * -1.0) ) - 1.0 )
+
+            member this.Derivative (x:double) = 
+                let y = (this :> IActivationFunctionWithCloneable).Function x
+                ( this.alpha * ( 1.0 - y * y ) / 2.0 )
+
+            member this.Derivative2 (y:double) = 
+                ( this.alpha * (1.0 - y * y) / 2.0 )
+                
+            // Clone() requires return type of object
+            member this.Clone () =
+                upcast new BipolarSigmoidFunction(this.alpha)
 
         member this.alpha
             with get () : double = this.alpha
             and  set (value:double) = this.alpha <- value
+                
+                
 
 module Neuron = 
     open System
