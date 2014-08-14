@@ -1,10 +1,31 @@
 ﻿namespace Neuro
 
 module ActivationFunction =
+    open System
     type IActivationFunction = 
         abstract member Function    : double -> double
         abstract member Derivative  : double -> double
         abstract member Derivative2 : double -> double
+
+    type IActivationFunctionWithCloneable =
+        inherit IActivationFunction
+        inherit ICloneable
+
+    type ThresholdFunction () =
+        interface IActivationFunctionWithCloneable with
+            member this.Function (x:double) =
+                match ( x >= 0.0) with
+                | true  -> 1.0
+                | false -> 0.0
+
+            // Irrelevant methods for this function
+            member this.Derivative  (x:double) = 0.0
+            member this.Derivative2 (x:double) = 0.0
+
+            // Clone() requires return type of object
+            member this.Clone () = 
+                upcast new ThresholdFunction()
+        
 
     type BipolarSigmoidFunction () as this = 
         do 
