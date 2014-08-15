@@ -40,70 +40,77 @@ module Threadsafe =
             lock this.lock (fun () -> this.iNextDouble ())
 
 module MathStructures = 
-    type Range =     
-        new () = Range () 
-        new (min:single, max:single) = Range (min, max)
-
-        member private this.min
-            with get () : single = this.min
-            and  set (value:single) = this.min <- value
-
-        member private this.max
-            with get () : single = this.max
-            and  set (value:single) = this.max <- value
-
+    [<AbstractClass>]
+    type RangeBase<'T, 'R> ( min:'T, max:'T ) as this =
+        // 'T = type of range values
+        // 'R = type of range object
+        do
+            this.min <- min
+            this.max <- max
+        
+        member internal this.min
+            with get () : 'T = this.min
+            and  set (value:'T) = this.min <- value
+            
+        member internal this.max
+            with get () : 'T = this.max
+            and  set (value:'T) = this.max <- value
+            
         member this.Min
-            with get () : single = this.min
+            with get () : 'T = this.min
 
         member this.Max
-            with get () : single = this.max
+            with get () : 'T = this.max
 
-        member this.Length
-            with get () : single = this.max - this.min
+        // Must be implemented by inheriting classes
+        abstract member Length : 'T
+        abstract member IsInside : 'T -> bool
+        abstract member IsInside : 'R -> bool
+        abstract member IsOverlapping : 'R -> bool
 
-        member this.IsInside (value:single) = 
-            (this.min <= value) && (value <= this.max)
+    type Range (?min:single, ?max:single) as this =     
+        inherit RangeBase<single, Range> (this.min, this.max)
+            do
+                this.min <- defaultArg min 0.0f
+                this.max <- defaultArg max 1.0f
 
-        member this.IsInside (value:Range) =
-            (this.IsInside value.Min) && (this.IsInside value.Max)
+            override this.Length
+                with get () : single = this.max - this.min
 
-        member this.IsOverlapping (value:Range) =
-            let internalRangeOverlap = this.IsInside value.Min || this.IsInside value.Max
-            let externalRangeOverlap = value.IsInside this.min || value.IsInside this.max
+            override this.IsInside (value:single) = 
+                (this.min <= value) && (value <= this.max)
 
-            internalRangeOverlap || externalRangeOverlap
+            override this.IsInside (value:Range) =
+                (this.IsInside value.Min) && (this.IsInside value.Max)
 
-        // Partially implemented, still need IntRange conversion, equality and ToString
+            override this.IsOverlapping (value:Range) =
+                let internalRangeOverlap = this.IsInside value.Min || this.IsInside value.Max
+                let externalRangeOverlap = value.IsInside this.min || value.IsInside this.max
 
-    type DoubleRange = 
-        new () = DoubleRange () 
-        new (min:double, max:double) = DoubleRange (min, max)
+                internalRangeOverlap || externalRangeOverlap
 
-        member private this.min
-            with get () : double = this.min
-            and  set (value:double) = this.min <- value
+            // Partially implemented, still need IntRange conversion, equality and ToString
 
-        member private this.max
-            with get () : double = this.max
-            and  set (value:double) = this.max <- value
+    type DoubleRange (?min:double, ?max:double) as this = 
+        inherit RangeBase<double, DoubleRange> (this.min, this.max)
+            do
+                this.min <- defaultArg min 0.0
+                this.max <- defaultArg max 1.0
 
-        member this.Min
-            with get () : double = this.min
+            override this.Length
+                with get () : double = this.max - this.min
 
-        member this.Max
-            with get () : double = this.max
+            override this.IsInside (value:double) = 
+                (this.min <= value) && (value <= this.max)
 
-        member this.Length
-            with get () : double = this.max - this.min
+            override this.IsInside (value:DoubleRange) =
+                (this.IsInside value.Min) && (this.IsInside value.Max)
 
-        member this.IsInside (value:double) = 
-            (this.min <= value) && (value <= this.max)
+            override this.IsOverlapping (value:DoubleRange) =
+                let internalRangeOverlap = this.IsInside value.Min || this.IsInside value.Max
+                let externalRangeOverlap = value.IsInside this.min || value.IsInside this.max
 
-        member this.IsInside (value:DoubleRange) =
-            (this.IsInside value.Min) && (this.IsInside value.Max)
+                internalRangeOverlap || externalRangeOverlap
 
-        member this.IsOverlapping (value:DoubleRange) =
-            let internalRangeOverlap = this.IsInside value.Min || this.IsInside value.Max
-            let externalRangeOverlap = value.IsInside this.min || value.IsInside this.max
-
-            internalRangeOverlap || externalRangeOverlap
+                
+            // Partially implemented, still need IntRange conversion, equality and ToString

@@ -9,6 +9,7 @@ module ActivationFunction =
         abstract member DerivativeY : double -> double
 
     type IStochasticFunction = 
+        inherit IActivationFunction
         abstract member GenerateX : double -> double
         abstract member GenerateY : double -> double
 
@@ -104,17 +105,18 @@ module Neuron =
     type NeuronBase (inputs:int) as this = 
         do
             this.rand        <- new RandomGenerator ()
-            this.randomRange <- new Range (0.0 , 1.0)
+            this.randomRange <- new Range (0.0f , 1.0f)
             this.inputsCount <- Math.Max (1 , inputs)
             this.weights     <- Array.zeroCreate<double> this.inputsCount
             this.Randomize ()
 
         // This is a function that's run only for its side effects 
+        // ie: very much not functional style, will fix later
         abstract member Randomize : unit -> unit
         default this.Randomize () = 
-            let length = this.randomRange.Length
+            let length = double this.randomRange.Length
             for x in 1 .. this.inputsCount - 1 do
-                this.weights.[x] <- (this.rand.NextDouble() * length) + this.randomRange.Min
+                this.weights.[x] <- (this.rand.NextDouble() * length) + double this.randomRange.Min
         
         // Implemented in inherited classes
         abstract member Compute : double[] -> double
@@ -179,7 +181,7 @@ module Neuron =
 
             override this.Randomize () = 
                 base.Randomize ()
-                this.Threshold <- this.RandGenerator.NextDouble() * this.RandRange.Length + this.RandRange.Min
+                this.Threshold <- this.RandGenerator.NextDouble() * double this.RandRange.Length + double this.RandRange.Min
 
             override this.Compute (x:double[]) = 
                 let mutable sum = 0.0
