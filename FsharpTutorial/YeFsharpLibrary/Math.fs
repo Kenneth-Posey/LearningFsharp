@@ -10,76 +10,115 @@ module Threadsafe =
         new (value:int) = { inherit Random(value); }
         
         // Empty object to give threads something to lock onto 
-        member internal this.lock
+        member private this.lock
             with get () = this.lock
             and set value = this.lock <- value
 
-        member internal this.iNext () =
+        member private this.iNext () =
             base.Next ()
         override this.Next () = 
             lock this.lock (fun () -> this.iNext() )
 
-        member internal this.iNext (max:int) =
+        member private this.iNext (max:int) =
             base.Next max
         override this.Next (max:int) =
             lock this.lock (fun () -> this.iNext max)
 
-        member internal this.iNext ((min:int), (max:int)) = 
+        member private this.iNext ((min:int), (max:int)) = 
             base.Next (min, max)
         override this.Next ((min:int) , (max:int)) =
             lock this.lock (fun () -> this.iNext (min, max))
 
-        member internal this.iNextBytes (buffer:byte[]) =
+        member private this.iNextBytes (buffer:byte[]) =
             base.NextBytes buffer
         override this.NextBytes (buffer:byte[]) = 
             lock this.lock (fun () -> this.iNextBytes buffer)
 
-        member internal this.iNextDouble () = 
+        member private this.iNextSingle () =
+            single <| base.NextDouble ()
+        member this.NextSingle () =
+            lock this.lock (fun () -> this.iNextSingle ())
+
+        member private this.iNextDouble () = 
             base.NextDouble ()
         override this.NextDouble () = 
             lock this.lock (fun () -> this.iNextDouble ())
 
 module Generator =
     open System
-    type IRandomNumberGenerator =   
-        abstract member Mean : single
-        abstract member Variance : single
-        abstract member Next : unit -> single
-        abstract member SetSeed : int -> unit
+
+    type IRandomNumberGenerator = 
+        // abstract member rand       : IRandomNumberGenerator
+        // abstract member seed       : int
+        abstract member Mean       : single
+        abstract member Variance   : single
+        abstract member NextSingle : unit -> single
+        abstract member SetSeed    : int -> unit
         
-    type UniformOneGenerator (?seed:int) =
-        
+    type UniformOneGenerator (seed:int) as this =
+        do 
+            this.seed <- seed
+            this.rand <- new Threadsafe.RandomGenerator(seed)
+
+        member private this.rand 
+            with get () : Threadsafe.RandomGenerator = this.rand
+            and  set (value:Threadsafe.RandomGenerator) = this.rand <- value
+
+        member val private seed = 0 with get, set
+
         interface IRandomNumberGenerator with
-            member this.Mean
-                with get () : single = 0.0f
-            member this.Variance
-                with get () : single = 1.0f
+            member val Mean = 0.5f with get
+            member val Variance = ( 1.0f / 12.0f ) with get
 
-            member this.Next () = 0.0f
+            member this.NextSingle () = this.rand.NextSingle()
 
-            member this.SetSeed (0) = ()
+            member this.SetSeed (value) = 
+                this.rand <- new Threadsafe.RandomGenerator(value)
 
-    type StandardGenerator (?seed:int) as this =
-        do
-            this.rand <- new UniformOneGenerator (defaultArg seed Environment.TickCount)
+    type StandardGenerator (?seed:int) as this =    
+        do 
+            this.rand <- new UniformOneGenerator (defaultArg seed 0)
 
-        member this.secondValue
-            with get () : single = this.secondValue
-            and  set (value:single) = this.secondValue <- value
+        member this.rand
+            with get () : UniformOneGenerator = this.rand
+            and  set (value:UniformOneGenerator) = this.rand <- value
 
-        member val useSecond = false with get, set
-        member val rand = new UniformOneGenerator() with get, set
+        member val seed = 0 with get, set
+
+        member this.RandomGenerator
+            with get () : UniformOneGenerator = this.rand
+        
+        member val internal secondValue = 0.0f with get, set
+        member val internal useSecond = false with get, set
+
+        member this.iNext () =
+            match this.useSecond with
+            | true -> this.secondValue
+            | false ->            
+                let mutable w, x1, x2 = 2.0f, 0.0f, 0.0f
+                
+                while ( w >= 1.0f ) do
+                    // x1 <- this.RandomGenerator.NextSingle() * 2.0f - 1.0f
+                    let r = new UniformOneGenerator(0)
+                    
+                    ()
+
+                this.secondValue <- ( x2 * w )
+                this.useSecond <- true
+
+                ( x1 * w )
 
         interface IRandomNumberGenerator with 
+
             member this.Mean
                 with get () : single = 0.0f
 
             member this.Variance
                 with get () : single = 1.0f
 
-            member this.Next () = 0.0f
+            override this.NextSingle () = this.iNext ()
 
-            member this.SetSeed (0) = ()
+            override this.SetSeed (0) = ()
 
 module MathStructures = 
     [<AbstractClass>]
