@@ -53,14 +53,14 @@
   <ItemGroup>
     <Compile Include="DllImports.fs" />
     <Compile Include="Math.fs" />
-    <Compile Include="ArrayFunctions.fs" />
     <Compile Include="Neuro.fs" />
-    <Compile Include="Scratchpad.fs" />
+    <Compile Include="ArrayFunctions.fs" />
     <Compile Include="SimulatorTypes.fs" />
     <Compile Include="SimulatorMouse.fs" />
     <Compile Include="SimulatorKeyboard.fs" />
     <Compile Include="FsharpImaging.fs" />
     <Compile Include="UnitTest.fs" />
+    <Compile Include="Scratchpad.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

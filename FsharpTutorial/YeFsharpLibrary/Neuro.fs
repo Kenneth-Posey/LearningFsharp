@@ -114,8 +114,7 @@ module ActivationFunction =
 
         interface IStochasticFunction with
             member this.Function x =
-                let y = tAlpha * x
-                this.chooseY y
+                this.chooseY (tAlpha * x)
 
             member this.DerivativeX x =
                 this.DerivativeY (tAlpha * x)
