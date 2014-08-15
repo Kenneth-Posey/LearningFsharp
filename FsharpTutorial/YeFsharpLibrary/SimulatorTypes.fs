@@ -102,20 +102,36 @@ module SimulatorTypes =
             | Time        of int
             | DwExtraInfo of int
 
-    // module Hook = 
-    //     open System
-    //     type Global () =
-    //         type HookProc = delegate of int * int * IntPtr -> int
-    // 
-    //         member this.hookType
-    //             with get ()      = this.hookType
-    //             and  set (value) = this.hookType <- value
-    //         member this.handleToHook 
-    //             with get ()      = this.handleToHook
-    //             and  set (value) = this.handleToHook <- value
-    //         member this.isStarted
-    //             with get ()      = this.isStarted
-    //             and  set (value) = this.isStarted <- value
-    //         new () = Global ()
-    // 
-    //         
+    module Hook = 
+        open System
+        open System.Windows.Forms
+        
+        type HookProc = delegate of int * int * IntPtr -> int
+
+        type Global =
+            member internal this.hookType
+                with get ()      = this.hookType
+                and  set (value) = this.hookType <- value
+            member internal this.handleToHook 
+                with get ()      = this.handleToHook
+                and  set (value) = this.handleToHook <- value
+            member internal this.isStarted
+                with get ()      = this.isStarted
+                and  set (value) = this.isStarted <- value
+
+            member this.hookCallBack 
+                with set (value: HookProc) = this.hookCallBack <- value
+
+            // Public accessor for isStarted
+            member this.IsStarted
+                with get () = this.isStarted
+            member this.Start () =
+                match this.isStarted , this.hookType != 0 with
+                | true , true -> 
+                   this.hookCallBack <- new HookProc(HookCallbackProcedure)
+                   ()
+                | _    , _    -> ()
+                
+            // Default to return 0
+            abstract member HookCallbackProcedure: int * int * IntPtr -> int 
+            default  this.HookCallbackProcedure ( x, y, z ) = 0 
