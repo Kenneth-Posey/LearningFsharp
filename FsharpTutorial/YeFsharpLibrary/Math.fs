@@ -45,73 +45,6 @@ module Threadsafe =
             lock this.lock (fun () -> this.iNextDouble ())
 
 
-module Generator =
-    type IRandomNumberGenerator = 
-        abstract member Mean       : single
-        abstract member Variance   : single
-        abstract member NextSingle : unit -> single
-        abstract member SetSeed    : int -> unit
-
-        
-    type UniformOneGenerator (?seed:int) as this =
-        do 
-            this.seed <- defaultArg seed 0
-            this.rand <- new Threadsafe.RandomGenerator(this.seed)
-
-        member val private seed = 0 with get, set
-        member val private rand = new Threadsafe.RandomGenerator(this.seed) with get, set
-        
-        // This upcasting pattern exposes the interface member publically
-        member this.NextSingle () = (this :> IRandomNumberGenerator).NextSingle ()
-        member this.SetSeed (value) = (this :> IRandomNumberGenerator).SetSeed value
-
-        interface IRandomNumberGenerator with
-            member val Mean = 0.5f with get
-            member val Variance = ( 1.0f / 12.0f ) with get
-
-            member this.NextSingle () = this.rand.NextSingle()
-
-            member this.SetSeed (value) = 
-                this.rand <- new Threadsafe.RandomGenerator(value)
-
-                
-    type StandardGenerator (?seed:int) as this =    
-        do 
-            this.seed <- defaultArg seed 0
-            this.rand <- new UniformOneGenerator(this.seed)
-
-        member val private rand = new UniformOneGenerator(this.seed) with get, set
-        member val private seed = 0 with get, set                
-        member val private secondValue = 0.0f with get, set
-        member val private useSecond = false with get, set
-        
-        // This upcasting pattern exposes the interface member publically
-        member this.NextSingle () = (this :> IRandomNumberGenerator).NextSingle ()
-        member this.SetSeed (value) = (this :> IRandomNumberGenerator).SetSeed value
-
-        interface IRandomNumberGenerator with 
-            member val Mean = 0.0f with get
-            member val Variance = 1.0f with get
-
-            member this.NextSingle () = 
-                match this.useSecond with
-                | true -> this.secondValue
-                | false ->
-                    // Very non-FP implementation to be fixed later
-                    let mutable w, x1, x2 = 2.0f, 0.0f, 0.0f
-                    while ( w >= 1.0f ) do
-                        x1 <- this.rand.NextSingle() * 2.0f - 1.0f
-                    
-                    this.secondValue <- ( x2 * w )
-                    this.useSecond <- true
-
-                    ( x1 * w )
-
-            member this.SetSeed seed = 
-                this.rand <- new UniformOneGenerator(seed)
-                this.useSecond <- false
-
-
 module MathStructures = 
     [<AbstractClass>]
     type RangeBase<'T, 'R> ( min:'T, max:'T ) as this =
@@ -189,3 +122,92 @@ module MathStructures =
 
                 
             // Partially implemented, still need IntRange conversion, equality and ToString
+
+module Generator =
+    open MathStructures
+    type IRandomNumberGenerator = 
+        abstract member Mean       : single
+        abstract member Variance   : single
+        abstract member NextSingle : unit -> single
+        abstract member SetSeed    : int -> unit
+
+        
+    type UniformOneGenerator (?seed:int) as this =
+        do 
+            this.seed <- defaultArg seed 0
+            this.rand <- new Threadsafe.RandomGenerator(this.seed)
+
+        member val private seed = 0 with get, set
+        member val private rand = new Threadsafe.RandomGenerator(this.seed) with get, set
+        
+        // This upcasting pattern exposes the interface member publically
+        member this.NextSingle () = (this :> IRandomNumberGenerator).NextSingle ()
+        member this.SetSeed (value) = (this :> IRandomNumberGenerator).SetSeed value
+
+        interface IRandomNumberGenerator with
+            member val Mean = 0.5f with get
+            member val Variance = ( 1.0f / 12.0f ) with get
+
+            member this.NextSingle () = this.rand.NextSingle()
+
+            member this.SetSeed (value) = 
+                this.rand <- new Threadsafe.RandomGenerator(value)
+
+
+    type UniformGenerator (range:SingleRange, ?seed:int) as this = 
+        do
+            this.min = range.Min
+            this.length = range.Length
+            this.rand <- new UniformOneGenerator(defaultArg seed 0)
+            
+        member val Range = new SingleRange( this.min, this.min + this.length ) with get
+        member val private rand = new UniformOneGenerator() with get, set
+        member val private min = 0.0f with get, set
+        member val private length = 0.0f with get, set
+
+        interface IRandomNumberGenerator with
+            member val Mean = (((this.min * 2.0f) + this.length) / 2.0f) with get
+            member val Variance = ((this.length * this.length) / 12.0f) with get
+
+            member this.NextSingle () = this.rand.NextSingle() * this.length + this.min
+
+            member this.SetSeed (value) = 
+                this.rand <- new UniformOneGenerator(value)
+            
+
+    type StandardGenerator (?seed:int) as this =    
+        do 
+            this.seed <- defaultArg seed 0
+            this.rand <- new UniformOneGenerator(this.seed)
+
+        member val private rand = new UniformOneGenerator(this.seed) with get, set
+        member val private seed = 0 with get, set                
+        member val private secondValue = 0.0f with get, set
+        member val private useSecond = false with get, set
+        
+        // This upcasting pattern exposes the interface member publically
+        member this.NextSingle () = (this :> IRandomNumberGenerator).NextSingle ()
+        member this.SetSeed (value) = (this :> IRandomNumberGenerator).SetSeed value
+
+        interface IRandomNumberGenerator with 
+            member val Mean = 0.0f with get
+            member val Variance = 1.0f with get
+
+            member this.NextSingle () = 
+                match this.useSecond with
+                | true -> this.secondValue
+                | false ->
+                    // Very non-FP implementation to be fixed later
+                    let mutable w, x1, x2 = 2.0f, 0.0f, 0.0f
+                    while ( w >= 1.0f ) do
+                        x1 <- this.rand.NextSingle() * 2.0f - 1.0f
+                    
+                    this.secondValue <- ( x2 * w )
+                    this.useSecond <- true
+
+                    ( x1 * w )
+
+            member this.SetSeed seed = 
+                this.rand <- new UniformOneGenerator(seed)
+                this.useSecond <- false
+
