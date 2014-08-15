@@ -2,10 +2,15 @@
 
 module ActivationFunction =
     open System
+
     type IActivationFunction = 
         abstract member Function    : double -> double
         abstract member DerivativeX : double -> double
         abstract member DerivativeY : double -> double
+
+    type IStochasticFunction = 
+        abstract member GenerateX : double -> double
+        abstract member GenerateY : double -> double
 
     type IActivationFunctionWithCloneable =
         inherit IActivationFunction
@@ -20,7 +25,7 @@ module ActivationFunction =
 
             // Irrelevant methods for this function type
             member this.DerivativeX (x:double) = 0.0
-            member this.DerivativeY (x:double) = 0.0
+            member this.DerivativeY (y:double) = 0.0
 
             // Clone() requires return type of object
             member this.Clone () = 
@@ -75,6 +80,18 @@ module ActivationFunction =
             member this.Clone () = 
                 upcast new SigmoidFunction( Alpha )
 
+    type GaussianFunction (?alpha:double) as this = 
+        do
+            this.alpha <- defaultArg alpha 1.0
+        let Alpha = this.alpha
+        
+        member this.alpha
+            with get () : double = this.alpha
+            and  set (value:double) = this.alpha <- value
+
+        //////////////////////////////////////////////////
+        // Continue here
+        //////////////////////////////////////////////////
                 
 
 module Neuron = 
