@@ -14,11 +14,11 @@ module ActivationFunction =
     type ThresholdFunction () =
         interface IActivationFunctionWithCloneable with
             member this.Function (x:double) =
-                match ( x >= 0.0) with
+                match ( x >= 0.0 ) with
                 | true  -> 1.0
                 | false -> 0.0
 
-            // Irrelevant methods for this function
+            // Irrelevant methods for this function type
             member this.Derivative  (x:double) = 0.0
             member this.Derivative2 (x:double) = 0.0
 
@@ -45,7 +45,7 @@ module ActivationFunction =
                 ( this.alpha * ( 1.0 - y * y ) / 2.0 )
 
             member this.Derivative2 (y:double) = 
-                ( this.alpha * (1.0 - y * y) / 2.0 )
+                ( this.alpha * ( 1.0 - y * y ) / 2.0 )
                 
             // Clone() requires return type of object
             member this.Clone () =
@@ -64,7 +64,7 @@ module Neuron =
     type NeuronBase (inputs:int) as this = 
         do
             this.rand        <- new RandomGenerator ()
-            this.randomRange <- new Range (0.0, 1.0)
+            this.randomRange <- new Range (0.0 , 1.0)
             this.inputsCount <- Math.Max (1 , inputs)
             this.weights     <- Array.zeroCreate<double> this.inputsCount
             this.Randomize ()
