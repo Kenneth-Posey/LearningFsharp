@@ -105,7 +105,7 @@ module Neuron =
     type NeuronBase (inputs:int) as this = 
         do
             this.rand        <- new RandomGenerator ()
-            this.randomRange <- new Range (0.0f , 1.0f)
+            this.randomRange <- new SingleRange (0.0f , 1.0f)
             this.inputsCount <- Math.Max (1 , inputs)
             this.weights     <- Array.zeroCreate<double> this.inputsCount
             this.Randomize ()
@@ -150,12 +150,12 @@ module Neuron =
             with get () : RandomGenerator = this.rand
 
         member private this.randomRange
-            with get () : Range = this.randomRange
-            and  set (value:Range) = this.randomRange <- value
+            with get () : SingleRange = this.randomRange
+            and  set (value:SingleRange) = this.randomRange <- value
 
         member this.RandRange
-            with get () : Range = this.randomRange
-            and  set (value:Range) = this.randomRange <- value
+            with get () : SingleRange = this.randomRange
+            and  set (value:SingleRange) = this.randomRange <- value
 
 
     type ActivationNeuron ( inputs:int , activation:IActivationFunction ) as this =   

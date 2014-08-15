@@ -39,6 +39,48 @@ module Threadsafe =
         override this.NextDouble () = 
             lock this.lock (fun () -> this.iNextDouble ())
 
+module Generator =
+    open System
+    type IRandomNumberGenerator =   
+        abstract member Mean : single
+        abstract member Variance : single
+        abstract member Next : unit -> single
+        abstract member SetSeed : int -> unit
+        
+    type UniformOneGenerator (?seed:int) =
+        
+        interface IRandomNumberGenerator with
+            member this.Mean
+                with get () : single = 0.0f
+            member this.Variance
+                with get () : single = 1.0f
+
+            member this.Next () = 0.0f
+
+            member this.SetSeed (0) = ()
+
+    type StandardGenerator (?seed:int) as this =
+        do
+            this.rand <- new UniformOneGenerator (defaultArg seed Environment.TickCount)
+
+        member this.secondValue
+            with get () : single = this.secondValue
+            and  set (value:single) = this.secondValue <- value
+
+        member val useSecond = false with get, set
+        member val rand = new UniformOneGenerator() with get, set
+
+        interface IRandomNumberGenerator with 
+            member this.Mean
+                with get () : single = 0.0f
+
+            member this.Variance
+                with get () : single = 1.0f
+
+            member this.Next () = 0.0f
+
+            member this.SetSeed (0) = ()
+
 module MathStructures = 
     [<AbstractClass>]
     type RangeBase<'T, 'R> ( min:'T, max:'T ) as this =
@@ -68,8 +110,8 @@ module MathStructures =
         abstract member IsInside : 'R -> bool
         abstract member IsOverlapping : 'R -> bool
 
-    type Range (?min:single, ?max:single) as this =     
-        inherit RangeBase<single, Range> (this.min, this.max)
+    type SingleRange (?min:single, ?max:single) as this =     
+        inherit RangeBase<single, SingleRange> (this.min, this.max)
             do
                 this.min <- defaultArg min 0.0f
                 this.max <- defaultArg max 1.0f
@@ -80,10 +122,10 @@ module MathStructures =
             override this.IsInside (value:single) = 
                 (this.min <= value) && (value <= this.max)
 
-            override this.IsInside (value:Range) =
+            override this.IsInside (value:SingleRange) =
                 (this.IsInside value.Min) && (this.IsInside value.Max)
 
-            override this.IsOverlapping (value:Range) =
+            override this.IsOverlapping (value:SingleRange) =
                 let internalRangeOverlap = this.IsInside value.Min || this.IsInside value.Max
                 let externalRangeOverlap = value.IsInside this.min || value.IsInside this.max
 
