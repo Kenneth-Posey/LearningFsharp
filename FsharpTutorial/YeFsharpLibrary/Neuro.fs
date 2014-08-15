@@ -4,8 +4,8 @@ module ActivationFunction =
     open System
     type IActivationFunction = 
         abstract member Function    : double -> double
-        abstract member Derivative  : double -> double
-        abstract member Derivative2 : double -> double
+        abstract member DerivativeX : double -> double
+        abstract member DerivativeY : double -> double
 
     type IActivationFunctionWithCloneable =
         inherit IActivationFunction
@@ -19,8 +19,8 @@ module ActivationFunction =
                 | false -> 0.0
 
             // Irrelevant methods for this function type
-            member this.Derivative  (x:double) = 0.0
-            member this.Derivative2 (x:double) = 0.0
+            member this.DerivativeX (x:double) = 0.0
+            member this.DerivativeY (x:double) = 0.0
 
             // Clone() requires return type of object
             member this.Clone () = 
@@ -28,30 +28,53 @@ module ActivationFunction =
         
 
     type BipolarSigmoidFunction (?alpha:double) as this = 
-        let mutable pAlpha = defaultArg alpha 2.0
         do 
-            this.alpha <- pAlpha
-        
+            this.alpha <- defaultArg alpha 2.0        
+        let Alpha = this.alpha
+
         member this.alpha
             with get () : double = this.alpha
             and  set (value:double) = this.alpha <- value
 
         interface IActivationFunctionWithCloneable with
             member this.Function (x:double) =
-                ( 2.0 / ( 1.0 + Math.Exp( this.alpha * x * -1.0) ) - 1.0 )
-
-            member this.Derivative (x:double) = 
-                let y = (this :> IActivationFunctionWithCloneable).Function x
-                ( this.alpha * ( 1.0 - y * y ) / 2.0 )
-
-            member this.Derivative2 (y:double) = 
-                ( this.alpha * ( 1.0 - y * y ) / 2.0 )
+                ( 2.0 / ( 1.0 + Math.Exp( Alpha * x * -1.0) ) - 1.0 )
                 
+            member this.DerivativeX (x:double) = 
+                let this = (this :> IActivationFunctionWithCloneable)
+                this.DerivativeY ( this.Function x )
+
+            member this.DerivativeY (y:double) = 
+                ( Alpha * ( 1.0 - y * y ) / 2.0 )
+
             // Clone() requires return type of object
             member this.Clone () =
-                upcast new BipolarSigmoidFunction(this.alpha)
+                upcast new BipolarSigmoidFunction( Alpha )
 
+    type SigmoidFunction (?alpha:double) as this = 
+        do
+            this.alpha <- defaultArg alpha 2.0        
+        let Alpha = this.alpha
+        
+        member this.alpha
+            with get () : double = this.alpha
+            and  set (value:double) = this.alpha <- value
+
+        interface IActivationFunctionWithCloneable with
+            member this.Function (x:double) = 
+                ( 1.0 / ( 1.0 + Math.Exp ( -1.0 * Alpha * x ) ) )
+
+            member this.DerivativeX (x:double) = 
+                let this = (this :> IActivationFunctionWithCloneable)
+                this.DerivativeY ( this.Function x )
+
+            member this.DerivativeY (y:double) = 
+                ( Alpha * y * ( 1.0 - y ) )
                 
+            // Clone() requires return type of object
+            member this.Clone () = 
+                upcast new SigmoidFunction( Alpha )
+
                 
 
 module Neuron = 
