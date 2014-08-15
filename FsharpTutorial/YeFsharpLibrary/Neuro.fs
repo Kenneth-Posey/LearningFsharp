@@ -2,6 +2,8 @@
 
 module ActivationFunction =
     open System
+    open MathAlgorithms.Generator
+    open MathAlgorithms.MathStructures
 
     type IActivationFunction = 
         abstract member Function    : double -> double
@@ -81,19 +83,55 @@ module ActivationFunction =
             member this.Clone () = 
                 upcast new SigmoidFunction( Alpha )
 
-    type GaussianFunction (?alpha:double) as this = 
+    type GaussianFunction (?alpha:double, ?range:DoubleRange) as this = 
         do
             this.alpha <- defaultArg alpha 1.0
-        let Alpha = this.alpha
+            this.range <- defaultArg range (new DoubleRange(-1.0, 1.0))
+        let tAlpha = this.alpha
         
-        member this.alpha
-            with get () : double = this.alpha
-            and  set (value:double) = this.alpha <- value
+        member val private alpha = 1.0 with get, set
+        member val Alpha = this.alpha with get
 
-        //////////////////////////////////////////////////
-        // Continue here
-        //////////////////////////////////////////////////
-                
+        member val private range = new DoubleRange(-1.0, 1.0) with get, set
+        member val Range = this.range with get
+
+        member val Random = new StandardGenerator(Environment.TickCount) with get
+        
+        // This upcasting pattern exposes the interface member publically
+        member this.Function x    = (this :> IStochasticFunction).Function x
+        member this.DerivativeX x = (this :> IStochasticFunction).DerivativeX x
+        member this.DerivativeY y = (this :> IStochasticFunction).DerivativeY y
+        member this.GenerateX x   = (this :> IStochasticFunction).GenerateX x
+        member this.GenerateY y   = (this :> IStochasticFunction).GenerateY y
+
+        member private this.chooseY (y:double) = 
+            if y > this.range.Max then
+                this.range.Max
+            else if y < this.range.Min then
+                this.range.Min
+            else
+                y
+
+        interface IStochasticFunction with
+            member this.Function x =
+                let y = tAlpha * x
+                this.chooseY y
+
+            member this.DerivativeX x =
+                this.DerivativeY (tAlpha * x)
+
+            member this.DerivativeY y =
+                if (y <= this.range.Min) || (y >= this.range.Max) then 0.0
+                else tAlpha
+
+            member this.GenerateX x =
+                let y = tAlpha * x + this.Random.NextDouble()
+                this.chooseY y
+
+            member this.GenerateY y =
+                let y = y + this.Random.NextDouble()
+                this.chooseY y
+
 
 module Neuron = 
     open System

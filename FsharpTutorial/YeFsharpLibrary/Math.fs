@@ -129,6 +129,7 @@ module Generator =
         abstract member Mean       : single
         abstract member Variance   : single
         abstract member NextSingle : unit -> single
+        abstract member NextDouble : unit -> double
         abstract member SetSeed    : int -> unit
 
         
@@ -141,7 +142,8 @@ module Generator =
         member val private rand = new Threadsafe.RandomGenerator(this.seed) with get, set
         
         // This upcasting pattern exposes the interface member publically
-        member this.NextSingle () = (this :> IRandomNumberGenerator).NextSingle ()
+        member this.NextSingle ()   = (this :> IRandomNumberGenerator).NextSingle ()
+        member this.NextDouble ()   = (this :> IRandomNumberGenerator).NextDouble ()
         member this.SetSeed (value) = (this :> IRandomNumberGenerator).SetSeed value
 
         interface IRandomNumberGenerator with
@@ -149,6 +151,8 @@ module Generator =
             member val Variance = ( 1.0f / 12.0f ) with get
 
             member this.NextSingle () = this.rand.NextSingle()
+
+            member this.NextDouble () = this.rand.NextDouble()
 
             member this.SetSeed (value) = 
                 this.rand <- new Threadsafe.RandomGenerator(value)
@@ -165,11 +169,17 @@ module Generator =
         member val private min = 0.0f with get, set
         member val private length = 0.0f with get, set
 
+        member this.NextSingle ()   = (this :> IRandomNumberGenerator).NextSingle ()
+        member this.NextDouble ()   = (this :> IRandomNumberGenerator).NextDouble ()
+        member this.SetSeed (value) = (this :> IRandomNumberGenerator).SetSeed value
+
         interface IRandomNumberGenerator with
             member val Mean = (((this.min * 2.0f) + this.length) / 2.0f) with get
             member val Variance = ((this.length * this.length) / 12.0f) with get
 
             member this.NextSingle () = this.rand.NextSingle() * this.length + this.min
+
+            member this.NextDouble () = this.rand.NextDouble() * double (this.length + this.min)
 
             member this.SetSeed (value) = 
                 this.rand <- new UniformOneGenerator(value)
@@ -182,11 +192,13 @@ module Generator =
 
         member val private rand = new UniformOneGenerator(this.seed) with get, set
         member val private seed = 0 with get, set                
-        member val private secondValue = 0.0f with get, set
+        member val private secondValueSingle = 0.0f with get, set
+        member val private secondValueDouble = 0.0 with get, set
         member val private useSecond = false with get, set
         
         // This upcasting pattern exposes the interface member publically
-        member this.NextSingle () = (this :> IRandomNumberGenerator).NextSingle ()
+        member this.NextSingle ()   = (this :> IRandomNumberGenerator).NextSingle ()
+        member this.NextDouble ()   = (this :> IRandomNumberGenerator).NextDouble ()
         member this.SetSeed (value) = (this :> IRandomNumberGenerator).SetSeed value
 
         interface IRandomNumberGenerator with 
@@ -195,19 +207,32 @@ module Generator =
 
             member this.NextSingle () = 
                 match this.useSecond with
-                | true -> this.secondValue
+                | true -> this.secondValueSingle
                 | false ->
                     // Very non-FP implementation to be fixed later
                     let mutable w, x1, x2 = 2.0f, 0.0f, 0.0f
                     while ( w >= 1.0f ) do
                         x1 <- this.rand.NextSingle() * 2.0f - 1.0f
                     
-                    this.secondValue <- ( x2 * w )
+                    this.secondValueSingle <- ( x2 * w )
                     this.useSecond <- true
 
+                    ( x1 * w )
+
+            member this.NextDouble () =
+                match this.useSecond with
+                | true -> this.secondValueDouble
+                | false ->
+                    // Very non-FP implementation to be fixed later
+                    let mutable w, x1, x2 = 2.0, 0.0, 0.0
+                    while ( w >= 1.0 ) do
+                        x1 <- this.rand.NextDouble() * 2.0 - 1.0
+                
+                    this.secondValueDouble <- ( x2 * w )
+                    this.useSecond <- true
+                
                     ( x1 * w )
 
             member this.SetSeed seed = 
                 this.rand <- new UniformOneGenerator(seed)
                 this.useSecond <- false
-
