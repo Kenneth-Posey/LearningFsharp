@@ -44,27 +44,26 @@ module Threadsafe =
         override this.NextDouble () = 
             lock this.lock (fun () -> this.iNextDouble ())
 
-module Generator =
-    open System
 
+module Generator =
     type IRandomNumberGenerator = 
-        // abstract member rand       : IRandomNumberGenerator
-        // abstract member seed       : int
         abstract member Mean       : single
         abstract member Variance   : single
         abstract member NextSingle : unit -> single
         abstract member SetSeed    : int -> unit
-        
-    type UniformOneGenerator (seed:int) as this =
-        do 
-            this.seed <- seed
-            this.rand <- new Threadsafe.RandomGenerator(seed)
 
-        member private this.rand 
-            with get () : Threadsafe.RandomGenerator = this.rand
-            and  set (value:Threadsafe.RandomGenerator) = this.rand <- value
+        
+    type UniformOneGenerator (?seed:int) as this =
+        do 
+            this.seed <- defaultArg seed 0
+            this.rand <- new Threadsafe.RandomGenerator(this.seed)
 
         member val private seed = 0 with get, set
+        member val private rand = new Threadsafe.RandomGenerator(this.seed) with get, set
+        
+        // This upcasting pattern exposes the interface member publically
+        member this.NextSingle () = (this :> IRandomNumberGenerator).NextSingle ()
+        member this.SetSeed (value) = (this :> IRandomNumberGenerator).SetSeed value
 
         interface IRandomNumberGenerator with
             member val Mean = 0.5f with get
@@ -75,50 +74,43 @@ module Generator =
             member this.SetSeed (value) = 
                 this.rand <- new Threadsafe.RandomGenerator(value)
 
+                
     type StandardGenerator (?seed:int) as this =    
         do 
-            this.rand <- new UniformOneGenerator (defaultArg seed 0)
+            this.seed <- defaultArg seed 0
+            this.rand <- new UniformOneGenerator(this.seed)
 
-        member this.rand
-            with get () : UniformOneGenerator = this.rand
-            and  set (value:UniformOneGenerator) = this.rand <- value
-
-        member val seed = 0 with get, set
-
-        member this.RandomGenerator
-            with get () : UniformOneGenerator = this.rand
+        member val private rand = new UniformOneGenerator(this.seed) with get, set
+        member val private seed = 0 with get, set                
+        member val private secondValue = 0.0f with get, set
+        member val private useSecond = false with get, set
         
-        member val internal secondValue = 0.0f with get, set
-        member val internal useSecond = false with get, set
-
-        member this.iNext () =
-            match this.useSecond with
-            | true -> this.secondValue
-            | false ->            
-                let mutable w, x1, x2 = 2.0f, 0.0f, 0.0f
-                
-                while ( w >= 1.0f ) do
-                    // x1 <- this.RandomGenerator.NextSingle() * 2.0f - 1.0f
-                    let r = new UniformOneGenerator(0)
-                    
-                    ()
-
-                this.secondValue <- ( x2 * w )
-                this.useSecond <- true
-
-                ( x1 * w )
+        // This upcasting pattern exposes the interface member publically
+        member this.NextSingle () = (this :> IRandomNumberGenerator).NextSingle ()
+        member this.SetSeed (value) = (this :> IRandomNumberGenerator).SetSeed value
 
         interface IRandomNumberGenerator with 
+            member val Mean = 0.0f with get
+            member val Variance = 1.0f with get
 
-            member this.Mean
-                with get () : single = 0.0f
+            member this.NextSingle () = 
+                match this.useSecond with
+                | true -> this.secondValue
+                | false ->
+                    // Very non-FP implementation to be fixed later
+                    let mutable w, x1, x2 = 2.0f, 0.0f, 0.0f
+                    while ( w >= 1.0f ) do
+                        x1 <- this.rand.NextSingle() * 2.0f - 1.0f
+                    
+                    this.secondValue <- ( x2 * w )
+                    this.useSecond <- true
 
-            member this.Variance
-                with get () : single = 1.0f
+                    ( x1 * w )
 
-            override this.NextSingle () = this.iNext ()
+            member this.SetSeed seed = 
+                this.rand <- new UniformOneGenerator(seed)
+                this.useSecond <- false
 
-            override this.SetSeed (0) = ()
 
 module MathStructures = 
     [<AbstractClass>]
@@ -149,6 +141,7 @@ module MathStructures =
         abstract member IsInside : 'R -> bool
         abstract member IsOverlapping : 'R -> bool
 
+
     type SingleRange (?min:single, ?max:single) as this =     
         inherit RangeBase<single, SingleRange> (this.min, this.max)
             do
@@ -171,6 +164,7 @@ module MathStructures =
                 internalRangeOverlap || externalRangeOverlap
 
             // Partially implemented, still need IntRange conversion, equality and ToString
+
 
     type DoubleRange (?min:double, ?max:double) as this = 
         inherit RangeBase<double, DoubleRange> (this.min, this.max)
