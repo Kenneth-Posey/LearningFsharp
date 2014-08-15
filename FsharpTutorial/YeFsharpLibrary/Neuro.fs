@@ -27,10 +27,14 @@ module ActivationFunction =
                 upcast new ThresholdFunction()
         
 
-    type BipolarSigmoidFunction () as this = 
+    type BipolarSigmoidFunction (?alpha:double) as this = 
+        let mutable pAlpha = defaultArg alpha 2.0
         do 
-            this.alpha <- 2.0
-        new (alpha:double) = BipolarSigmoidFunction(alpha)
+            this.alpha <- pAlpha
+        
+        member this.alpha
+            with get () : double = this.alpha
+            and  set (value:double) = this.alpha <- value
 
         interface IActivationFunctionWithCloneable with
             member this.Function (x:double) =
@@ -47,9 +51,6 @@ module ActivationFunction =
             member this.Clone () =
                 upcast new BipolarSigmoidFunction(this.alpha)
 
-        member this.alpha
-            with get () : double = this.alpha
-            and  set (value:double) = this.alpha <- value
                 
                 
 
@@ -58,29 +59,7 @@ module Neuron =
     open ActivationFunction
     open MathAlgorithms.Threadsafe
     open MathAlgorithms.MathStructures
-
-    type ActivationNeuron () as this =
-        do 
-            this.threshold <- 0.0
-
-        new (alpha:double) = ActivationNeuron (alpha)
-
-        member private this.threshold
-            with get () : double = this.threshold
-            and  set (value:double) = this.threshold <- value
-
-        member this.Threshold
-            with get () = this.threshold
-            and  set value = this.threshold <- value
-
-        member private this.activationFunction
-            with get () : IActivationFunction = this.activationFunction
-            and  set (value:IActivationFunction) = this.activationFunction <- value
-
-        member this.ActivationFunction
-            with get () = this.activationFunction
-            and  set value = this.activationFunction <- value
-
+    
     [<AbstractClass>]
     type NeuronBase (inputs:int) as this = 
         do
@@ -137,6 +116,45 @@ module Neuron =
             and  set (value:Range) = this.randomRange <- value
 
 
+    type ActivationNeuron ( inputs:int , activation:IActivationFunction ) as this =   
+        inherit NeuronBase (inputs) 
+            do 
+                this.ActivationFunction <- activation
+            
+            member private this.threshold
+                with get () : double = this.threshold
+                and  set (value:double) = this.threshold <- value
+
+            member this.Threshold
+                with get () = this.threshold
+                and  set value = this.threshold <- value
+
+            member private this.activationFunction
+                with get () : IActivationFunction = this.activationFunction
+                and  set (value:IActivationFunction) = this.activationFunction <- value
+
+            member this.ActivationFunction 
+                with get () = this.activationFunction
+                and  set value = this.activationFunction <- value
+
+            override this.Randomize () = 
+                base.Randomize ()
+                this.Threshold <- this.RandGenerator.NextDouble() * this.RandRange.Length + this.RandRange.Min
+
+            override this.Compute (x:double[]) = 
+                let mutable sum = 0.0
+                for i in 1 .. this.Weights.Length do
+                    sum <- sum + (this.Weights.[i] * x.[i])
+
+                this.ActivationFunction.Function ( sum + this.Threshold )
+
+                
+        
+            
 
 
 
+
+
+                  
+        
