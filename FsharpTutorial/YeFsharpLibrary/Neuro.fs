@@ -141,10 +141,7 @@ module Neuron =
     [<AbstractClass>]
     type NeuronBase (inputs:int) as this = 
         do
-            this.rand        <- new RandomGenerator ()
-            this.randomRange <- new SingleRange (0.0f , 1.0f)
             this.inputsCount <- Math.Max (1 , inputs)
-            this.weights     <- Array.zeroCreate<double> this.inputsCount
             this.Randomize ()
 
         // This is a function that's run only for its side effects 
@@ -158,41 +155,20 @@ module Neuron =
         // Implemented in inherited classes
         abstract member Compute : double[] -> double
 
-        member private this.inputsCount
-            with get () : int = this.inputsCount
-            and  set (value:int) = this.inputsCount <- value
+        member val private inputsCount:int = 0 with get, set
+        member val InputsCount = this.inputsCount with get
 
-        member this.InputsCount
-            with get () : int = this.inputsCount
+        member val private weights:double[] = Array.zeroCreate<double> this.inputsCount with get, set
+        member val Weights = this.weights with get
 
-        member private this.weights
-            with get () : double[] = this.weights
-            and  set (value:double[]) = this.weights <- value
+        member val private output:double = 0.0 with get, set
+        member val Output = this.output with get
 
-        member this.Weights
-            with get () : double[] = this.weights
+        member val private rand:RandomGenerator = new RandomGenerator() with get, set
+        member val RandGenerator = this.rand with get
 
-        member private this.output
-            with get () : double = this.output
-            and  set (value:double) = this.output <- value
-
-        member this.Output
-            with get () : double = this.output
-
-        member private this.rand
-            with get () : RandomGenerator = this.rand
-            and  set (value:RandomGenerator) = this.rand <- value
-
-        member this.RandGenerator
-            with get () : RandomGenerator = this.rand
-
-        member private this.randomRange
-            with get () : SingleRange = this.randomRange
-            and  set (value:SingleRange) = this.randomRange <- value
-
-        member this.RandRange
-            with get () : SingleRange = this.randomRange
-            and  set (value:SingleRange) = this.randomRange <- value
+        member val private randomRange:SingleRange = new SingleRange(0.0f, 1.0f) with get,set
+        member val RandRange = this.randomRange with get
 
 
     type ActivationNeuron ( inputs:int , activation:IActivationFunction ) as this =   

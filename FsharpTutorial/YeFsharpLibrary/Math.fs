@@ -213,6 +213,10 @@ module Generator =
                     let mutable w, x1, x2 = 2.0f, 0.0f, 0.0f
                     while ( w >= 1.0f ) do
                         x1 <- this.rand.NextSingle() * 2.0f - 1.0f
+                        x2 <- this.rand.NextSingle() * 2.0f - 1.0f
+                        w  <- x1 * x1 + x2 * x2
+                    let dw = double w
+                    w <- single <| System.Math.Sqrt ( ( -2.0 * System.Math.Log dw ) / dw )
                     
                     this.secondValueSingle <- ( x2 * w )
                     this.useSecond <- true
@@ -227,7 +231,11 @@ module Generator =
                     let mutable w, x1, x2 = 2.0, 0.0, 0.0
                     while ( w >= 1.0 ) do
                         x1 <- this.rand.NextDouble() * 2.0 - 1.0
-                
+                        x2 <- this.rand.NextDouble() * 2.0 - 1.0
+                        w  <- x1 * x1 + x2 * x2
+                    
+                    w <- System.Math.Sqrt ( ( -2.0 * System.Math.Log w ) / w )
+
                     this.secondValueDouble <- ( x2 * w )
                     this.useSecond <- true
                 
