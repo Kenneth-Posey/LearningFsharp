@@ -155,20 +155,30 @@ module Neuron =
         // Implemented in inherited classes
         abstract member Compute : double[] -> double
 
-        member val private inputsCount:int = 0 with get, set
-        member val InputsCount = this.inputsCount with get
+        member val private inputsCount:int = 0 
+            with get, set
+        member val InputsCount = this.inputsCount 
+            with get
 
-        member val private weights:double[] = Array.zeroCreate<double> this.inputsCount with get, set
-        member val Weights = this.weights with get
+        member val private weights:double[] = Array.zeroCreate<double> this.inputsCount 
+            with get, set
+        member val Weights = this.weights 
+            with get
 
-        member val private output:double = 0.0 with get, set
-        member val Output = this.output with get
+        member val private output:double = 0.0 
+            with get, set
+        member val Output = this.output 
+            with get
 
-        member val private rand:RandomGenerator = new RandomGenerator() with get, set
-        member val RandGenerator = this.rand with get
+        member val private rand:RandomGenerator = new RandomGenerator() 
+            with get, set
+        member val RandGenerator = this.rand 
+            with get
 
-        member val private randomRange:SingleRange = new SingleRange(0.0f, 1.0f) with get,set
-        member val RandRange = this.randomRange with get
+        member val private randomRange:SingleRange = new SingleRange(0.0f, 1.0f) 
+            with get,set
+        member val RandRange = this.randomRange 
+            with get
 
 
     type ActivationNeuron ( inputs:int , activation:IActivationFunction ) as this =   
