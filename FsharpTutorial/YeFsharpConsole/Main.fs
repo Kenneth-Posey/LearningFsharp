@@ -5,6 +5,7 @@ module Main =
     open FsharpImaging
     open Testing
     open System.Drawing
+    open EveOnline
     
     [<EntryPoint>]
     let main (args:string[]) = 
@@ -12,13 +13,7 @@ module Main =
         // consoletest([|""|]) |> ignore
 
         ImageSearchTest.TestFunctions() |> ignore
-
-        use tSmallBitmap = new Bitmap("testimage2.bmp")
-        use tLargeBitmap = new Bitmap("testimage1.bmp")
-
-        let tSuccess, xCoord, yCoord = ImageSearch.SearchBitmap tSmallBitmap tLargeBitmap
-
-
+        
         // General plan for looping
         // - Split single array for small image into 2d array of arrays
         // - Split single array for large image into 2d array of arrays
@@ -27,6 +22,17 @@ module Main =
         // - If row is complete then check for second row (and so on)
         // - Stop searching horizontally when remaining pixels are smaller than search image width
         // - Stop searching vertically when remaining pixels are smaller than search image height 
+        try
+            use tSmallBitmap = new Bitmap("testimage2.bmp")
+            use tLargeBitmap = new Bitmap("testimage1.bmp")
+        
+            let tSuccess, xCoord, yCoord = ImageSearch.SearchBitmap tSmallBitmap tLargeBitmap
+
+            ()
+        with
+            | _ -> ()
+
+        let stttrnig = MarketParser.LoadItemsFromUrl("http://eve-files.com/chribba/typeid.txt")
 
         // Must return from function
         0

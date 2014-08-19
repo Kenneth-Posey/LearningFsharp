@@ -59,6 +59,7 @@
     <Compile Include="SimulatorMouse.fs" />
     <Compile Include="SimulatorKeyboard.fs" />
     <Compile Include="FsharpImaging.fs" />
+    <Compile Include="MarketParser.fs" />
     <Compile Include="UnitTest.fs" />
     <Compile Include="Scratchpad.fs" />
   </ItemGroup>
