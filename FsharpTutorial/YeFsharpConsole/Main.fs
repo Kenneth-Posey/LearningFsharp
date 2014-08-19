@@ -42,16 +42,17 @@ module Main =
             |> Array.filter (fun (x, y) -> y.Contains("Processing") = false)
             |> Array.filter (fun (x, y) -> y.Contains("Mining") = false)
             
-        let itemArray = MarketParser.LoadTypeIdsFromUrl EveData.TypeIdUrl
-
-        let tritItems  = itemArray |> FilterOreOnly |> FilterByName "Tritanium"
-        let veldItems  = itemArray |> FilterOreOnly |> FilterByName "Veldspar"
-        let scordItems = itemArray |> FilterOreOnly |> FilterByName "Scordite"
-        let pyroItems  = itemArray |> FilterOreOnly |> FilterByName "Pyroxeres"
-        let kernItems  = itemArray |> FilterOreOnly |> FilterByName "Kernite"
-        let hemItems   = itemArray |> FilterOreOnly |> FilterByName "Hemorphite"
-        let hedItems   = itemArray |> FilterOreOnly |> FilterByName "Hedbergite"
-        let jaspItems  = itemArray |> FilterOreOnly |> FilterByName "Jaspet"
+        // let itemArray = MarketParser.LoadTypeIdsFromUrl EveData.TypeIdUrl
+        let response = MarketParser.LoadUrl (EveData.QuickLook + "?typeid=" + string (int EveData.RawMaterials.Veldspar.Default) + "&usesystem=" + string (int EveData.SystemName.Amarr ) )
+        
+        // let tritItems  = itemArray |> FilterOreOnly |> FilterByName "Tritanium"
+        // let veldItems  = itemArray |> FilterOreOnly |> FilterByName "Veldspar"
+        // let scordItems = itemArray |> FilterOreOnly |> FilterByName "Scordite"
+        // let pyroItems  = itemArray |> FilterOreOnly |> FilterByName "Pyroxeres"
+        // let kernItems  = itemArray |> FilterOreOnly |> FilterByName "Kernite"
+        // let hemItems   = itemArray |> FilterOreOnly |> FilterByName "Hemorphite"
+        // let hedItems   = itemArray |> FilterOreOnly |> FilterByName "Hedbergite"
+        // let jaspItems  = itemArray |> FilterOreOnly |> FilterByName "Jaspet"
 
         // Must return from function
         0

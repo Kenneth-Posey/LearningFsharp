@@ -1,6 +1,9 @@
 ﻿namespace EveOnline
 
 module EveData = 
+    let TypeIdUrl   = "http://eve-files.com/chribba/typeid.txt"
+    let QuickLook   = "http://api.eve-central.com/api/quicklook"
+
     type SystemName =
         | Jita    = 30000142
         | Dodixie = 30002659
@@ -16,8 +19,81 @@ module EveData =
         setminQ     : int
         }
 
-    let TypeIdUrl   = "http://eve-files.com/chribba/typeid.txt"
-    let QuickLook   = "http://api.eve-central.com/api/quicklook"
+    module MarketOrder = 
+        open FSharp.Data
+
+        type BuyOrder = 
+            XmlProvider<"""
+                <order id="3711929160">
+                    <region>10000043</region>
+                    <station>60008494</station>
+                    <station_name>Amarr VIII (Oris) - Emperor Family Academy</station_name>
+                    <security>1.0</security>
+                    <range>-1</range>
+                    <price>1850.15</price>
+                    <vol_remain>113922</vol_remain>
+                    <min_volume>1</min_volume>
+                    <expires>2014-11-17</expires>
+                    <reported_time>08-19 20:32:26</reported_time>
+                </order>
+            """>
+
+        type SellOrder = 
+            XmlProvider<"""
+                <order id="3716979068">
+                    <region>10000043</region>
+                    <station>60008494</station>
+                    <station_name>Amarr VIII (Oris) - Emperor Family Academy</station_name>
+                    <security>1.0</security>
+                    <range>32767</range>
+                    <price>20.94</price>
+                    <vol_remain>394794</vol_remain>
+                    <min_volume>1</min_volume>
+                    <expires>2014-11-17</expires>
+                    <reported_time>08-19 23:00:07</reported_time>
+                </order>
+            """>
+
+        type QuickLook = 
+            XmlProvider<"""
+                <evec_api version="2.0" method="quicklook">
+                    <quicklook>
+                        <item>1230</item>
+                        <itemname>Veldspar</itemname>
+                        <regions></regions>
+                        <hours>360</hours>
+                        <minqty>1</minqty>
+                        <sell_orders>
+                            <order id="3717046692">
+                                <region>10000043</region>
+                                <station>60008494</station>
+                                <station_name>Amarr VIII (Oris) - Emperor Family Academy</station_name>
+                                <security>1.0</security>
+                                <range>32767</range>
+                                <price>20.95</price>
+                                <vol_remain>307487</vol_remain>
+                                <min_volume>1</min_volume>
+                                <expires>2014-08-20</expires>
+                                <reported_time>08-19 23:00:07</reported_time>
+                            </order>
+                        </sell_orders>
+                        <buy_orders>
+                            <order id="3717057403">
+                                <region>10000043</region>
+                                <station>60008494</station>
+                                <station_name>Amarr VIII (Oris) - Emperor Family Academy</station_name>
+                                <security>1.0</security>
+                                <range>-1</range>
+                                <price>15.38</price>
+                                <vol_remain>546063</vol_remain>
+                                <min_volume>1</min_volume>
+                                <expires>2014-11-17</expires>
+                                <reported_time>08-19 23:00:07</reported_time>
+                            </order>
+                        </buy_orders>
+                    </quicklook>
+                </evec_api>
+            """>
 
     module RawMaterials =    
         type Minerals =
@@ -88,7 +164,6 @@ module EveData =
         | Default   = 28406
         | Pure      = 28407
         | Pristine  = 28408
-
                     
 
 module MarketParser =
@@ -100,7 +175,7 @@ module MarketParser =
         use client = new WebClient()
         client.DownloadString( new Uri(url) )
 
-    let ParseItem (text:string) (regex:Regex) =
+    let ParseLine (text:string) (regex:Regex) =
         let parsed = regex.Match text
         match parsed.Success with
         | true  -> parsed.Groups.[1].Value.Trim() , parsed.Groups.[2].Value.Trim()
@@ -117,7 +192,7 @@ module MarketParser =
     let SplitOnNewline (text:string) (regex:Regex) =
         [| 
             for line in text.Split [|'\n'|] do
-                yield ParseItem (line.TrimEnd()) regex
+                yield ParseLine (line.TrimEnd()) regex
         |] 
 
     let LoadTypeIdsFromUrl (url:string) =
