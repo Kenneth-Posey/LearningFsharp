@@ -59,11 +59,12 @@
     <Compile Include="SimulatorMouse.fs" />
     <Compile Include="SimulatorKeyboard.fs" />
     <Compile Include="FsharpImaging.fs" />
+    <Compile Include="EveData.fs" />
     <Compile Include="MarketParser.fs" />
     <Compile Include="UnitTest.fs" />
     <Compile Include="Scratchpad.fs" />
-    <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Data">

@@ -34,17 +34,6 @@ module Main =
         with
             | _ -> ()
 
-        let FilterByName (name:string) (tuple:(string * string)[]) =
-            tuple
-            |> Array.filter ( fun (x, y) -> y.Contains(name) )
-
-        let FilterOreOnly (tuple:(string * string)[]) = 
-            tuple
-            |> Array.filter ( fun (x, y) -> 
-                   y.Contains("Blueprint") && y.Contains("Processing") && y.Contains("Mining") = false )
-            
-        // let itemArray = MarketParser.LoadTypeIdsFromUrl EveData.TypeIdUrl
-
         // Have to cast enum to int then to string to get actual value
         // Then construct into tuple for passing into lambda expression
         (string (int RawMaterials.Veldspar.Default), string (int SystemName.Amarr))
@@ -53,14 +42,6 @@ module Main =
         |> MarketParser.ParseQuickLook
         |> ignore
 
-        // let tritItems  = itemArray |> FilterOreOnly |> FilterByName "Tritanium"
-        // let veldItems  = itemArray |> FilterOreOnly |> FilterByName "Veldspar"
-        // let scordItems = itemArray |> FilterOreOnly |> FilterByName "Scordite"
-        // let pyroItems  = itemArray |> FilterOreOnly |> FilterByName "Pyroxeres"
-        // let kernItems  = itemArray |> FilterOreOnly |> FilterByName "Kernite"
-        // let hemItems   = itemArray |> FilterOreOnly |> FilterByName "Hemorphite"
-        // let hedItems   = itemArray |> FilterOreOnly |> FilterByName "Hedbergite"
-        // let jaspItems  = itemArray |> FilterOreOnly |> FilterByName "Jaspet"
 
         // Must return from function
         0
