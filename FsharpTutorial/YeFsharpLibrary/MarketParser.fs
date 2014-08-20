@@ -198,8 +198,6 @@ module MarketParser =
         let buyOrders = providerData.BuyOrders.Orders
         let sellOrders = providerData.SellOrders.Orders
 
-        let mutable totalBuyLimited = 0
-        let mutable totalSellLimited = 0
         let mutable totalBuy = 0
         let mutable totalSell = 0
 
@@ -232,18 +230,10 @@ module MarketParser =
         // so we want to know what the lowest sell +20% is
         // for the upper sell limit
         let highSell = (lowSell * 1.2f)
-
-        // for buy in buyOrders do
-        //     if lowBuy < single buy.Price then
-        //         totalBuyLimited <- totalBuyLimited + buy.VolRemain
-        // 
-        // for sell in sellOrders do
-        //     if highSell > single sell.Price then
-        //         totalSellLimited <- totalSellLimited + sell.VolRemain
-
+        
         // The upper buy and lower sell is implicit to the list
         // so we just need to manually remove the out-of-bounds orders
-        let boundedBuyOrders  = buyOrders  |> Array.filter (fun x -> lowBuy < single x.Price)
+        let boundedBuyOrders  = buyOrders  |> Array.filter (fun x -> lowBuy   < single x.Price)
         let boundedSellOrders = sellOrders |> Array.filter (fun x -> highSell > single x.Price)
 
 

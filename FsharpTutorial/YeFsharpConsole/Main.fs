@@ -22,6 +22,7 @@ module Main =
         // - If row is complete then check for second row (and so on)
         // - Stop searching horizontally when remaining pixels are smaller than search image width
         // - Stop searching vertically when remaining pixels are smaller than search image height 
+        
         try
             use tSmallBitmap = new Bitmap("testimage2.bmp")
             use tLargeBitmap = new Bitmap("testimage1.bmp")
@@ -34,17 +35,22 @@ module Main =
 
         let FilterByName (name:string) (tuple:(string * string)[]) =
             tuple
-            |> Array.filter (fun (x, y) -> y.Contains(name))
+            |> Array.filter ( fun (x, y) -> y.Contains(name) )
 
         let FilterOreOnly (tuple:(string * string)[]) = 
             tuple
-            |> Array.filter (fun (x, y) -> y.Contains("Blue") = false)
-            |> Array.filter (fun (x, y) -> y.Contains("Processing") = false)
-            |> Array.filter (fun (x, y) -> y.Contains("Mining") = false)
+            |> Array.filter ( fun (x, y) -> 
+                   y.Contains("Blue") && y.Contains("Processing") && y.Contains("Mining") = false )
             
         // let itemArray = MarketParser.LoadTypeIdsFromUrl EveData.TypeIdUrl
-        let response = MarketParser.LoadUrl (EveData.QuickLook + "?typeid=" + string (int EveData.RawMaterials.Veldspar.Default) + "&usesystem=" + string (int EveData.SystemName.Amarr ) )
-        ignore <| MarketParser.LoadQuickLook response
+        let veld = string (int EveData.RawMaterials.Veldspar.Default)
+        let amarr = string (int EveData.SystemName.Amarr )
+        
+        EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr
+        |> MarketParser.LoadUrl
+        |> MarketParser.LoadQuickLook
+        |> ignore
+
         // let tritItems  = itemArray |> FilterOreOnly |> FilterByName "Tritanium"
         // let veldItems  = itemArray |> FilterOreOnly |> FilterByName "Veldspar"
         // let scordItems = itemArray |> FilterOreOnly |> FilterByName "Scordite"
