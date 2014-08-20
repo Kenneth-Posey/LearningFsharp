@@ -197,15 +197,55 @@ module MarketParser =
         let providerData = iProvider.Parse(data).Quicklook
         let buyOrders = providerData.BuyOrders.Orders
         let sellOrders = providerData.SellOrders.Orders
-        let mutable totalBuyAmount = 0
-        let mutable totalSellAmount = 0
+
+        let mutable totalBuyLimited = 0
+        let mutable totalSellLimited = 0
+        let mutable totalBuy = 0
+        let mutable totalSell = 0
+
+        // To find the lowest sell price of the goods
+        // you have to test each value and replace the lowest sell
+        // each time the price is *lower*. Start high work down.
+        let mutable lowSell = System.Single.MaxValue
+
+        // To find the highest buy price of the goods
+        // you have to test each value and replace the highest sell
+        // each time the price is *higher*. Start low work up.
+        let mutable highBuy = 0.0f
 
         for buy in buyOrders do
-            totalBuyAmount <- totalBuyAmount + buy.VolRemain
-            printfn "%A" buy
+            totalBuy <- totalBuy + buy.VolRemain
+            if highBuy < single buy.Price then
+                highBuy <- single buy.Price
 
         for sell in sellOrders do
-            totalSellAmount <- totalSellAmount + sell.VolRemain
-            printfn "%A" sell
+            totalSell <- totalSell + sell.VolRemain
+            if lowSell > single sell.Price then
+                lowSell <- single sell.Price
+
+        // We've found the upper buy limit for the goods
+        // so we want to know what the highest buy -20% is
+        // for the lower buy limit
+        let lowBuy = (highBuy * 0.8f)
+
+        // We've found the lower sell limit for the goods
+        // so we want to know what the lowest sell +20% is
+        // for the upper sell limit
+        let highSell = (lowSell * 1.2f)
+
+        // for buy in buyOrders do
+        //     if lowBuy < single buy.Price then
+        //         totalBuyLimited <- totalBuyLimited + buy.VolRemain
+        // 
+        // for sell in sellOrders do
+        //     if highSell > single sell.Price then
+        //         totalSellLimited <- totalSellLimited + sell.VolRemain
+
+        // The upper buy and lower sell is implicit to the list
+        // so we just need to manually remove the out-of-bounds orders
+        let boundedBuyOrders  = buyOrders  |> Array.filter (fun x -> lowBuy < single x.Price)
+        let boundedSellOrders = sellOrders |> Array.filter (fun x -> highSell > single x.Price)
+
+
 
         ()
