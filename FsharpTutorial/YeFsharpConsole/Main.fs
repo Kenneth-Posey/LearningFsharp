@@ -44,7 +44,7 @@ module Main =
             
         // let itemArray = MarketParser.LoadTypeIdsFromUrl EveData.TypeIdUrl
         let response = MarketParser.LoadUrl (EveData.QuickLook + "?typeid=" + string (int EveData.RawMaterials.Veldspar.Default) + "&usesystem=" + string (int EveData.SystemName.Amarr ) )
-        
+        ignore <| MarketParser.LoadQuickLook response
         // let tritItems  = itemArray |> FilterOreOnly |> FilterByName "Tritanium"
         // let veldItems  = itemArray |> FilterOreOnly |> FilterByName "Veldspar"
         // let scordItems = itemArray |> FilterOreOnly |> FilterByName "Scordite"

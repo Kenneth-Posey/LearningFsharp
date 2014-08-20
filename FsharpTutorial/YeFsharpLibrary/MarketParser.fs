@@ -22,38 +22,6 @@ module EveData =
     module MarketOrder = 
         open FSharp.Data
 
-        type BuyOrder = 
-            XmlProvider<"""
-                <order id="3711929160">
-                    <region>10000043</region>
-                    <station>60008494</station>
-                    <station_name>Amarr VIII (Oris) - Emperor Family Academy</station_name>
-                    <security>1.0</security>
-                    <range>-1</range>
-                    <price>1850.15</price>
-                    <vol_remain>113922</vol_remain>
-                    <min_volume>1</min_volume>
-                    <expires>2014-11-17</expires>
-                    <reported_time>08-19 20:32:26</reported_time>
-                </order>
-            """>
-
-        type SellOrder = 
-            XmlProvider<"""
-                <order id="3716979068">
-                    <region>10000043</region>
-                    <station>60008494</station>
-                    <station_name>Amarr VIII (Oris) - Emperor Family Academy</station_name>
-                    <security>1.0</security>
-                    <range>32767</range>
-                    <price>20.94</price>
-                    <vol_remain>394794</vol_remain>
-                    <min_volume>1</min_volume>
-                    <expires>2014-11-17</expires>
-                    <reported_time>08-19 23:00:07</reported_time>
-                </order>
-            """>
-
         type QuickLook = 
             XmlProvider<"""
                 <evec_api version="2.0" method="quicklook">
@@ -76,8 +44,32 @@ module EveData =
                                 <expires>2014-08-20</expires>
                                 <reported_time>08-19 23:00:07</reported_time>
                             </order>
+                            <order id="3717046692">
+                                <region>10000043</region>
+                                <station>60008494</station>
+                                <station_name>Amarr VIII (Oris) - Emperor Family Academy</station_name>
+                                <security>1.0</security>
+                                <range>32767</range>
+                                <price>20.95</price>
+                                <vol_remain>307487</vol_remain>
+                                <min_volume>1</min_volume>
+                                <expires>2014-08-20</expires>
+                                <reported_time>08-19 23:00:07</reported_time>
+                            </order>
                         </sell_orders>
                         <buy_orders>
+                            <order id="3717057403">
+                                <region>10000043</region>
+                                <station>60008494</station>
+                                <station_name>Amarr VIII (Oris) - Emperor Family Academy</station_name>
+                                <security>1.0</security>
+                                <range>-1</range>
+                                <price>15.38</price>
+                                <vol_remain>546063</vol_remain>
+                                <min_volume>1</min_volume>
+                                <expires>2014-11-17</expires>
+                                <reported_time>08-19 23:00:07</reported_time>
+                            </order>
                             <order id="3717057403">
                                 <region>10000043</region>
                                 <station>60008494</station>
@@ -199,3 +191,21 @@ module MarketParser =
         new Regex "([0-9]{1,9})[ ]{6}([\w '.-_]*)"
         |> SplitOnNewline (LoadUrl url)
         |> FilterEmpty
+        
+    type iProvider = EveData.MarketOrder.QuickLook
+    let LoadQuickLook (data:string) =
+        let providerData = iProvider.Parse(data).Quicklook
+        let buyOrders = providerData.BuyOrders.Orders
+        let sellOrders = providerData.SellOrders.Orders
+        let mutable totalBuyAmount = 0
+        let mutable totalSellAmount = 0
+
+        for buy in buyOrders do
+            totalBuyAmount <- totalBuyAmount + buy.VolRemain
+            printfn "%A" buy
+
+        for sell in sellOrders do
+            totalSellAmount <- totalSellAmount + sell.VolRemain
+            printfn "%A" sell
+
+        ()
