@@ -4,6 +4,8 @@ module MarketParser =
     open System
     open System.Text.RegularExpressions
     open System.Net
+
+    open EveData
             
     /// For reading and parsing the text file with typeIDs
     // Example use:
@@ -51,7 +53,17 @@ module MarketParser =
         |> SplitOnNewline (LoadUrl url)
         |> FilterEmpty
         
-    type iProvider = EveData.MarketOrder.QuickLook
+    type ParsedData<'a, 'b> = 
+        {
+            buyOrders  : 'a
+            sellOrders : 'b
+            lowSell    : single
+            highSell   : single
+            lowBuy     : single
+            highBuy    : single
+        }
+
+    type iProvider = EveData.MarketOrder.QuickLookResult
     let ParseQuickLook (data:string) =
         let providerData = iProvider.Parse(data).Quicklook
         let buyOrders = providerData.BuyOrders.Orders
@@ -94,7 +106,40 @@ module MarketParser =
         // so we just need to manually remove the out-of-bounds orders
         let boundedBuyOrders  = buyOrders  |> Array.filter ( fun x -> lowBuy   < single x.Price )
         let boundedSellOrders = sellOrders |> Array.filter ( fun x -> highSell > single x.Price )
+        
+        {
+            buyOrders  = boundedBuyOrders
+            sellOrders = boundedSellOrders
+            lowSell    = lowSell
+            highSell   = highSell
+            lowBuy     = lowBuy
+            highBuy    = highBuy
+        }
+        
+    let FindRealCost (quantity:single) (sellOrders:Types.SellOrder[]) =
+        let Iterate quantityRemaining (sellOrders:Types.SellOrder[]) =
+            let rec IterateRec quantityRemaining (sellOrders:Types.SellOrder[]) runningTotal =
+                let order = sellOrders.[0]
+                match (quantityRemaining > 0.0f) with
+                | false -> runningTotal
+                | true  -> let quantityRemaining = quantityRemaining - 1.0f
+                           let runningTotal = runningTotal + single order.Price * single quantityRemaining
+                           IterateRec quantityRemaining sellOrders runningTotal
+                
+            IterateRec quantityRemaining sellOrders 0.0f
 
+        if (quantity = 0.0f) 
+            then 0.0f
+            else Iterate quantity sellOrders
 
+    let FindRealIncome (quantity:single) (buyOrders:Types.BuyOrder[]) =
+        
+        0.0f
 
-        ()
+    let rrrrr () = 
+        let results = (string (int EveData.RawMaterials.Veldspar.Default), string (int EveData.SystemName.Amarr))
+                      |> (fun (veld,amarr) -> EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr)
+                      |> LoadUrl 
+                      |> ParseQuickLook
+                
+        FindRealCost 100.0f results.sellOrders

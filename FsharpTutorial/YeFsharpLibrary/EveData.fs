@@ -22,7 +22,7 @@ module EveData =
     module MarketOrder = 
         open FSharp.Data
 
-        type QuickLook = 
+        type QuickLookResult = 
             XmlProvider<"""
                 <evec_api version="2.0" method="quicklook">
                     <quicklook>
@@ -86,6 +86,11 @@ module EveData =
                     </quicklook>
                 </evec_api>
             """>
+
+    module Types =
+        type QuickLook = MarketOrder.QuickLookResult
+        type BuyOrder  = MarketOrder.QuickLookResult.Order2
+        type SellOrder = MarketOrder.QuickLookResult.Order
 
     module RawMaterials =    
         type Minerals =
