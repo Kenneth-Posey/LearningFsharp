@@ -107,6 +107,7 @@ module MarketParser =
         let boundedBuyOrders  = buyOrders  |> Array.filter ( fun x -> lowBuy   < single x.Price )
         let boundedSellOrders = sellOrders |> Array.filter ( fun x -> highSell > single x.Price )
         
+        // Implicit record creation
         {
             buyOrders  = boundedBuyOrders
             sellOrders = boundedSellOrders
@@ -116,30 +117,68 @@ module MarketParser =
             highBuy    = highBuy
         }
         
-    let FindRealCost (quantity:single) (sellOrders:Types.SellOrder[]) =
-        let Iterate quantityRemaining (sellOrders:Types.SellOrder[]) =
-            let rec IterateRec quantityRemaining (sellOrders:Types.SellOrder[]) runningTotal =
-                let order = sellOrders.[0]
-                match (quantityRemaining > 0.0f) with
-                | false -> runningTotal
-                | true  -> let quantityRemaining = quantityRemaining - 1.0f
-                           let runningTotal = runningTotal + single order.Price * single quantityRemaining
-                           IterateRec quantityRemaining sellOrders runningTotal
+    let FindRealCost (quantity:single) (orders:Types.SellOrder[]) =
+        let Iterate (quantity:single) (orders:Types.SellOrder[]) =
+            let rec IterateRec (quantity:single) (orders:Types.SellOrder[]) (total:single) =
+                match quantity <= 0.0f with
+                | true  -> total
+                | false -> let total    = total + single orders.[0].Price * single quantity
+                           let quantity = quantity - single orders.[0].VolRemain
+
+                           IterateRec quantity orders.[1 .. orders.Length - 1] total
                 
-            IterateRec quantityRemaining sellOrders 0.0f
+            IterateRec quantity orders 0.0f
 
-        if (quantity = 0.0f) 
-            then 0.0f
-            else Iterate quantity sellOrders
+        if (quantity = 0.0f) || (orders.Length = 0)
+           then 0.0f
+           else Iterate quantity orders
 
-    let FindRealIncome (quantity:single) (buyOrders:Types.BuyOrder[]) =
-        
+    let FindRealIncome (quantity:single) (orders:Types.BuyOrder[]) =
+        let Iterate (quantity:single) (orders:Types.BuyOrder[]) =
+            let rec IterateRec (quantity:single) (orders:Types.BuyOrder[]) (total:single) =
+                match quantity <= 0.0f with
+                | true  -> total
+                | false -> let total    = total + single orders.[0].Price * single quantity
+                           let quantity = quantity - single orders.[0].VolRemain
+
+                           IterateRec quantity orders.[1 .. orders.Length - 1] total
+                
+            IterateRec quantity orders 0.0f
+
+        if (quantity = 0.0f) || (orders.Length = 0)
+           then 0.0f
+           else Iterate quantity orders
         0.0f
 
-    let rrrrr () = 
-        let results = (string (int EveData.RawMaterials.Veldspar.Default), string (int EveData.SystemName.Amarr))
-                      |> (fun (veld,amarr) -> EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr)
-                      |> LoadUrl 
-                      |> ParseQuickLook
+    let RunVeldsparBuy () = 
+        // Have to cast enum to int then to string to get actual value
+        // Then construct into tuple for passing into lambda expression
+        (string (int EveData.RawMaterials.Veldspar.Default), string (int EveData.SystemName.Amarr))
+        |> (fun (veld,amarr) -> EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr)
+        |> LoadUrl 
+        |> ParseQuickLook
+        |> (fun x -> x.sellOrders)
+        // NEEDS SORTING!!!
+        |> FindRealCost 100.0f
+        
+    let RunVeldsparSell () = 
+        // Have to cast enum to int then to string to get actual value
+        // Then construct into tuple for passing into lambda expression
+        (string (int EveData.RawMaterials.Veldspar.Default), string (int EveData.SystemName.Amarr))
+        |> (fun (veld,amarr) -> EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr)
+        |> LoadUrl 
+        |> ParseQuickLook
+        |> (fun x -> x.buyOrders)
+        // NEEDS SORTING!!!
+        |> FindRealIncome 100.0f
                 
-        FindRealCost 100.0f results.sellOrders
+    let RunPyroxeres () = 
+        // Have to cast enum to int then to string to get actual value
+        // Then construct into tuple for passing into lambda expression
+        (string (int EveData.RawMaterials.Pyroxeres.Default), string (int EveData.SystemName.Amarr))
+        |> (fun (veld,amarr) -> EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr)
+        |> LoadUrl 
+        |> ParseQuickLook
+        |> (fun x -> x.sellOrders)
+        // NEEDS SORTING!!!
+        |> FindRealCost 100.0f

@@ -36,12 +36,14 @@ module Main =
 
         // Have to cast enum to int then to string to get actual value
         // Then construct into tuple for passing into lambda expression
-        (string (int RawMaterials.Veldspar.Default), string (int SystemName.Amarr))
-        |> (fun (veld,amarr) -> EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr)
-        |> MarketParser.LoadUrl 
-        |> MarketParser.ParseQuickLook
-        |> ignore
+        // (string (int RawMaterials.Veldspar.Default), string (int SystemName.Amarr))
+        // |> (fun (veld,amarr) -> EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr)
+        // |> MarketParser.LoadUrl 
+        // |> MarketParser.ParseQuickLook
+        // |> ignore
 
-
+        printfn "%A" <| ( MarketParser.RunVeldsparBuy().ToString("F2") )
+        printfn "%A" <| ( MarketParser.RunVeldsparSell().ToString("F2") )
+        printfn "%A" <| ( MarketParser.RunPyroxeres().ToString("F2") )
         // Must return from function
         0

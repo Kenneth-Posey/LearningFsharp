@@ -88,6 +88,7 @@ module EveData =
             """>
 
     module Types =
+        /// These are aliases to much simplify the syntax around these provided types
         type QuickLook = MarketOrder.QuickLookResult
         type BuyOrder  = MarketOrder.QuickLookResult.Order2
         type SellOrder = MarketOrder.QuickLookResult.Order
