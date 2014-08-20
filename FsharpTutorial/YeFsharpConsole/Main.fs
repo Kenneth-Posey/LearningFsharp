@@ -5,6 +5,7 @@ module Main =
     open FsharpImaging
     open Testing
     open EveOnline
+    open EveOnline.EveData
     open System.Drawing
     
     [<EntryPoint>]
@@ -40,15 +41,16 @@ module Main =
         let FilterOreOnly (tuple:(string * string)[]) = 
             tuple
             |> Array.filter ( fun (x, y) -> 
-                   y.Contains("Blue") && y.Contains("Processing") && y.Contains("Mining") = false )
+                   y.Contains("Blueprint") && y.Contains("Processing") && y.Contains("Mining") = false )
             
         // let itemArray = MarketParser.LoadTypeIdsFromUrl EveData.TypeIdUrl
-        let veld = string (int EveData.RawMaterials.Veldspar.Default)
-        let amarr = string (int EveData.SystemName.Amarr )
-        
-        EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr
-        |> MarketParser.LoadUrl
-        |> MarketParser.LoadQuickLook
+
+        // Have to cast enum to int then to string to get actual value
+        // Then construct into tuple for passing into lambda expression
+        (string (int RawMaterials.Veldspar.Default), string (int SystemName.Amarr))
+        |> (fun (veld,amarr) -> EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr)
+        |> MarketParser.LoadUrl 
+        |> MarketParser.ParseQuickLook
         |> ignore
 
         // let tritItems  = itemArray |> FilterOreOnly |> FilterByName "Tritanium"

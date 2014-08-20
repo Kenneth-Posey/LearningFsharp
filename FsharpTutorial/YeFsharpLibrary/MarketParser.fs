@@ -193,7 +193,7 @@ module MarketParser =
         |> FilterEmpty
         
     type iProvider = EveData.MarketOrder.QuickLook
-    let LoadQuickLook (data:string) =
+    let ParseQuickLook (data:string) =
         let providerData = iProvider.Parse(data).Quicklook
         let buyOrders = providerData.BuyOrders.Orders
         let sellOrders = providerData.SellOrders.Orders
