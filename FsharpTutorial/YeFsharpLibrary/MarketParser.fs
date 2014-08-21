@@ -128,10 +128,10 @@ module MarketParser =
                            IterateRec quant orders.[1 .. orders.Length - 1] total
                 
             IterateRec quantity orders 0.0f
-
-        if (quantity = 0.0f) || (orders.Length = 0)
-           then 0.0f
-           else Iterate quantity orders
+            
+        match (quantity = 0.0f) || (orders.Length = 0) with
+        | true  -> 0.0f
+        | false -> Iterate quantity orders
 
     let FindRealIncome (quantity:single) (orders:Types.BuyOrder[]) =
         let Iterate (quantity:single) (orders:Types.BuyOrder[]) =
@@ -146,9 +146,9 @@ module MarketParser =
                 
             IterateRec quantity orders 0.0f
 
-        if (quantity = 0.0f) || (orders.Length = 0)
-           then 0.0f
-           else Iterate quantity orders
+        match (quantity = 0.0f) || (orders.Length = 0) with
+        | true  -> 0.0f
+        | false -> Iterate quantity orders
 
     let SortBuyFunc (x:Types.BuyOrder) (y:Types.BuyOrder) =
         match x.Price <> y.Price with
@@ -180,35 +180,23 @@ module MarketParser =
         | false -> ""                     // No query string parameters
         | true  -> Composer valuePairs
 
-    let RunVeldsparBuy () = 
+    let RunVeldspar () = 
         // Have to cast enum to int then to string to get actual value
         // Then construct into tuple for passing into lambda expression
         (string (int EveData.RawMaterials.Veldspar.Default), string (int EveData.SystemName.Amarr))
         |> (fun (veld,amarr) -> EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr)
         |> LoadUrl 
         |> ParseQuickLook
+
+    let RunVeldsparBuy () = 
+        RunVeldspar ()
         |> (fun x -> x.sellOrders)
         |> Array.sortWith SortSellFunc
         |> FindRealCost 100.0f
 
     let RunVeldsparSell () = 
-        // Have to cast enum to int then to string to get actual value
-        // Then construct into tuple for passing into lambda expression
-        (string (int EveData.RawMaterials.Veldspar.Default), string (int EveData.SystemName.Amarr))
-        |> (fun (veld,amarr) -> EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr)
-        |> LoadUrl 
-        |> ParseQuickLook
+        RunVeldspar ()
         |> (fun x -> x.buyOrders)
         |> Array.sortWith SortBuyFunc
         |> FindRealIncome 100.0f
                 
-    let RunPyroxeres () = 
-        // Have to cast enum to int then to string to get actual value
-        // Then construct into tuple for passing into lambda expression
-        (string (int EveData.RawMaterials.Pyroxeres.Default), string (int EveData.SystemName.Amarr))
-        |> (fun (veld,amarr) -> EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr)
-        |> LoadUrl 
-        |> ParseQuickLook
-        |> (fun x -> x.sellOrders)
-        // NEEDS SORTING!!!
-        |> FindRealCost 100.0f
