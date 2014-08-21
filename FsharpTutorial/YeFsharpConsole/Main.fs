@@ -42,8 +42,12 @@ module Main =
         // |> MarketParser.ParseQuickLook
         // |> ignore
 
-        printfn "%A" <| MarketParser.RunVeldsparBuy().ToString("F2")
-        printfn "%A" <| MarketParser.RunVeldsparSell().ToString("F2")
-        printfn "%A" <| MarketParser.RunPyroxeres().ToString("F2")
+        let location = string (int EveData.SystemName.Amarr)
+
+        printfn "Buy 1 Compressed Veld:  %A" <| MarketParser.TestBuyCompressedVeld(location).ToString("F2")
+        printfn "Sell 1 Compressed Veld: %A" <| MarketParser.TestSellCompressedVeld(location).ToString("F2")
+
+        printfn "Buy 100 Veldspar:       %A" <| MarketParser.TestBuy100Veld(location).ToString("F2")
+        printfn "Sell 100 Veldspar:      %A" <| MarketParser.TestSell100Veld(location).ToString("F2")
         // Must return from function
         0

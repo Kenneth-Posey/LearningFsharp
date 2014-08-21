@@ -180,23 +180,42 @@ module MarketParser =
         | false -> ""                     // No query string parameters
         | true  -> Composer valuePairs
 
-    let RunVeldspar () = 
+    let Run item location = 
         // Have to cast enum to int then to string to get actual value
         // Then construct into tuple for passing into lambda expression
-        (string (int EveData.RawMaterials.Veldspar.Default), string (int EveData.SystemName.Amarr))
-        |> (fun (veld,amarr) -> EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr)
+        (item, location)
+        |> (fun (item, loc) -> EveData.QuickLook + "?typeid=" + item + "&usesystem=" + loc)
         |> LoadUrl 
         |> ParseQuickLook
 
-    let RunVeldsparBuy () = 
-        RunVeldspar ()
+    let RunBuy item location amount = 
+        Run item location
         |> (fun x -> x.sellOrders)
         |> Array.sortWith SortSellFunc
-        |> FindRealCost 100.0f
+        |> FindRealCost amount
 
-    let RunVeldsparSell () = 
-        RunVeldspar ()
+    let RunSell item location amount = 
+        Run item location
         |> (fun x -> x.buyOrders)
         |> Array.sortWith SortBuyFunc
-        |> FindRealIncome 100.0f
-                
+        |> FindRealIncome amount
+    
+    let TestBuyCompressedVeld location =
+        let item = string (int EveData.RawMaterials.CompVeldspar.Default)
+        let amount = 1.0f
+        RunBuy item location amount
+
+    let TestSellCompressedVeld location =
+        let item = string (int EveData.RawMaterials.CompVeldspar.Default)
+        let amount = 1.0f
+        RunSell item location amount
+
+    let TestBuy100Veld location =
+        let item = string (int EveData.RawMaterials.Veldspar.Default)
+        let amount = 100.0f
+        RunBuy item location amount
+
+    let TestSell100Veld location =
+        let item = string (int EveData.RawMaterials.Veldspar.Default)
+        let amount = 100.0f
+        RunSell item location amount
