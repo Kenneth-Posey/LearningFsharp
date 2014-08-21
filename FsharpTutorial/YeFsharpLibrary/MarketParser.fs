@@ -162,6 +162,24 @@ module MarketParser =
         | true when x.Price < y.Price -> 1
         | false -> 0
 
+    let ComposeUrl (valuePairs:(string * string)[]) =
+        let Composer (valuePairs:(string * string)[]) =
+            let rec ComposerRec (valuePairs:(string * string)[]) (url:string) =
+                match valuePairs.Length > 0 with
+                | false -> url
+                | true  -> 
+                    let tail = valuePairs.[1..valuePairs.Length - 1]
+                    let url = url + sprintf "&%s=%s" (fst valuePairs.[0]) (snd valuePairs.[0])
+                    ComposerRec tail url
+
+            let tail = valuePairs.[1..valuePairs.Length - 1]
+            let url = sprintf "?%s=%s" (fst valuePairs.[0]) (snd valuePairs.[0])
+            ComposerRec tail url
+            
+        match valuePairs.Length > 0 with
+        | false -> ""                     // No query string parameters
+        | true  -> Composer valuePairs
+
     let RunVeldsparBuy () = 
         // Have to cast enum to int then to string to get actual value
         // Then construct into tuple for passing into lambda expression
