@@ -150,6 +150,18 @@ module MarketParser =
            then 0.0f
            else Iterate quantity orders
 
+    let SortBuyFunc (x:Types.BuyOrder) (y:Types.BuyOrder) =
+        match x.Price <> y.Price with
+        | true when x.Price > y.Price -> 1
+        | true when x.Price < y.Price -> -1
+        | false -> 0
+       
+    let SortSellFunc (x:Types.SellOrder) (y:Types.SellOrder) =
+        match x.Price <> y.Price with
+        | true when x.Price > y.Price -> -1
+        | true when x.Price < y.Price -> 1
+        | false -> 0
+
     let RunVeldsparBuy () = 
         // Have to cast enum to int then to string to get actual value
         // Then construct into tuple for passing into lambda expression
@@ -158,9 +170,9 @@ module MarketParser =
         |> LoadUrl 
         |> ParseQuickLook
         |> (fun x -> x.sellOrders)
-        // NEEDS SORTING!!!
+        |> Array.sortWith SortSellFunc
         |> FindRealCost 100.0f
-        
+
     let RunVeldsparSell () = 
         // Have to cast enum to int then to string to get actual value
         // Then construct into tuple for passing into lambda expression
@@ -169,7 +181,7 @@ module MarketParser =
         |> LoadUrl 
         |> ParseQuickLook
         |> (fun x -> x.buyOrders)
-        // NEEDS SORTING!!!
+        |> Array.sortWith SortBuyFunc
         |> FindRealIncome 100.0f
                 
     let RunPyroxeres () = 
