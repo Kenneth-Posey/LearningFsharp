@@ -120,12 +120,12 @@ module MarketParser =
     let FindRealCost (quantity:single) (orders:Types.SellOrder[]) =
         let Iterate (quantity:single) (orders:Types.SellOrder[]) =
             let rec IterateRec (quantity:single) (orders:Types.SellOrder[]) (total:single) =
-                match quantity <= 0.0f with
+                match quantity <= 0.0f || orders.Length = 0 with
                 | true  -> total
-                | false -> let total    = total + single orders.[0].Price * single quantity
-                           let quantity = quantity - single orders.[0].VolRemain
+                | false -> let total = total + single orders.[0].Price * single quantity
+                           let quant = quantity - single orders.[0].VolRemain
 
-                           IterateRec quantity orders.[1 .. orders.Length - 1] total
+                           IterateRec quant orders.[1 .. orders.Length - 1] total
                 
             IterateRec quantity orders 0.0f
 
@@ -136,19 +136,19 @@ module MarketParser =
     let FindRealIncome (quantity:single) (orders:Types.BuyOrder[]) =
         let Iterate (quantity:single) (orders:Types.BuyOrder[]) =
             let rec IterateRec (quantity:single) (orders:Types.BuyOrder[]) (total:single) =
-                match quantity <= 0.0f with
+                // If we don't need to "add" any more or if there's no more orders then return
+                match quantity <= 0.0f || orders.Length = 0 with
                 | true  -> total
-                | false -> let total    = total + single orders.[0].Price * single quantity
-                           let quantity = quantity - single orders.[0].VolRemain
+                | false -> let total = total + single orders.[0].Price * single quantity
+                           let quant = quantity - single orders.[0].VolRemain
 
-                           IterateRec quantity orders.[1 .. orders.Length - 1] total
+                           IterateRec quant orders.[1 .. orders.Length - 1] total
                 
             IterateRec quantity orders 0.0f
 
         if (quantity = 0.0f) || (orders.Length = 0)
            then 0.0f
            else Iterate quantity orders
-        0.0f
 
     let RunVeldsparBuy () = 
         // Have to cast enum to int then to string to get actual value
