@@ -42,8 +42,8 @@ module Main =
         // |> MarketParser.ParseQuickLook
         // |> ignore
 
-        printfn "%A" <| ( MarketParser.RunVeldsparBuy().ToString("F2") )
-        printfn "%A" <| ( MarketParser.RunVeldsparSell().ToString("F2") )
-        printfn "%A" <| ( MarketParser.RunPyroxeres().ToString("F2") )
+        printfn "%A" <| MarketParser.RunVeldsparBuy().ToString("F2")
+        printfn "%A" <| MarketParser.RunVeldsparSell().ToString("F2")
+        printfn "%A" <| MarketParser.RunPyroxeres().ToString("F2")
         // Must return from function
         0
