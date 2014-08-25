@@ -33,15 +33,7 @@ module Main =
             ()
         with
             | _ -> ()
-
-        // Have to cast enum to int then to string to get actual value
-        // Then construct into tuple for passing into lambda expression
-        // (string (int RawMaterials.Veldspar.Default), string (int SystemName.Amarr))
-        // |> (fun (veld,amarr) -> EveData.QuickLook + "?typeid=" + veld + "&usesystem=" + amarr)
-        // |> MarketParser.LoadUrl 
-        // |> MarketParser.ParseQuickLook
-        // |> ignore
-
+            
         let location = string (int EveData.SystemName.Amarr)
 
         printfn "Buy 1 Compressed Veld:  %A" <| MarketParser.TestBuyCompressedVeld(location).ToString("F2")

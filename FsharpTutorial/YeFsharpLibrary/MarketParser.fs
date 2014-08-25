@@ -14,13 +14,13 @@ module MarketParser =
     //                  |> FilterToOreOnly 
     //                  |> FilterByName "Tritanium"
 
-    let FilterByName (name:string) (tuple:(string * string)[]) =
+    let FilterByName (name:string) (tuple:List<(string * string)>) =
         tuple
-        |> Array.filter ( fun (x, y) -> y.Contains(name) )
+        |> List.filter ( fun (x, y) -> y.Contains(name) )
 
-    let FilterToOreOnly (tuple:(string * string)[]) = 
+    let FilterToOreOnly (tuple:List<(string * string)>) = 
         tuple
-        |> Array.filter ( fun (x, y) -> 
+        |> List.filter ( fun (x, y) -> 
             y.Contains("Blueprint") && y.Contains("Processing") && y.Contains("Mining") 
                 = false )
     
@@ -39,8 +39,8 @@ module MarketParser =
     let IsNotEmpty (x:string , y:string) =
         (x.Length > 0) && (y.Length > 0)
         
-    let FilterEmpty (text:(string * string)[]) =
-        text |> Array.filter ( fun (x, y) -> IsNotEmpty (x, y) )
+    let FilterEmpty (text:List<(string * string)>) =
+        text |> List.filter ( fun (x, y) -> IsNotEmpty (x, y) )
 
     let SplitOnNewline (text:string) (regex:Regex) =
         [| 
@@ -51,6 +51,7 @@ module MarketParser =
     let LoadTypeIdsFromUrl (url:string) =
         new Regex "([0-9]{1,9})[ ]{6}([\w '.-_]*)"
         |> SplitOnNewline (LoadUrl url)
+        |> List.ofArray
         |> FilterEmpty
         
     type ParsedData<'a, 'b> = 
@@ -66,6 +67,7 @@ module MarketParser =
     type iProvider = EveData.MarketOrder.QuickLookResult
     let ParseQuickLook (data:string) =
         let providerData = iProvider.Parse(data).Quicklook
+
         let buyOrders = providerData.BuyOrders.Orders
         let sellOrders = providerData.SellOrders.Orders
 
@@ -117,15 +119,15 @@ module MarketParser =
             highBuy    = highBuy
         }
         
-    let FindRealCost (quantity:single) (orders:Types.SellOrder[]) =
-        let Iterate (quantity:single) (orders:Types.SellOrder[]) =
-            let rec IterateRec (quantity:single) (orders:Types.SellOrder[]) (total:single) =
+    let FindRealCost (quantity:single) (orders:List<Types.SellOrder>) =
+        let Iterate (quantity:single) (orders:List<Types.SellOrder>) =
+            let rec IterateRec (quantity:single) (orders:List<Types.SellOrder>) (total:single) =
                 match quantity <= 0.0f || orders.Length = 0 with
                 | true  -> total
                 | false -> let total = total + single orders.[0].Price * single quantity
                            let quant = quantity - single orders.[0].VolRemain
 
-                           IterateRec quant orders.[1 .. orders.Length - 1] total
+                           IterateRec quant orders.Tail total
                 
             IterateRec quantity orders 0.0f
             
@@ -133,16 +135,16 @@ module MarketParser =
         | true  -> 0.0f
         | false -> Iterate quantity orders
 
-    let FindRealIncome (quantity:single) (orders:Types.BuyOrder[]) =
-        let Iterate (quantity:single) (orders:Types.BuyOrder[]) =
-            let rec IterateRec (quantity:single) (orders:Types.BuyOrder[]) (total:single) =
+    let FindRealIncome (quantity:single) (orders:List<Types.BuyOrder>) =
+        let Iterate (quantity:single) (orders:List<Types.BuyOrder>) =
+            let rec IterateRec (quantity:single) (orders:List<Types.BuyOrder>) (total:single) =
                 // If we don't need to "add" any more or if there's no more orders then return
                 match quantity <= 0.0f || orders.Length = 0 with
                 | true  -> total
                 | false -> let total = total + single orders.[0].Price * single quantity
                            let quant = quantity - single orders.[0].VolRemain
 
-                           IterateRec quant orders.[1 .. orders.Length - 1] total
+                           IterateRec quant orders.Tail total
                 
             IterateRec quantity orders 0.0f
 
@@ -162,19 +164,17 @@ module MarketParser =
         | true when x.Price < y.Price -> 1
         | false -> 0
 
-    let ComposeUrl (valuePairs:(string * string)[]) =
-        let Composer (valuePairs:(string * string)[]) =
-            let rec ComposerRec (valuePairs:(string * string)[]) (url:string) =
+    let ComposeUrl (valuePairs:List<(string * string)>) =        
+        let Composer (valuePairs:List<(string * string)>) =
+            let rec ComposerRec (valuePairs:List<(string * string)>) (url:string) =
                 match valuePairs.Length > 0 with
                 | false -> url
                 | true  -> 
-                    let tail = valuePairs.[1..valuePairs.Length - 1]
                     let url = url + sprintf "&%s=%s" (fst valuePairs.[0]) (snd valuePairs.[0])
-                    ComposerRec tail url
+                    ComposerRec valuePairs.Tail url
 
-            let tail = valuePairs.[1..valuePairs.Length - 1]
             let url = sprintf "?%s=%s" (fst valuePairs.[0]) (snd valuePairs.[0])
-            ComposerRec tail url
+            ComposerRec valuePairs.Tail url
             
         match valuePairs.Length > 0 with
         | false -> ""                     // No query string parameters
@@ -191,13 +191,15 @@ module MarketParser =
     let RunBuy item location amount = 
         Run item location
         |> (fun x -> x.sellOrders)
-        |> Array.sortWith SortSellFunc
+        |> List.ofArray
+        |> List.sortWith SortSellFunc
         |> FindRealCost amount
 
     let RunSell item location amount = 
         Run item location
         |> (fun x -> x.buyOrders)
-        |> Array.sortWith SortBuyFunc
+        |> List.ofArray
+        |> List.sortWith SortBuyFunc
         |> FindRealIncome amount
     
     let TestBuyCompressedVeld location =
