@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{655CA737-CD94-4128-B2B5-DCE37EA6E7F8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>eZet.EveLib.Modules</RootNamespace>
+    <AssemblyName>EveLib.EveOnline</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsRuntimeCheckingLevel>None</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <DocumentationFile>bin\Release\EveLib.EveOnline.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>False</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>False</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>False</CodeContractsRedundantAssumptions>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestRequires>True</CodeContractsSuggestRequires>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsReferenceAssembly>DoNotBuild</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApiKey.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Character.cs" />
+    <Compile Include="CharacterKey.cs" />
+    <Compile Include="Eve.cs" />
+    <Compile Include="Corporation.cs" />
+    <Compile Include="CorporationKey.cs" />
+    <Compile Include="EveOnlineApi.cs" />
+    <Compile Include="Image.cs" />
+    <Compile Include="LazyLoadEntity.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="Models\Account\AccountStatus.cs" />
+    <Compile Include="Models\Account\ApiKeyInfo.cs" />
+    <Compile Include="Models\Account\CharacterList.cs" />
+    <Compile Include="Models\Character\AccountBalance.cs" />
+    <Compile Include="Models\Character\AssetList.cs" />
+    <Compile Include="Models\Character\Blueprints.cs" />
+    <Compile Include="Models\Character\CalendarEventAttendees.cs" />
+    <Compile Include="Models\Character\CharacterSheet.cs" />
+    <Compile Include="Models\Character\ContactList.cs" />
+    <Compile Include="Models\Character\ContactNotifications.cs" />
+    <Compile Include="Models\Character\ContractBids.cs" />
+    <Compile Include="Models\Character\ContractItems.cs" />
+    <Compile Include="Models\Character\ContractList.cs" />
+    <Compile Include="Models\Character\FactionWarfareStats.cs" />
+    <Compile Include="Models\Character\KillLog.cs" />
+    <Compile Include="Models\Character\Locations.cs" />
+    <Compile Include="Models\Character\MailBodies.cs" />
+    <Compile Include="Models\Character\MailingLists.cs" />
+    <Compile Include="Models\Character\MailMessages.cs" />
+    <Compile Include="Models\Character\MarketOrders.cs" />
+    <Compile Include="Models\Character\MedalList.cs" />
+    <Compile Include="Models\Character\NotificationList.cs" />
+    <Compile Include="Models\Character\NotificationTexts.cs" />
+    <Compile Include="Models\Character\PlanetaryColonies.cs" />
+    <Compile Include="Models\Character\PlanetaryLinks.cs" />
+    <Compile Include="Models\Character\PlanetaryPins.cs" />
+    <Compile Include="Models\Character\PlanetaryRoutes.cs" />
+    <Compile Include="Models\Character\Research.cs" />
+    <Compile Include="Models\Character\SkillQueue.cs" />
+    <Compile Include="Models\Character\SkillTraining.cs" />
+    <Compile Include="Models\Character\StandingsList.cs" />
+    <Compile Include="Models\Character\UpcomingCalendarEvents.cs" />
+    <Compile Include="Models\Character\WalletJournal.cs" />
+    <Compile Include="Models\Character\WalletTransactions.cs" />
+    <Compile Include="Models\Corporation\CustomsOffices.cs" />
+    <Compile Include="Models\Corporation\Facilities.cs" />
+    <Compile Include="Models\EveApiEnums.cs" />
+    <Compile Include="Models\Misc\AllianceList.cs" />
+    <Compile Include="Models\Misc\CallList.cs" />
+    <Compile Include="Models\Misc\CertificateTree.cs" />
+    <Compile Include="Models\Misc\CharacterAffiliation.cs" />
+    <Compile Include="Models\Misc\CharacterInfo.cs" />
+    <Compile Include="Models\Misc\CharacterNameId.cs" />
+    <Compile Include="Models\Misc\ConquerableStations.cs" />
+    <Compile Include="Models\Misc\ErrorList.cs" />
+    <Compile Include="Models\Misc\FactionWarfareStats.cs" />
+    <Compile Include="Models\Misc\FactionWarTopStats.cs" />
+    <Compile Include="Models\Misc\OwnerCollection.cs" />
+    <Compile Include="Models\Misc\RefTypes.cs" />
+    <Compile Include="Models\Misc\ServerStatus.cs" />
+    <Compile Include="Models\Misc\SkillTree.cs" />
+    <Compile Include="Models\Misc\TypeName.cs" />
+    <Compile Include="Models\Corporation\ContactList.cs" />
+    <Compile Include="Models\Corporation\ContainerLog.cs" />
+    <Compile Include="Models\Corporation\CorporationSheet.cs" />
+    <Compile Include="Models\Corporation\FactionWarfareStats.cs" />
+    <Compile Include="Models\Corporation\MedalList.cs" />
+    <Compile Include="Models\Corporation\MemberMedals.cs" />
+    <Compile Include="Models\Corporation\MemberSecurity.cs" />
+    <Compile Include="Models\Corporation\MemberSecurityLog.cs" />
+    <Compile Include="Models\Corporation\MemberTracking.cs" />
+    <Compile Include="Models\Corporation\OutpostList.cs" />
+    <Compile Include="Models\Corporation\OutpostServiceDetails.cs" />
+    <Compile Include="Models\Corporation\ShareholderList.cs" />
+    <Compile Include="Models\Corporation\StandingsList.cs" />
+    <Compile Include="Models\Corporation\StarbaseDetails.cs" />
+    <Compile Include="Models\Corporation\StarbaseList.cs" />
+    <Compile Include="Models\Corporation\Titles.cs" />
+    <Compile Include="Models\EveApiError.cs" />
+    <Compile Include="Models\EveApiResponse.cs" />
+    <Compile Include="Models\Map\FactionWarfareSystems.cs" />
+    <Compile Include="Models\Map\Jumps.cs" />
+    <Compile Include="Models\Map\Kills.cs" />
+    <Compile Include="Models\Map\Sovereignty.cs" />
+    <Compile Include="Models\Map\SovereigntyStatus.cs" />
+    <Compile Include="Models\Character\IndustryJobs.cs" />
+    <Compile Include="Exceptions\EveOnlineException.cs" />
+    <Compile Include="RequestHandlers\WindowsCachedRequestHandler.cs" />
+    <Compile Include="Util\XmlHelper.cs" />
+    <Compile Include="Models\EveOnlineRowCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestHandlers\EveOnlineRequestHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EveLib.Core\EveLib.Core.csproj">
+      <Project>{AA85978C-2BF5-419F-9F8E-B70162E83F34}</Project>
+      <Name>EveLib.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

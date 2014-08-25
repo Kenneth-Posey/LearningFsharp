@@ -19,6 +19,16 @@ module EveData =
         setminQ     : int
         }
 
+    module ApiFeed =
+        open FSharp.Data
+
+        type CrestAPI =
+            JsonProvider<"http://public-crest.eveonline.com/">
+        
+        type IndustryFacilities = 
+            JsonProvider<"http://public-crest.eveonline.com/industry/facilities/">
+
+
     module MarketOrder = 
         open FSharp.Data
 
