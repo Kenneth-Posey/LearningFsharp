@@ -6,6 +6,7 @@ module Main =
     open Testing
     open EveOnline
     open EveOnline.EveData
+    open EveOnline.EveData.RawMaterials
     open System.Drawing
     
     let RunImageSearch () =
@@ -52,30 +53,33 @@ module Main =
                 string ( int SystemName.Hek     )
             ]
 
-        let Ore : List<RawMaterials.IOre> = 
-            [
-                new RawMaterials.Veldspar ()
-                new RawMaterials.Scordite ()
-                new RawMaterials.Pyroxeres ()
+        let Ore : List<IOre> = [
+                new Veldspar ()
+                new Scordite ()
+                new Pyroxeres ()
+                new Hedbergite ()
+                new Hemorphite ()
+                new Jaspet ()
             ]
 
-        let CompressedOre : List<RawMaterials.ICompressedOre> = 
-            [
-                new RawMaterials.CompVeldspar ()
-                new RawMaterials.CompScordite ()
-                new RawMaterials.CompPyroxeres ()
+        let CompressedOre : List<ICompressedOre> = [
+                new CompVeldspar ()
+                new CompScordite ()
+                new CompPyroxeres ()
+                new CompHedbergite ()
+                new CompHemorphite ()
+                new CompJaspet ()
             ]
+
+        Ore
+        |> List.map (fun x -> x.GetBase () )
+        |> List.map (fun x -> MarketParser.RunBuy (string x) Locations.Head 100.0f)
+        |> List.map (fun x -> printfn "%A" x)
+        |> ignore
 
         // Test to see if this interface pattern worked as expected
-        let rrrrrrrrrr = Ore.Head.GetBase ()
-        
-        // shim to compile
-        let location = ""
+        // let rrrrrrrrrr = Ore.Head.GetBase ()
+        // let tttttttttt = CompressedOre.Head.GetBase ()
 
-        printfn "Buy 1 Compressed Veld:  %A" <| MarketParser.TestBuyCompressedVeld(location).ToString("F2")
-        printfn "Sell 1 Compressed Veld: %A" <| MarketParser.TestSellCompressedVeld(location).ToString("F2")
-        
-        printfn "Buy 100 Veldspar:       %A" <| MarketParser.TestBuy100Veld(location).ToString("F2")
-        printfn "Sell 100 Veldspar:      %A" <| MarketParser.TestSell100Veld(location).ToString("F2")
         // Must return from function
         0
