@@ -112,64 +112,149 @@ module EveData =
         | Nocxium   = 38
         | Zydrine   = 39
         | Megacyte  = 40
-
-        type Veldspar =
-        | Default      = 1230
-        | Concentrated = 17470
-        | Dense        = 17471
-
-        type CompVeldspar =
-        | Default      = 28430
-        | Concentrated = 28431
-        | Dense        = 28432
         
-        type Scordite =
-        | Default   = 1228
-        | Condensed = 17463
-        | Massive   = 17464
+        [<AbstractClass>]
+        type Ore () = 
+            abstract member GetName : unit -> string
 
-        type CompScordite =
-        | Default   = 28427
-        | Condensed = 28428
-        | Massive   = 28429
+        [<AbstractClass>]
+        type CompressedOre () =
+            inherit Ore ()
 
-        type Pyroxeres =
-        | Default   = 1224
-        | Solid     = 17459
-        | Viscous   = 17460
+        type Veldspar () =
+            inherit Ore ()
+                override this.GetName () = "Veldspar"
+                
+            static member val Base   = 1230  with get
+            static member val Base5  = 17470 with get
+            static member val Base10 = 17471 with get
 
-        type CompPyroxeres =
-        | Default   = 28424
-        | Solid     = 28425
-        | Viscous   = 28426
+            static member val Concentrated = 17470 with get
+            static member val Dense        = 17471 with get
+
         
-        type Hedbergite =
-        | Default   = 21
-        | Vitric    = 17440
-        | Glazed    = 17441
+        type Scordite () =
+            inherit Ore ()
+                override this.GetName () = "Scordite"
 
-        type CompHedbergite = 
-        | Default   = 28400
-        | Vitric    = 28401
-        | Glazed    = 28402
+            static member val Base      = 1228  with get
+            static member val Base5     = 17463 with get
+            static member val Base10    = 17464 with get
 
-        type Hemorphite = 
-        | Default   = 1231
-        | Vivid     = 17444
-        | Radiant   = 17445
+            static member val Condensed = 17463 with get
+            static member val Massive   = 17464 with get
+        
 
-        type CompHemorphite = 
-        | Default   = 18403
-        | Vivid     = 28404
-        | Radiant   = 28405
+        type Pyroxeres () =
+            inherit Ore ()
+                override this.GetName () = "Pyroxeres"
 
-        type Jaspet = 
-        | Default   = 1226
-        | Pure      = 17448
-        | Pristine  = 17449
+            static member val Base   = 1224    with get
+            static member val Base5  = 17459   with get
+            static member val Base10 = 17460   with get
 
-        type CompJaspet = 
-        | Default   = 28406
-        | Pure      = 28407
-        | Pristine  = 28408
+            static member val Solid    = 17459 with get
+            static member val Viscous  = 17460 with get
+        
+        
+        type Hedbergite () =
+            inherit Ore ()
+                override this.GetName () = "Hedbergite"
+
+            static member val Base   = 21      with get
+            static member val Base5  = 17440   with get
+            static member val Base10 = 17441   with get
+
+            static member val Vitric   = 17440 with get
+            static member val Glazed   = 17441 with get
+        
+
+        type Hemorphite () = 
+            inherit Ore ()
+                override this.GetName () = "Hemorphite"
+
+            static member val Base   = 1231    with get
+            static member val Base5  = 17444   with get
+            static member val Base10 = 17445   with get
+
+            static member val Vivid    = 17444 with get
+            static member val Radiant  = 17445 with get
+        
+
+        type Jaspet () = 
+            inherit Ore ()
+                override this.GetName () = "Jaspet"
+
+            static member val Base   = 1226    with get
+            static member val Base5  = 17448   with get
+            static member val Base10 = 17449   with get
+
+            static member val Pure     = 17448 with get
+            static member val Pristine = 17449 with get
+        
+        type CompVeldspar () =
+            inherit CompressedOre ()
+                override this.GetName () = "Veldspar"
+
+            static member val Base       = 28430   with get
+            static member val Base5      = 28431   with get
+            static member val Base10     = 28432   with get
+
+            static member val Concentrated = 28431 with get
+            static member val Dense        = 28432 with get
+
+        type CompScordite () =
+            inherit CompressedOre ()
+                override this.GetName () = "Scordite"
+
+            static member val Base    = 28427    with get
+            static member val Base5   = 28428    with get
+            static member val Base10  = 28429    with get
+
+            static member val Condensed = 28428  with get
+            static member val Massive   = 28429  with get
+                                                 
+        type CompPyroxeres () =                  
+            inherit CompressedOre ()             
+                override this.GetName () = "Pyroxeres"
+
+            static member val Base    = 28424    with get
+            static member val Base5   = 28425    with get
+            static member val Base10  = 28426    with get
+
+            static member val Solid   = 28425    with get
+            static member val Viscous = 28426    with get
+                                                 
+        type CompHedbergite () =                 
+            inherit CompressedOre ()             
+                override this.GetName () = "Hedbergite"
+
+            static member val Base    = 28400    with get
+            static member val Base5   = 28401    with get
+            static member val Base10  = 28402    with get
+
+            static member val Vitric  = 28401    with get
+            static member val Glazed  = 28402    with get
+                                                 
+        type CompHemorphite () =                 
+            inherit CompressedOre ()             
+                override this.GetName () = "Hemorphite"
+
+            static member val Base    = 18403    with get
+            static member val Base5   = 28404    with get
+            static member val Base10  = 28405    with get
+
+            static member val Vivid   = 28404    with get
+            static member val Radiant = 28405    with get
+                                                 
+        type CompJaspet () =                     
+            inherit CompressedOre ()     
+                override this.GetName () = "Jaspet"
+        
+            static member val Base    = 28406    with get
+            static member val Base5   = 28407    with get
+            static member val Base10  = 28408    with get
+
+            static member val Pure     = 28407   with get
+            static member val Pristine = 28408   with get
                     

@@ -41,12 +41,26 @@ module Main =
     [<EntryPoint>]
     let main (args:string[]) = 
         
+        // Lists can only have one type so we have to 
+
         let Locations = [
-            string (int EveData.SystemName.Jita)
-            string (int EveData.SystemName.Amarr)
-            string (int EveData.SystemName.Dodixie)
-            string (int EveData.SystemName.Rens)
-            string (int EveData.SystemName.Hek)
+            string ( int EveData.SystemName.Jita    )
+            string ( int EveData.SystemName.Amarr   )
+            string ( int EveData.SystemName.Dodixie )
+            string ( int EveData.SystemName.Rens    )
+            string ( int EveData.SystemName.Hek     )
+            ]
+
+        let Ore = [
+            string ( int EveData.RawMaterials.Veldspar.Base  )
+            string ( int EveData.RawMaterials.Scordite.Base  )
+            string ( int EveData.RawMaterials.Pyroxeres.Base )
+            ]
+
+        let CompressedOre = [
+            string ( int EveData.RawMaterials.CompVeldspar.Base  )
+            string ( int EveData.RawMaterials.CompScordite.Base  )
+            string ( int EveData.RawMaterials.CompPyroxeres.Base )
             ]
 
 
