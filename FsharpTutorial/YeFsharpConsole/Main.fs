@@ -8,9 +8,7 @@ module Main =
     open EveOnline.EveData
     open System.Drawing
     
-    [<EntryPoint>]
-    let main (args:string[]) = 
-        
+    let RunImageSearch () =
         // consoletest([|""|]) |> ignore
 
         ImageSearchTest.TestFunctions() |> ignore
@@ -33,12 +31,34 @@ module Main =
             ()
         with
             | _ -> ()
-            
-        let location = string (int EveData.SystemName.Amarr)
+
+    let RunVeldsparUniversal () =
+        
+
+        ()
+        
+
+    [<EntryPoint>]
+    let main (args:string[]) = 
+        
+        let Locations = [
+            string (int EveData.SystemName.Jita)
+            string (int EveData.SystemName.Amarr)
+            string (int EveData.SystemName.Dodixie)
+            string (int EveData.SystemName.Rens)
+            string (int EveData.SystemName.Hek)
+            ]
+
+
+
+
+
+        // shim to compile
+        let location = ""
 
         printfn "Buy 1 Compressed Veld:  %A" <| MarketParser.TestBuyCompressedVeld(location).ToString("F2")
         printfn "Sell 1 Compressed Veld: %A" <| MarketParser.TestSellCompressedVeld(location).ToString("F2")
-
+        
         printfn "Buy 100 Veldspar:       %A" <| MarketParser.TestBuy100Veld(location).ToString("F2")
         printfn "Sell 100 Veldspar:      %A" <| MarketParser.TestSell100Veld(location).ToString("F2")
         // Must return from function
