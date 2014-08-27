@@ -43,30 +43,32 @@ module Main =
         
         // Lists can only have one type so we have to 
 
-        let Locations = [
-            string ( int EveData.SystemName.Jita    )
-            string ( int EveData.SystemName.Amarr   )
-            string ( int EveData.SystemName.Dodixie )
-            string ( int EveData.SystemName.Rens    )
-            string ( int EveData.SystemName.Hek     )
+        let Locations : List<string> = 
+            [
+                string ( int SystemName.Jita    )
+                string ( int SystemName.Amarr   )
+                string ( int SystemName.Dodixie )
+                string ( int SystemName.Rens    )
+                string ( int SystemName.Hek     )
             ]
 
-        let Ore = [
-            string ( int EveData.RawMaterials.Veldspar.Base  )
-            string ( int EveData.RawMaterials.Scordite.Base  )
-            string ( int EveData.RawMaterials.Pyroxeres.Base )
+        let Ore : List<RawMaterials.IOre> = 
+            [
+                new RawMaterials.Veldspar ()
+                new RawMaterials.Scordite ()
+                new RawMaterials.Pyroxeres ()
             ]
 
-        let CompressedOre = [
-            string ( int EveData.RawMaterials.CompVeldspar.Base  )
-            string ( int EveData.RawMaterials.CompScordite.Base  )
-            string ( int EveData.RawMaterials.CompPyroxeres.Base )
+        let CompressedOre : List<RawMaterials.ICompressedOre> = 
+            [
+                new RawMaterials.CompVeldspar ()
+                new RawMaterials.CompScordite ()
+                new RawMaterials.CompPyroxeres ()
             ]
 
-
-
-
-
+        // Test to see if this interface pattern worked as expected
+        let rrrrrrrrrr = Ore.Head.GetBase ()
+        
         // shim to compile
         let location = ""
 
