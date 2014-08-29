@@ -32,12 +32,9 @@ module Main =
             ()
         with
             | _ -> ()
-
-    let RunVeldsparUniversal () =
-        
-
-        ()
-        
+    
+    
+    type Ore = EveData.RawMaterials.SimpleOre
 
     [<EntryPoint>]
     let main (args:string[]) = 
@@ -52,16 +49,13 @@ module Main =
                 string ( int SystemName.Hek     )
             ]
 
-        let Ore : List<IRawOre> = [
+        let OreList : List<IOre> = [
                 new Veldspar ()
                 new Scordite ()
                 new Pyroxeres ()
                 new Hedbergite ()
                 new Hemorphite ()
                 new Jaspet ()
-            ]
-
-        let CompressedOre : List<ICompressedOre> = [
                 new CompVeldspar ()
                 new CompScordite ()
                 new CompPyroxeres ()
@@ -70,16 +64,26 @@ module Main =
                 new CompJaspet ()
             ]
 
-        let printOre oreList =
-            oreList
-            |> List.map  (fun x -> x :> IOre )
-            |> List.map  (fun x -> x.GetBase () )
-            |> List.map  (fun x -> MarketParser.RunBuy (string x) Locations.Head 100.0f )
-            |> List.iter (fun x -> printfn "%f" x )
+        let Buy x = MarketParser.RunBuy (string x) Locations.Head 1000.0f
+        
+        let BuyValues = 
+            OreList
+            |> List.map  (fun x -> { Ore.Name   = x.GetName () 
+                                     Ore.TypeId = x.GetBase () 
+                                     Ore.Value  = Buy ( x.GetBase () )
+                                     Ore.IsTiny = x.IsTiny () } )
 
-        Ore |> printOre
 
-        CompressedOre |> printOre
+        // let printOre oreList =
+        //     oreList
+        //     |> List.map  (fun x -> x :> IOre )
+        //     |> List.map  (fun x -> x.GetBase () )
+        //     |> List.map  (fun x -> MarketParser.RunBuy (string x) Locations.Head 100.0f )
+        //     |> List.iter (fun x -> printfn "%f" x )
+
+        // Ore |> printOre
+        // 
+        // CompressedOre |> printOre
         
         // Must return from function
         0
