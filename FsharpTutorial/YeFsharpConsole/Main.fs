@@ -77,6 +77,12 @@ module Main =
         |> List.map (fun x -> printfn "%A" x)
         |> ignore
 
+        CompressedOre
+        |> List.map (fun x -> x.GetBase () )
+        |> List.map (fun x -> MarketParser.RunBuy (string x) Locations.Head 100.0f)
+        |> List.map (fun x -> printfn "%A" x)
+        |> ignore
+
         // Test to see if this interface pattern worked as expected
         // let rrrrrrrrrr = Ore.Head.GetBase ()
         // let tttttttttt = CompressedOre.Head.GetBase ()
