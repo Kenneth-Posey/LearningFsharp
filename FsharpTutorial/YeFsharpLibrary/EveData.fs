@@ -303,7 +303,7 @@ module EveData =
                 override this.GetBase10 () = CompHemorphite.Base10
                 override this.IsTiny () = true
 
-            static member val Base   = 18403 with get
+            static member val Base   = 28403 with get
             static member val Base5  = 28404 with get
             static member val Base10 = 28405 with get
                                               

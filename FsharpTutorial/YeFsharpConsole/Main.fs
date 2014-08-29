@@ -33,9 +33,6 @@ module Main =
         with
             | _ -> ()
     
-    
-    type Ore = EveData.RawMaterials.SimpleOre
-
     [<EntryPoint>]
     let main (args:string[]) = 
         
@@ -68,10 +65,11 @@ module Main =
         
         let BuyValues = 
             OreList
-            |> List.map  (fun x -> { Ore.Name   = x.GetName () 
-                                     Ore.TypeId = x.GetBase () 
-                                     Ore.Value  = Buy ( x.GetBase () )
-                                     Ore.IsTiny = x.IsTiny () } )
+            |> List.map  (fun x -> { Name   = x.GetName () 
+                                     TypeId = x.GetBase () 
+                                     Value  = Buy ( x.GetBase () )
+                                     IsTiny = x.IsTiny () } )
+            |> List.iter (fun x -> printfn "Cost to buy 1000 %s is %f" x.Name x.Value)
 
 
         // let printOre oreList =
