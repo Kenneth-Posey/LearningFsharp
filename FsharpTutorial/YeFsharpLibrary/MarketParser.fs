@@ -202,22 +202,3 @@ module MarketParser =
         |> List.sortWith SortBuyFunc
         |> FindRealIncome amount
     
-    let TestBuyCompressedVeld location =
-        let item = string (int EveData.RawMaterials.CompVeldspar.Base)
-        let amount = 1.0f
-        RunBuy item location amount
-
-    let TestSellCompressedVeld location =
-        let item = string (int EveData.RawMaterials.CompVeldspar.Base)
-        let amount = 1.0f
-        RunSell item location amount
-
-    let TestBuy100Veld location =
-        let item = string (int EveData.RawMaterials.Veldspar.Base)
-        let amount = 100.0f
-        RunBuy item location amount
-
-    let TestSell100Veld location =
-        let item = string (int EveData.RawMaterials.Veldspar.Base)
-        let amount = 100.0f
-        RunSell item location amount

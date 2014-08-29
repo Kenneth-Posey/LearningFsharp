@@ -120,13 +120,15 @@ module EveData =
             abstract member GetBase5  : unit -> int
             abstract member GetBase10 : unit -> int
 
+        type IRawOre =
+            inherit IOre
 
         type ICompressedOre =
             inherit IOre
 
 
         type Veldspar () =
-            interface IOre with
+            interface IRawOre with
                 member this.GetName () = "Veldspar"
                 member this.GetBase () = Veldspar.Base
                 member this.GetBase5 () = Veldspar.Base5
@@ -141,7 +143,7 @@ module EveData =
 
         
         type Scordite () =
-            interface IOre with
+            interface IRawOre with
                 override this.GetName () = "Scordite"
                 override this.GetBase () = Scordite.Base
                 override this.GetBase5 () = Scordite.Base5
@@ -156,7 +158,7 @@ module EveData =
         
 
         type Pyroxeres () =
-            interface IOre with
+            interface IRawOre with
                 override this.GetName () = "Pyroxeres"
                 override this.GetBase () = Pyroxeres.Base
                 override this.GetBase5 () = Pyroxeres.Base5
@@ -171,7 +173,7 @@ module EveData =
         
         
         type Hedbergite () =
-            interface IOre with
+            interface IRawOre with
                 override this.GetName () = "Hedbergite"
                 override this.GetBase () = Hedbergite.Base
                 override this.GetBase5 () = Hedbergite.Base5
@@ -186,7 +188,7 @@ module EveData =
        
 
         type Hemorphite () = 
-            interface IOre with
+            interface IRawOre with
                 override this.GetName () = "Hemorphite"
                 override this.GetBase () = Hemorphite.Base
                 override this.GetBase5 () = Hemorphite.Base5
@@ -201,7 +203,7 @@ module EveData =
         
 
         type Jaspet () = 
-            interface IOre with
+            interface IRawOre with
                 override this.GetName () = "Jaspet"
                 override this.GetBase () = Jaspet.Base
                 override this.GetBase5 () = Jaspet.Base5

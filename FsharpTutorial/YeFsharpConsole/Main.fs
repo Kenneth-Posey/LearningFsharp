@@ -44,8 +44,7 @@ module Main =
         
         // Lists can only have one type so we have to 
 
-        let Locations : List<string> = 
-            [
+        let Locations : List<string> = [
                 string ( int SystemName.Jita    )
                 string ( int SystemName.Amarr   )
                 string ( int SystemName.Dodixie )
@@ -53,7 +52,7 @@ module Main =
                 string ( int SystemName.Hek     )
             ]
 
-        let Ore : List<IOre> = [
+        let Ore : List<IRawOre> = [
                 new Veldspar ()
                 new Scordite ()
                 new Pyroxeres ()
@@ -71,21 +70,16 @@ module Main =
                 new CompJaspet ()
             ]
 
-        Ore
-        |> List.map (fun x -> x.GetBase () )
-        |> List.map (fun x -> MarketParser.RunBuy (string x) Locations.Head 100.0f)
-        |> List.map (fun x -> printfn "%A" x)
-        |> ignore
+        let printOre oreList =
+            oreList
+            |> List.map  (fun x -> x :> IOre )
+            |> List.map  (fun x -> x.GetBase () )
+            |> List.map  (fun x -> MarketParser.RunBuy (string x) Locations.Head 100.0f )
+            |> List.iter (fun x -> printfn "%f" x )
 
-        CompressedOre
-        |> List.map (fun x -> x.GetBase () )
-        |> List.map (fun x -> MarketParser.RunBuy (string x) Locations.Head 100.0f)
-        |> List.map (fun x -> printfn "%A" x)
-        |> ignore
+        Ore |> printOre
 
-        // Test to see if this interface pattern worked as expected
-        // let rrrrrrrrrr = Ore.Head.GetBase ()
-        // let tttttttttt = CompressedOre.Head.GetBase ()
-
+        CompressedOre |> printOre
+        
         // Must return from function
         0
