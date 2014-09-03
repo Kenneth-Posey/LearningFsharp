@@ -6,6 +6,7 @@ module MarketParser =
     open System.Net
 
     open EveData
+    open EveData.Types
             
     /// For reading and parsing the text file with typeIDs
     // Example use:
@@ -119,95 +120,32 @@ module MarketParser =
             highBuy    = highBuy
         }
     
-    type SellOrder = Types.SellOrder
-    type BuyOrder  = Types.BuyOrder
-
-    let GenericOrderProcessor<'T when 'T :> Order<'T>> (quantity:single) (orders:List<'T>) =
-        let Iterate (quantity:single) (orders:List<'T>) =
-            let rec IterateRec (quantity:single) (orders:List<'T>) (total:single) =
-                match typeof<'T> with
-                | x when x = typeof<SellOrder> -> 
-                    match quantity <= 0.0f || orders.Length = 0 with
-                    | true  -> total
-                    | false -> let item = orders.Head :?> SellOrder
-                               let total = total + single item.Price * single quantity
-                               let quant = quantity - single item.VolRemain
-                               IterateRec quant orders.Tail total
-
-                | y when y = typeof<BuyOrder>  -> 
-                    match quantity <= 0.0f || orders.Length = 0 with
-                    | true  -> total
-                    | false -> let item = orders.Head :?> BuyOrder
-                               let total = total + single item.Price * single quantity
-                               let quant = quantity - single item.VolRemain
-                               IterateRec quant orders.Tail total       
-                
+    let OrderProcessor (quantity:int) (orders:List<Order>) =
+        let Iterate (quantity:int) (orders:List<Order>) =
+            let rec IterateRec (quantity:int) (orders:List<Order>) (total) =
+                match quantity <= 0 || orders.Length = 0 with
+                | true  -> total
+                | false -> let total = total + orders.Head.Price * single quantity
+                           let quant = quantity - orders.Head.VolRemain
+                           IterateRec quant orders.Tail total
+                                               
             IterateRec quantity orders 0.0f
             
-        match (quantity = 0.0f) || (orders.Length = 0) with
-        | true  -> 0.0f
+        match (quantity = 0) || (orders.Length = 0) with
+        | true  -> 0.0f                                                 
         | false -> Iterate quantity orders
 
-    let BuyFromSellOrders (quantity:single) (orders:List<Types.SellOrder>) =
-        let Iterate (quantity:single) (orders:List<Types.SellOrder>) =
-            let rec IterateRec (quantity:single) (orders:List<Types.SellOrder>) (total:single) =
-                match quantity <= 0.0f || orders.Length = 0 with
-                | true  -> total
-                | false -> let total = total + single orders.[0].Price * single quantity
-                           let quant = quantity - single orders.[0].VolRemain
-
-                           IterateRec quant orders.Tail total
-                
-            IterateRec quantity orders 0.0f
-            
-        match (quantity = 0.0f) || (orders.Length = 0) with
-        | true  -> 0.0f
-        | false -> Iterate quantity orders
-
-    let SellToBuyOrders (quantity:single) (orders:List<Types.BuyOrder>) =
-        let Iterate (quantity:single) (orders:List<Types.BuyOrder>) =
-            let rec IterateRec (quantity:single) (orders:List<Types.BuyOrder>) (total:single) =
-                // If we don't need to "add" any more or if there's no more orders then return
-                match quantity <= 0.0f || orders.Length = 0 with
-                | true  -> total
-                | false -> let total = total + single orders.[0].Price * single quantity
-                           let quant = quantity - single orders.[0].VolRemain
-
-                           IterateRec quant orders.Tail total
-                
-            IterateRec quantity orders 0.0f
-
-        match (quantity = 0.0f) || (orders.Length = 0) with
-        | true  -> 0.0f
-        | false -> Iterate quantity orders
-
-    let SortBuyFunc (x:Types.BuyOrder) (y:Types.BuyOrder) =
+    let SortBuyFunc (x:Order) (y:Order) =
         match x.Price <> y.Price with
         | true when x.Price > y.Price -> 1
         | true when x.Price < y.Price -> -1
         | false -> 0
        
-    let SortSellFunc (x:Types.SellOrder) (y:Types.SellOrder) =
+    let SortSellFunc (x:Order) (y:Order) =
         match x.Price <> y.Price with
         | true when x.Price > y.Price -> -1
         | true when x.Price < y.Price -> 1
         | false -> 0
-
-    let ComposeUrl (valuePairs:List<(string * string)>) =        
-        let Composer (valuePairs:List<(string * string)>) =
-            let rec ComposerRec (valuePairs:List<(string * string)>) (url:string) =
-                match valuePairs.Length > 0 with
-                | false -> url
-                | true  -> 
-                    let url = url + sprintf "&%s=%s" (fst valuePairs.[0]) (snd valuePairs.[0])
-                    ComposerRec valuePairs.Tail url
-
-            let url = sprintf "?%s=%s" (fst valuePairs.[0]) (snd valuePairs.[0])
-            ComposerRec valuePairs.Tail url
-            
-        match valuePairs.Length > 0 with
-        | false -> ""                     // No query string parameters
-        | true  -> Composer valuePairs
 
     let Run item location = 
         // Have to cast enum to int then to string to get actual value
@@ -221,15 +159,17 @@ module MarketParser =
         Run item location
         |> (fun x -> x.sellOrders)
         |> List.ofArray
+        |> List.map (fun x -> new Order(x, new SellOrder()) )
         |> List.sortWith SortSellFunc
-        |> BuyFromSellOrders amount
+        |> OrderProcessor amount
 
     let RunSell item location amount = 
         Run item location
         |> (fun x -> x.buyOrders)
         |> List.ofArray
+        |> List.map (fun x -> new Order(x, new BuyOrder()) )
         |> List.sortWith SortBuyFunc
-        |> SellToBuyOrders amount
+        |> OrderProcessor amount
     
     type IOre = RawMaterials.IOre
     let FastProfit (item:IOre * IOre) = 
@@ -237,7 +177,7 @@ module MarketParser =
         let item1, item2 = string ( (fst item).GetBase () ) , 
                            string ( (snd item).GetBase () )
 
-        let RunBuy = RunBuy item1 location 100.0f
-        let RunSell = RunSell item2 location 1.0f
+        let RunBuy  = RunBuy  item1 location 100
+        let RunSell = RunSell item2 location 1
 
         RunSell - RunBuy

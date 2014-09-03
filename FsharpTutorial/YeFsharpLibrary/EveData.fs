@@ -99,39 +99,53 @@ module EveData =
 
     module Types =
         /// These are aliases to much simplify the syntax around these provided types
-        type QuickLook = MarketOrder.QuickLookResult
-        type BuyOrder  = MarketOrder.QuickLookResult.Order2
-        type SellOrder = MarketOrder.QuickLookResult.Order
+        type QuickLookProvider = MarketOrder.QuickLookResult
+        type SellOrderProvider = MarketOrder.QuickLookResult.Order
+        type BuyOrderProvider  = MarketOrder.QuickLookResult.Order2
 
-        type Order (region, station, stationName, security, range, price, volRemain, minVolume) as this =
-            member val region      = region
-            member val station     = station    
-            member val stationName = stationName
-            member val security    = security   
-            member val range       = range      
-            member val price       = price      
-            member val volRemain   = volRemain  
-            member val minVolume   = minVolume  
+        type BuyOrder () =
+            member val OrderType = "Buy" with get
+            member this.GetType () = typeof<BuyOrderProvider>
 
-            new (order:BuyOrder)  = 
-                Order (   region = order.Region
-                        , station = order.Station
+        type SellOrder () =
+            member val OrderType = "Sell" with get
+            member this.GetType () = typeof<SellOrderProvider>
+
+        type Order (region, station, stationName, security, range, price, volRemain, minVolume, orderType) as this =
+            member val Region      = region
+            member val Station     = station    
+            member val StationName = stationName
+            member val Security    = security   
+            member val Range       = range      
+            member val Price       = single price      
+            member val VolRemain   = volRemain  
+            member val MinVolume   = minVolume  
+            member val OrderType   = orderType
+
+            // F# requires that we use different constructor signatures
+            // which is why we use a mostly empty class to force the
+            // signatures to be different
+            new (order:BuyOrderProvider, typeDef:BuyOrder) = 
+                Order (   region      = order.Region
+                        , station     = order.Station
                         , stationName = order.StationName
-                        , security = order.Security
-                        , range = order.Range
-                        , price = order.Price
-                        , volRemain = order.VolRemain
-                        , minVolume = order.MinVolume )
+                        , security    = order.Security
+                        , range       = order.Range
+                        , price       = order.Price
+                        , volRemain   = order.VolRemain
+                        , minVolume   = order.MinVolume
+                        , orderType   = typeDef.OrderType   )
 
-            new (order:SellOrder) = 
-                Order (   region = order.Region
-                        , station = order.Station
+            new (order:SellOrderProvider, typeDef:SellOrder) = 
+                Order (   region      = order.Region
+                        , station     = order.Station
                         , stationName = order.StationName
-                        , security = order.Security
-                        , range = order.Range
-                        , price = order.Price
-                        , volRemain = order.VolRemain
-                        , minVolume = order.MinVolume )
+                        , security    = order.Security
+                        , range       = order.Range
+                        , price       = order.Price
+                        , volRemain   = order.VolRemain
+                        , minVolume   = order.MinVolume 
+                        , orderType   = typeDef.OrderType   )
 
 
     module RawMaterials =    
