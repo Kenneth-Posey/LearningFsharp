@@ -103,6 +103,37 @@ module EveData =
         type BuyOrder  = MarketOrder.QuickLookResult.Order2
         type SellOrder = MarketOrder.QuickLookResult.Order
 
+        type Order (region, station, stationName, security, range, price, volRemain, minVolume) as this =
+            member val region      = region
+            member val station     = station    
+            member val stationName = stationName
+            member val security    = security   
+            member val range       = range      
+            member val price       = price      
+            member val volRemain   = volRemain  
+            member val minVolume   = minVolume  
+
+            new (order:BuyOrder)  = 
+                Order (   region = order.Region
+                        , station = order.Station
+                        , stationName = order.StationName
+                        , security = order.Security
+                        , range = order.Range
+                        , price = order.Price
+                        , volRemain = order.VolRemain
+                        , minVolume = order.MinVolume )
+
+            new (order:SellOrder) = 
+                Order (   region = order.Region
+                        , station = order.Station
+                        , stationName = order.StationName
+                        , security = order.Security
+                        , range = order.Range
+                        , price = order.Price
+                        , volRemain = order.VolRemain
+                        , minVolume = order.MinVolume )
+
+
     module RawMaterials =    
         type Minerals =
         | Tritanium = 34

@@ -172,6 +172,8 @@ module Lists =
               for day in 1 .. System.DateTime.DaysInMonth(2012, month) do 
                   yield System.DateTime(2012, month, day) ]
 
+    List.iter (fun (x:System.DateTime) -> if x.DayOfWeek = System.DayOfWeek.Monday then printfn "%A" x) daysList
+
     /// A list containing the tuples which are the coordinates of the black squares on a chess board.
     let blackSquares = 
         [ for i in 0 .. 7 do

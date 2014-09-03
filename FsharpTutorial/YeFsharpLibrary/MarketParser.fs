@@ -118,8 +118,37 @@ module MarketParser =
             lowBuy     = lowBuy
             highBuy    = highBuy
         }
-        
-    let FindRealCost (quantity:single) (orders:List<Types.SellOrder>) =
+    
+    type SellOrder = Types.SellOrder
+    type BuyOrder  = Types.BuyOrder
+
+    let GenericOrderProcessor<'T when 'T :> Order<'T>> (quantity:single) (orders:List<'T>) =
+        let Iterate (quantity:single) (orders:List<'T>) =
+            let rec IterateRec (quantity:single) (orders:List<'T>) (total:single) =
+                match typeof<'T> with
+                | x when x = typeof<SellOrder> -> 
+                    match quantity <= 0.0f || orders.Length = 0 with
+                    | true  -> total
+                    | false -> let item = orders.Head :?> SellOrder
+                               let total = total + single item.Price * single quantity
+                               let quant = quantity - single item.VolRemain
+                               IterateRec quant orders.Tail total
+
+                | y when y = typeof<BuyOrder>  -> 
+                    match quantity <= 0.0f || orders.Length = 0 with
+                    | true  -> total
+                    | false -> let item = orders.Head :?> BuyOrder
+                               let total = total + single item.Price * single quantity
+                               let quant = quantity - single item.VolRemain
+                               IterateRec quant orders.Tail total       
+                
+            IterateRec quantity orders 0.0f
+            
+        match (quantity = 0.0f) || (orders.Length = 0) with
+        | true  -> 0.0f
+        | false -> Iterate quantity orders
+
+    let BuyFromSellOrders (quantity:single) (orders:List<Types.SellOrder>) =
         let Iterate (quantity:single) (orders:List<Types.SellOrder>) =
             let rec IterateRec (quantity:single) (orders:List<Types.SellOrder>) (total:single) =
                 match quantity <= 0.0f || orders.Length = 0 with
@@ -135,7 +164,7 @@ module MarketParser =
         | true  -> 0.0f
         | false -> Iterate quantity orders
 
-    let FindRealIncome (quantity:single) (orders:List<Types.BuyOrder>) =
+    let SellToBuyOrders (quantity:single) (orders:List<Types.BuyOrder>) =
         let Iterate (quantity:single) (orders:List<Types.BuyOrder>) =
             let rec IterateRec (quantity:single) (orders:List<Types.BuyOrder>) (total:single) =
                 // If we don't need to "add" any more or if there's no more orders then return
@@ -193,12 +222,22 @@ module MarketParser =
         |> (fun x -> x.sellOrders)
         |> List.ofArray
         |> List.sortWith SortSellFunc
-        |> FindRealCost amount
+        |> BuyFromSellOrders amount
 
     let RunSell item location amount = 
         Run item location
         |> (fun x -> x.buyOrders)
         |> List.ofArray
         |> List.sortWith SortBuyFunc
-        |> FindRealIncome amount
+        |> SellToBuyOrders amount
     
+    type IOre = RawMaterials.IOre
+    let FastProfit (item:IOre * IOre) = 
+        let location = string ( int EveData.SystemName.Jita )
+        let item1, item2 = string ( (fst item).GetBase () ) , 
+                           string ( (snd item).GetBase () )
+
+        let RunBuy = RunBuy item1 location 100.0f
+        let RunSell = RunSell item2 location 1.0f
+
+        RunSell - RunBuy

@@ -48,40 +48,56 @@ module Main =
 
         let OreList : List<IOre> = [
                 new Veldspar ()
-                new Scordite ()
-                new Pyroxeres ()
-                new Hedbergite ()
-                new Hemorphite ()
-                new Jaspet ()
+                // new Scordite ()
+                // new Pyroxeres ()
+                // new Hedbergite ()
+                // new Hemorphite ()
+                // new Jaspet ()
                 new CompVeldspar ()
-                new CompScordite ()
-                new CompPyroxeres ()
-                new CompHedbergite ()
-                new CompHemorphite ()
-                new CompJaspet ()
+                // new CompScordite ()
+                // new CompPyroxeres ()
+                // new CompHedbergite ()
+                // new CompHemorphite ()
+                // new CompJaspet ()
             ]
 
         let Buy x = MarketParser.RunBuy (string x) Locations.Head 1000.0f
         
-        let BuyValues = 
-            OreList
-            |> List.map  (fun x -> { Name   = x.GetName () 
-                                     TypeId = x.GetBase () 
-                                     Value  = Buy ( x.GetBase () )
-                                     IsTiny = x.IsTiny () } )
-            |> List.iter (fun x -> printfn "Cost to buy 1000 %s is %f" x.Name x.Value)
+        // let BuyValues = 
+        //     OreList
+        //     |> List.map  (fun x -> { Name   = x.GetName () 
+        //                              TypeId = x.GetBase () 
+        //                              Value  = Buy ( x.GetBase () )
+        //                              IsTiny = x.IsTiny () } )
+        //  |> List.iter (fun x -> printfn "Cost to buy 1000 %s is %0.2f" x.Name x.Value)
+        
+        printfn "Profit: %A" (MarketParser.FastProfit (new Veldspar () , new CompVeldspar ()))
+
+        // There's four values per ore type to work with:
+        // - Comp highest buy / lowest sell
+        // - Raw  highest buy / lowest sell
+
+        // The profit is sell 1 compressed - buy * 100 raw
+
+        // There's two potential sell values
+        // - Comp highest buy / lowest sell
+        // There's two potential buy values
+        // - Raw  highest buy / lowest sell
+
+        // Slow (max profit)
+        // Cost   : buy  raw  at highest buy + 0.01
+        // Profit : sell comp at lowest sell - 0.01
+
+        // Fast (instant profit)
+        // Cost   : buy  raw  at lowest sell (real cost)
+        // Profit : sell comp at highest buy (real profit)
+
+        // We want to know the profit per unit and per m^3
 
 
-        // let printOre oreList =
-        //     oreList
-        //     |> List.map  (fun x -> x :> IOre )
-        //     |> List.map  (fun x -> x.GetBase () )
-        //     |> List.map  (fun x -> MarketParser.RunBuy (string x) Locations.Head 100.0f )
-        //     |> List.iter (fun x -> printfn "%f" x )
 
-        // Ore |> printOre
-        // 
-        // CompressedOre |> printOre
+
+
         
         // Must return from function
         0
