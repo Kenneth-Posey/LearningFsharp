@@ -146,7 +146,16 @@ module EveData =
                         , volRemain   = order.VolRemain
                         , minVolume   = order.MinVolume 
                         , orderType   = typeDef.OrderType   )
-
+        
+        type ParsedData<'a, 'b> = 
+            {
+                buyOrders  : 'a
+                sellOrders : 'b
+                lowSell    : single
+                highSell   : single
+                lowBuy     : single
+                highBuy    : single
+            }
 
     module RawMaterials =    
         type Minerals =

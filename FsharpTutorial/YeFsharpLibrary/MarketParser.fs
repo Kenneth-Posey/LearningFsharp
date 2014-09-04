@@ -1,12 +1,10 @@
 ﻿namespace EveOnline
 
 module MarketParser =
-    open System
-    open System.Text.RegularExpressions
-    open System.Net
-
     open EveData
+    open EveData.RawMaterials
     open EveData.Types
+    open Utility.UtilityFunctions
             
     /// For reading and parsing the text file with typeIDs
     // Example use:
@@ -15,59 +13,8 @@ module MarketParser =
     //                  |> FilterToOreOnly 
     //                  |> FilterByName "Tritanium"
 
-    let FilterByName (name:string) (tuple:List<(string * string)>) =
-        tuple
-        |> List.filter ( fun (x, y) -> y.Contains(name) )
-
-    let FilterToOreOnly (tuple:List<(string * string)>) = 
-        tuple
-        |> List.filter ( fun (x, y) -> 
-            y.Contains("Blueprint") && y.Contains("Processing") && y.Contains("Mining") 
-                = false )
-    
-    let LoadUrl (url:string) = 
-        use client = new WebClient()
-        client.DownloadString( new Uri(url) )
-
-    let ParseLine (text:string) (regex:Regex) =
-        let parsed = regex.Match text
-        match parsed.Success with
-        | true  -> parsed.Groups.[1].Value.Trim() , parsed.Groups.[2].Value.Trim()
-        | false -> "" , ""
-        // If it is unable to match then it returns 
-        // an empty tuple to be filtered out later
-
-    let IsNotEmpty (x:string , y:string) =
-        (x.Length > 0) && (y.Length > 0)
-        
-    let FilterEmpty (text:List<(string * string)>) =
-        text |> List.filter ( fun (x, y) -> IsNotEmpty (x, y) )
-
-    let SplitOnNewline (text:string) (regex:Regex) =
-        [| 
-            for line in text.Split [|'\n'|] do
-                yield ParseLine (line.TrimEnd()) regex
-        |] 
-
-    let LoadTypeIdsFromUrl (url:string) =
-        new Regex "([0-9]{1,9})[ ]{6}([\w '.-_]*)"
-        |> SplitOnNewline (LoadUrl url)
-        |> List.ofArray
-        |> FilterEmpty
-        
-    type ParsedData<'a, 'b> = 
-        {
-            buyOrders  : 'a
-            sellOrders : 'b
-            lowSell    : single
-            highSell   : single
-            lowBuy     : single
-            highBuy    : single
-        }
-
-    type iProvider = EveData.MarketOrder.QuickLookResult
     let ParseQuickLook (data:string) =
-        let providerData = iProvider.Parse(data).Quicklook
+        let providerData = MarketOrder.QuickLookResult.Parse(data).Quicklook
 
         let buyOrders = providerData.BuyOrders.Orders
         let sellOrders = providerData.SellOrders.Orders
@@ -77,12 +24,12 @@ module MarketParser =
 
         // To find the lowest sell price of the goods
         // you have to test each value and replace the lowest sell
-        // each time the price is *lower*. Start high work down.
+        // each time the price is *lower*. Start high, work down.
         let mutable lowSell = System.Single.MaxValue
 
         // To find the highest buy price of the goods
         // you have to test each value and replace the highest sell
-        // each time the price is *higher*. Start low work up.
+        // each time the price is *higher*. Start low, work up.
         let mutable highBuy = 0.0f
 
         for buy in buyOrders do
@@ -171,13 +118,11 @@ module MarketParser =
         |> List.sortWith SortBuyFunc
         |> OrderProcessor amount
     
-    type IOre = RawMaterials.IOre
-    let FastProfit (item:IOre * IOre) = 
-        let location = string ( int EveData.SystemName.Jita )
-        let item1, item2 = string ( (fst item).GetBase () ) , 
-                           string ( (snd item).GetBase () )
+    let FastProfit (item:IOre * IOre) (location:string) = 
+        let raw, comp = string ( (fst item).GetBase () ) , 
+                        string ( (snd item).GetBase () )
 
-        let RunBuy  = RunBuy  item1 location 100
-        let RunSell = RunSell item2 location 1
+        let RunBuy  = RunBuy  raw  location 100
+        let RunSell = RunSell comp location 1
 
         RunSell - RunBuy

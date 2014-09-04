@@ -36,43 +36,30 @@ module Main =
     [<EntryPoint>]
     let main (args:string[]) = 
         
-        // Lists can only have one type so we have to 
-
-        let Locations : List<string> = [
-                string ( int SystemName.Jita    )
-                string ( int SystemName.Amarr   )
-                string ( int SystemName.Dodixie )
-                string ( int SystemName.Rens    )
-                string ( int SystemName.Hek     )
+        let Locations = [
+                SystemName.Jita    
+                SystemName.Amarr   
+                SystemName.Dodixie 
+                SystemName.Rens    
+                SystemName.Hek     
             ]
 
-        let OreList : List<IOre> = [
-                new Veldspar ()
-                // new Scordite ()
-                // new Pyroxeres ()
-                // new Hedbergite ()
-                // new Hemorphite ()
-                // new Jaspet ()
-                new CompVeldspar ()
-                // new CompScordite ()
-                // new CompPyroxeres ()
-                // new CompHedbergite ()
-                // new CompHemorphite ()
-                // new CompJaspet ()
+        let OreList : List<IOre * IOre> = [
+                ( new Veldspar   () :> IOre , new CompVeldspar   () :> IOre )
+                ( new Scordite   () :> IOre , new CompScordite   () :> IOre )
+                ( new Pyroxeres  () :> IOre , new CompPyroxeres  () :> IOre )
+                ( new Hedbergite () :> IOre , new CompHedbergite () :> IOre )
+                ( new Hemorphite () :> IOre , new CompHemorphite () :> IOre )
+                ( new Jaspet     () :> IOre , new CompJaspet     () :> IOre )           
             ]
 
-        let Buy x = MarketParser.RunBuy (string x) Locations.Head 1000.0f
-        
-        // let BuyValues = 
-        //     OreList
-        //     |> List.map  (fun x -> { Name   = x.GetName () 
-        //                              TypeId = x.GetBase () 
-        //                              Value  = Buy ( x.GetBase () )
-        //                              IsTiny = x.IsTiny () } )
-        //  |> List.iter (fun x -> printfn "Cost to buy 1000 %s is %0.2f" x.Name x.Value)
-        
-        printfn "Profit: %A" (MarketParser.FastProfit (new Veldspar () , new CompVeldspar ()))
-
+        for location in Locations do
+            for orePair in OreList do
+                let lctn = string location
+                let prft = MarketParser.FastProfit orePair (string (int location))
+                let name = (fst orePair).GetName()
+                printfn "For location %8s profit: %.2f on ore type %s" lctn prft name
+            
         // There's four values per ore type to work with:
         // - Comp highest buy / lowest sell
         // - Raw  highest buy / lowest sell

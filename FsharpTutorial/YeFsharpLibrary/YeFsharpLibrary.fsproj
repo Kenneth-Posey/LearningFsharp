@@ -52,6 +52,7 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="DllImports.fs" />
+    <Compile Include="Utility.fs" />
     <Compile Include="Math.fs" />
     <Compile Include="Neuro.fs" />
     <Compile Include="ArrayFunctions.fs" />
