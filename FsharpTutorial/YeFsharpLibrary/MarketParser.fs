@@ -95,8 +95,6 @@ module MarketParser =
         | false -> 0
 
     let Run item location = 
-        // Have to cast enum to int then to string to get actual value
-        // Then construct into tuple for passing into lambda expression
         (item, location)
         |> (fun (item, loc) -> EveData.QuickLook + "?typeid=" + item + "&usesystem=" + loc)
         |> LoadUrl 
