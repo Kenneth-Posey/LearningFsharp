@@ -188,6 +188,24 @@ module EveData =
         type ICompressedOre =
             inherit IOre
 
+        let AllOreNames = [
+                "Veldspar"
+                "Scordite"
+                "Pyroxeres"
+                "Hedbergite"
+                "Hemorphite"
+                "Jaspet"
+                "Plagioclase"
+                "Spodumain"
+                "Kernite"
+                "Arkonor"
+                "Bistot"
+                "Crokite"
+                "Omber"
+                "Gneiss"
+                "Dark Ochre"
+                "Mercoxit"
+            ]
 
         type Veldspar () =
             interface IRawOre with
@@ -201,9 +219,6 @@ module EveData =
             static member val Base5  = 17470 with get
             static member val Base10 = 17471 with get
 
-            static member val Concentrated = 17470 with get
-            static member val Dense        = 17471 with get
-
         
         type Scordite () =
             interface IRawOre with
@@ -216,9 +231,6 @@ module EveData =
             static member val Base   = 1228  with get
             static member val Base5  = 17463 with get
             static member val Base10 = 17464 with get
-
-            static member val Condensed = 17463 with get
-            static member val Massive   = 17464 with get
         
 
         type Pyroxeres () =
@@ -232,9 +244,6 @@ module EveData =
             static member val Base   = 1224  with get
             static member val Base5  = 17459 with get
             static member val Base10 = 17460 with get
-
-            static member val Solid   = 17459 with get
-            static member val Viscous = 17460 with get
         
         
         type Hedbergite () =
@@ -248,9 +257,6 @@ module EveData =
             static member val Base   = 21    with get
             static member val Base5  = 17440 with get
             static member val Base10 = 17441 with get
-
-            static member val Vitric = 17440 with get
-            static member val Glazed = 17441 with get
        
 
         type Hemorphite () = 
@@ -264,9 +270,6 @@ module EveData =
             static member val Base   = 1231  with get
             static member val Base5  = 17444 with get
             static member val Base10 = 17445 with get
-
-            static member val Vivid   = 17444 with get
-            static member val Radiant = 17445 with get
         
 
         type Jaspet () = 
@@ -280,10 +283,137 @@ module EveData =
             static member val Base   = 1226  with get
             static member val Base5  = 17448 with get
             static member val Base10 = 17449 with get
-
-            static member val Pure     = 17448 with get
-            static member val Pristine = 17449 with get
         
+
+        type Plagioclase () =
+            interface IRawOre with
+                override this.GetName () = "Plagioclase"
+                override this.GetBase () = Plagioclase.Base
+                override this.GetBase5 () = Plagioclase.Base5
+                override this.GetBase10 () = Plagioclase.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 18 with get
+            static member val Base5  = 17455 with get
+            static member val Base10 = 17456 with get
+
+
+        type Spodumain () =
+            interface IRawOre with
+                override this.GetName () = "Spodumain"
+                override this.GetBase () = Spodumain.Base
+                override this.GetBase5 () = Spodumain.Base5
+                override this.GetBase10 () = Spodumain.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 19 with get
+            static member val Base5  = 17466 with get
+            static member val Base10 = 17467 with get
+
+
+        type Kernite () =
+            interface IRawOre with
+                override this.GetName () = "Kernite"
+                override this.GetBase () = Kernite.Base
+                override this.GetBase5 () = Kernite.Base5
+                override this.GetBase10 () = Kernite.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 20 with get
+            static member val Base5  = 17452 with get
+            static member val Base10 = 17453 with get
+
+
+        type Arkonor () =
+            interface IRawOre with
+                override this.GetName () = "Arkonor"
+                override this.GetBase () = Arkonor.Base
+                override this.GetBase5 () = Arkonor.Base5
+                override this.GetBase10 () = Arkonor.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 22 with get
+            static member val Base5  = 17425 with get
+            static member val Base10 = 17426 with get
+
+
+        type Bistot () =
+            interface IRawOre with
+                override this.GetName () = "Bistot"
+                override this.GetBase () = Bistot.Base
+                override this.GetBase5 () = Bistot.Base5
+                override this.GetBase10 () = Bistot.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 1223 with get
+            static member val Base5  = 17428 with get
+            static member val Base10 = 17429 with get
+
+
+        type Crokite () =
+            interface IRawOre with
+                override this.GetName () = "Crokite"
+                override this.GetBase () = Crokite.Base
+                override this.GetBase5 () = Crokite.Base5
+                override this.GetBase10 () = Crokite.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 1225 with get
+            static member val Base5  = 17432 with get
+            static member val Base10 = 17433 with get
+
+
+        type Omber () =
+            interface IRawOre with
+                override this.GetName () = "Omber"
+                override this.GetBase () = Omber.Base
+                override this.GetBase5 () = Omber.Base5
+                override this.GetBase10 () = Omber.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 1227 with get
+            static member val Base5  = 17867 with get
+            static member val Base10 = 17868 with get
+
+
+        type Gneiss () =
+            interface IRawOre with
+                override this.GetName () = "Gneiss"
+                override this.GetBase () = Gneiss.Base
+                override this.GetBase5 () = Gneiss.Base5
+                override this.GetBase10 () = Gneiss.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 1229 with get
+            static member val Base5  = 17865 with get
+            static member val Base10 = 17866 with get
+
+
+        type ``Dark Ochre`` () =
+            interface IRawOre with
+                override this.GetName () = "Dark Ochre"
+                override this.GetBase () = ``Dark Ochre``.Base
+                override this.GetBase5 () = ``Dark Ochre``.Base5
+                override this.GetBase10 () = ``Dark Ochre``.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 1232 with get
+            static member val Base5  = 17436 with get
+            static member val Base10 = 17437 with get
+
+
+        type Mercoxit () =
+            interface IRawOre with
+                override this.GetName () = "Mercoxit"
+                override this.GetBase () = Mercoxit.Base
+                override this.GetBase5 () = Mercoxit.Base5
+                override this.GetBase10 () = Mercoxit.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 11396 with get
+            static member val Base5  = 17869 with get
+            static member val Base10 = 17870 with get
+
 
         type CompVeldspar () =
             interface ICompressedOre with
@@ -297,9 +427,6 @@ module EveData =
             static member val Base5  = 28431 with get
             static member val Base10 = 28432 with get
 
-            static member val Concentrated = 28431 with get
-            static member val Dense        = 28432 with get
-
 
         type CompScordite () =
             interface ICompressedOre with
@@ -312,9 +439,6 @@ module EveData =
             static member val Base   = 28427 with get
             static member val Base5  = 28428 with get
             static member val Base10 = 28429 with get
-
-            static member val Condensed = 28428 with get
-            static member val Massive   = 28429 with get
                                                  
 
         type CompPyroxeres () =       
@@ -328,9 +452,6 @@ module EveData =
             static member val Base   = 28424 with get
             static member val Base5  = 28425 with get
             static member val Base10 = 28426 with get
-
-            static member val Solid   = 28425 with get
-            static member val Viscous = 28426 with get
                                                  
 
         type CompHedbergite () =        
@@ -344,9 +465,6 @@ module EveData =
             static member val Base   = 28400 with get
             static member val Base5  = 28401 with get
             static member val Base10 = 28402 with get
-                                             
-            static member val Vitric = 28401 with get
-            static member val Glazed = 28402 with get
                                                  
 
         type CompHemorphite () =             
@@ -360,9 +478,6 @@ module EveData =
             static member val Base   = 28403 with get
             static member val Base5  = 28404 with get
             static member val Base10 = 28405 with get
-                                              
-            static member val Vivid   = 28404 with get
-            static member val Radiant = 28405 with get
                                                  
 
         type CompJaspet () =                
@@ -376,7 +491,4 @@ module EveData =
             static member val Base   = 28406 with get
             static member val Base5  = 28407 with get
             static member val Base10 = 28408 with get
-
-            static member val Pure     = 28407 with get
-            static member val Pristine = 28408 with get
                     
