@@ -66,6 +66,7 @@
     <Compile Include="Scratchpad.fs" />
     <None Include="packages.config" />
     <None Include="app.config" />
+    <Content Include="typeids.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Data">
