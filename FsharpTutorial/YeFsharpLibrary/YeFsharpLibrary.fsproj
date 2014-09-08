@@ -51,22 +51,22 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <Compile Include="DllImports.fs" />
-    <Compile Include="Utility.fs" />
-    <Compile Include="Math.fs" />
-    <Compile Include="Neuro.fs" />
-    <Compile Include="ArrayFunctions.fs" />
-    <Compile Include="SimulatorTypes.fs" />
-    <Compile Include="SimulatorMouse.fs" />
-    <Compile Include="SimulatorKeyboard.fs" />
-    <Compile Include="FsharpImaging.fs" />
-    <Compile Include="EveData.fs" />
-    <Compile Include="MarketParser.fs" />
-    <Compile Include="UnitTest.fs" />
+    <Content Include="_Resources\typeids.txt" />
+    <Compile Include="Utility\DllImports.fs" />
+    <Compile Include="Utility\Utility.fs" />
+    <Compile Include="Utility\ArrayFunctions.fs" />
+    <Compile Include="Utility\Math.fs" />
+    <Compile Include="Aforge\Neuro.fs" />
+    <Compile Include="Simulator\Types.fs" />
+    <Compile Include="Simulator\Mouse.fs" />
+    <Compile Include="Simulator\Keyboard.fs" />
+    <Compile Include="Simulator\FsharpImaging.fs" />
+    <Compile Include="Eve\EveData.fs" />
+    <Compile Include="Eve\MarketParser.fs" />
+    <Compile Include="Test\UnitTest.fs" />
     <Compile Include="Scratchpad.fs" />
     <None Include="packages.config" />
     <None Include="app.config" />
-    <Content Include="typeids.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Data">
