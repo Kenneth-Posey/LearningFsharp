@@ -389,12 +389,12 @@ module EveData =
             static member val Base10 = 17866 with get
 
 
-        type ``Dark Ochre`` () =
+        type DarkOchre () =
             interface IRawOre with
-                override this.GetName () = "Dark Ochre"
-                override this.GetBase () = ``Dark Ochre``.Base
-                override this.GetBase5 () = ``Dark Ochre``.Base5
-                override this.GetBase10 () = ``Dark Ochre``.Base10
+                override this.GetName () = "DarkOchre"
+                override this.GetBase () = DarkOchre.Base
+                override this.GetBase5 () = DarkOchre.Base5
+                override this.GetBase10 () = DarkOchre.Base10
                 override this.IsTiny () = false
 
             static member val Base   = 1232 with get
@@ -492,3 +492,132 @@ module EveData =
             static member val Base5  = 28407 with get
             static member val Base10 = 28408 with get
                     
+        
+        type CompPlagioclase () =
+            interface IRawOre with
+                override this.GetName () = "Plagioclase"
+                override this.GetBase () = CompPlagioclase.Base
+                override this.GetBase5 () = CompPlagioclase.Base5
+                override this.GetBase10 () = CompPlagioclase.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 28422 with get
+            static member val Base5  = 28421 with get
+            static member val Base10 = 28423 with get
+
+
+        type CompSpodumain () =
+            interface IRawOre with
+                override this.GetName () = "Spodumain"
+                override this.GetBase () = CompSpodumain.Base
+                override this.GetBase5 () = CompSpodumain.Base5
+                override this.GetBase10 () = CompSpodumain.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 28420 with get
+            static member val Base5  = 28418 with get
+            static member val Base10 = 28419 with get
+
+
+        type CompKernite () =
+            interface IRawOre with
+                override this.GetName () = "Kernite"
+                override this.GetBase () = CompKernite.Base
+                override this.GetBase5 () = CompKernite.Base5
+                override this.GetBase10 () = CompKernite.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 28410 with get
+            static member val Base5  = 28411 with get
+            static member val Base10 = 28409 with get
+
+
+        type CompArkonor () =
+            interface IRawOre with
+                override this.GetName () = "Arkonor"
+                override this.GetBase () = CompArkonor.Base
+                override this.GetBase5 () = CompArkonor.Base5
+                override this.GetBase10 () = CompArkonor.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 28367 with get
+            static member val Base5  = 28385 with get
+            static member val Base10 = 28387 with get
+
+
+        type CompBistot () =
+            interface IRawOre with
+                override this.GetName () = "Bistot"
+                override this.GetBase () = CompBistot.Base
+                override this.GetBase5 () = CompBistot.Base5
+                override this.GetBase10 () = CompBistot.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 28388 with get
+            static member val Base5  = 28389 with get
+            static member val Base10 = 28390 with get
+
+
+        type CompCrokite () =
+            interface IRawOre with
+                override this.GetName () = "Crokite"
+                override this.GetBase () = CompCrokite.Base
+                override this.GetBase5 () = CompCrokite.Base5
+                override this.GetBase10 () = CompCrokite.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 28391 with get
+            static member val Base5  = 28392 with get
+            static member val Base10 = 28393 with get
+
+
+        type CompOmber () =
+            interface IRawOre with
+                override this.GetName () = "Omber"
+                override this.GetBase () = CompOmber.Base
+                override this.GetBase5 () = CompOmber.Base5
+                override this.GetBase10 () = CompOmber.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 28416 with get
+            static member val Base5  = 28417 with get
+            static member val Base10 = 28415 with get
+
+
+        type CompGneiss () =
+            interface IRawOre with
+                override this.GetName () = "Gneiss"
+                override this.GetBase () = CompGneiss.Base
+                override this.GetBase5 () = CompGneiss.Base5
+                override this.GetBase10 () = CompGneiss.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 28397 with get
+            static member val Base5  = 28398 with get
+            static member val Base10 = 28399 with get
+
+
+        type CompDarkOchre () =
+            interface IRawOre with
+                override this.GetName () = "DarkOchre"
+                override this.GetBase () = CompDarkOchre.Base
+                override this.GetBase5 () = CompDarkOchre.Base5
+                override this.GetBase10 () = CompDarkOchre.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 28394 with get
+            static member val Base5  = 28395 with get
+            static member val Base10 = 28396 with get
+
+
+        type CompMercoxit () =
+            interface IRawOre with
+                override this.GetName () = "Mercoxit"
+                override this.GetBase () = CompMercoxit.Base
+                override this.GetBase5 () = CompMercoxit.Base5
+                override this.GetBase10 () = CompMercoxit.Base10
+                override this.IsTiny () = false
+
+            static member val Base   = 28413 with get
+            static member val Base5  = 28412 with get
+            static member val Base10 = 28414 with get
