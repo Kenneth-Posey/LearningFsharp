@@ -7,6 +7,8 @@ module Mouse =
     open SimulatorTypes.Mouse.Constants
     open WindowsInterop.DllImports
 
+    // These are all static because they're calling external DLLs, so 
+    // there's really no use for object instantiation
     type Controller =
         static member Position 
             with get () = new Point( Cursor.Position.X, Cursor.Position.Y )
@@ -34,8 +36,10 @@ module Mouse =
             Controller.Click button
             Controller.Click button
 
-        static member ScrollMouseWheel delta = 
-            MouseControl.MouseEvent EventCode.WheelTurn 0 0 delta 0
+        // 120  = one "click" up
+        // -120 = one "click" down
+        static member ScrollMouseWheel turns = 
+            MouseControl.MouseEvent EventCode.WheelTurn 0 0 (turns*120) 0
 
         static member ShowCursor () = 
             MouseControl.ShowCursor true

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="ConsoleTest.fs" />
     <Compile Include="Main.fs" />
+    <Content Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
