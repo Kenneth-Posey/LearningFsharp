@@ -153,7 +153,7 @@ module EveData =
                 lowSell  : single
                 lowBuy   : single
                 highSell : single
-                herp     : MarketPrices -> single
+                // herp     : MarketPrices -> single
             }
             
         type ParsedData<'a, 'b> = 

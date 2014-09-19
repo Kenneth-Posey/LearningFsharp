@@ -66,21 +66,21 @@ module MarketParser =
                 highSell   = highSell
                 lowBuy     = lowBuy
                 highBuy    = highBuy
-                herp = (fun (x:MarketPrices) -> single 0)
+                // herp = (fun (x:MarketPrices) -> single 0)
             }
         }
     
 
     let OrderProcessor (quantity:int) (orders:List<Order>) =
         let Iterate (quantity:int) (orders:List<Order>) =
-            let rec IterateRec (quantity:int) (orders:List<Order>) (total) =
+            let rec IterateRec (total) (quantity:int) (orders:List<Order>) =
                 match quantity <= 0 || orders.Length = 0 with
                 | true  -> total
                 | false -> let total = total + orders.Head.Price * single quantity
                            let quant = quantity - orders.Head.VolRemain
-                           IterateRec quant orders.Tail total
+                           IterateRec total quant orders.Tail
                                                
-            IterateRec quantity orders 0.0f
+            IterateRec 0.0f quantity orders
             
         match (quantity = 0) || (orders.Length = 0) with
         | true  -> 0.0f                                                 
@@ -103,24 +103,20 @@ module MarketParser =
 
     let LoadData item location = 
         (item, location)
-        |> (fun (item, loc) -> EveData.QuickLook + "?typeid=" + item + "&usesystem=" + loc)
+        ||> (fun item loc -> EveData.QuickLook + "?typeid=" + item + "&usesystem=" + loc)
         |> LoadUrl 
         |> ParseQuickLook
 
 
-    let Multiply (x:single) _ = 
-        x * 4.0f
-
-
     let LoadMarketSnapshot item location amount = 
-        (LoadData item location) 
+        LoadData item location
         |> (fun x -> 
                 {
                     lowBuy   = x.prices.lowBuy   * single amount
                     highBuy  = x.prices.highBuy  * single amount
                     lowSell  = x.prices.lowSell  * single amount
                     highSell = x.prices.highSell * single amount
-                    herp     = Multiply x.prices.highBuy
+                    // herp     = Multiply x.prices.highBuy
                 })
 
 
@@ -149,6 +145,7 @@ module MarketParser =
 
     let FastProfit (item:IOre * IOre) (location:string) = 
         let raw, comp  = GetCodes item
+
         let buy100kRaw = LoadBuyData  raw  location 100000
         let sell1kComp = LoadSellData comp location 1000
 
@@ -163,6 +160,6 @@ module MarketParser =
 
         let compSnapshot = LoadMarketSnapshot comp location 1000
         let sell1kComp   = compSnapshot.lowSell
-        let test = compSnapshot.herp compSnapshot
+        // let test = compSnapshot.herp compSnapshot
 
         sell1kComp - buy100kRaw
