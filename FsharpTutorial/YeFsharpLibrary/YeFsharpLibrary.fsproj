@@ -63,7 +63,7 @@
     <Compile Include="Simulator\FsharpImaging.fs" />
     <Compile Include="Eve\EveData.fs" />
     <Compile Include="Eve\MarketParser.fs" />
-    <Compile Include="Test\UnitTest.fs" />
+    <Compile Include="Tests\UnitTest.fs" />
     <Compile Include="Scratchpad.fs" />
     <None Include="packages.config" />
     <None Include="app.config" />

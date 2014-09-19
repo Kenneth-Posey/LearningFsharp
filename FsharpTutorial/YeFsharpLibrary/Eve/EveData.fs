@@ -147,15 +147,22 @@ module EveData =
                         , minVolume   = order.MinVolume 
                         , orderType   = typeDef.OrderType   )
         
+        type MarketPrices = 
+            {
+                highBuy  : single
+                lowSell  : single
+                lowBuy   : single
+                highSell : single
+                herp     : MarketPrices -> single
+            }
+            
         type ParsedData<'a, 'b> = 
             {
                 buyOrders  : 'a
                 sellOrders : 'b
-                lowSell    : single
-                highSell   : single
-                lowBuy     : single
-                highBuy    : single
+                prices     : MarketPrices
             }
+
 
     module RawMaterials =    
         type Minerals =

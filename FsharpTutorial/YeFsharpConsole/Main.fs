@@ -52,13 +52,17 @@ module Main =
                 ( new Hemorphite () :> IOre , new CompHemorphite () :> IOre )
                 ( new Jaspet     () :> IOre , new CompJaspet     () :> IOre )           
             ]
-
+            
         for location in Locations do
             for orePair in OreList do
-                let lctn = string location
-                let prft = MarketParser.FastProfit orePair (string (int location))
-                let name = (fst orePair).GetName()
-                printfn "For location %8s profit: %.2f on ore type %s" lctn prft name
+                let system = string location       // Gets the enum name
+                let name   = (fst orePair).GetName()
+
+                let fast = MarketParser.FastProfit orePair (string (int location))
+                let best = MarketParser.BestProfit orePair (string (int location))
+
+                printfn "For system %8s fast profit: %.2f on ore type %s" system fast name
+                printfn "For system %8s best profit: %.2f on ore type %s" system best name
             
         // There's four values per ore type to work with:
         // - Comp highest buy / lowest sell

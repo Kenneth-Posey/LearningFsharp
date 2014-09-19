@@ -61,12 +61,16 @@ module MarketParser =
         {
             buyOrders  = boundedBuyOrders
             sellOrders = boundedSellOrders
-            lowSell    = lowSell
-            highSell   = highSell
-            lowBuy     = lowBuy
-            highBuy    = highBuy
+            prices = {
+                lowSell    = lowSell
+                highSell   = highSell
+                lowBuy     = lowBuy
+                highBuy    = highBuy
+                herp = (fun (x:MarketPrices) -> single 0)
+            }
         }
     
+
     let OrderProcessor (quantity:int) (orders:List<Order>) =
         let Iterate (quantity:int) (orders:List<Order>) =
             let rec IterateRec (quantity:int) (orders:List<Order>) (total) =
@@ -82,45 +86,83 @@ module MarketParser =
         | true  -> 0.0f                                                 
         | false -> Iterate quantity orders
 
+
     let SortBuyFunc (x:Order) (y:Order) =
         match x.Price <> y.Price with
         | true when x.Price > y.Price -> 1
         | true when x.Price < y.Price -> -1
         | false -> 0
        
+
     let SortSellFunc (x:Order) (y:Order) =
         match x.Price <> y.Price with
         | true when x.Price > y.Price -> -1
         | true when x.Price < y.Price -> 1
         | false -> 0
+        
 
-    let Run item location = 
+    let LoadData item location = 
         (item, location)
         |> (fun (item, loc) -> EveData.QuickLook + "?typeid=" + item + "&usesystem=" + loc)
         |> LoadUrl 
         |> ParseQuickLook
 
-    let RunBuy item location amount = 
-        Run item location
+
+    let Multiply (x:single) _ = 
+        x * 4.0f
+
+
+    let LoadMarketSnapshot item location amount = 
+        (LoadData item location) 
+        |> (fun x -> 
+                {
+                    lowBuy   = x.prices.lowBuy   * single amount
+                    highBuy  = x.prices.highBuy  * single amount
+                    lowSell  = x.prices.lowSell  * single amount
+                    highSell = x.prices.highSell * single amount
+                    herp     = Multiply x.prices.highBuy
+                })
+
+
+    let LoadBuyData item location amount = 
+        LoadData item location
         |> (fun x -> x.sellOrders)
         |> List.ofArray
         |> List.map (fun x -> new Order(x, new SellOrder()) )
         |> List.sortWith SortSellFunc
         |> OrderProcessor amount
 
-    let RunSell item location amount = 
-        Run item location
+
+    let LoadSellData item location amount = 
+        LoadData item location
         |> (fun x -> x.buyOrders)
         |> List.ofArray
         |> List.map (fun x -> new Order(x, new BuyOrder()) )
         |> List.sortWith SortBuyFunc
         |> OrderProcessor amount
+
     
+    let GetCodes (item:IOre * IOre) = 
+        string ( (fst item).GetBase () ) , 
+        string ( (snd item).GetBase () )
+
+
     let FastProfit (item:IOre * IOre) (location:string) = 
-        let raw, comp = string ( (fst item).GetBase () ) , 
-                        string ( (snd item).GetBase () )
+        let raw, comp  = GetCodes item
+        let buy100kRaw = LoadBuyData  raw  location 100000
+        let sell1kComp = LoadSellData comp location 1000
 
-        let RunBuy  = RunBuy  raw  location 100
-        let RunSell = RunSell comp location 1
+        sell1kComp - buy100kRaw
 
-        RunSell - RunBuy
+
+    let BestProfit (item: IOre * IOre) (location:string) =
+        let raw, comp = GetCodes item
+
+        let rawSnapshot = LoadMarketSnapshot raw  location 100000
+        let buy100kRaw  = rawSnapshot.highBuy
+
+        let compSnapshot = LoadMarketSnapshot comp location 1000
+        let sell1kComp   = compSnapshot.lowSell
+        let test = compSnapshot.herp compSnapshot
+
+        sell1kComp - buy100kRaw
