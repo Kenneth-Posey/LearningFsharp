@@ -116,7 +116,6 @@ module MarketParser =
                     highBuy  = x.prices.highBuy  * single amount
                     lowSell  = x.prices.lowSell  * single amount
                     highSell = x.prices.highSell * single amount
-                    // herp     = Multiply x.prices.highBuy
                 })
 
 
@@ -124,7 +123,7 @@ module MarketParser =
         LoadData item location
         |> (fun x -> x.sellOrders)
         |> List.ofArray
-        |> List.map (fun x -> new Order(x, new SellOrder()) )
+        |> List.map (fun x -> new Order(x, new SellOrder()))
         |> List.sortWith SortSellFunc
         |> OrderProcessor amount
 
@@ -133,7 +132,7 @@ module MarketParser =
         LoadData item location
         |> (fun x -> x.buyOrders)
         |> List.ofArray
-        |> List.map (fun x -> new Order(x, new BuyOrder()) )
+        |> List.map (fun x -> new Order(x, new BuyOrder()))
         |> List.sortWith SortBuyFunc
         |> OrderProcessor amount
 
@@ -160,6 +159,5 @@ module MarketParser =
 
         let compSnapshot = LoadMarketSnapshot comp location 1000
         let sell1kComp   = compSnapshot.lowSell
-        // let test = compSnapshot.herp compSnapshot
 
         sell1kComp - buy100kRaw

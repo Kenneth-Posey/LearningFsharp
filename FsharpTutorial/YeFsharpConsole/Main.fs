@@ -40,11 +40,11 @@ module Main =
                 let system = string location           // Gets the enum name
                 let name   = (fst orePair).GetName()
 
-                let fast = MarketParser.FastProfit orePair (string (int location))
-                let best = MarketParser.BestProfit orePair (string (int location))
+                let fast = sprintf "%.2f" <| MarketParser.FastProfit orePair (string (int location))
+                let best = sprintf "%.2f" <| MarketParser.BestProfit orePair (string (int location))
 
-                printfn "For system %8s fast profit: %.2f on ore type %s" system fast name
-                printfn "For system %8s best profit: %.2f on ore type %s" system best name
+                printfn "For system %5s fast profit: %10s on ore type %s" system fast name
+                printfn "For system %5s best profit: %10s on ore type %s" system best name
         
 
         // There's four values per ore type to work with:
@@ -67,11 +67,18 @@ module Main =
         // Profit : sell comp at highest buy (real profit)
 
         // We want to know the profit per unit and per m^3
-
         // Compressed ores require 1 unit to refine, uncompressed require 100
 
+        // Refining formula: 
+        // Equipment base                           maximum 0.60
+        //  x (1 + processing skill x 0.03)         maximum 1.15
+        //  x (1 + processing efficiency x 0.02)    maximum 1.10
+        //  x (1 + ore processing x 0.02)           maximum 1.10
+        //  x (1 + processing implant)              maximum 1.04
 
-
+        // Best yield 0.8683       All lvl V with implants at 60% station
+        // POS yield  0.7235       All lvl V with no implant at 52% station
+        // NPC yield  0.6707       All lvl IV with no implant at 50% station
         
         // Must return from function
         0
