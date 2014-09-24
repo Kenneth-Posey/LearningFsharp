@@ -49,6 +49,7 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
+    <Compile Include="scripts\RunningImagesearch.fs" />
     <Compile Include="ConsoleTest.fs" />
     <Compile Include="Main.fs" />
     <Content Include="app.config" />
@@ -63,6 +64,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\YeFsharpLibrary\YeFsharpLibrary.fsproj">
       <Name>YeFsharpLibrary</Name>
       <Project>{20b439fc-8cc8-4621-9c17-824c431f7766}</Project>
