@@ -8,9 +8,9 @@ There's four values per ore type to work with:
 The profit is sell 1 compressed - buy * 100 raw
 
 There's two potential sell values
-- Comp highest buy / lowest sell
+ - Comp highest buy / lowest sell
 There's two potential buy values
-- Raw  highest buy / lowest sell
+ - Raw  highest buy / lowest sell
 
 Slow (max profit)
 Cost   : buy  raw  at highest buy + 0.01
