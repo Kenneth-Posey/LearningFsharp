@@ -70,15 +70,17 @@ module Main =
         // Compressed ores require 1 unit to refine, uncompressed require 100
 
         // Refining formula: 
-        // Equipment base                           maximum 0.60
-        //  x (1 + processing skill x 0.03)         maximum 1.15
-        //  x (1 + processing efficiency x 0.02)    maximum 1.10
-        //  x (1 + ore processing x 0.02)           maximum 1.10
-        //  x (1 + processing implant)              maximum 1.04
+        // Equipment base                           max 0.60
+        //  x (1 + processing skill x 0.03)         max 1.15
+        //  x (1 + processing efficiency x 0.02)    max 1.10
+        //  x (1 + ore processing x 0.02)           max 1.10
+        //  x (1 + processing implant)              max 1.04
 
-        // Best yield 0.8683       All lvl V with implants at 60% station
-        // POS yield  0.7235       All lvl V with no implant at 52% station
-        // NPC yield  0.6707       All lvl IV with no implant at 50% station
+        // Best yield  0.8683  lvl V with implant    at 60% station
+        // Best yield  0.8349  lvl V with no implant at 60% station (15% more than pos)
+        // POS yield   0.7525  lvl V with implant    at 52% station (4%  more than no implant)
+        // POS yield   0.7235  lvl V with no implant at 52% station (10% more than npc)
+        // NPC yield   0.6609  lvl V with no implant at 50% station (with tax)
         
-        // Must return from function
+        // Must return from program
         0
