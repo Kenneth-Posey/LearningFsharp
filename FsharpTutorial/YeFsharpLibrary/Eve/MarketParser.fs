@@ -66,7 +66,6 @@ module MarketParser =
                 highSell   = highSell
                 lowBuy     = lowBuy
                 highBuy    = highBuy
-                // herp = (fun (x:MarketPrices) -> single 0)
             }
         }
     
