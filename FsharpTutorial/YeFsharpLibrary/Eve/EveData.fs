@@ -228,6 +228,17 @@ module EveData =
             abstract member IsTiny     : unit -> bool
             abstract member GetYield   : unit -> OreYield
             abstract member GetVolume  : unit -> single
+            
+        type OreValue = {
+                Tritanium   : single
+                Pyerite     : single
+                Mexallon    : single
+                Isogen      : single
+                Nocxium     : single
+                Megacyte    : single
+                Zydrine     : single
+                Morphite    : single
+        }
 
         type IRawOre =
             inherit IOre

@@ -160,3 +160,10 @@ module MarketParser =
         let sell1kComp   = compSnapshot.lowSell
 
         sell1kComp - buy100kRaw
+
+    let RefineValue (item:IOre) (ore:OreValue) (multiplier:single) =
+        
+        item.GetYield
+
+
+        single 0
