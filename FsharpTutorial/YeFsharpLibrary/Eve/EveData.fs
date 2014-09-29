@@ -173,7 +173,35 @@ module EveData =
         | Zydrine   = 39
         | Megacyte  = 40
         
+        let Minerals = [
+           "Tritanium"
+           "Pyerite"
+           "Mexallon"
+           "Isogen"
+           "Nocxium"
+           "Zydrine"
+           "Megacyte"
+        ]
         
+        type IceProducts = 
+        | HeavyWater          = 16272
+        | HeliumIsotopes      = 16274
+        | HydrogenIsotopes    = 17889
+        | LiquidOzone         = 16273
+        | NitrogenIsotopes    = 17888
+        | OxygenIsotopes      = 17887
+        | StrontiumClathrates = 16275
+
+        let IceProducts = [
+            "HeavyWater"
+            "HeliumIsotopes"
+            "HydrogenIsotopes"
+            "LiquidOzone"
+            "NitrogenIsotopes"
+            "OxygenIsotopes"
+            "StrontiumClathrates"
+        ]
+
         type SimpleOre = {
             Name   : string
             TypeId : int
@@ -203,7 +231,27 @@ module EveData =
             Morphite    = 0
         }
 
-        let FactorYield (baseYield:OreYield) (factor:single) =
+        type IceYield = {
+            HeavyWater          : int
+            HeliumIsotopes      : int
+            HydrogenIsotopes    : int
+            LiquidOzone         : int
+            NitrogenIsotopes    : int
+            OxygenIsotopes      : int
+            StrontiumClathrates : int
+        }
+
+        let BaseIceYield = {
+            HeavyWater          = 0
+            HeliumIsotopes      = 0
+            HydrogenIsotopes    = 0
+            LiquidOzone         = 0
+            NitrogenIsotopes    = 0
+            OxygenIsotopes      = 0
+            StrontiumClathrates = 0
+        }
+
+        let FactorOreYield (baseYield:OreYield) (factor:single) =
             let multiply x = int (single x * factor)
             {   
                 BaseOreYield with
@@ -218,16 +266,22 @@ module EveData =
             }
 
         let CompressedYield (baseYield:OreYield) =
-            FactorYield baseYield 100.0f
+            FactorOreYield baseYield 100.0f
+
+        type IRawMat<'T> = 
+            abstract member GetName   : unit -> string
+            abstract member IsTiny    : unit -> bool
+            abstract member GetYield  : unit -> 'T
+            abstract member GetVolume : unit -> single
+            abstract member GetBase   : unit -> int
 
         type IOre = 
-            abstract member GetName    : unit -> string
-            abstract member GetBase    : unit -> int
-            abstract member GetBase5   : unit -> int
-            abstract member GetBase10  : unit -> int
-            abstract member IsTiny     : unit -> bool
-            abstract member GetYield   : unit -> OreYield
-            abstract member GetVolume  : unit -> single
+            inherit IRawMat<OreYield>
+            abstract member GetBase5  : unit -> int
+            abstract member GetBase10 : unit -> int
+
+        type ISpaceIce = 
+            inherit IRawMat<IceYield>
             
         type OreValue = {
                 Tritanium   : single
@@ -245,6 +299,30 @@ module EveData =
 
         type ICompressedOre =
             inherit IOre
+
+        type IRawIce =
+            inherit ISpaceIce
+
+        type ICompressedIce = 
+            inherit ISpaceIce
+
+        type AllOreNames = 
+        | Veldspar
+        | Scordite
+        | Pyroxeres
+        | Plagioclase
+        | Omber
+        | Kernite
+        | Jaspet
+        | Hemorphite
+        | Hedbergite
+        | Spodumain
+        | Arkonor
+        | Bistot
+        | Crokite
+        | Gneiss
+        | DarkOchre
+        | Mercoxit
 
         let AllOreNames = [
                 "Veldspar"
@@ -891,3 +969,21 @@ module EveData =
             static member val Base10 = 28414 with get
             static member val Yield  = CompressedYield Mercoxit.Yield with get
             static member val Volume = 0.1f with get
+            
+
+        type BlueIce () = 
+            interface IRawIce with 
+                override this.GetName () = "Blue Ice"
+                override this.GetBase () = BlueIce.Base
+                override this.GetVolume () = BlueIce.Volume
+                override this.GetYield () = BlueIce.Yield
+                override this.IsTiny () = false
+
+            static member val Base = 16264
+            static member val Volume = 1000.0f
+            static member val Yield = {
+                BaseIceYield with 
+                HeavyWater          = 50
+                LiquidOzone         = 25
+                StrontiumClathrates = 1
+            }
