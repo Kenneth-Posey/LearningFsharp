@@ -1,4 +1,174 @@
 ﻿
+Ice Ore Locations and Refining Yield
+
+LOCATION	ICE ORE	HEAVY WATER	LIQUID OZONE	STRONTIUM CLATHRATES	HELIUM ISOTOPES	HYDROGEN ISOTOPES	NITROGEN ISOTOPES	OXYGEN ISOTOPES
+Amarr	Clear Icicle	50	25	1	300			
+Amarr	Enriched Clear Icicle	75	40	1	350			
+Minmatar	Glacial Mass	50	25	1		300		
+Minmatar	Smooth Glacial Mass	75	40	1		350		
+Caldari	White Glaze	50	25	1			300	
+Caldari	Pristine White Glaze	75	40	1			350	
+Gallente	Blue Ice	50	25	1				300
+Gallente	Thick Blue Ice	75	40	1				350
+Low Sec	Glare Crust	1000	500	25				
+Low Sec	Dark Glitter	500	1000	50				
+0.0	Gelidus	250	500	75				
+0.0	Krystallos	125	250	125				
+Ice ores can be broadly grouped into two categories: high-security race-specific ores and low-security ores. High-security ores are race-specific ice 
+
+<table border="1">
+<tbody><tr>
+<th width="5%"> LOCATION
+</th>
+<th width="9%"> ICE ORE
+</th>
+<th width="4%"> <a href="/en/wiki/Heavy_water" title="Heavy water">HEAVY WATER</a>
+</th>
+<th width="4%"> <a href="/en/wiki/Liquid_ozone" title="Liquid ozone">LIQUID OZONE</a>
+</th>
+<th width="7%"> <a href="/en/wiki/Strontium_clathrates" title="Strontium clathrates">STRONTIUM CLATHRATES</a>
+</th>
+<th width="11%"> <a href="/en/wiki/Helium_Isotopes" title="Helium Isotopes">HELIUM ISOTOPES</a>
+</th>
+<th width="11%"> <a href="/en/wiki/Hydrogen_Isotopes" title="Hydrogen Isotopes">HYDROGEN ISOTOPES</a>
+</th>
+<th width="11%"> <a href="/en/wiki/Nitrogen_Isotopes" title="Nitrogen Isotopes">NITROGEN ISOTOPES</a>
+</th>
+<th width="11%"> <a href="/en/wiki/Oxygen_Isotopes" title="Oxygen Isotopes">OXYGEN ISOTOPES</a>
+</th></tr>
+<tr>
+<td> <a href="/en/wiki/Amarr" title="Amarr">Amarr</a> </td>
+<td> <a href="/en/wiki/Clear_Icicle" title="Clear Icicle">Clear Icicle</a> </td>
+<td> 50 </td>
+<td> 25 </td>
+<td> 1 </td>
+<td> 300 </td>
+<td>  </td>
+<td> </td>
+<td>
+</td></tr>
+<tr>
+<td> <a href="/en/wiki/Amarr" title="Amarr">Amarr</a> </td>
+<td>  <a href="/en/wiki/Enriched_Clear_Icicle" title="Enriched Clear Icicle">Enriched Clear Icicle</a> </td>
+<td> 75 </td>
+<td> 40 </td>
+<td> 1 </td>
+<td> <b>350</b> </td>
+<td> </td>
+<td> </td>
+<td>
+</td></tr>
+<tr>
+<td> <a href="/en/wiki/Minmatar" title="Minmatar">Minmatar</a> </td>
+<td> <a href="/en/wiki/Glacial_Mass" title="Glacial Mass">Glacial Mass</a> </td>
+<td> 50 </td>
+<td> 25 </td>
+<td> 1 </td>
+<td> </td>
+<td> 300 </td>
+<td> </td>
+<td>
+</td></tr>
+<tr>
+<td> <a href="/en/wiki/Minmatar" title="Minmatar">Minmatar</a> </td>
+<td> <a href="/en/wiki/Smooth_Glacial_Mass" title="Smooth Glacial Mass">Smooth Glacial Mass</a> </td>
+<td> 75 </td>
+<td> 40 </td>
+<td> 1 </td>
+<td> </td>
+<td> <b>350</b>  </td>
+<td> </td>
+<td>
+</td></tr>
+<tr>
+<td> <a href="/en/wiki/Caldari" title="Caldari">Caldari</a> </td>
+<td> <a href="/en/wiki/White_Glaze" title="White Glaze">White Glaze</a> </td>
+<td> 50 </td>
+<td> 25 </td>
+<td> 1 </td>
+<td> </td>
+<td>  </td>
+<td> 300 </td>
+<td>
+</td></tr>
+<tr>
+<td> <a href="/en/wiki/Caldari" title="Caldari">Caldari</a> </td>
+<td> <a href="/en/wiki/Pristine_White_Glaze" title="Pristine White Glaze">Pristine White Glaze</a> </td>
+<td> 75 </td>
+<td> 40 </td>
+<td> 1 </td>
+<td> </td>
+<td> </td>
+<td> <b>350</b> </td>
+<td>
+</td></tr>
+<tr>
+<td> <a href="/en/wiki/Gallente" title="Gallente">Gallente</a> </td>
+<td> <a href="/en/wiki/Blue_Ice" title="Blue Ice">Blue Ice</a> </td>
+<td> 50 </td>
+<td> 25 </td>
+<td> 1 </td>
+<td> </td>
+<td>  </td>
+<td> </td>
+<td> 300
+</td></tr>
+<tr>
+<td> <a href="/en/wiki/Gallente" title="Gallente">Gallente</a> </td>
+<td> <a href="/en/wiki/Thick_Blue_Ice" title="Thick Blue Ice">Thick Blue Ice</a> </td>
+<td> 75 </td>
+<td> 40 </td>
+<td> 1 </td>
+<td> </td>
+<td>  </td>
+<td> </td>
+<td> <b>350</b>
+</td></tr>
+<tr>
+<td> <a href="/en/wiki/Low_Security_Space" title="Low Security Space" class="mw-redirect">Low Sec</a> </td>
+<td> <a href="/en/wiki/Glare_crust" title="Glare crust">Glare Crust</a> </td>
+<td> <b>1000</b> </td>
+<td> 500 </td>
+<td> 25 </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td>
+</td></tr>
+<tr>
+<td> <a href="/en/wiki/Low_Security_Space" title="Low Security Space" class="mw-redirect">Low Sec</a> </td>
+<td> <a href="/en/wiki/Dark_Glitter" title="Dark Glitter">Dark Glitter</a>  </td>
+<td> 500 </td>
+<td> <b>1000</b> </td>
+<td> 50 </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td>
+</td></tr>
+<tr>
+<td> <a href="/en/wiki/0.0" title="0.0">0.0</a> </td>
+<td> <a href="/en/wiki/Gelidus" title="Gelidus">Gelidus</a> </td>
+<td> 250 </td>
+<td> 500 </td>
+<td> 75 </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td>
+</td></tr>
+<tr>
+<td> <a href="/en/wiki/0.0" title="0.0">0.0</a> </td>
+<td> <a href="/en/wiki/Krystallos" title="Krystallos">Krystallos</a> </td>
+<td> 125 </td>
+<td> 250 </td>
+<td> <b>125</b> </td>
+<td> </td>
+<td>  </td>
+<td> </td>
+<td>
+</td></tr></tbody></table>
+
 typeid      typename
 ----------- ----------------------------------------------------------------------------------------------------
 0           #System
