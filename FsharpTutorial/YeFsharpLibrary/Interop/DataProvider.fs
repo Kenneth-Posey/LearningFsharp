@@ -1,6 +1,6 @@
-﻿namespace Data
+﻿namespace EveOnlineInterop
 
-module Provider = 
+module DataProvider = 
     
     open EveOnline.EveData
 

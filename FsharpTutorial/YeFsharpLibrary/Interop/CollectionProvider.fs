@@ -1,10 +1,20 @@
-﻿namespace Collections 
+﻿namespace EveOnlineInterop 
 
-module Provider = 
+module CollectionsProvider = 
     open EveOnline
 
     type OreList () = 
-        member this.OreNames = EveData.Collections.RawOreNames
+        static member OreNames = 
+            List.toSeq <| EveData.Collections.RawOreNames
 
     type IceList () =
-        member this.IceNames = EveData.Collections.RawIceNames
+        static member IceNames = 
+            List.toSeq <| EveData.Collections.RawIceNames
+
+    type IceProductList () = 
+        static member IceProductNames = 
+            List.toSeq <| EveData.Collections.IceProductNames
+
+    type MineralList () = 
+        static member MineralNames = 
+            List.toSeq <| EveData.Collections.MineralNames
