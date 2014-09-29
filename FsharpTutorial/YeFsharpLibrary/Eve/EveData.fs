@@ -570,7 +570,7 @@ module EveData =
 
         type DarkOchre () =
             interface IRawOre with
-                override this.GetName () = "DarkOchre"
+                override this.GetName () = "Dark Ochre"
                 override this.GetBase () = DarkOchre.Base
                 override this.GetBase5 () = DarkOchre.Base5
                 override this.GetBase10 () = DarkOchre.Base10
@@ -871,7 +871,7 @@ module EveData =
 
         type CompDarkOchre () =
             interface IRawOre with
-                override this.GetName () = "DarkOchre"
+                override this.GetName () = "Dark Ochre"
                 override this.GetBase () = CompDarkOchre.Base
                 override this.GetBase5 () = CompDarkOchre.Base5
                 override this.GetBase10 () = CompDarkOchre.Base10
@@ -979,11 +979,11 @@ module EveData =
                 override this.GetYield () = BlueIce.Yield
                 override this.IsTiny () = false
 
-            static member val Base = 16264
+            static member val Base   = 16264
             static member val Volume = 1000.0f
-            static member val Yield = {
-                BaseIceYield with 
-                HeavyWater          = 50
-                LiquidOzone         = 25
-                StrontiumClathrates = 1
-            }
+            static member val Yield  = {
+                    BaseIceYield with 
+                    HeavyWater          = 50
+                    LiquidOzone         = 25
+                    StrontiumClathrates = 1
+                }
