@@ -66,6 +66,8 @@
     <Compile Include="Eve\EveData.fs" />
     <Compile Include="Eve\MarketParser.fs" />
     <Content Include="Eve\notes.txt" />
+    <Compile Include="Interop\CollectionProvider.fs" />
+    <Compile Include="Interop\DataProvider.fs" />
     <Compile Include="Tests\UnitTest.fs" />
     <Compile Include="Scratchpad.fs" />
     <None Include="packages.config" />
