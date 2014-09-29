@@ -915,6 +915,19 @@ module EveData =
                 } with get
             
 
+        type CompClearIcicle () = 
+            interface IRawIce with 
+                override this.GetName   () = "Compressed Clear Icicle"
+                override this.GetBase   () = CompClearIcicle.Base
+                override this.GetVolume () = CompClearIcicle.Volume
+                override this.GetYield  () = CompClearIcicle.Yield
+                override this.IsTiny    () = true
+
+            static member val Base   = 28434 with get
+            static member val Volume = 100.0f with get
+            static member val Yield  = ClearIcicle.Yield with get
+            
+
         type EnrichedClearIcicle () = 
             interface IRawIce with 
                 override this.GetName   () = "Enriched Clear Icicle"
@@ -932,6 +945,19 @@ module EveData =
                     StrontiumClathrates = 1
                     HeliumIsotopes      = 350
                 } with get
+            
+
+        type CompEnrichedClearIcicle () = 
+            interface IRawIce with 
+                override this.GetName   () = "Compressed Enriched Clear Icicle"
+                override this.GetBase   () = CompEnrichedClearIcicle.Base
+                override this.GetVolume () = CompEnrichedClearIcicle.Volume
+                override this.GetYield  () = CompEnrichedClearIcicle.Yield
+                override this.IsTiny    () = true
+
+            static member val Base   = 28436 with get
+            static member val Volume = 100.0f with get
+            static member val Yield  = EnrichedClearIcicle.Yield with get
 
 
         type GlacialMass () = 
@@ -952,6 +978,19 @@ module EveData =
                     HydrogenIsotopes    = 300
                 } with get
 
+                
+        type CompGlacialMass () = 
+            interface IRawIce with 
+                override this.GetName   () = "Compressed Glacial Mass"
+                override this.GetBase   () = CompGlacialMass.Base
+                override this.GetVolume () = CompGlacialMass.Volume
+                override this.GetYield  () = CompGlacialMass.Yield
+                override this.IsTiny    () = true
+
+            static member val Base   = 28438 with get
+            static member val Volume = 100.0f with get
+            static member val Yield  = GlacialMass.Yield with get
+
 
         type SmoothGlacialMass () = 
             interface IRawIce with 
@@ -970,6 +1009,19 @@ module EveData =
                     StrontiumClathrates = 1
                     HydrogenIsotopes    = 350
                 } with get
+
+
+        type CompSmoothGlacialMass () = 
+            interface IRawIce with 
+                override this.GetName   () = "Compressed Smooth Glacial Mass"
+                override this.GetBase   () = CompSmoothGlacialMass.Base
+                override this.GetVolume () = CompSmoothGlacialMass.Volume
+                override this.GetYield  () = CompSmoothGlacialMass.Yield
+                override this.IsTiny    () = true
+
+            static member val Base   = 28442 with get
+            static member val Volume = 100.0f with get
+            static member val Yield  = SmoothGlacialMass.Yield with get
 
                 
         type BlueIce () = 
@@ -991,6 +1043,19 @@ module EveData =
                 } with get
 
                 
+        type CompBlueIce () = 
+            interface IRawIce with 
+                override this.GetName   () = "Compressed Blue Ice"
+                override this.GetBase   () = CompBlueIce.Base
+                override this.GetVolume () = CompBlueIce.Volume
+                override this.GetYield  () = CompBlueIce.Yield
+                override this.IsTiny    () = true
+
+            static member val Base   = 28433 with get
+            static member val Volume = 100.0f with get
+            static member val Yield  = BlueIce.Yield with get
+
+                
         type ThickBlueIce () = 
             interface IRawIce with 
                 override this.GetName   () = "Thick Blue Ice"
@@ -1008,6 +1073,19 @@ module EveData =
                     StrontiumClathrates = 1
                     OxygenIsotopes      = 350
                 } with get
+
+                
+        type CompThickBlueIce () = 
+            interface IRawIce with 
+                override this.GetName   () = "Compressed Thick Blue Ice"
+                override this.GetBase   () = CompThickBlueIce.Base
+                override this.GetVolume () = CompThickBlueIce.Volume
+                override this.GetYield  () = CompThickBlueIce.Yield
+                override this.IsTiny    () = true
+
+            static member val Base   = 28443 with get
+            static member val Volume = 100.0f with get
+            static member val Yield  = ThickBlueIce.Yield with get
 
 
         type WhiteGlaze () = 
@@ -1029,6 +1107,19 @@ module EveData =
                 } with get
 
 
+        type CompWhiteGlaze () = 
+            interface IRawIce with 
+                override this.GetName   () = "Compressed White Glaze"
+                override this.GetBase   () = CompWhiteGlaze.Base
+                override this.GetVolume () = CompWhiteGlaze.Volume
+                override this.GetYield  () = CompWhiteGlaze.Yield
+                override this.IsTiny    () = true
+
+            static member val Base   = 28444 with get
+            static member val Volume = 100.0f with get
+            static member val Yield  = WhiteGlaze.Yield with get
+
+
         type PristineWhiteGlaze () = 
             interface IRawIce with 
                 override this.GetName   () = "Pristine White Glaze"
@@ -1046,6 +1137,19 @@ module EveData =
                     StrontiumClathrates = 1
                     NitrogenIsotopes    = 350
                 } with get
+
+
+        type CompPristineWhiteGlaze () = 
+            interface IRawIce with 
+                override this.GetName   () = "Compressed Pristine White Glaze"
+                override this.GetBase   () = CompPristineWhiteGlaze.Base
+                override this.GetVolume () = CompPristineWhiteGlaze.Volume
+                override this.GetYield  () = CompPristineWhiteGlaze.Yield
+                override this.IsTiny    () = true
+
+            static member val Base   = 28441 with get
+            static member val Volume = 100.0f with get
+            static member val Yield  = PristineWhiteGlaze.Yield with get
 
 
         type GlareCrust () = 
@@ -1066,6 +1170,19 @@ module EveData =
                 } with get
 
 
+        type CompGlareCrust () = 
+            interface IRawIce with 
+                override this.GetName   () = "Compressed Glare Crust"
+                override this.GetBase   () = CompGlareCrust.Base
+                override this.GetVolume () = CompGlareCrust.Volume
+                override this.GetYield  () = CompGlareCrust.Yield
+                override this.IsTiny    () = true
+
+            static member val Base   = 28439 with get
+            static member val Volume = 100.0f with get
+            static member val Yield  = GlareCrust.Yield with get
+
+
         type DarkGlitter () = 
             interface IRawIce with 
                 override this.GetName   () = "Dark Glitter"
@@ -1082,6 +1199,19 @@ module EveData =
                     LiquidOzone         = 1000
                     StrontiumClathrates = 50
                 } with get
+
+
+        type CompDarkGlitter () = 
+            interface IRawIce with 
+                override this.GetName   () = "Compressed Dark Glitter"
+                override this.GetBase   () = CompDarkGlitter.Base
+                override this.GetVolume () = CompDarkGlitter.Volume
+                override this.GetYield  () = CompDarkGlitter.Yield
+                override this.IsTiny    () = true
+
+            static member val Base   = 28435 with get
+            static member val Volume = 100.0f with get
+            static member val Yield  = DarkGlitter.Yield with get
 
 
         type Gelidus () = 
@@ -1102,6 +1232,19 @@ module EveData =
                 } with get
 
 
+        type CompGelidus () = 
+            interface IRawIce with 
+                override this.GetName   () = "Compressed Gelidus"
+                override this.GetBase   () = CompGelidus.Base
+                override this.GetVolume () = CompGelidus.Volume
+                override this.GetYield  () = CompGelidus.Yield
+                override this.IsTiny    () = true
+
+            static member val Base   = 28437 with get
+            static member val Volume = 100.0f with get
+            static member val Yield  = Gelidus.Yield with get
+
+
         type Krystallos () = 
             interface IRawIce with 
                 override this.GetName   () = "Krystallos"
@@ -1118,10 +1261,23 @@ module EveData =
                     LiquidOzone         = 250
                     StrontiumClathrates = 125
                 } with get
+
+
+        type CompKrystallos () = 
+            interface IRawIce with 
+                override this.GetName   () = "Compressed Krystallos"
+                override this.GetBase   () = CompKrystallos.Base
+                override this.GetVolume () = CompKrystallos.Volume
+                override this.GetYield  () = CompKrystallos.Yield
+                override this.IsTiny    () = true
+
+            static member val Base   = 28440 with get
+            static member val Volume = 100.0f with get
+            static member val Yield  = Krystallos.Yield with get
                 
 
     module Collections = 
-        type Minerals =
+        type MineralIDs =
         | Tritanium = 34
         | Pyerite   = 35
         | Mexallon  = 36
@@ -1140,7 +1296,7 @@ module EveData =
            "Megacyte"
         ]
         
-        type IceProducts = 
+        type IceProductIDs = 
         | HeavyWater          = 16272
         | HeliumIsotopes      = 16274
         | HydrogenIsotopes    = 17889
@@ -1159,7 +1315,7 @@ module EveData =
             "Strontium Clathrates"
         ]
                 
-        type RawOres = 
+        type RawOreIDs = 
         | Veldspar    = 1230
         | Scordite    = 1228
         | Pyroxeres   = 1224
@@ -1196,7 +1352,7 @@ module EveData =
             "Mercoxit"
         ]
         
-        type RawIce =
+        type RawIceIDs =
         | ClearIcicle         = 16262
         | EnrichedClearIcicle = 17978
         | GlacialMass         = 16263
@@ -1225,3 +1381,72 @@ module EveData =
             "Krystallos"
         ]
 
+        type RawOre = RawMaterials.IRawMat<RawMaterials.OreYield>
+        let RawOreList = [
+            new RawMaterials.Arkonor     () :> RawOre
+            new RawMaterials.Bistot      () :> RawOre
+            new RawMaterials.Crokite     () :> RawOre
+            new RawMaterials.DarkOchre   () :> RawOre
+            new RawMaterials.Gneiss      () :> RawOre
+            new RawMaterials.Hedbergite  () :> RawOre
+            new RawMaterials.Hemorphite  () :> RawOre
+            new RawMaterials.Jaspet      () :> RawOre
+            new RawMaterials.Kernite     () :> RawOre
+            new RawMaterials.Mercoxit    () :> RawOre
+            new RawMaterials.Omber       () :> RawOre
+            new RawMaterials.Plagioclase () :> RawOre
+            new RawMaterials.Pyroxeres   () :> RawOre
+            new RawMaterials.Scordite    () :> RawOre
+            new RawMaterials.Spodumain   () :> RawOre
+            new RawMaterials.Veldspar    () :> RawOre
+        ]
+
+        let CompressedRawOreList = [
+            new RawMaterials.CompArkonor     () :> RawOre
+            new RawMaterials.CompBistot      () :> RawOre
+            new RawMaterials.CompCrokite     () :> RawOre
+            new RawMaterials.CompDarkOchre   () :> RawOre
+            new RawMaterials.CompGneiss      () :> RawOre
+            new RawMaterials.CompHedbergite  () :> RawOre
+            new RawMaterials.CompHemorphite  () :> RawOre
+            new RawMaterials.CompJaspet      () :> RawOre
+            new RawMaterials.CompKernite     () :> RawOre
+            new RawMaterials.CompMercoxit    () :> RawOre
+            new RawMaterials.CompOmber       () :> RawOre
+            new RawMaterials.CompPlagioclase () :> RawOre
+            new RawMaterials.CompPyroxeres   () :> RawOre
+            new RawMaterials.CompScordite    () :> RawOre
+            new RawMaterials.CompSpodumain   () :> RawOre
+            new RawMaterials.CompVeldspar    () :> RawOre
+        ]
+
+        type RawIce = RawMaterials.IRawMat<RawMaterials.IceYield>
+        let RawIceList = [
+            new RawMaterials.BlueIce             () :> RawIce
+            new RawMaterials.ClearIcicle         () :> RawIce
+            new RawMaterials.DarkGlitter         () :> RawIce
+            new RawMaterials.EnrichedClearIcicle () :> RawIce
+            new RawMaterials.Gelidus             () :> RawIce
+            new RawMaterials.GlacialMass         () :> RawIce
+            new RawMaterials.GlareCrust          () :> RawIce
+            new RawMaterials.Krystallos          () :> RawIce
+            new RawMaterials.SmoothGlacialMass   () :> RawIce
+            new RawMaterials.PristineWhiteGlaze  () :> RawIce
+            new RawMaterials.ThickBlueIce        () :> RawIce
+            new RawMaterials.WhiteGlaze          () :> RawIce
+        ]
+
+        let CompressedRawIceList = [
+            new RawMaterials.CompBlueIce             () :> RawIce
+            new RawMaterials.CompClearIcicle         () :> RawIce
+            new RawMaterials.CompDarkGlitter         () :> RawIce
+            new RawMaterials.CompEnrichedClearIcicle () :> RawIce
+            new RawMaterials.CompGelidus             () :> RawIce
+            new RawMaterials.CompGlacialMass         () :> RawIce
+            new RawMaterials.CompGlareCrust          () :> RawIce
+            new RawMaterials.CompKrystallos          () :> RawIce
+            new RawMaterials.CompSmoothGlacialMass   () :> RawIce
+            new RawMaterials.CompPristineWhiteGlaze  () :> RawIce
+            new RawMaterials.CompThickBlueIce        () :> RawIce
+            new RawMaterials.CompWhiteGlaze          () :> RawIce
+        ]
