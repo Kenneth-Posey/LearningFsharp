@@ -5,11 +5,11 @@ module EveData =
     let QuickLook   = "http://api.eve-central.com/api/quicklook"
 
     type SystemName =
-        | Jita    = 30000142
-        | Dodixie = 30002659
-        | Amarr   = 30002187
-        | Hek     = 30002053
-        | Rens    = 30002510
+    | Jita    = 30000142
+    | Dodixie = 30002659
+    | Amarr   = 30002187
+    | Hek     = 30002053
+    | Rens    = 30002510
 
     type MarketAPIRequest = {
         typeid      : int
@@ -17,7 +17,7 @@ module EveData =
         regionlimit : int
         sethours    : int
         setminQ     : int
-        }
+    }
 
     module ApiFeed =
         open FSharp.Data
@@ -147,20 +147,18 @@ module EveData =
                         , minVolume   = order.MinVolume 
                         , orderType   = typeDef.OrderType   )
         
-        type MarketPrices = 
-            {
-                highBuy  : single
-                lowSell  : single
-                lowBuy   : single
-                highSell : single
-            }
+        type MarketPrices =  {
+            highBuy  : single
+            lowSell  : single
+            lowBuy   : single
+            highSell : single
+        }
             
-        type ParsedData<'a, 'b> = 
-            {
-                buyOrders  : 'a
-                sellOrders : 'b
-                prices     : MarketPrices
-            }
+        type ParsedData<'a, 'b> = {
+            buyOrders  : 'a
+            sellOrders : 'b
+            prices     : MarketPrices
+        }
 
 
     module RawMaterials =    
@@ -245,15 +243,27 @@ module EveData =
         type IIce = 
             inherit IRawMat<IceYield>
             
+        // The actual prices for the minerals
         type OreValue = {
-                Tritanium   : single
-                Pyerite     : single
-                Mexallon    : single
-                Isogen      : single
-                Nocxium     : single
-                Megacyte    : single
-                Zydrine     : single
-                Morphite    : single
+            Tritanium   : single
+            Pyerite     : single
+            Mexallon    : single
+            Isogen      : single
+            Nocxium     : single
+            Megacyte    : single
+            Zydrine     : single
+            Morphite    : single
+        }
+
+        // The actual prices for the ice products
+        type IceValue = {
+            HeavyWater          : single
+            HeliumIsotopes      : single
+            HydrogenIsotopes    : single
+            LiquidOzone         : single
+            NitrogenIsotopes    : single
+            OxygenIsotopes      : single
+            StrontiumClathrates : single           
         }
 
         type IRawOre =
@@ -1285,6 +1295,7 @@ module EveData =
         | Nocxium   = 38
         | Zydrine   = 39
         | Megacyte  = 40
+        | Morphite  = 11399
         
         let MineralNames = [
            "Tritanium"

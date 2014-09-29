@@ -107,17 +107,84 @@ module MarketParser =
         |> ParseQuickLook
 
 
-    let LoadMarketSnapshot item location amount = 
+    let LoadMarketSnapshot location amount item = 
         LoadData item location
         |> (fun x -> 
-                {
-                    lowBuy   = x.prices.lowBuy   * single amount
-                    highBuy  = x.prices.highBuy  * single amount
-                    lowSell  = x.prices.lowSell  * single amount
-                    highSell = x.prices.highSell * single amount
-                })
+            {
+                lowBuy   = x.prices.lowBuy   * single amount
+                highBuy  = x.prices.highBuy  * single amount
+                lowSell  = x.prices.lowSell  * single amount
+                highSell = x.prices.highSell * single amount
+            })
 
 
+    let LoadMineralPrices location = 
+        let LoadItem item = LoadMarketSnapshot location 1 (string item)
+
+        [
+            int Collections.MineralIDs.Isogen
+            int Collections.MineralIDs.Megacyte
+            int Collections.MineralIDs.Mexallon
+            int Collections.MineralIDs.Nocxium
+            int Collections.MineralIDs.Pyerite
+            int Collections.MineralIDs.Tritanium
+            int Collections.MineralIDs.Zydrine
+        ]
+        |> List.map (fun x -> x, LoadItem x)
+
+
+    type mineralIDs = EveData.Collections.MineralIDs
+    let LoadMineralJitaSell () = 
+        let jita = string (int EveData.SystemName.Jita)
+        let priceMap = LoadMineralPrices jita
+                       |> List.map (fun x -> fst x, (snd x).highSell)
+        let loadPrice id = snd (List.find (fun x -> (fst x) = int (id)) priceMap)
+
+        {
+            Tritanium = loadPrice mineralIDs.Tritanium
+            Pyerite   = loadPrice mineralIDs.Pyerite 
+            Mexallon  = loadPrice mineralIDs.Mexallon
+            Isogen    = loadPrice mineralIDs.Isogen  
+            Nocxium   = loadPrice mineralIDs.Nocxium 
+            Megacyte  = loadPrice mineralIDs.Megacyte
+            Zydrine   = loadPrice mineralIDs.Zydrine 
+            Morphite  = loadPrice mineralIDs.Morphite
+        }
+
+
+    let LoadIceProductPrices location = 
+        let LoadItem item = LoadMarketSnapshot location 1 (string item)
+
+        [
+            int Collections.IceProductIDs.HeavyWater
+            int Collections.IceProductIDs.HeliumIsotopes
+            int Collections.IceProductIDs.HydrogenIsotopes
+            int Collections.IceProductIDs.LiquidOzone
+            int Collections.IceProductIDs.NitrogenIsotopes
+            int Collections.IceProductIDs.OxygenIsotopes
+            int Collections.IceProductIDs.StrontiumClathrates
+        ]
+        |> List.map (fun x -> x, LoadItem x)
+
+        
+    type iceProductIDs = EveData.Collections.IceProductIDs
+    let LoadIceProductJitaSell () = 
+        let jita = string (int EveData.SystemName.Jita)
+        let priceMap = LoadIceProductPrices jita
+                       |> List.map (fun x -> fst x, (snd x).highSell)
+        let loadPrice id = snd (List.find (fun x -> (fst x) = int (id)) priceMap)
+
+        {
+            HeavyWater          = loadPrice iceProductIDs.HeavyWater
+            HeliumIsotopes      = loadPrice iceProductIDs.HeliumIsotopes
+            HydrogenIsotopes    = loadPrice iceProductIDs.HydrogenIsotopes
+            LiquidOzone         = loadPrice iceProductIDs.LiquidOzone
+            NitrogenIsotopes    = loadPrice iceProductIDs.NitrogenIsotopes
+            OxygenIsotopes      = loadPrice iceProductIDs.OxygenIsotopes
+            StrontiumClathrates = loadPrice iceProductIDs.StrontiumClathrates
+        }
+
+        
     let LoadBuyData item location amount = 
         LoadData item location
         |> (fun x -> x.sellOrders)
@@ -153,17 +220,35 @@ module MarketParser =
     let BestProfit (item: IOre * IOre) (location:string) =
         let raw, comp = GetCodes item
 
-        let rawSnapshot = LoadMarketSnapshot raw  location 100000
+        let rawSnapshot = LoadMarketSnapshot location 100000 raw
         let buy100kRaw  = rawSnapshot.highBuy
 
-        let compSnapshot = LoadMarketSnapshot comp location 1000
+        let compSnapshot = LoadMarketSnapshot location 1000 comp
         let sell1kComp   = compSnapshot.lowSell
 
         sell1kComp - buy100kRaw
 
-    let RefineValue (item:IOre) (ore:OreValue) (multiplier:single) =
         
-        item.GetYield
+    let RefineValueOre (item:IRawOre) (value:OreValue) (multiplier:single) =
+        let mineralYield = item.GetYield ()
+        (   single mineralYield.Isogen    * value.Isogen 
+          + single mineralYield.Megacyte  * value.Megacyte
+          + single mineralYield.Mexallon  * value.Mexallon
+          + single mineralYield.Morphite  * value.Morphite
+          + single mineralYield.Nocxium   * value.Nocxium
+          + single mineralYield.Pyerite   * value.Pyerite
+          + single mineralYield.Tritanium * value.Tritanium
+          + single mineralYield.Zydrine   * value.Zydrine
+        ) * multiplier
 
 
-        single 0
+    let RefineValueIce (item:IRawIce) (value:IceValue) (multiplier:single) = 
+        let iceYield = item.GetYield ()
+        (   single iceYield.HeavyWater          * value.HeavyWater
+          + single iceYield.HeliumIsotopes      * value.HeliumIsotopes
+          + single iceYield.HydrogenIsotopes    * value.HydrogenIsotopes
+          + single iceYield.LiquidOzone         * value.LiquidOzone
+          + single iceYield.NitrogenIsotopes    * value.NitrogenIsotopes
+          + single iceYield.OxygenIsotopes      * value.OxygenIsotopes
+          + single iceYield.StrontiumClathrates * value.StrontiumClathrates
+        ) * multiplier
