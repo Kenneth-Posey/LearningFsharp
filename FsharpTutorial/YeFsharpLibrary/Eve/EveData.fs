@@ -164,44 +164,6 @@ module EveData =
 
 
     module RawMaterials =    
-        type Minerals =
-        | Tritanium = 34
-        | Pyerite   = 35
-        | Mexallon  = 36
-        | Isogen    = 37
-        | Nocxium   = 38
-        | Zydrine   = 39
-        | Megacyte  = 40
-        
-        let Minerals = [
-           "Tritanium"
-           "Pyerite"
-           "Mexallon"
-           "Isogen"
-           "Nocxium"
-           "Zydrine"
-           "Megacyte"
-        ]
-        
-        type IceProducts = 
-        | HeavyWater          = 16272
-        | HeliumIsotopes      = 16274
-        | HydrogenIsotopes    = 17889
-        | LiquidOzone         = 16273
-        | NitrogenIsotopes    = 17888
-        | OxygenIsotopes      = 17887
-        | StrontiumClathrates = 16275
-
-        let IceProducts = [
-            "HeavyWater"
-            "HeliumIsotopes"
-            "HydrogenIsotopes"
-            "LiquidOzone"
-            "NitrogenIsotopes"
-            "OxygenIsotopes"
-            "StrontiumClathrates"
-        ]
-
         type SimpleOre = {
             Name   : string
             TypeId : int
@@ -280,7 +242,7 @@ module EveData =
             abstract member GetBase5  : unit -> int
             abstract member GetBase10 : unit -> int
 
-        type ISpaceIce = 
+        type IIce = 
             inherit IRawMat<IceYield>
             
         type OreValue = {
@@ -301,47 +263,10 @@ module EveData =
             inherit IOre
 
         type IRawIce =
-            inherit ISpaceIce
+            inherit IIce
 
         type ICompressedIce = 
-            inherit ISpaceIce
-
-        type AllOreNames = 
-        | Veldspar
-        | Scordite
-        | Pyroxeres
-        | Plagioclase
-        | Omber
-        | Kernite
-        | Jaspet
-        | Hemorphite
-        | Hedbergite
-        | Spodumain
-        | Arkonor
-        | Bistot
-        | Crokite
-        | Gneiss
-        | DarkOchre
-        | Mercoxit
-
-        let AllOreNames = [
-                "Veldspar"
-                "Scordite"
-                "Pyroxeres"
-                "Plagioclase"
-                "Omber"
-                "Kernite"
-                "Jaspet"
-                "Hemorphite"
-                "Hedbergite"
-                "Spodumain"
-                "Arkonor"
-                "Bistot"
-                "Crokite"
-                "Gneiss"
-                "Dark Ochre"
-                "Mercoxit"
-            ]
+            inherit IIce
 
         type Veldspar () =
             interface IRawOre with
@@ -971,19 +896,332 @@ module EveData =
             static member val Volume = 0.1f with get
             
 
-        type BlueIce () = 
+        type ClearIcicle () = 
             interface IRawIce with 
-                override this.GetName () = "Blue Ice"
-                override this.GetBase () = BlueIce.Base
-                override this.GetVolume () = BlueIce.Volume
-                override this.GetYield () = BlueIce.Yield
-                override this.IsTiny () = false
+                override this.GetName   () = "Clear Icicle"
+                override this.GetBase   () = ClearIcicle.Base
+                override this.GetVolume () = ClearIcicle.Volume
+                override this.GetYield  () = ClearIcicle.Yield
+                override this.IsTiny    () = false
 
-            static member val Base   = 16264
-            static member val Volume = 1000.0f
+            static member val Base   = 16262 with get
+            static member val Volume = 1000.0f with get
             static member val Yield  = {
                     BaseIceYield with 
                     HeavyWater          = 50
                     LiquidOzone         = 25
                     StrontiumClathrates = 1
-                }
+                    HeliumIsotopes      = 300
+                } with get
+            
+
+        type EnrichedClearIcicle () = 
+            interface IRawIce with 
+                override this.GetName   () = "Enriched Clear Icicle"
+                override this.GetBase   () = EnrichedClearIcicle.Base
+                override this.GetVolume () = EnrichedClearIcicle.Volume
+                override this.GetYield  () = EnrichedClearIcicle.Yield
+                override this.IsTiny    () = false
+
+            static member val Base   = 17978 with get
+            static member val Volume = 1000.0f with get
+            static member val Yield  = {
+                    BaseIceYield with 
+                    HeavyWater          = 75
+                    LiquidOzone         = 40
+                    StrontiumClathrates = 1
+                    HeliumIsotopes      = 350
+                } with get
+
+
+        type GlacialMass () = 
+            interface IRawIce with 
+                override this.GetName   () = "Glacial Mass"
+                override this.GetBase   () = GlacialMass.Base
+                override this.GetVolume () = GlacialMass.Volume
+                override this.GetYield  () = GlacialMass.Yield
+                override this.IsTiny    () = false
+
+            static member val Base   = 16263 with get
+            static member val Volume = 1000.0f with get
+            static member val Yield  = {
+                    BaseIceYield with 
+                    HeavyWater          = 50
+                    LiquidOzone         = 25
+                    StrontiumClathrates = 1
+                    HydrogenIsotopes    = 300
+                } with get
+
+
+        type SmoothGlacialMass () = 
+            interface IRawIce with 
+                override this.GetName   () = "Smooth Glacial Mass"
+                override this.GetBase   () = SmoothGlacialMass.Base
+                override this.GetVolume () = SmoothGlacialMass.Volume
+                override this.GetYield  () = SmoothGlacialMass.Yield
+                override this.IsTiny    () = false
+
+            static member val Base   = 17977 with get
+            static member val Volume = 1000.0f with get
+            static member val Yield  = {
+                    BaseIceYield with 
+                    HeavyWater          = 75
+                    LiquidOzone         = 40
+                    StrontiumClathrates = 1
+                    HydrogenIsotopes    = 350
+                } with get
+
+                
+        type BlueIce () = 
+            interface IRawIce with 
+                override this.GetName   () = "Blue Ice"
+                override this.GetBase   () = BlueIce.Base
+                override this.GetVolume () = BlueIce.Volume
+                override this.GetYield  () = BlueIce.Yield
+                override this.IsTiny    () = false
+
+            static member val Base   = 16264 with get
+            static member val Volume = 1000.0f with get
+            static member val Yield  = {
+                    BaseIceYield with 
+                    HeavyWater          = 50
+                    LiquidOzone         = 25
+                    StrontiumClathrates = 1
+                    OxygenIsotopes      = 300
+                } with get
+
+                
+        type ThickBlueIce () = 
+            interface IRawIce with 
+                override this.GetName   () = "Thick Blue Ice"
+                override this.GetBase   () = ThickBlueIce.Base
+                override this.GetVolume () = ThickBlueIce.Volume
+                override this.GetYield  () = ThickBlueIce.Yield
+                override this.IsTiny    () = false
+
+            static member val Base   = 17975 with get
+            static member val Volume = 1000.0f with get
+            static member val Yield  = {
+                    BaseIceYield with 
+                    HeavyWater          = 75
+                    LiquidOzone         = 40
+                    StrontiumClathrates = 1
+                    OxygenIsotopes      = 350
+                } with get
+
+
+        type WhiteGlaze () = 
+            interface IRawIce with 
+                override this.GetName   () = "White Glaze"
+                override this.GetBase   () = WhiteGlaze.Base
+                override this.GetVolume () = WhiteGlaze.Volume
+                override this.GetYield  () = WhiteGlaze.Yield
+                override this.IsTiny    () = false
+
+            static member val Base   = 16265 with get
+            static member val Volume = 1000.0f with get
+            static member val Yield  = {
+                    BaseIceYield with 
+                    HeavyWater          = 50
+                    LiquidOzone         = 25
+                    StrontiumClathrates = 1
+                    NitrogenIsotopes    = 300
+                } with get
+
+
+        type PristineWhiteGlaze () = 
+            interface IRawIce with 
+                override this.GetName   () = "Pristine White Glaze"
+                override this.GetBase   () = PristineWhiteGlaze.Base
+                override this.GetVolume () = PristineWhiteGlaze.Volume
+                override this.GetYield  () = PristineWhiteGlaze.Yield
+                override this.IsTiny    () = false
+
+            static member val Base   = 17976 with get
+            static member val Volume = 1000.0f with get
+            static member val Yield  = {
+                    BaseIceYield with 
+                    HeavyWater          = 75
+                    LiquidOzone         = 40
+                    StrontiumClathrates = 1
+                    NitrogenIsotopes    = 350
+                } with get
+
+
+        type GlareCrust () = 
+            interface IRawIce with 
+                override this.GetName   () = "Glare Crust"
+                override this.GetBase   () = GlareCrust.Base
+                override this.GetVolume () = GlareCrust.Volume
+                override this.GetYield  () = GlareCrust.Yield
+                override this.IsTiny    () = false
+
+            static member val Base   = 16266 with get
+            static member val Volume = 1000.0f with get
+            static member val Yield  = {
+                    BaseIceYield with 
+                    HeavyWater          = 1000
+                    LiquidOzone         = 500
+                    StrontiumClathrates = 25
+                } with get
+
+
+        type DarkGlitter () = 
+            interface IRawIce with 
+                override this.GetName   () = "Dark Glitter"
+                override this.GetBase   () = DarkGlitter.Base
+                override this.GetVolume () = DarkGlitter.Volume
+                override this.GetYield  () = DarkGlitter.Yield
+                override this.IsTiny    () = false
+
+            static member val Base   = 16267 with get
+            static member val Volume = 1000.0f with get
+            static member val Yield  = {
+                    BaseIceYield with 
+                    HeavyWater          = 500
+                    LiquidOzone         = 1000
+                    StrontiumClathrates = 50
+                } with get
+
+
+        type Gelidus () = 
+            interface IRawIce with 
+                override this.GetName   () = "Gelidus"
+                override this.GetBase   () = Gelidus.Base
+                override this.GetVolume () = Gelidus.Volume
+                override this.GetYield  () = Gelidus.Yield
+                override this.IsTiny    () = false
+
+            static member val Base   = 16268 with get
+            static member val Volume = 1000.0f with get
+            static member val Yield  = {
+                    BaseIceYield with 
+                    HeavyWater          = 250
+                    LiquidOzone         = 500
+                    StrontiumClathrates = 75
+                } with get
+
+
+        type Krystallos () = 
+            interface IRawIce with 
+                override this.GetName   () = "Krystallos"
+                override this.GetBase   () = Krystallos.Base
+                override this.GetVolume () = Krystallos.Volume
+                override this.GetYield  () = Krystallos.Yield
+                override this.IsTiny    () = false
+
+            static member val Base   = 16268 with get
+            static member val Volume = 1000.0f with get
+            static member val Yield  = {
+                    BaseIceYield with 
+                    HeavyWater          = 125
+                    LiquidOzone         = 250
+                    StrontiumClathrates = 125
+                } with get
+                
+
+    module Collections = 
+        type Minerals =
+        | Tritanium = 34
+        | Pyerite   = 35
+        | Mexallon  = 36
+        | Isogen    = 37
+        | Nocxium   = 38
+        | Zydrine   = 39
+        | Megacyte  = 40
+        
+        let MineralNames = [
+           "Tritanium"
+           "Pyerite"
+           "Mexallon"
+           "Isogen"
+           "Nocxium"
+           "Zydrine"
+           "Megacyte"
+        ]
+        
+        type IceProducts = 
+        | HeavyWater          = 16272
+        | HeliumIsotopes      = 16274
+        | HydrogenIsotopes    = 17889
+        | LiquidOzone         = 16273
+        | NitrogenIsotopes    = 17888
+        | OxygenIsotopes      = 17887
+        | StrontiumClathrates = 16275
+
+        let IceProductNames = [
+            "Heavy Water"
+            "Helium Isotopes"
+            "Hydrogen Isotopes"
+            "Liquid Ozone"
+            "Nitrogen Isotopes"
+            "Oxygen Isotopes"
+            "Strontium Clathrates"
+        ]
+                
+        type RawOres = 
+        | Veldspar    = 1230
+        | Scordite    = 1228
+        | Pyroxeres   = 1224
+        | Plagioclase = 18
+        | Omber       = 1227
+        | Kernite     = 20
+        | Jaspet      = 1226
+        | Hemorphite  = 1229
+        | Hedbergite  = 21
+        | Spodumain   = 19
+        | Arkonor     = 22
+        | Bistot      = 1223
+        | Crokite     = 1225
+        | Gneiss      = 1229
+        | DarkOchre   = 1242
+        | Mercoxit    = 11396
+
+        let RawOreNames = [
+            "Veldspar"
+            "Scordite"
+            "Pyroxeres"
+            "Plagioclase"
+            "Omber"
+            "Kernite"
+            "Jaspet"
+            "Hemorphite"
+            "Hedbergite"
+            "Spodumain"
+            "Arkonor"
+            "Bistot"
+            "Crokite"
+            "Gneiss"
+            "Dark Ochre"
+            "Mercoxit"
+        ]
+        
+        type RawIce =
+        | ClearIcicle         = 16262
+        | EnrichedClearIcicle = 17978
+        | GlacialMass         = 16263
+        | SmoothGlacialMass   = 17977
+        | WhiteGlaze          = 16265
+        | PristineWhiteGlaze  = 17976
+        | BlueIce             = 16264
+        | ThickBlueIce        = 17975
+        | GlareCrust          = 16266
+        | DarkGlitter         = 16267
+        | Gelidus             = 16268
+        | Krystallos          = 16269
+
+        let RawIceNames = [
+            "Clear Icicle"
+            "Enriched Clear Icicle"
+            "Glacial Mass"
+            "Smooth Glacial Mass"
+            "White Glaze"
+            "Pristine White Glaze"
+            "Blue Ice"
+            "Thick Blue Ice"
+            "Glare Crust"
+            "Dark Glitter"
+            "Gelidus"
+            "Krystallos"
+        ]
+
