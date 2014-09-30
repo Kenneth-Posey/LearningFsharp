@@ -77,6 +77,7 @@
     <None Include="packages.config" />
     <None Include="app.config" />
     <None Include="Tutorial.fsx" />
+    <Content Include="license.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="canopy">
