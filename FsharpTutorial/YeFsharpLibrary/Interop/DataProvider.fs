@@ -6,7 +6,7 @@ module DataProvider =
     open EveData.Ore.Types
     open EveData.Ice.Types
 
-    type OreYieldClass (oreYield:OreYield) as this = 
+    type OreYieldClass (oreYield:OreYield) = 
         member this.Tritanium = oreYield.Tritanium
         member this.Pyerite   = oreYield.Pyerite
         member this.Mexallon  = oreYield.Mexallon
@@ -17,7 +17,7 @@ module DataProvider =
         member this.Morphite  = oreYield.Morphite
 
 
-    type RawOreClass (ore:IRawOre) as this = 
+    type RawOreClass (ore:IRawOre) = 
         member private this.Ore = ore 
         member this.GetBase   () = this.Ore.GetBase()
         member this.GetBase5  () = this.Ore.GetBase5()
@@ -29,7 +29,7 @@ module DataProvider =
             new OreYieldClass (this.Ore.GetYield())
 
 
-    type IceYieldClass (iceYield:IceYield) as this = 
+    type IceYieldClass (iceYield:IceYield) = 
         member this.HeavyWater          = iceYield.HeavyWater
         member this.HeliumIsotopes      = iceYield.HeliumIsotopes
         member this.HydrogenIsotopes    = iceYield.HydrogenIsotopes
@@ -39,7 +39,7 @@ module DataProvider =
         member this.StrontiumClathrates = iceYield.StrontiumClathrates
 
 
-    type RawIceClass (ice:IRawIce) as this = 
+    type RawIceClass (ice:IRawIce) = 
         member private this.Ice = ice
         member this.GetBase   () = this.Ice.GetBase()
         member this.IsTiny    () = this.Ice.IsTiny()
