@@ -50,7 +50,6 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="scripts\RunningImagesearch.fs" />
-    <Compile Include="ConsoleTest.fs" />
     <Compile Include="Main.fs" />
     <Content Include="app.config" />
   </ItemGroup>

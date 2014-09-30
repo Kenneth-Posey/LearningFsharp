@@ -2,8 +2,8 @@
 
 module Functions = 
     open EveData
-    open EveData.Ore.RawMaterials
-    open EveData.Ice.RawMaterials
+    open EveData.Ore.Types
+    open EveData.Ice.Types
     open Market.Parser
 
     let LoadMineralPrices location = 
@@ -79,18 +79,18 @@ module Functions =
         string ( (snd item).GetBase () )
 
 
-    let FastProfit (item:IOre * IOre) (location:string) = 
+    let FastProfit (item:IOre * IOre) (location:int) = 
         let raw, comp  = GetCodes item
-
+        let location = string location
         let buy100kRaw = LoadBuyData  raw  location 100000
         let sell1kComp = LoadSellData comp location 1000
 
         sell1kComp - buy100kRaw
 
 
-    let BestProfit (item: IOre * IOre) (location:string) =
+    let BestProfit (item: IOre * IOre) (location:int) =
         let raw, comp = GetCodes item
-
+        let location = string location
         let rawSnapshot = LoadMarketSnapshot location 100000 raw
         let buy100kRaw  = rawSnapshot.highBuy
 

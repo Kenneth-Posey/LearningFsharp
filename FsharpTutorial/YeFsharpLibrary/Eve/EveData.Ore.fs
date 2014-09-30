@@ -3,7 +3,7 @@
 open EveData.RawMaterials
 
 module Ore = 
-    module RawMaterials =    
+    module Types =   
         type SimpleOre = {
             Name   : string
             TypeId : int
@@ -61,6 +61,8 @@ module Ore =
             inherit IRawOre
 
 
+    module Functions = 
+        open Types
         let FactorOreYield (baseYield:OreYield) (factor:single) =
             let multiply x = int (single x * factor)
             {   
@@ -91,7 +93,10 @@ module Ore =
               + single mineralYield.Zydrine   * value.Zydrine
             ) * multiplier / 100.0f // There's 100 ore per refined amount
 
-                        
+               
+    module RawMaterials =  
+        open Functions      
+        open Types   
         type Veldspar () =
             interface IRawOre with
                 override this.GetName () = "Veldspar"

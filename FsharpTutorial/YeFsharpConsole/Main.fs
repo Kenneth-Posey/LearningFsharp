@@ -10,7 +10,8 @@ open Format.Text
 module Main = 
     [<EntryPoint>]
     let main (args:string[]) = 
-
+        
+        let Locations = Collections.Locations
         let OreList = Collections.AllOrePairs
            
         let mineralValue = Functions.LoadMineralJitaSell ()
@@ -25,8 +26,8 @@ module Main =
                 let system = string location           // Gets the enum name
                 let name   = (fst orePair).GetName()
 
-                let fast = PrettyPrintFromSingle <| Functions.FastProfit orePair (string (int location))
-                let best = PrettyPrintFromSingle <| Functions.BestProfit orePair (string (int location))
+                let fast = PrettyPrintFromSingle <| Functions.FastProfit orePair (int location)
+                let best = PrettyPrintFromSingle <| Functions.BestProfit orePair (int location)
 
                 printfn "For system %5s fast profit: %6s on ore type %s" system fast name
                 printfn "For system %5s best profit: %6s on ore type %s" system best name

@@ -3,8 +3,7 @@
 open EveData.RawMaterials
 
 module Ice = 
-    module RawMaterials = 
-
+    module Types = 
         type SimpleIce = {
             Name   : string
             TypeId : int
@@ -52,7 +51,9 @@ module Ice =
         type ICompressedIce = 
             inherit IRawIce
             
-            
+    
+    module Functions =    
+        open Types
         let RefineValueIce (multiplier:single) (item:IRawIce) (value:IceValue) = 
             let iceYield = item.GetYield ()
             (   single iceYield.HeavyWater          * value.HeavyWater
@@ -64,7 +65,9 @@ module Ice =
               + single iceYield.StrontiumClathrates * value.StrontiumClathrates
             ) * multiplier
 
-
+            
+    module RawMaterials = 
+        open Types
         type ClearIcicle () = 
             interface IRawIce with 
                 override this.GetName   () = "Clear Icicle"
