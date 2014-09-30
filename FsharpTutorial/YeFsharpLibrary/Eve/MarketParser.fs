@@ -137,7 +137,7 @@ module MarketParser =
     let LoadMineralJitaSell () = 
         let jita = string (int EveData.SystemName.Jita)
         let priceMap = LoadMineralPrices jita
-                       |> List.map (fun x -> fst x, (snd x).highSell)
+                       |> List.map (fun x -> fst x, (snd x).lowSell)
         let loadPrice id = snd (List.find (fun x -> (fst x) = int (id)) priceMap)
 
         {
@@ -171,7 +171,7 @@ module MarketParser =
     let LoadIceProductJitaSell () = 
         let jita = string (int EveData.SystemName.Jita)
         let priceMap = LoadIceProductPrices jita
-                       |> List.map (fun x -> fst x, (snd x).highSell)
+                       |> List.map (fun x -> fst x, (snd x).lowSell)
         let loadPrice id = snd (List.find (fun x -> (fst x) = int (id)) priceMap)
 
         {
@@ -229,7 +229,7 @@ module MarketParser =
         sell1kComp - buy100kRaw
 
         
-    let RefineValueOre (item:IRawOre) (value:OreValue) (multiplier:single) =
+    let RefineValueOre (multiplier:single) (item:IRawOre) (value:OreValue) =
         let mineralYield = item.GetYield ()
         (   single mineralYield.Isogen    * value.Isogen 
           + single mineralYield.Megacyte  * value.Megacyte
@@ -242,7 +242,7 @@ module MarketParser =
         ) * multiplier
 
 
-    let RefineValueIce (item:IRawIce) (value:IceValue) (multiplier:single) = 
+    let RefineValueIce (multiplier:single) (item:IRawIce) (value:IceValue) = 
         let iceYield = item.GetYield ()
         (   single iceYield.HeavyWater          * value.HeavyWater
           + single iceYield.HeliumIsotopes      * value.HeliumIsotopes
@@ -252,3 +252,10 @@ module MarketParser =
           + single iceYield.OxygenIsotopes      * value.OxygenIsotopes
           + single iceYield.StrontiumClathrates * value.StrontiumClathrates
         ) * multiplier
+
+
+    let LoadBaseOreValues (multiplier:single) (value:OreValue) = 
+        [
+            for ore in Collections.RawOreList do
+                yield ore.GetBase(), RefineValueOre multiplier ore value
+        ]

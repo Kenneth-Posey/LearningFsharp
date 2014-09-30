@@ -270,13 +270,13 @@ module EveData =
             inherit IOre
 
         type ICompressedOre =
-            inherit IOre
+            inherit IRawOre
 
         type IRawIce =
             inherit IIce
 
         type ICompressedIce = 
-            inherit IIce
+            inherit IRawIce
 
         type Veldspar () =
             interface IRawOre with
@@ -686,7 +686,7 @@ module EveData =
             
         
         type CompPlagioclase () =
-            interface IRawOre with
+            interface ICompressedOre with
                 override this.GetName () = "Plagioclase"
                 override this.GetBase () = CompPlagioclase.Base
                 override this.GetBase5 () = CompPlagioclase.Base5
@@ -703,7 +703,7 @@ module EveData =
 
 
         type CompOmber () =
-            interface IRawOre with
+            interface ICompressedOre with
                 override this.GetName () = "Omber"
                 override this.GetBase () = CompOmber.Base
                 override this.GetBase5 () = CompOmber.Base5
@@ -720,7 +720,7 @@ module EveData =
 
 
         type CompKernite () =
-            interface IRawOre with
+            interface ICompressedOre with
                 override this.GetName () = "Kernite"
                 override this.GetBase () = CompKernite.Base
                 override this.GetBase5 () = CompKernite.Base5
@@ -788,7 +788,7 @@ module EveData =
 
 
         type CompGneiss () =
-            interface IRawOre with
+            interface ICompressedOre with
                 override this.GetName () = "Gneiss"
                 override this.GetBase () = CompGneiss.Base
                 override this.GetBase5 () = CompGneiss.Base5
@@ -805,7 +805,7 @@ module EveData =
 
 
         type CompDarkOchre () =
-            interface IRawOre with
+            interface ICompressedOre with
                 override this.GetName () = "Dark Ochre"
                 override this.GetBase () = CompDarkOchre.Base
                 override this.GetBase5 () = CompDarkOchre.Base5
@@ -822,7 +822,7 @@ module EveData =
 
 
         type CompSpodumain () =
-            interface IRawOre with
+            interface ICompressedOre with
                 override this.GetName () = "Spodumain"
                 override this.GetBase () = CompSpodumain.Base
                 override this.GetBase5 () = CompSpodumain.Base5
@@ -839,7 +839,7 @@ module EveData =
 
 
         type CompCrokite () =
-            interface IRawOre with
+            interface ICompressedOre with
                 override this.GetName () = "Crokite"
                 override this.GetBase () = CompCrokite.Base
                 override this.GetBase5 () = CompCrokite.Base5
@@ -856,7 +856,7 @@ module EveData =
 
 
         type CompBistot () =
-            interface IRawOre with
+            interface ICompressedOre with
                 override this.GetName () = "Bistot"
                 override this.GetBase () = CompBistot.Base
                 override this.GetBase5 () = CompBistot.Base5
@@ -873,7 +873,7 @@ module EveData =
 
 
         type CompArkonor () =
-            interface IRawOre with
+            interface ICompressedOre with
                 override this.GetName () = "Arkonor"
                 override this.GetBase () = CompArkonor.Base
                 override this.GetBase5 () = CompArkonor.Base5
@@ -890,7 +890,7 @@ module EveData =
 
 
         type CompMercoxit () =
-            interface IRawOre with
+            interface ICompressedOre with
                 override this.GetName () = "Mercoxit"
                 override this.GetBase () = CompMercoxit.Base
                 override this.GetBase5 () = CompMercoxit.Base5
@@ -926,7 +926,7 @@ module EveData =
             
 
         type CompClearIcicle () = 
-            interface IRawIce with 
+            interface ICompressedIce with 
                 override this.GetName   () = "Compressed Clear Icicle"
                 override this.GetBase   () = CompClearIcicle.Base
                 override this.GetVolume () = CompClearIcicle.Volume
@@ -1392,72 +1392,72 @@ module EveData =
             "Krystallos"
         ]
 
-        type RawOre = RawMaterials.IRawMat<RawMaterials.OreYield>
+        
         let RawOreList = [
-            new RawMaterials.Arkonor     () :> RawOre
-            new RawMaterials.Bistot      () :> RawOre
-            new RawMaterials.Crokite     () :> RawOre
-            new RawMaterials.DarkOchre   () :> RawOre
-            new RawMaterials.Gneiss      () :> RawOre
-            new RawMaterials.Hedbergite  () :> RawOre
-            new RawMaterials.Hemorphite  () :> RawOre
-            new RawMaterials.Jaspet      () :> RawOre
-            new RawMaterials.Kernite     () :> RawOre
-            new RawMaterials.Mercoxit    () :> RawOre
-            new RawMaterials.Omber       () :> RawOre
-            new RawMaterials.Plagioclase () :> RawOre
-            new RawMaterials.Pyroxeres   () :> RawOre
-            new RawMaterials.Scordite    () :> RawOre
-            new RawMaterials.Spodumain   () :> RawOre
-            new RawMaterials.Veldspar    () :> RawOre
+            new RawMaterials.Arkonor     () :> RawMaterials.IRawOre
+            new RawMaterials.Bistot      () :> RawMaterials.IRawOre
+            new RawMaterials.Crokite     () :> RawMaterials.IRawOre
+            new RawMaterials.DarkOchre   () :> RawMaterials.IRawOre
+            new RawMaterials.Gneiss      () :> RawMaterials.IRawOre
+            new RawMaterials.Hedbergite  () :> RawMaterials.IRawOre
+            new RawMaterials.Hemorphite  () :> RawMaterials.IRawOre
+            new RawMaterials.Jaspet      () :> RawMaterials.IRawOre
+            new RawMaterials.Kernite     () :> RawMaterials.IRawOre
+            new RawMaterials.Mercoxit    () :> RawMaterials.IRawOre
+            new RawMaterials.Omber       () :> RawMaterials.IRawOre
+            new RawMaterials.Plagioclase () :> RawMaterials.IRawOre
+            new RawMaterials.Pyroxeres   () :> RawMaterials.IRawOre
+            new RawMaterials.Scordite    () :> RawMaterials.IRawOre
+            new RawMaterials.Spodumain   () :> RawMaterials.IRawOre
+            new RawMaterials.Veldspar    () :> RawMaterials.IRawOre
         ]
 
         let CompressedRawOreList = [
-            new RawMaterials.CompArkonor     () :> RawOre
-            new RawMaterials.CompBistot      () :> RawOre
-            new RawMaterials.CompCrokite     () :> RawOre
-            new RawMaterials.CompDarkOchre   () :> RawOre
-            new RawMaterials.CompGneiss      () :> RawOre
-            new RawMaterials.CompHedbergite  () :> RawOre
-            new RawMaterials.CompHemorphite  () :> RawOre
-            new RawMaterials.CompJaspet      () :> RawOre
-            new RawMaterials.CompKernite     () :> RawOre
-            new RawMaterials.CompMercoxit    () :> RawOre
-            new RawMaterials.CompOmber       () :> RawOre
-            new RawMaterials.CompPlagioclase () :> RawOre
-            new RawMaterials.CompPyroxeres   () :> RawOre
-            new RawMaterials.CompScordite    () :> RawOre
-            new RawMaterials.CompSpodumain   () :> RawOre
-            new RawMaterials.CompVeldspar    () :> RawOre
+            new RawMaterials.CompArkonor     () :> RawMaterials.IRawOre
+            new RawMaterials.CompBistot      () :> RawMaterials.IRawOre
+            new RawMaterials.CompCrokite     () :> RawMaterials.IRawOre
+            new RawMaterials.CompDarkOchre   () :> RawMaterials.IRawOre
+            new RawMaterials.CompGneiss      () :> RawMaterials.IRawOre
+            new RawMaterials.CompHedbergite  () :> RawMaterials.IRawOre
+            new RawMaterials.CompHemorphite  () :> RawMaterials.IRawOre
+            new RawMaterials.CompJaspet      () :> RawMaterials.IRawOre
+            new RawMaterials.CompKernite     () :> RawMaterials.IRawOre
+            new RawMaterials.CompMercoxit    () :> RawMaterials.IRawOre
+            new RawMaterials.CompOmber       () :> RawMaterials.IRawOre
+            new RawMaterials.CompPlagioclase () :> RawMaterials.IRawOre
+            new RawMaterials.CompPyroxeres   () :> RawMaterials.IRawOre
+            new RawMaterials.CompScordite    () :> RawMaterials.IRawOre
+            new RawMaterials.CompSpodumain   () :> RawMaterials.IRawOre
+            new RawMaterials.CompVeldspar    () :> RawMaterials.IRawOre
         ]
 
         type RawIce = RawMaterials.IRawMat<RawMaterials.IceYield>
         let RawIceList = [
-            new RawMaterials.BlueIce             () :> RawIce
-            new RawMaterials.ClearIcicle         () :> RawIce
-            new RawMaterials.DarkGlitter         () :> RawIce
-            new RawMaterials.EnrichedClearIcicle () :> RawIce
-            new RawMaterials.Gelidus             () :> RawIce
-            new RawMaterials.GlacialMass         () :> RawIce
-            new RawMaterials.GlareCrust          () :> RawIce
-            new RawMaterials.Krystallos          () :> RawIce
-            new RawMaterials.SmoothGlacialMass   () :> RawIce
-            new RawMaterials.PristineWhiteGlaze  () :> RawIce
-            new RawMaterials.ThickBlueIce        () :> RawIce
-            new RawMaterials.WhiteGlaze          () :> RawIce
+            new RawMaterials.BlueIce             () :> RawMaterials.IRawIce
+            new RawMaterials.ClearIcicle         () :> RawMaterials.IRawIce
+            new RawMaterials.DarkGlitter         () :> RawMaterials.IRawIce
+            new RawMaterials.EnrichedClearIcicle () :> RawMaterials.IRawIce
+            new RawMaterials.Gelidus             () :> RawMaterials.IRawIce
+            new RawMaterials.GlacialMass         () :> RawMaterials.IRawIce
+            new RawMaterials.GlareCrust          () :> RawMaterials.IRawIce
+            new RawMaterials.Krystallos          () :> RawMaterials.IRawIce
+            new RawMaterials.SmoothGlacialMass   () :> RawMaterials.IRawIce
+            new RawMaterials.PristineWhiteGlaze  () :> RawMaterials.IRawIce
+            new RawMaterials.ThickBlueIce        () :> RawMaterials.IRawIce
+            new RawMaterials.WhiteGlaze          () :> RawMaterials.IRawIce
         ]
 
         let CompressedRawIceList = [
-            new RawMaterials.CompBlueIce             () :> RawIce
-            new RawMaterials.CompClearIcicle         () :> RawIce
-            new RawMaterials.CompDarkGlitter         () :> RawIce
-            new RawMaterials.CompEnrichedClearIcicle () :> RawIce
-            new RawMaterials.CompGelidus             () :> RawIce
-            new RawMaterials.CompGlacialMass         () :> RawIce
-            new RawMaterials.CompGlareCrust          () :> RawIce
-            new RawMaterials.CompKrystallos          () :> RawIce
-            new RawMaterials.CompSmoothGlacialMass   () :> RawIce
-            new RawMaterials.CompPristineWhiteGlaze  () :> RawIce
-            new RawMaterials.CompThickBlueIce        () :> RawIce
-            new RawMaterials.CompWhiteGlaze          () :> RawIce
+            new RawMaterials.CompBlueIce             () :> RawMaterials.IRawIce
+            new RawMaterials.CompClearIcicle         () :> RawMaterials.IRawIce
+            new RawMaterials.CompDarkGlitter         () :> RawMaterials.IRawIce
+            new RawMaterials.CompEnrichedClearIcicle () :> RawMaterials.IRawIce
+            new RawMaterials.CompGelidus             () :> RawMaterials.IRawIce
+            new RawMaterials.CompGlacialMass         () :> RawMaterials.IRawIce
+            new RawMaterials.CompGlareCrust          () :> RawMaterials.IRawIce
+            new RawMaterials.CompKrystallos          () :> RawMaterials.IRawIce
+            new RawMaterials.CompSmoothGlacialMass   () :> RawMaterials.IRawIce
+            new RawMaterials.CompPristineWhiteGlaze  () :> RawMaterials.IRawIce
+            new RawMaterials.CompThickBlueIce        () :> RawMaterials.IRawIce
+            new RawMaterials.CompWhiteGlaze          () :> RawMaterials.IRawIce
         ]
