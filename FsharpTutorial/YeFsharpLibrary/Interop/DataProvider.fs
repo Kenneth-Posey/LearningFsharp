@@ -2,7 +2,9 @@
 
 module DataProvider = 
     
-    open EveOnline.EveData
+    open EveData
+    open EveData.Ore
+    open EveData.Ice
 
     type OreYieldClass (oreYield:RawMaterials.OreYield) as this = 
         member this.Tritanium = oreYield.Tritanium

@@ -51,25 +51,29 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
+    <Content Include="_Resources\iceRefine.html" />
+    <Content Include="_Resources\notes.txt" />
     <Content Include="_Resources\typeids.txt" />
-    <None Include="_Resources\iceRefine.html" />
     <Compile Include="Utility\DllImports.fs" />
-    <Compile Include="Utility\Utility.fs" />
     <Compile Include="Utility\ArrayFunctions.fs" />
     <Compile Include="Utility\Math.fs" />
     <Compile Include="Utility\Format.fs" />
+    <Compile Include="Utility\Utility.fs" />
     <Compile Include="Aforge\Neuro.fs" />
     <Compile Include="Simulator\Types.fs" />
     <Compile Include="Simulator\Mouse.fs" />
     <Compile Include="Simulator\Keyboard.fs" />
     <Compile Include="Simulator\FsharpImaging.fs" />
-    <Compile Include="Eve\EveData.fs" />
-    <Compile Include="Eve\MarketParser.fs" />
-    <Content Include="Eve\notes.txt" />
+    <Compile Include="Eve\EveData.RawMaterials.fs" />
+    <Compile Include="Eve\EveData.Ice.fs" />
+    <Compile Include="Eve\EveData.Ore.fs" />
+    <Compile Include="Eve\EveData.Market.fs" />
+    <Compile Include="Eve\EveData.Collections.fs" />
+    <Compile Include="Eve\Market.Parser.fs" />
+    <Compile Include="Eve\Market.Functions.fs" />
     <Compile Include="Interop\CollectionProvider.fs" />
     <Compile Include="Interop\DataProvider.fs" />
     <Compile Include="Tests\UnitTest.fs" />
-    <Compile Include="Scratchpad.fs" />
     <None Include="packages.config" />
     <None Include="app.config" />
     <None Include="Tutorial.fsx" />
