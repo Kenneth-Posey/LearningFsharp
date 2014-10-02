@@ -42,6 +42,18 @@ module Collections =
         "Zydrine"
         "Megacyte"
     ]
+
+
+    let MineralIDPairs = [
+        "Tritanium" , MineralIDs.Tritanium 
+        "Pyerite"   , MineralIDs.Pyerite   
+        "Mexallon"  , MineralIDs.Mexallon  
+        "Isogen"    , MineralIDs.Isogen    
+        "Nocxium"   , MineralIDs.Nocxium   
+        "Zydrine"   , MineralIDs.Zydrine   
+        "Megacyte"  , MineralIDs.Megacyte  
+        "Morphite"  , MineralIDs.Morphite  
+    ]
         
 
     type IceProductIDs = 
@@ -64,6 +76,17 @@ module Collections =
         "Strontium Clathrates"
     ]
                
+
+    let IceProductIDPairs = [
+        "Heavy Water"          , int IceProductIDs.HeavyWater         
+        "Helium Isotopes"      , int IceProductIDs.HeliumIsotopes     
+        "Hydrogen Isotopes"    , int IceProductIDs.HydrogenIsotopes   
+        "Liquid Ozone"         , int IceProductIDs.LiquidOzone        
+        "Nitrogen Isotopes"    , int IceProductIDs.NitrogenIsotopes   
+        "Oxygen Isotopes"      , int IceProductIDs.OxygenIsotopes     
+        "Strontium Clathrates" , int IceProductIDs.StrontiumClathrates
+    ]
+
                 
     type RawOreIDs = 
     | Veldspar    = 1230
@@ -83,7 +106,7 @@ module Collections =
     | DarkOchre   = 1242
     | Mercoxit    = 11396
 
-
+    
     let RawOreNames = [
         "Veldspar"
         "Scordite"
@@ -102,7 +125,27 @@ module Collections =
         "Dark Ochre"
         "Mercoxit"
     ]
-        
+
+
+    let RawOreIDPairs = [
+        "Veldspar"    , int RawOreIDs.Veldspar
+        "Scordite"    , int RawOreIDs.Scordite
+        "Pyroxeres"   , int RawOreIDs.Pyroxeres
+        "Plagioclase" , int RawOreIDs.Plagioclase
+        "Omber"       , int RawOreIDs.Omber
+        "Kernite"     , int RawOreIDs.Kernite
+        "Jaspet"      , int RawOreIDs.Jaspet
+        "Hemorphite"  , int RawOreIDs.Hemorphite
+        "Hedbergite"  , int RawOreIDs.Hedbergite
+        "Spodumain"   , int RawOreIDs.Spodumain
+        "Arkonor"     , int RawOreIDs.Arkonor
+        "Bistot"      , int RawOreIDs.Bistot
+        "Crokite"     , int RawOreIDs.Crokite
+        "Gneiss"      , int RawOreIDs.Gneiss
+        "Dark Ochre"  , int RawOreIDs.DarkOchre
+        "Mercoxit"    , int RawOreIDs.Mercoxit
+    ]
+
 
     type RawIceIDs =
     | ClearIcicle         = 16262
@@ -132,6 +175,21 @@ module Collections =
         "Dark Glitter"
         "Gelidus"
         "Krystallos"
+    ]
+
+    let RawIceIDPairs = [
+        "Clear Icicle"          , int RawIceIDs.ClearIcicle
+        "Enriched Clear Icicle" , int RawIceIDs.EnrichedClearIcicle
+        "Glacial Mass"          , int RawIceIDs.GlacialMass
+        "Smooth Glacial Mass"   , int RawIceIDs.SmoothGlacialMass
+        "White Glaze"           , int RawIceIDs.WhiteGlaze
+        "Pristine White Glaze"  , int RawIceIDs.PristineWhiteGlaze
+        "Blue Ice"              , int RawIceIDs.BlueIce
+        "Thick Blue Ice"        , int RawIceIDs.ThickBlueIce
+        "Glare Crust"           , int RawIceIDs.GlareCrust
+        "Dark Glitter"          , int RawIceIDs.DarkGlitter
+        "Gelidus"               , int RawIceIDs.Gelidus
+        "Krystallos"            , int RawIceIDs.Krystallos
     ]
 
         
@@ -206,6 +264,11 @@ module Collections =
     ]
 
     let AllIcePairs = List.zip RawIceList CompressedRawIceList
+
+    let AllIDPairs = MineralIDPairs
+                     |> List.zip IceProductIDPairs
+                     |> List.zip RawIceIDPairs
+                     |> List.zip RawOreIDPairs
 
     module Dynamic = 
         open Ore.Types
