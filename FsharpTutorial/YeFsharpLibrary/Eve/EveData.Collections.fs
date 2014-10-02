@@ -45,14 +45,14 @@ module Collections =
 
 
     let MineralIDPairs = [
-        "Tritanium" , MineralIDs.Tritanium 
-        "Pyerite"   , MineralIDs.Pyerite   
-        "Mexallon"  , MineralIDs.Mexallon  
-        "Isogen"    , MineralIDs.Isogen    
-        "Nocxium"   , MineralIDs.Nocxium   
-        "Zydrine"   , MineralIDs.Zydrine   
-        "Megacyte"  , MineralIDs.Megacyte  
-        "Morphite"  , MineralIDs.Morphite  
+        "Tritanium" , int MineralIDs.Tritanium 
+        "Pyerite"   , int MineralIDs.Pyerite   
+        "Mexallon"  , int MineralIDs.Mexallon  
+        "Isogen"    , int MineralIDs.Isogen    
+        "Nocxium"   , int MineralIDs.Nocxium   
+        "Zydrine"   , int MineralIDs.Zydrine   
+        "Megacyte"  , int MineralIDs.Megacyte  
+        "Morphite"  , int MineralIDs.Morphite  
     ]
         
 
