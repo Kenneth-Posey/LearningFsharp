@@ -99,6 +99,7 @@ module Functions =
                 }
         ]
 
+
     let TransformIceForParser (iceList:List<IRawIce>) (iceProductPrices:IceValue) = 
         let LoadValue ice = Ice.Functions.RefineValueIce 1.0f ice iceProductPrices
         [
@@ -111,49 +112,87 @@ module Functions =
                 }
         ]
 
+
     let TransformIceProductsForParser (idPairs:List<(string*int)>) (iceProductPrices:IceValue) = 
         [
             for product in idPairs do
-                let price = match fst product with 
-                | "Heavy Water"          -> iceProductPrices.HeavyWater
-                | "Helium Isotopes"      -> iceProductPrices.HeliumIsotopes
-                | "Hydrogen Isotopes"    -> iceProductPrices.HydrogenIsotopes
-                | "Liquid Ozone"         -> iceProductPrices.LiquidOzone
-                | "Nitrogen Isotopes"    -> iceProductPrices.NitrogenIsotopes
-                | "Oxygen Isotopes"      -> iceProductPrices.OxygenIsotopes
-                | "Strontium Clathrates" -> iceProductPrices.StrontiumClathrates
+                let contains (name:string) = List.exists (fun x -> x = name.Trim()) Collections.IceProductNames
+                if contains (fst product) then
+                    let price = match (fst product) with 
+                    | "Heavy Water"          -> iceProductPrices.HeavyWater
+                    | "Helium Isotopes"      -> iceProductPrices.HeliumIsotopes
+                    | "Hydrogen Isotopes"    -> iceProductPrices.HydrogenIsotopes
+                    | "Liquid Ozone"         -> iceProductPrices.LiquidOzone
+                    | "Nitrogen Isotopes"    -> iceProductPrices.NitrogenIsotopes
+                    | "Oxygen Isotopes"      -> iceProductPrices.OxygenIsotopes
+                    | "Strontium Clathrates" -> iceProductPrices.StrontiumClathrates
 
-                yield {
-                    name  = fst product
-                    price = price
-                    id    = snd product
-                }
+                    yield {
+                        name  = fst product
+                        price = price
+                        id    = snd product
+                    }
         ]
+
 
     let TransformMineralsForParser (idPairs:List<(string*int)>) (mineralPrices:OreValue) = 
         [
             for product in idPairs do
-                let price = match fst product with 
-                | "Tritanium" -> mineralPrices.Tritanium
-                | "Pyerite"   -> mineralPrices.Pyerite
-                | "Mexallon"  -> mineralPrices.Mexallon
-                | "Isogen"    -> mineralPrices.Isogen
-                | "Nocxium"   -> mineralPrices.Nocxium
-                | "Zydrine"   -> mineralPrices.Zydrine
-                | "Megacyte"  -> mineralPrices.Megacyte
-                | "Morphite"  -> mineralPrices.Morphite
+                let contains (name:string) = List.exists (fun x -> x = name.Trim()) Collections.MineralNames
+                if contains (fst product) then
+                    let price = match (fst product) with 
+                    | "Tritanium" -> mineralPrices.Tritanium
+                    | "Pyerite"   -> mineralPrices.Pyerite
+                    | "Mexallon"  -> mineralPrices.Mexallon
+                    | "Isogen"    -> mineralPrices.Isogen
+                    | "Nocxium"   -> mineralPrices.Nocxium
+                    | "Zydrine"   -> mineralPrices.Zydrine
+                    | "Megacyte"  -> mineralPrices.Megacyte
+                    | "Morphite"  -> mineralPrices.Morphite
 
-                yield {
-                    name  = fst product
-                    price = price
-                    id    = snd product
-                }
+                    yield {
+                        name  = fst product
+                        price = price
+                        id    = snd product
+                    }
         ]
     
 
     let LoadAllItemsForParser () = 
-        
-        ()
+        let allOre = Collections.AllOreList
+        let allIce = Collections.AllIceList
+        let allMinerals = Collections.MineralIDPairs
+        let allIceProducts = Collections.IceProductIDPairs
+
+        let mineralPrices = LoadMineralJitaSell ()
+        let iceProductPrices = LoadIceProductJitaSell ()
+
+        let oreValues = TransformOreForParser allOre mineralPrices
+        let iceValues = TransformIceForParser allIce iceProductPrices
+        let mineralValues = TransformMineralsForParser allMinerals mineralPrices
+        let iceProductValues = TransformIceProductsForParser allIceProducts iceProductPrices
+
+        oreValues @ iceValues @ mineralValues @ iceProductValues
+
+
+    let CalculateEstimate (rawList:List<string>) = 
+        let SumItems (items:List<(string*int)>) = 
+            let allItems = LoadAllItemsForParser ()
+            let rec SumRec (items:List<(string*int)>) (total:double) = 
+                match items.Length with 
+                | length when length > 0 -> 
+                    let parsedItem = List.find (fun item -> fst (items.Head) = item.name) allItems
+                    let total = (total + double (parsedItem.price) * double (snd items.Head))
+                    SumRec items.Tail total
+                | length when length = 0 -> 
+                    total
+            SumRec items 0.0
+
+        rawList 
+        |> List.map (fun x -> x.Split [|'\t'|])
+        |> List.map (fun x -> string(x.[0]), int(x.[1]))
+        |> SumItems 
+
     
     let GetCodes (item:IOre * IOre) = 
         string ( (fst item).GetBase () ) , 
