@@ -18,3 +18,11 @@ module CollectionsProvider =
     type MineralList () = 
         static member MineralNames = 
             List.toSeq <| Collections.MineralNames
+
+    type AllIDList () = 
+        static member AllIDs = 
+            List.toSeq <| Collections.AllIDPairs
+
+    type AllOreList () = 
+        static member OreList = 
+            List.toSeq <| Collections.AllOreList

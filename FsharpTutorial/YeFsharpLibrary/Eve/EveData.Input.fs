@@ -1,0 +1,4 @@
+﻿namespace EveData
+
+module Input = 
+    ()

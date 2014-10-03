@@ -232,6 +232,7 @@ module Collections =
     ]
 
     let AllOrePairs = List.zip RawOreList CompressedRawOreList
+    let AllOreList = RawOreList @ CompressedRawOreList
 
     let RawIceList = [
         new Ice.RawMaterials.BlueIce             () :> Ice.Types.IRawIce
@@ -265,10 +266,7 @@ module Collections =
 
     let AllIcePairs = List.zip RawIceList CompressedRawIceList
 
-    let AllIDPairs = MineralIDPairs
-                     |> List.zip IceProductIDPairs
-                     |> List.zip RawIceIDPairs
-                     |> List.zip RawOreIDPairs
+    let AllIDPairs = MineralIDPairs @ IceProductIDPairs @ RawIceIDPairs @ RawOreIDPairs
 
     module Dynamic = 
         open Ore.Types

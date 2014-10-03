@@ -65,10 +65,11 @@
     <Compile Include="Simulator\Keyboard.fs" />
     <Compile Include="Simulator\FsharpImaging.fs" />
     <Compile Include="Eve\EveData.RawMaterials.fs" />
-    <Compile Include="Eve\EveData.Ice.fs" />
     <Compile Include="Eve\EveData.Ore.fs" />
+    <Compile Include="Eve\EveData.Ice.fs" />
     <Compile Include="Eve\EveData.Market.fs" />
     <Compile Include="Eve\EveData.Collections.fs" />
+    <Compile Include="Eve\EveData.Input.fs" />
     <Compile Include="Eve\Market.Parser.fs" />
     <Compile Include="Eve\Market.Functions.fs" />
     <Compile Include="Interop\CollectionProvider.fs" />
