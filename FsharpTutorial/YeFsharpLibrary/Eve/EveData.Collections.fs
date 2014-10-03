@@ -41,6 +41,7 @@ module Collections =
         "Nocxium"
         "Zydrine"
         "Megacyte"
+        "Morphite"
     ]
 
 
@@ -265,6 +266,7 @@ module Collections =
     ]
 
     let AllIcePairs = List.zip RawIceList CompressedRawIceList
+    let AllIceList  = RawIceList @ CompressedRawIceList
 
     let AllIDPairs = MineralIDPairs @ IceProductIDPairs @ RawIceIDPairs @ RawOreIDPairs
 

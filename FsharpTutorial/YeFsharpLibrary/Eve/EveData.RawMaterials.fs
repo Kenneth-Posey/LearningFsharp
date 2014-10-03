@@ -7,3 +7,9 @@ module RawMaterials =
         abstract member GetYield  : unit -> 'T
         abstract member GetVolume : unit -> single
         abstract member GetBase   : unit -> int
+
+    type ParserMaterial = {
+        name  : string
+        price : single
+        id    : int
+    }

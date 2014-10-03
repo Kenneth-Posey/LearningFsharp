@@ -2,12 +2,13 @@
 
 module Functions = 
     open EveData
+    open EveData.RawMaterials
     open EveData.Ore.Types
     open EveData.Ice.Types
     open Market.Parser
 
-    let LoadMineralPrices location = 
-        let LoadItem item = LoadMarketSnapshot location 1 (string item)
+    let LoadMineralPrices location quantity = 
+        let LoadItem item = LoadMarketSnapshot (string location) quantity (string item)
 
         [
             int Collections.MineralIDs.Isogen
@@ -24,8 +25,8 @@ module Functions =
 
     type mineralIDs = EveData.Collections.MineralIDs
     let LoadMineralJitaSell () = 
-        let jita = string (int EveData.Collections.SystemName.Jita)
-        let priceMap = LoadMineralPrices jita
+        let jita = int EveData.Collections.SystemName.Jita
+        let priceMap = LoadMineralPrices jita 1
                        |> List.map (fun x -> fst x, (snd x).lowSell)
         let loadPrice id = snd (List.find (fun x -> (int(fst x)) = int (id)) priceMap)
 
@@ -41,8 +42,8 @@ module Functions =
         }
 
 
-    let LoadIceProductPrices location = 
-        let LoadItem item = LoadMarketSnapshot location 1 (string item)
+    let LoadIceProductPrices location quantity = 
+        let LoadItem item = LoadMarketSnapshot (string location) quantity (string item)
 
         [
             int Collections.IceProductIDs.HeavyWater
@@ -58,8 +59,8 @@ module Functions =
         
     type iceProductIDs = Collections.IceProductIDs
     let LoadIceProductJitaSell () = 
-        let jita = string (int Collections.SystemName.Jita)
-        let priceMap = LoadIceProductPrices jita
+        let jita = int Collections.SystemName.Jita
+        let priceMap = LoadIceProductPrices jita 1
                        |> List.map (fun x -> fst x, (snd x).lowSell)
         let loadPrice id = snd (List.find (fun x -> (fst x) = int (id)) priceMap)
 
@@ -73,6 +74,86 @@ module Functions =
             StrontiumClathrates = loadPrice iceProductIDs.StrontiumClathrates
         }
 
+
+    let TransformOreForParser (oreList:List<IRawOre>) (mineralPrices:OreValue) = 
+        let LoadValue multiplier ore = Ore.Functions.RefineValueOre multiplier ore mineralPrices
+        [
+            for ore in oreList do
+                let multiplier = match ore.IsTiny () with 
+                                 | true  ->  100.0f
+                                 | false ->  1.0f  
+                yield {
+                    name  = ore.GetName ()
+                    price = LoadValue multiplier ore
+                    id    = ore.GetBase ()
+                }
+                yield {
+                    name  = ore.GetName5 ()
+                    price = LoadValue (multiplier * 1.05f) ore
+                    id    = ore.GetBase5 ()
+                }
+                yield {
+                    name  = ore.GetName10 ()
+                    price = LoadValue (multiplier * 1.10f) ore
+                    id    = ore.GetBase10 ()
+                }
+        ]
+
+    let TransformIceForParser (iceList:List<IRawIce>) (iceProductPrices:IceValue) = 
+        let LoadValue ice = Ice.Functions.RefineValueIce 1.0f ice iceProductPrices
+        [
+            for ice in iceList do
+                let multiplier = 1.0f
+                yield {
+                    name  = ice.GetName ()
+                    price = LoadValue ice
+                    id    = ice.GetBase ()
+                }
+        ]
+
+    let TransformIceProductsForParser (idPairs:List<(string*int)>) (iceProductPrices:IceValue) = 
+        [
+            for product in idPairs do
+                let price = match fst product with 
+                | "Heavy Water"          -> iceProductPrices.HeavyWater
+                | "Helium Isotopes"      -> iceProductPrices.HeliumIsotopes
+                | "Hydrogen Isotopes"    -> iceProductPrices.HydrogenIsotopes
+                | "Liquid Ozone"         -> iceProductPrices.LiquidOzone
+                | "Nitrogen Isotopes"    -> iceProductPrices.NitrogenIsotopes
+                | "Oxygen Isotopes"      -> iceProductPrices.OxygenIsotopes
+                | "Strontium Clathrates" -> iceProductPrices.StrontiumClathrates
+
+                yield {
+                    name  = fst product
+                    price = price
+                    id    = snd product
+                }
+        ]
+
+    let TransformMineralsForParser (idPairs:List<(string*int)>) (mineralPrices:OreValue) = 
+        [
+            for product in idPairs do
+                let price = match fst product with 
+                | "Tritanium" -> mineralPrices.Tritanium
+                | "Pyerite"   -> mineralPrices.Pyerite
+                | "Mexallon"  -> mineralPrices.Mexallon
+                | "Isogen"    -> mineralPrices.Isogen
+                | "Nocxium"   -> mineralPrices.Nocxium
+                | "Zydrine"   -> mineralPrices.Zydrine
+                | "Megacyte"  -> mineralPrices.Megacyte
+                | "Morphite"  -> mineralPrices.Morphite
+
+                yield {
+                    name  = fst product
+                    price = price
+                    id    = snd product
+                }
+        ]
+    
+
+    let LoadAllItemsForParser () = 
+        
+        ()
     
     let GetCodes (item:IOre * IOre) = 
         string ( (fst item).GetBase () ) , 
