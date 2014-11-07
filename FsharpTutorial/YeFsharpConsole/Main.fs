@@ -21,6 +21,7 @@ module Main =
         let iceValue = Collections.Dynamic.LoadBaseIceValues 1.0f iceProductValue
 
 
+
         for location in Locations do
             for orePair in OreList do
                 let system = string location           // Gets the enum name

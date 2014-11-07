@@ -59,6 +59,7 @@
     <Compile Include="Utility\Math.fs" />
     <Compile Include="Utility\Format.fs" />
     <Compile Include="Utility\Utility.fs" />
+    <None Include="Utility\fsharp-calculator.fsx" />
     <Compile Include="Aforge\Neuro.fs" />
     <Compile Include="Simulator\Types.fs" />
     <Compile Include="Simulator\Mouse.fs" />

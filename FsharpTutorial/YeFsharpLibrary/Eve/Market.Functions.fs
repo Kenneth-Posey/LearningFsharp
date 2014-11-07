@@ -23,7 +23,6 @@ module Functions =
         |> List.map (fun x -> x, LoadItem x)
 
 
-    type mineralIDs = EveData.Collections.MineralIDs
     let LoadMineralJitaSell () = 
         let jita = int EveData.Collections.SystemName.Jita
         let priceMap = LoadMineralPrices jita 1
@@ -31,14 +30,14 @@ module Functions =
         let loadPrice id = snd (List.find (fun x -> (int(fst x)) = int (id)) priceMap)
 
         {
-            Tritanium = loadPrice mineralIDs.Tritanium
-            Pyerite   = loadPrice mineralIDs.Pyerite 
-            Mexallon  = loadPrice mineralIDs.Mexallon
-            Isogen    = loadPrice mineralIDs.Isogen  
-            Nocxium   = loadPrice mineralIDs.Nocxium 
-            Megacyte  = loadPrice mineralIDs.Megacyte
-            Zydrine   = loadPrice mineralIDs.Zydrine 
-            Morphite  = loadPrice mineralIDs.Morphite
+            Tritanium = loadPrice Collections.MineralIDs.Tritanium
+            Pyerite   = loadPrice Collections.MineralIDs.Pyerite 
+            Mexallon  = loadPrice Collections.MineralIDs.Mexallon
+            Isogen    = loadPrice Collections.MineralIDs.Isogen  
+            Nocxium   = loadPrice Collections.MineralIDs.Nocxium 
+            Megacyte  = loadPrice Collections.MineralIDs.Megacyte
+            Zydrine   = loadPrice Collections.MineralIDs.Zydrine 
+            Morphite  = loadPrice Collections.MineralIDs.Morphite
         }
 
 
@@ -57,23 +56,23 @@ module Functions =
         |> List.map (fun x -> x, LoadItem x)
 
         
-    type iceProductIDs = Collections.IceProductIDs
-    let LoadIceProductJitaSell () = 
-        let jita = int Collections.SystemName.Jita
-        let priceMap = LoadIceProductPrices jita 1
-                       |> List.map (fun x -> fst x, (snd x).lowSell)
+    let LoadIceProductJita action = 
+        let priceMap = LoadIceProductPrices (int Collections.SystemName.Jita) 1
+                       |> List.map action
         let loadPrice id = snd (List.find (fun x -> (fst x) = int (id)) priceMap)
 
         {
-            HeavyWater          = loadPrice iceProductIDs.HeavyWater
-            HeliumIsotopes      = loadPrice iceProductIDs.HeliumIsotopes
-            HydrogenIsotopes    = loadPrice iceProductIDs.HydrogenIsotopes
-            LiquidOzone         = loadPrice iceProductIDs.LiquidOzone
-            NitrogenIsotopes    = loadPrice iceProductIDs.NitrogenIsotopes
-            OxygenIsotopes      = loadPrice iceProductIDs.OxygenIsotopes
-            StrontiumClathrates = loadPrice iceProductIDs.StrontiumClathrates
+            HeavyWater          = loadPrice Collections.IceProductIDs.HeavyWater
+            HeliumIsotopes      = loadPrice Collections.IceProductIDs.HeliumIsotopes
+            HydrogenIsotopes    = loadPrice Collections.IceProductIDs.HydrogenIsotopes
+            LiquidOzone         = loadPrice Collections.IceProductIDs.LiquidOzone
+            NitrogenIsotopes    = loadPrice Collections.IceProductIDs.NitrogenIsotopes
+            OxygenIsotopes      = loadPrice Collections.IceProductIDs.OxygenIsotopes
+            StrontiumClathrates = loadPrice Collections.IceProductIDs.StrontiumClathrates
         }
 
+    let LoadIceProductJitaSell () = LoadIceProductJita (fun x -> fst x, (snd x).lowSell)
+    let LoadIceProductJitaBuy  () = LoadIceProductJita (fun x -> fst x, (snd x).highBuy)
 
     let TransformOreForParser (oreList:List<IRawOre>) (mineralPrices:OreValue) = 
         let LoadValue multiplier ore = Ore.Functions.RefineValueOre multiplier ore mineralPrices
