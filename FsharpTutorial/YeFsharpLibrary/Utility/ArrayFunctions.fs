@@ -22,7 +22,7 @@ module ArrayFunctions =
                 let rec HeightLoopRec heightIndex = 
                     let isMatch = WidthLoop heightIndex
 
-                    match ( isMatch , heightIndex < searchHeight) with
+                    match ( isMatch , heightIndex < searchHeight ) with
                     | ( true  , true  ) -> HeightLoopRec ( heightIndex + 1 )
                     | ( true  , false ) -> true
                     | ( false , _     ) -> false
