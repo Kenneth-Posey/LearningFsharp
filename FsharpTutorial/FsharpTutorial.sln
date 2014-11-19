@@ -1,20 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{92B89259-D7B2-4B60-8D29-DACD58FA7C81}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "YeFsharpLibrary", "YeFsharpLibrary\YeFsharpLibrary.fsproj", "{20B439FC-8CC8-4621-9C17-824C431F7766}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "YeFsharpConsole", "YeFsharpConsole\YeFsharpConsole.fsproj", "{63A47E73-0BF4-4041-93B8-DC347C0627F5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MouseKeyboardLibrary", "MouseKeyboardLibrary\MouseKeyboardLibrary.csproj", "{F419622F-4D82-40A6-B4FB-3FE36579F018}"
-EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsharpInterface", "..\..\..\Visual Studio 2013\Projects\TestFsharpWPFVS2013\TestFsharpWPFVS2013\FsharpInterface.fsproj", "{2083423E-471D-4150-93E5-D518D7D74C91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -110,31 +105,6 @@ Global
 		{F419622F-4D82-40A6-B4FB-3FE36579F018}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F419622F-4D82-40A6-B4FB-3FE36579F018}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F419622F-4D82-40A6-B4FB-3FE36579F018}.Release|x86.ActiveCfg = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (3.5)|Any CPU.ActiveCfg = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (3.5)|Any CPU.Build.0 = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (3.5)|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (3.5)|Mixed Platforms.Build.0 = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (3.5)|x86.ActiveCfg = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (4.0)|Any CPU.ActiveCfg = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (4.0)|Any CPU.Build.0 = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (4.0)|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (4.0)|Mixed Platforms.Build.0 = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (4.0)|x86.ActiveCfg = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (4.5)|Any CPU.ActiveCfg = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (4.5)|Any CPU.Build.0 = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (4.5)|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (4.5)|Mixed Platforms.Build.0 = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release (4.5)|x86.ActiveCfg = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{2083423E-471D-4150-93E5-D518D7D74C91}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

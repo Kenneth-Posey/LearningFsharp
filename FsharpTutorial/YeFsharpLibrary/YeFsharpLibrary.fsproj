@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
     <Name>YeFsharpLibrary</Name>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\eve-contracts\evetool\EVETool\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -76,134 +78,98 @@
     <Compile Include="Interop\CollectionProvider.fs" />
     <Compile Include="Interop\DataProvider.fs" />
     <Compile Include="Tests\UnitTest.fs" />
-    <None Include="packages.config" />
     <None Include="app.config" />
     <None Include="Tutorial.fsx" />
     <Content Include="license.txt" />
+    <Content Include="packages.config" />
+    <None Include="SqlServerTypes\x86\SqlServerSpatial110.dll" />
+    <None Include="SqlServerTypes\x64\SqlServerSpatial110.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="canopy">
-      <HintPath>..\packages\canopy.0.9.15\lib\canopy.dll</HintPath>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\..\eve-contracts\evetool\EVETool\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Core">
+      <HintPath>..\packages\FSharp.Core.3.0.0.2\lib\net40\FSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharp.Data">
-      <HintPath>..\packages\FSharp.Data.2.0.14\lib\net40\FSharp.Data.dll</HintPath>
+      <HintPath>..\packages\FSharp.Data.2.1.0\lib\net40\FSharp.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FSharpx.Collections">
-      <HintPath>..\packages\FSharpx.Collections.1.9.3\lib\net35\FSharpx.Collections.dll</HintPath>
+    <Reference Include="FSharp.Data.SqlClient">
+      <HintPath>..\packages\FSharp.Data.SqlClient.1.4.4\lib\net40\FSharp.Data.SqlClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Data.Toolbox.Twitter">
+      <HintPath>..\packages\FSharp.Data.Toolbox.Twitter.0.2.1\lib\net40\FSharp.Data.Toolbox.Twitter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Data.TypeProviders">
+      <HintPath>..\packages\FSharp.Data.TypeProviders.0.0.1\lib\net40\FSharp.Data.TypeProviders.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Desktop.UI">
+      <HintPath>..\..\..\eve-contracts\evetool\EVETool\packages\FSharp.Desktop.UI.0.7.0\lib\net45\FSharp.Desktop.UI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharpx.Core">
       <HintPath>..\packages\FSharpx.Core.1.8.41\lib\40\FSharpx.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FSharpx.Http">
-      <HintPath>..\packages\FSharpx.Http.1.8.41\lib\40\FSharpx.Http.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharpx.TypeProviders">
-      <HintPath>..\packages\FSharpx.TypeProviders.1.8.41\lib\40\FSharpx.TypeProviders.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharpx.TypeProviders.AppSettings">
-      <HintPath>..\packages\FSharpx.TypeProviders.AppSettings.1.8.41\lib\40\FSharpx.TypeProviders.AppSettings.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharpx.TypeProviders.Excel">
-      <HintPath>..\packages\FSharpx.TypeProviders.Excel.1.8.41\lib\40\FSharpx.TypeProviders.Excel.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharpx.TypeProviders.Graph">
-      <HintPath>..\packages\FSharpx.TypeProviders.Graph.1.8.41\lib\40\FSharpx.TypeProviders.Graph.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharpx.TypeProviders.Machine">
-      <HintPath>..\packages\FSharpx.TypeProviders.Machine.1.8.41\lib\40\FSharpx.TypeProviders.Machine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharpx.TypeProviders.Management">
-      <HintPath>..\packages\FSharpx.TypeProviders.Management.1.8.41\lib\40\FSharpx.TypeProviders.Management.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharpx.TypeProviders.Management.DesignTime">
-      <HintPath>..\packages\FSharpx.TypeProviders.Management.1.8.41\lib\40\FSharpx.TypeProviders.Management.DesignTime.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharpx.TypeProviders.Math">
-      <HintPath>..\packages\FSharpx.TypeProviders.Math.1.8.41\lib\40\FSharpx.TypeProviders.Math.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharpx.TypeProviders.Regex">
-      <HintPath>..\packages\FSharpx.TypeProviders.Regex.1.8.41\lib\40\FSharpx.TypeProviders.Regex.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharpx.TypeProviders.Xaml">
-      <HintPath>..\packages\FSharpx.TypeProviders.Xaml.1.8.41\lib\40\FSharpx.TypeProviders.Xaml.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FSharpx.TypeProviders.Xrm">
-      <HintPath>..\packages\FSharpx.TypeProviders.Xrm.1.8.41\lib\40\FSharpx.TypeProviders.Xrm.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FsUnit.NUnit">
-      <HintPath>..\packages\FsUnit.1.3.0.1\Lib\Net40\FsUnit.NUnit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="FsXaml.Wpf">
-      <HintPath>..\..\..\eve-contracts\evetool\EVETool\packages\FsXaml.Wpf.0.9.9\lib\net45\FsXaml.Wpf.dll</HintPath>
+      <HintPath>..\packages\FsXaml.Wpf.0.9.9\lib\net45\FsXaml.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FsXaml.Wpf.TypeProvider">
-      <HintPath>..\..\..\eve-contracts\evetool\EVETool\packages\FsXaml.Wpf.0.9.9\lib\net45\FsXaml.Wpf.TypeProvider.dll</HintPath>
+      <HintPath>..\packages\FsXaml.Wpf.0.9.9\lib\net45\FsXaml.Wpf.TypeProvider.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Crm.Services.Utility">
-      <HintPath>..\packages\FSharpx.TypeProviders.Xrm.1.8.41\lib\40\Microsoft.Crm.Services.Utility.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Xrm.Sdk">
-      <HintPath>..\packages\FSharpx.TypeProviders.Xrm.1.8.41\lib\40\microsoft.xrm.sdk.dll</HintPath>
+    <Reference Include="Microsoft.SqlServer.Types">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.11.0.0\lib\net20\Microsoft.SqlServer.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    <Reference Include="policy.2.3.FSharp.Core">
+      <HintPath>..\packages\FSharp.Core.3.0.0.2\lib\net40\policy.2.3.FSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="SizSelCsZzz">
-      <HintPath>..\packages\SizSelCsZzz.0.3.36.0\lib\SizSelCsZzz.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\..\..\eve-contracts\evetool\EVETool\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\..\..\eve-contracts\evetool\EVETool\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\..\..\eve-contracts\evetool\EVETool\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\..\..\eve-contracts\evetool\EVETool\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity">
-      <HintPath>..\..\..\eve-contracts\evetool\EVETool\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="WebDriver">
-      <HintPath>..\packages\Selenium.WebDriver.2.43.0\lib\net40\WebDriver.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="WebDriver.Support">
-      <HintPath>..\packages\Selenium.Support.2.43.0\lib\net40\WebDriver.Support.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
