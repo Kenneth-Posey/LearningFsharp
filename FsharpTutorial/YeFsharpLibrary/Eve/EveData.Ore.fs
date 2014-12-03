@@ -99,6 +99,7 @@ module Ore =
     module RawMaterials =  
         open Functions      
         open Types   
+
         type Veldspar () =
             interface IRawOre with
                 override this.GetName () = "Veldspar"
