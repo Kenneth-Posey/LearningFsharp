@@ -83,8 +83,8 @@ module RawMaterials =
 
     type MaterialName = MaterialName of string
     type IsCompressed = IsCompressed of bool
-    type Volume       = Volume of single
-    type BaseId       = BaseId of int
+    type Volume = Volume of single
+    type BaseId = BaseId of int
 
     type Yield = 
     | OreYield of OreYield
@@ -93,7 +93,48 @@ module RawMaterials =
     type RefinedProduct = 
     | Mineral of Mineral
     | IceProduct of IceProduct
-        
+
+    type OreConcentration = 
+    | Normal
+    | PlusFive
+    | PlusTen
+
+    type Compressed = 
+    | IsCompressed
+    | IsNotCompressed
+
+    type Ore = 
+    | Arkonor
+    | Bistot
+    | Crokite
+    | DarkOchre
+    | Gneiss
+    | Hedbergite
+    | Hemorphite
+    | Jaspet
+    | Kernite
+    | Mercoxit
+    | Omber
+    | Plagioclase
+    | Pyroxeres
+    | Scordite
+    | Spodumain
+    | Veldspar
+
+    type Ice = 
+    | BlueIce
+    | ClearIcicle
+    | DarkGlitter
+    | EnrichedClearIcicle
+    | Gelidus
+    | GlacialMass
+    | GlareCrust
+    | Krystallos
+    | PristineWhiteGlaze
+    | SmoothGlacialMass
+    | ThickBlueIce
+    | WhiteGlaze
+
     type RawMaterial = {
         MaterialName    : MaterialName
         IsCompressed    : IsCompressed
@@ -101,6 +142,16 @@ module RawMaterials =
         Volume          : Volume
         BaseId          : BaseId
     }
+
+    type RawOre = {        
+        RawMaterial : RawMaterial
+        GetBase5    : unit -> int
+        GetBase10   : unit -> int
+        GetName5    : unit -> int
+        GetName10   : unit -> int
+    }
+
+
 
     type IRawMat<'T> = 
         abstract member GetName   : unit -> string
