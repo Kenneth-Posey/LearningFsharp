@@ -103,10 +103,6 @@
       <HintPath>..\packages\FSharp.Data.SqlClient.1.4.4\lib\net40\FSharp.Data.SqlClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FSharp.Data.SqlProvider">
-      <HintPath>..\..\..\eve-contracts\evetool\EVETool\packages\SQLProvider.0.0.9-alpha\lib\net40\FSharp.Data.SqlProvider.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="FSharp.Data.Toolbox.Twitter">
       <HintPath>..\packages\FSharp.Data.Toolbox.Twitter.0.2.1\lib\net40\FSharp.Data.Toolbox.Twitter.dll</HintPath>
       <Private>True</Private>
@@ -161,10 +157,6 @@
     </Reference>
     <Reference Include="System.Reactive.Linq">
       <HintPath>..\..\..\eve-contracts\evetool\EVETool\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices">
-      <HintPath>..\..\..\eve-contracts\evetool\EVETool\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows.Forms" />
