@@ -70,7 +70,7 @@ module designing_with_types =
 
     let ShipId x = 
         ShipId <| match x with 
-        | Merlin -> 100 
+        | Merlin -> 603 
         | Condor -> 200
         | Bantam -> 300
         | Hawk -> 400
@@ -104,5 +104,3 @@ module designing_with_types =
     let merlin = Ship Merlin
     let name = merlin.ShipName.Value
     let tier = merlin.Tier.Value
-
-    let hawk = (Ship Hawk).ShipName.Value
