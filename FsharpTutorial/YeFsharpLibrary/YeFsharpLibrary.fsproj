@@ -78,6 +78,7 @@
     <Compile Include="Interop\CollectionProvider.fs" />
     <Compile Include="Interop\DataProvider.fs" />
     <Compile Include="Tests\UnitTest.fs" />
+    <Compile Include="designingwithtypes.fs" />
     <None Include="app.config" />
     <None Include="Tutorial.fsx" />
     <Content Include="license.txt" />
