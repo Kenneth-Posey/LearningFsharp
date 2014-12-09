@@ -23,12 +23,6 @@ module designing_with_types =
     | Gallente
     | Minmatar
 
-    type Tier = 
-    | Tier1
-    | Tier2
-    | Tier3
-    | Navy
-    | Pirate
 
     type Ships = 
     | Merlin
@@ -36,9 +30,20 @@ module designing_with_types =
     | Bantam
     | Hawk
     | Velator
+    
+    type Tiers = 
+    | Tier1
+    | Tier2
+    | Tier3
+    | Navy
+    | Pirate
 
+    type Tier = Tier of string with
+        member this.Value = 
+            this |> (fun (Tier x) -> x)
+            
     let Tier x = 
-        match x with
+        Tier <| match x with
         | Tier1 -> "Tier 1"
         | Tier2 -> "Tier 2"
         | Tier3 -> "Tier 3"
@@ -84,7 +89,7 @@ module designing_with_types =
             { 
                 Class = c
                 Race = r
-                Tier = t
+                Tier = Tier t
                 ShipName = ShipName n
                 ShipId = ShipId n
             }
@@ -96,8 +101,8 @@ module designing_with_types =
         | Hawk    -> (Hawk) |> ShipFactory (Frigate) (Caldari) (Tier2)
         | Velator -> (Velator) |> ShipFactory (Frigate) (Gallente) (Tier1)
 
-
-    let name = (Ship Merlin).ShipName.Value
-    let tier = Tier (Ship Merlin).Tier
+    let merlin = Ship Merlin
+    let name = merlin.ShipName.Value
+    let tier = merlin.Tier.Value
 
     let hawk = (Ship Hawk).ShipName.Value
