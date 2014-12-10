@@ -6,6 +6,62 @@
 //            this |> (fun (Union x) -> x)
 
 module designing_with_types =
+
+    type Chasses = 
+    | Sedan
+    | Truck
+    
+    type Makes = 
+    | Ford
+    | Dodge
+    
+    type Chasse = Chasse of string with
+        member this.Value = 
+            this |> (fun (Chasse x) -> x)
+
+    let Chasse x = 
+        Chasse <| match x with
+        | Sedan -> "Sedan"
+        | Truck -> "Truck"
+
+    type Make = Make of string with
+        member this.Value = 
+            this |> (fun (Make x) -> x)
+
+    let Make x = 
+        Make <| match x with
+        | Ford -> "Ford"
+        | Dodge -> "Dodge"
+        
+    type Model = 
+    | F150
+    | Taurus
+    | Ram
+    | Viper
+
+    type Car = {
+        Chasse : Chasse
+        Make : Make
+        Model : Model
+    }
+
+    let Car x = 
+        let CarFactory c ma mo = 
+            {
+                Chasse = Chasse c
+                Make = Make ma
+                Model = mo
+            }
+
+        match x with
+        | F150   -> F150   |> CarFactory Truck Ford
+        | Taurus -> Taurus |> CarFactory Sedan Ford
+        | Ram    -> Ram    |> CarFactory Truck Dodge
+        | Viper  -> Viper  |> CarFactory Sedan Dodge
+
+
+
+
     type Class = 
     | Frigate
     | Destroyer
