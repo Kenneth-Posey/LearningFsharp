@@ -67,6 +67,8 @@
     <Compile Include="Simulator\Mouse.fs" />
     <Compile Include="Simulator\Keyboard.fs" />
     <Compile Include="Simulator\FsharpImaging.fs" />
+    <Compile Include="Eve\EveData.RawMaterials.Types.fs" />
+    <Compile Include="Eve\EveData.RawMaterials.Records.fs" />
     <Compile Include="Eve\EveData.RawMaterials.fs" />
     <Compile Include="Eve\EveData.Ore.fs" />
     <Compile Include="Eve\EveData.Ice.fs" />
@@ -85,6 +87,7 @@
     <Content Include="packages.config" />
     <None Include="SqlServerTypes\x86\SqlServerSpatial110.dll" />
     <None Include="SqlServerTypes\x64\SqlServerSpatial110.dll" />
+    <None Include="github-note.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Castle.Core">
