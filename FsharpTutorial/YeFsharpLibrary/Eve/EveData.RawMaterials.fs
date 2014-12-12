@@ -180,118 +180,118 @@ module RawMaterials =
     // It's useful to be able to identify the ore and maintain the quantity.    
     // type OreDataType = RawOre * OreRarity * Compressed -> OreId * Name * OreQty
     let OreData ore= 
-        (fun (x, y, z) -> OreId x, Name y, OreQty z) <| match ore with
-        | Arkonor x     ,Common     ,IsNotCompressed   -> 0, "", x
-        | Arkonor x     ,Common     ,IsCompressed      -> 0, "", x
-        | Arkonor x     ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Arkonor x     ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Arkonor x     ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Arkonor x     ,Rare       ,IsCompressed      -> 0, "", x
+        (fun (x, y, z) -> OreId x , Name y, OreQty z) <| match ore with
+        | Arkonor qty     ,Common     ,IsNotCompressed   -> 0, "", qty 
+        | Arkonor qty     ,Common     ,IsCompressed      -> 0, "", qty 
+        | Arkonor qty     ,Uncommon   ,IsNotCompressed   -> 0, "", qty 
+        | Arkonor qty     ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Arkonor qty     ,Rare       ,IsNotCompressed   -> 0, "", qty 
+        | Arkonor qty     ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Bistot x      ,Common     ,IsNotCompressed   -> 0, "", x
-        | Bistot x      ,Common     ,IsCompressed      -> 0, "", x
-        | Bistot x      ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Bistot x      ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Bistot x      ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Bistot x      ,Rare       ,IsCompressed      -> 0, "", x
+        | Bistot qty      ,Common     ,IsNotCompressed   -> 0, "", qty 
+        | Bistot qty      ,Common     ,IsCompressed      -> 0, "", qty 
+        | Bistot qty      ,Uncommon   ,IsNotCompressed   -> 0, "", qty 
+        | Bistot qty      ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Bistot qty      ,Rare       ,IsNotCompressed   -> 0, "", qty 
+        | Bistot qty      ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Crokite x     ,Common     ,IsNotCompressed   -> 0, "", x
-        | Crokite x     ,Common     ,IsCompressed      -> 0, "", x
-        | Crokite x     ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Crokite x     ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Crokite x     ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Crokite x     ,Rare       ,IsCompressed      -> 0, "", x
+        | Crokite qty     ,Common     ,IsNotCompressed   -> 0, "", qty 
+        | Crokite qty     ,Common     ,IsCompressed      -> 0, "", qty 
+        | Crokite qty     ,Uncommon   ,IsNotCompressed   -> 0, "", qty 
+        | Crokite qty     ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Crokite qty     ,Rare       ,IsNotCompressed   -> 0, "", qty 
+        | Crokite qty     ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | DarkOchre x   ,Common     ,IsNotCompressed   -> 0, "", x
-        | DarkOchre x   ,Common     ,IsCompressed      -> 0, "", x
-        | DarkOchre x   ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | DarkOchre x   ,Uncommon   ,IsCompressed      -> 0, "", x
-        | DarkOchre x   ,Rare       ,IsNotCompressed   -> 0, "", x
-        | DarkOchre x   ,Rare       ,IsCompressed      -> 0, "", x
+        | DarkOchre qty   ,Common     ,IsNotCompressed   -> 0, "", qty 
+        | DarkOchre qty   ,Common     ,IsCompressed      -> 0, "", qty 
+        | DarkOchre qty   ,Uncommon   ,IsNotCompressed   -> 0, "", qty 
+        | DarkOchre qty   ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | DarkOchre qty   ,Rare       ,IsNotCompressed   -> 0, "", qty 
+        | DarkOchre qty   ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Gneiss x      ,Common     ,IsNotCompressed   -> 0, "", x
-        | Gneiss x      ,Common     ,IsCompressed      -> 0, "", x
-        | Gneiss x      ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Gneiss x      ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Gneiss x      ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Gneiss x      ,Rare       ,IsCompressed      -> 0, "", x
+        | Gneiss qty      ,Common     ,IsNotCompressed   -> 0, "", qty 
+        | Gneiss qty      ,Common     ,IsCompressed      -> 0, "", qty 
+        | Gneiss qty      ,Uncommon   ,IsNotCompressed   -> 0, "", qty 
+        | Gneiss qty      ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Gneiss qty      ,Rare       ,IsNotCompressed   -> 0, "", qty 
+        | Gneiss qty      ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Hedbergite x  ,Common     ,IsNotCompressed   -> 0, "", x
-        | Hedbergite x  ,Common     ,IsCompressed      -> 0, "", x
-        | Hedbergite x  ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Hedbergite x  ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Hedbergite x  ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Hedbergite x  ,Rare       ,IsCompressed      -> 0, "", x
+        | Hedbergite qty  ,Common     ,IsNotCompressed   -> 0, "", qty 
+        | Hedbergite qty  ,Common     ,IsCompressed      -> 0, "", qty 
+        | Hedbergite qty  ,Uncommon   ,IsNotCompressed   -> 0, "", qty 
+        | Hedbergite qty  ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Hedbergite qty  ,Rare       ,IsNotCompressed   -> 0, "", qty 
+        | Hedbergite qty  ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Hemorphite x  ,Common     ,IsNotCompressed   -> 0, "", x
-        | Hemorphite x  ,Common     ,IsCompressed      -> 0, "", x
-        | Hemorphite x  ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Hemorphite x  ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Hemorphite x  ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Hemorphite x  ,Rare       ,IsCompressed      -> 0, "", x
+        | Hemorphite qty  ,Common     ,IsNotCompressed   -> 0, "", qty 
+        | Hemorphite qty  ,Common     ,IsCompressed      -> 0, "", qty 
+        | Hemorphite qty  ,Uncommon   ,IsNotCompressed   -> 0, "", qty 
+        | Hemorphite qty  ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Hemorphite qty  ,Rare       ,IsNotCompressed   -> 0, "", qty 
+        | Hemorphite qty  ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Jaspet x      ,Common     ,IsNotCompressed   -> 0, "", x
-        | Jaspet x      ,Common     ,IsCompressed      -> 0, "", x
-        | Jaspet x      ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Jaspet x      ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Jaspet x      ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Jaspet x      ,Rare       ,IsCompressed      -> 0, "", x
+        | Jaspet qty      ,Common     ,IsNotCompressed   -> 0, "", qty 
+        | Jaspet qty      ,Common     ,IsCompressed      -> 0, "", qty 
+        | Jaspet qty      ,Uncommon   ,IsNotCompressed   -> 0, "", qty 
+        | Jaspet qty      ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Jaspet qty      ,Rare       ,IsNotCompressed   -> 0, "", qty 
+        | Jaspet qty      ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Kernite x     ,Common     ,IsNotCompressed   -> 0, "", x
-        | Kernite x     ,Common     ,IsCompressed      -> 0, "", x
-        | Kernite x     ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Kernite x     ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Kernite x     ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Kernite x     ,Rare       ,IsCompressed      -> 0, "", x
+        | Kernite qty     ,Common     ,IsNotCompressed   -> 0, "", qty 
+        | Kernite qty     ,Common     ,IsCompressed      -> 0, "", qty 
+        | Kernite qty     ,Uncommon   ,IsNotCompressed   -> 0, "", qty 
+        | Kernite qty     ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Kernite qty     ,Rare       ,IsNotCompressed   -> 0, "", qty 
+        | Kernite qty     ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Mercoxit x    ,Common     ,IsNotCompressed   -> 0, "", x
-        | Mercoxit x    ,Common     ,IsCompressed      -> 0, "", x
-        | Mercoxit x    ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Mercoxit x    ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Mercoxit x    ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Mercoxit x    ,Rare       ,IsCompressed      -> 0, "", x
+        | Mercoxit qty    ,Common     ,IsNotCompressed   -> 0, "", qty 
+        | Mercoxit qty    ,Common     ,IsCompressed      -> 0, "", qty 
+        | Mercoxit qty    ,Uncommon   ,IsNotCompressed   -> 0, "", qty 
+        | Mercoxit qty    ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Mercoxit qty    ,Rare       ,IsNotCompressed   -> 0, "", qty 
+        | Mercoxit qty    ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Omber x       ,Common     ,IsNotCompressed   -> 0, "", x
-        | Omber x       ,Common     ,IsCompressed      -> 0, "", x
-        | Omber x       ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Omber x       ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Omber x       ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Omber x       ,Rare       ,IsCompressed      -> 0, "", x
+        | Omber qty       ,Common     ,IsNotCompressed   -> 0, "", qty 
+        | Omber qty       ,Common     ,IsCompressed      -> 0, "", qty 
+        | Omber qty       ,Uncommon   ,IsNotCompressed   -> 0, "", qty 
+        | Omber qty       ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Omber qty       ,Rare       ,IsNotCompressed   -> 0, "", qty 
+        | Omber qty       ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Plagioclase x ,Common     ,IsNotCompressed   -> 0, "", x
-        | Plagioclase x ,Common     ,IsCompressed      -> 0, "", x
-        | Plagioclase x ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Plagioclase x ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Plagioclase x ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Plagioclase x ,Rare       ,IsCompressed      -> 0, "", x
+        | Plagioclase qty ,Common     ,IsNotCompressed   -> 18, "Plagioclase", qty 
+        | Plagioclase qty ,Common     ,IsCompressed      -> 0, "", qty 
+        | Plagioclase qty ,Uncommon   ,IsNotCompressed   -> 0, "Azure Plagioclase", qty 
+        | Plagioclase qty ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Plagioclase qty ,Rare       ,IsNotCompressed   -> 0, "Rich Plagioclase", qty 
+        | Plagioclase qty ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Pyroxeres x   ,Common     ,IsNotCompressed   -> 0, "", x
-        | Pyroxeres x   ,Common     ,IsCompressed      -> 0, "", x
-        | Pyroxeres x   ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Pyroxeres x   ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Pyroxeres x   ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Pyroxeres x   ,Rare       ,IsCompressed      -> 0, "", x
+        | Pyroxeres qty   ,Common     ,IsNotCompressed   -> 0, "Pyroxeres", qty 
+        | Pyroxeres qty   ,Common     ,IsCompressed      -> 0, "", qty 
+        | Pyroxeres qty   ,Uncommon   ,IsNotCompressed   -> 0, "Solid Pyroxeres", qty 
+        | Pyroxeres qty   ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Pyroxeres qty   ,Rare       ,IsNotCompressed   -> 0, "Viscous Pyroxeres", qty 
+        | Pyroxeres qty   ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Scordite x    ,Common     ,IsNotCompressed   -> 0, "", x
-        | Scordite x    ,Common     ,IsCompressed      -> 0, "", x
-        | Scordite x    ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Scordite x    ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Scordite x    ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Scordite x    ,Rare       ,IsCompressed      -> 0, "", x
+        | Scordite qty    ,Common     ,IsNotCompressed   -> 1228, "Scordite", qty 
+        | Scordite qty    ,Common     ,IsCompressed      -> 0, "", qty 
+        | Scordite qty    ,Uncommon   ,IsNotCompressed   -> 17463, "Condensed Scordite", qty 
+        | Scordite qty    ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Scordite qty    ,Rare       ,IsNotCompressed   -> 17464, "Massive Scordite", qty 
+        | Scordite qty    ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Spodumain x   ,Common     ,IsNotCompressed   -> 0, "", x
-        | Spodumain x   ,Common     ,IsCompressed      -> 0, "", x
-        | Spodumain x   ,Uncommon   ,IsNotCompressed   -> 0, "", x
-        | Spodumain x   ,Uncommon   ,IsCompressed      -> 0, "", x
-        | Spodumain x   ,Rare       ,IsNotCompressed   -> 0, "", x
-        | Spodumain x   ,Rare       ,IsCompressed      -> 0, "", x
+        | Spodumain qty   ,Common     ,IsNotCompressed   -> 0, "", qty 
+        | Spodumain qty   ,Common     ,IsCompressed      -> 0, "", qty 
+        | Spodumain qty   ,Uncommon   ,IsNotCompressed   -> 0, "", qty 
+        | Spodumain qty   ,Uncommon   ,IsCompressed      -> 0, "", qty 
+        | Spodumain qty   ,Rare       ,IsNotCompressed   -> 0, "", qty 
+        | Spodumain qty   ,Rare       ,IsCompressed      -> 0, "", qty 
 
-        | Veldspar x    ,Common     ,IsNotCompressed   -> 1230   , "", x
-        | Veldspar x    ,Common     ,IsCompressed      -> 28432  , "", x
-        | Veldspar x    ,Uncommon   ,IsNotCompressed   -> 17470  , "", x
-        | Veldspar x    ,Uncommon   ,IsCompressed      -> 0      , "", x
-        | Veldspar x    ,Rare       ,IsNotCompressed   -> 17471  , "", x
-        | Veldspar x    ,Rare       ,IsCompressed      -> 0      , "", x
+        | Veldspar qty    ,Common     ,IsNotCompressed   -> 1230   , "", qty 
+        | Veldspar qty    ,Common     ,IsCompressed      -> 28432  , "", qty 
+        | Veldspar qty    ,Uncommon   ,IsNotCompressed   -> 17470  , "", qty 
+        | Veldspar qty    ,Uncommon   ,IsCompressed      -> 0      , "", qty 
+        | Veldspar qty    ,Rare       ,IsNotCompressed   -> 17471  , "", qty 
+        | Veldspar qty    ,Rare       ,IsCompressed      -> 0      , "", qty 
 
 
 

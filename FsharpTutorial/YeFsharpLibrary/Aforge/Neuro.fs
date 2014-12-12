@@ -83,7 +83,7 @@ module ActivationFunction =
             member this.Clone () = 
                 upcast new SigmoidFunction( Alpha )
 
-    type GaussianFunction (?alpha:double, ?range:DoubleRange) as this = 
+    type GaussianFunction (alpha:double option, ?range:DoubleRange) as this = 
         do
             this.alpha <- defaultArg alpha 1.0
             this.range <- defaultArg range (new DoubleRange(-1.0, 1.0))
