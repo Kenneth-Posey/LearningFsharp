@@ -70,7 +70,7 @@ module RawMaterials =
             member this.Value = 
                 this |> (fun (TypeId x) -> x)
 
-        type Name = Name of int with
+        type Name = Name of string with
             member this.Value = 
                 this |> (fun (Name x) -> x)
 
@@ -87,7 +87,6 @@ module RawMaterials =
         | Uncommon
         | Rare
 
-        
         type RawOre = 
         | Arkonor     of int  
         | Bistot      of int  

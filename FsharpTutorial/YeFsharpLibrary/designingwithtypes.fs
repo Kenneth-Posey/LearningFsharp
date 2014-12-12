@@ -60,32 +60,6 @@ module designing_with_types =
         | Viper  -> Viper  |> CarFactory Sedan Dodge
 
 
-
-
-    type Class = 
-    | Frigate
-    | Destroyer
-    | Cruiser
-    | BattleCruiser
-    | Battleship 
-    | Dreadnaught
-    | Carrier
-    | SuperCarrier
-    | Titan
-
-    type Race = 
-    | Amarr
-    | Caldari
-    | Gallente
-    | Minmatar
-
-
-    type Ships = 
-    | Merlin
-    | Condor
-    | Bantam
-    | Hawk
-    | Velator
     
     type Tiers = 
     | Tier1
@@ -94,6 +68,41 @@ module designing_with_types =
     | Navy
     | Pirate
 
+//    type Hull = 
+//    | Frigate
+//    | Destroyer
+//    | Cruiser
+//    | BattleCruiser
+//    | Battleship 
+//    | Dreadnaught
+//    | Carrier
+//    | SuperCarrier
+//    | Titan
+
+    type Class = 
+    | Frigate        
+    | Destroyer     
+    | Cruiser       
+    | BattleCruiser 
+    | Battleship    
+    | Dreadnaught   
+    | Carrier       
+    | SuperCarrier  
+    | Titan         
+
+    type Race = 
+    | Amarr
+    | Caldari
+    | Gallente
+    | Minmatar
+
+    type Ships = 
+    | Merlin
+    | Condor
+    | Bantam
+    | Hawk
+    | Velator
+    
     type Tier = Tier of string with
         member this.Value = 
             this |> (fun (Tier x) -> x)
@@ -132,6 +141,15 @@ module designing_with_types =
         | Hawk -> 400
         | Velator -> 0
     
+//    type ShipClass = ShipClass of Class with
+//        member this.Value = 
+//            this |> (fun (ShipClass (x)) -> x)
+//
+//    let ShipClass (x, y) = 
+//        ShipClass <| match x, y with
+//        | Hull.Frigate, Tier1 -> Class.Frigate
+//        | Hull.Frigate, Tier2
+
     type Ship = {
         Class : Class
         Race : Race

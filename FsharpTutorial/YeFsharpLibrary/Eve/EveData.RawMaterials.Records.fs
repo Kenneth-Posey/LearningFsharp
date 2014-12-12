@@ -41,7 +41,7 @@ module RawMaterials =
         }
 
         type RawMaterial = {
-            IsCompressed : IsCompressed
+            IsCompressed : Compressed
             Yield        : Yield
             Volume       : Volume
             TypeId       : TypeId
