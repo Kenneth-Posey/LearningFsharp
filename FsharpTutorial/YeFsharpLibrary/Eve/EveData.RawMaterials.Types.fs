@@ -105,7 +105,7 @@ module RawMaterials =
         | Spodumain   of int  
         | Veldspar    of int  
     
-
+        
         type RawIce = 
         | BlueIce             of int
         | ClearIcicle         of int
@@ -117,8 +117,8 @@ module RawMaterials =
         | Krystallos          of int
         | PristineWhiteGlaze  of int
         | SmoothGlacialMass   of int
-        | ThickBlueIce        of int
-        | WhiteGlaze          of int
+        | ThickBlueIce        of int 
+        | WhiteGlaze          of int 
     
         type Refinable = 
         | RawOre of RawOre
