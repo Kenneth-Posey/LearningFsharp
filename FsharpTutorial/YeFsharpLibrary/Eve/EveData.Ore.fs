@@ -1,8 +1,29 @@
 ﻿namespace EveData
 
-open EveData.RawMaterial
-
 module Ore = 
+    open EveData.RawMaterial
+    open EveData.RawMaterialTypes
+    open EveData.RawMaterialRecords
+    
+
+    let Ore (x:Ore) (q:Qty) :OreType= 
+        let OreFactory (r:OreRarity) (c:Compressed) (n:RawOre) :OreType= 
+            let data = OreData (n, r, c)
+            {
+                Name   = data.Name
+                OreId  = data.OreId
+                Qty    = data.OreQty
+                Yield  = RawOreYield n 
+                Volume = RawOreVolume n c
+            }
+    
+        match x with 
+        | CommonVeldspar    -> (Veldspar q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonVeldspar  -> (Veldspar q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareVeldspar      -> (Veldspar q.Value) |> OreFactory (Rare) (IsNotCompressed)
+
+
+    // Old OOP style version
     module Types =   
         type SimpleOre = {
             Name   : string

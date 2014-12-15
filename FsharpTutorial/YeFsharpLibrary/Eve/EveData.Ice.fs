@@ -3,6 +3,27 @@
 open EveData.RawMaterial
 
 module Ice = 
+    open EveData.RawMaterial
+    open EveData.RawMaterialTypes
+    open EveData.RawMaterialRecords
+
+
+    let Ice (x:Ice) (q:Qty) :IceType = 
+        let IceFactory (c:Compressed) (n:RawIce) :IceType=
+            let data = IceData (n, c)
+            {
+                Name   = data.Name
+                IceId  = data.IceId
+                Qty    = data.IceQty
+                Yield  = RawIceYield n 
+                Volume = RawIceVolume n c
+            }
+
+        match x with 
+        | UncompressedBlueIce -> (BlueIce q.Value) |> IceFactory (IsNotCompressed)
+
+
+    // Old OOP style version
     module Types = 
         type SimpleIce = {
             Name   : string

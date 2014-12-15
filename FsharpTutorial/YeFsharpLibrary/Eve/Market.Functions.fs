@@ -2,7 +2,9 @@
 
 module Functions = 
     open EveData
-    open EveData.RawMaterials
+    open EveData.RawMaterialRecords
+    open EveData.RawMaterialTypes
+    open EveData.RawMaterial
     open EveData.Ore.Types
     open EveData.Ice.Types
     open Market.Parser

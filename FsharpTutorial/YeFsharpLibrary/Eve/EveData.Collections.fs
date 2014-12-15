@@ -1,6 +1,6 @@
 ﻿namespace EveData
 
-open EveData.RawMaterials
+open EveData.RawMaterial
 open EveData.Ore.Types
 open EveData.Ice.Types
 
