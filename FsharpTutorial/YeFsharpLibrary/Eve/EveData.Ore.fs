@@ -5,22 +5,120 @@ module Ore =
     open EveData.RawMaterialTypes
     open EveData.RawMaterialRecords
     
+    let OreFactory (r:OreRarity) (c:Compressed) (n:RawOre) :OreType= 
+        OreData (n, r, c) |> fun x -> 
+        {
+            Name    = x.Name
+            OreId   = x.OreId
+            Qty     = x.OreQty
+            Yield   = RawOreYield n 
+            Volume  = RawOreVolume n c
+            Ore     = n 
+        }
 
-    let Ore (x:Ore) (q:Qty) :OreType= 
-        let OreFactory (r:OreRarity) (c:Compressed) (n:RawOre) :OreType= 
-            let data = OreData (n, r, c)
-            {
-                Name   = data.Name
-                OreId  = data.OreId
-                Qty    = data.OreQty
-                Yield  = RawOreYield n 
-                Volume = RawOreVolume n c
-            }
-    
+    let Ore (x:Ore) (q:Qty) :OreType=         
         match x with 
         | CommonVeldspar    -> (Veldspar q.Value) |> OreFactory (Common) (IsNotCompressed)
         | UncommonVeldspar  -> (Veldspar q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
         | RareVeldspar      -> (Veldspar q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonVeldspar      -> (Veldspar q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonVeldspar    -> (Veldspar q.Value) |> OreFactory (Uncommon) (IsCompressed)
+        | CompressedRareVeldspar        -> (Veldspar q.Value) |> OreFactory (Rare) (IsCompressed)
+        | CommonScordite    -> (Scordite q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonScordite  -> (Scordite q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareScordite      -> (Scordite q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonScordite      -> (Scordite q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonScordite    -> (Scordite q.Value) |> OreFactory (Uncommon) (IsCompressed)
+        | CompressedRareScordite        -> (Scordite q.Value) |> OreFactory (Rare) (IsCompressed)
+        | CommonPyroxeres   -> (Pyroxeres q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonPyroxeres -> (Pyroxeres q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RarePyroxeres     -> (Pyroxeres q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonPyroxeres     -> (Pyroxeres q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonPyroxeres   -> (Pyroxeres q.Value) |> OreFactory (Uncommon) (IsCompressed)
+        | CompressedRarePyroxeres       -> (Pyroxeres q.Value) |> OreFactory (Rare) (IsCompressed)
+        | CommonPlagioclase     -> (Plagioclase q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonPlagioclase   -> (Plagioclase q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RarePlagioclase       -> (Plagioclase q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonPlagioclase   -> (Plagioclase q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonPlagioclase -> (Plagioclase q.Value) |> OreFactory (Uncommon) (IsCompressed)
+        | CompressedRarePlagioclase     -> (Plagioclase q.Value) |> OreFactory (Rare) (IsCompressed)
+        | CommonKernite         -> (Kernite q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonKernite       -> (Kernite q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareKernite           -> (Kernite q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonKernite   -> (Kernite q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonKernite -> (Kernite q.Value) |> OreFactory (Uncommon) (IsCompressed) 
+        | CompressedRareKernite     -> (Kernite q.Value) |> OreFactory (Rare) (IsCompressed) 
+        | CommonOmber           -> (Omber q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonOmber         -> (Omber q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareOmber             -> (Omber q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonOmber     -> (Omber q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonOmber   -> (Omber q.Value) |> OreFactory (Uncommon) (IsCompressed)
+        | CompressedRareOmber       -> (Omber q.Value) |> OreFactory (Rare) (IsCompressed)
+        | CommonHedbergite      -> (Hedbergite q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonHedbergite    -> (Hedbergite q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareHedbergite        -> (Hedbergite q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonHedbergite    -> (Hedbergite q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonHedbergite  -> (Hedbergite q.Value) |> OreFactory (Uncommon) (IsCompressed)
+        | CompressedRareHedbergite      -> (Hedbergite q.Value) |> OreFactory (Rare) (IsCompressed)
+        | CommonHemorphite      -> (Hemorphite q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonHemorphite    -> (Hemorphite q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareHemorphite        -> (Hemorphite q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonHemorphite    -> (Hemorphite q.Value) |> OreFactory (Common) (IsCompressed) 
+        | CompressedUncommonHemorphite  -> (Hemorphite q.Value) |> OreFactory (Uncommon) (IsCompressed) 
+        | CompressedRareHemorphite      -> (Hemorphite q.Value) |> OreFactory (Rare) (IsCompressed) 
+        | CommonJaspet          -> (Jaspet q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonJaspet        -> (Jaspet q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareJaspet            -> (Jaspet q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonJaspet    -> (Jaspet q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonJaspet  -> (Jaspet q.Value) |> OreFactory (Uncommon) (IsCompressed)
+        | CompressedRareJaspet      -> (Jaspet q.Value) |> OreFactory (Rare) (IsCompressed)
+        | CommonGneiss          -> (Gneiss q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonGneiss        -> (Gneiss q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareGneiss            -> (Gneiss q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonGneiss    -> (Gneiss q.Value) |> OreFactory (Common) (IsCompressed) 
+        | CompressedUncommonGneiss  -> (Gneiss q.Value) |> OreFactory (Uncommon) (IsCompressed) 
+        | CompressedRareGneiss      -> (Gneiss q.Value) |> OreFactory (Rare) (IsCompressed) 
+        | CommonDarkOchre       -> (DarkOchre q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonDarkOchre     -> (DarkOchre q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareDarkOchre         -> (DarkOchre q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonDarkOchre     -> (DarkOchre q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonDarkOchre   -> (DarkOchre q.Value) |> OreFactory (Uncommon) (IsCompressed) 
+        | CompressedRareDarkOchre       -> (DarkOchre q.Value) |> OreFactory (Rare) (IsCompressed) 
+        | CommonCrokite         -> (Crokite q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonCrokite       -> (Crokite q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareCrokite           -> (Crokite q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonCrokite   -> (Crokite q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonCrokite -> (Crokite q.Value) |> OreFactory (Uncommon) (IsCompressed) 
+        | CompressedRareCrokite     -> (Crokite q.Value) |> OreFactory (Rare) (IsCompressed) 
+        | CommonBistot          -> (Bistot q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonBistot        -> (Bistot q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareBistot            -> (Bistot q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonBistot    -> (Bistot q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonBistot  -> (Bistot q.Value) |> OreFactory (Uncommon) (IsCompressed) 
+        | CompressedRareBistot      -> (Bistot q.Value) |> OreFactory (Rare) (IsCompressed) 
+        | CommonSpodumain       -> (Spodumain q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonSpodumain     -> (Spodumain q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareSpodumain         -> (Spodumain q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonSpodumain     -> (Spodumain q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonSpodumain   -> (Spodumain q.Value) |> OreFactory (Uncommon) (IsCompressed)
+        | CompressedRareSpodumain       -> (Spodumain q.Value) |> OreFactory (Rare) (IsCompressed)
+        | CommonArkonor         -> (Arkonor q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonArkonor       -> (Arkonor q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareArkonor           -> (Arkonor q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonArkonor   -> (Arkonor q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonArkonor -> (Arkonor q.Value) |> OreFactory (Uncommon) (IsCompressed) 
+        | CompressedRareArkonor     -> (Arkonor q.Value) |> OreFactory (Rare) (IsCompressed) 
+        | CommonMercoxit        -> (Mercoxit q.Value) |> OreFactory (Common) (IsNotCompressed)
+        | UncommonMercoxit      -> (Mercoxit q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
+        | RareMercoxit          -> (Mercoxit q.Value) |> OreFactory (Rare) (IsNotCompressed)
+        | CompressedCommonMercoxit      -> (Mercoxit q.Value) |> OreFactory (Common) (IsCompressed)
+        | CompressedUncommonMercoxit    -> (Mercoxit q.Value) |> OreFactory (Uncommon) (IsCompressed) 
+        | CompressedRareMercoxit        -> (Mercoxit q.Value) |> OreFactory (Rare) (IsCompressed) 
+
+
+
+
+
 
 
     // Old OOP style version

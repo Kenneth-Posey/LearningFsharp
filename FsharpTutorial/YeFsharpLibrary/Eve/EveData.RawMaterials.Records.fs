@@ -44,6 +44,8 @@ module RawMaterialRecords =
         OxygenIsotopes      = OxygenIsotopes 0    
         StrontiumClathrates = StrontiumClathrates 0
     }
+
+
     type IceData = {
         IceId : IceId
         Name : Name
@@ -56,6 +58,7 @@ module RawMaterialRecords =
         Qty     : IceQty
         Yield   : IceYield
         Volume  : Volume        
+        Ice     : RawIce
     }
     
 
@@ -71,7 +74,7 @@ module RawMaterialRecords =
         Qty     : OreQty
         Yield   : OreYield
         Volume  : Volume
-
+        Ore     : RawOre
     }
 
 

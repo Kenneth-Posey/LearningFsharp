@@ -6,21 +6,44 @@ module Ice =
     open EveData.RawMaterial
     open EveData.RawMaterialTypes
     open EveData.RawMaterialRecords
-
+    
+    let IceFactory (c:Compressed) (n:RawIce) :IceType=
+        let data = IceData (n, c)
+        {
+            Name    = data.Name
+            IceId   = data.IceId
+            Qty     = data.IceQty
+            Yield   = RawIceYield n 
+            Volume  = RawIceVolume n c
+            Ice     = n
+        }
 
     let Ice (x:Ice) (q:Qty) :IceType = 
-        let IceFactory (c:Compressed) (n:RawIce) :IceType=
-            let data = IceData (n, c)
-            {
-                Name   = data.Name
-                IceId  = data.IceId
-                Qty    = data.IceQty
-                Yield  = RawIceYield n 
-                Volume = RawIceVolume n c
-            }
-
         match x with 
-        | UncompressedBlueIce -> (BlueIce q.Value) |> IceFactory (IsNotCompressed)
+        | BlueIce        -> (RawIce.BlueIce q.Value)        |> IceFactory (IsNotCompressed)
+        | ClearIcicle    -> (RawIce.ClearIcicle q.Value)    |> IceFactory (IsNotCompressed)
+        | GlacialMass    -> (RawIce.GlacialMass q.Value)    |> IceFactory (IsNotCompressed)
+        | WhiteGlaze     -> (RawIce.WhiteGlaze q.Value)     |> IceFactory (IsNotCompressed)
+        | ThickBlueIce           -> (RawIce.ThickBlueIce q.Value)           |> IceFactory (IsNotCompressed)
+        | EnrichedClearIcicle    -> (RawIce.EnrichedClearIcicle q.Value)    |> IceFactory (IsNotCompressed)
+        | SmoothGlacialMass      -> (RawIce.SmoothGlacialMass q.Value)      |> IceFactory (IsNotCompressed)
+        | PristineWhiteGlaze     -> (RawIce.PristineWhiteGlaze q.Value)     |> IceFactory (IsNotCompressed)
+        | GlareCrust     -> (RawIce.GlareCrust q.Value)     |> IceFactory (IsNotCompressed)
+        | DarkGlitter    -> (RawIce.DarkGlitter q.Value)    |> IceFactory (IsNotCompressed)
+        | Gelidus        -> (RawIce.Gelidus q.Value)        |> IceFactory (IsNotCompressed)
+        | Krystallos     -> (RawIce.Krystallos q.Value)     |> IceFactory (IsNotCompressed)
+        | CompressedBlueIce      -> (RawIce.BlueIce q.Value)        |> IceFactory (IsCompressed)
+        | CompressedClearIcicle  -> (RawIce.ClearIcicle q.Value)    |> IceFactory (IsCompressed)
+        | CompressedGlacialMass  -> (RawIce.GlacialMass q.Value)    |> IceFactory (IsCompressed)
+        | CompressedWhiteGlaze   -> (RawIce.WhiteGlaze q.Value)     |> IceFactory (IsCompressed)
+        | CompressedThickBlueIce         -> (RawIce.ThickBlueIce q.Value)           |> IceFactory (IsCompressed)
+        | CompressedEnrichedClearIcicle  -> (RawIce.EnrichedClearIcicle q.Value)    |> IceFactory (IsCompressed)
+        | CompressedSmoothGlacialMass    -> (RawIce.SmoothGlacialMass q.Value)      |> IceFactory (IsCompressed)
+        | CompressedPristineWhiteGlaze   -> (RawIce.PristineWhiteGlaze q.Value)     |> IceFactory (IsCompressed)
+        | CompressedGlareCrust   -> (RawIce.GlareCrust q.Value)     |> IceFactory (IsCompressed)
+        | CompressedDarkGlitter  -> (RawIce.DarkGlitter q.Value)    |> IceFactory (IsCompressed)
+        | CompressedGelidus      -> (RawIce.Gelidus q.Value)        |> IceFactory (IsCompressed)
+        | CompressedKrystallos   -> (RawIce.Krystallos q.Value)     |> IceFactory (IsCompressed) 
 
 
     // Old OOP style version
