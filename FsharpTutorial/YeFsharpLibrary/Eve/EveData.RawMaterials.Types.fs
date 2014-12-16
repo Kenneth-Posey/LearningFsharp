@@ -155,29 +155,29 @@ module RawMaterialTypes =
     
     
     type Ice = 
-    | BlueIce
+    | RegularBlueIce
+    | RegularThickBlueIce
+    | RegularClearIcicle
+    | RegularEnrichedClearIcicle
+    | RegularGlacialMass
+    | RegularSmoothGlacialMass
+    | RegularWhiteGlaze
+    | RegularPristineWhiteGlaze
+    | RegularGlareCrust
+    | RegularDarkGlitter
+    | RegularGelidus
+    | RegularKrystallos
     | CompressedBlueIce
-    | ThickBlueIce
     | CompressedThickBlueIce
-    | ClearIcicle
     | CompressedClearIcicle
-    | EnrichedClearIcicle
     | CompressedEnrichedClearIcicle
-    | GlacialMass
     | CompressedGlacialMass
-    | SmoothGlacialMass
     | CompressedSmoothGlacialMass
-    | WhiteGlaze
     | CompressedWhiteGlaze
-    | PristineWhiteGlaze
     | CompressedPristineWhiteGlaze
-    | GlareCrust
     | CompressedGlareCrust
-    | DarkGlitter
-    | CompresedDarkGlitter
-    | Gelidus
+    | CompressedDarkGlitter
     | CompressedGelidus
-    | Krystallos
     | CompressedKrystallos
     
     
