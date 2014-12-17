@@ -90,8 +90,8 @@ module RawMaterialTypes =
     | Rare
 
 
-    type RawOre = 
-    | Arkonor     of int  
+    type OreType = 
+    | Arkonor     of int
     | Bistot      of int  
     | Crokite     of int  
     | DarkOchre   of int  
@@ -109,7 +109,7 @@ module RawMaterialTypes =
     | Veldspar    of int  
     
         
-    type RawIce = 
+    type IceType = 
     | BlueIce             of int
     | ClearIcicle         of int
     | DarkGlitter         of int
@@ -123,12 +123,7 @@ module RawMaterialTypes =
     | ThickBlueIce        of int 
     | WhiteGlaze          of int 
     
-
-    type Refinable = 
-    | RawOre of RawOre
-    | RawIce of RawIce
-        
-
+    
     type Id = Id of int with
         member this.Value = 
             this |> (fun (Id x) -> x)

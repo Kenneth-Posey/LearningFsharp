@@ -4,14 +4,14 @@ module RawMaterialRecords =
     open RawMaterialTypes
 
     type OreYield = {
-        Tritanium           : Tritanium
-        Pyerite             : Pyerite 
-        Mexallon            : Mexallon
-        Isogen              : Isogen  
-        Nocxium             : Nocxium 
-        Megacyte            : Megacyte
-        Zydrine             : Zydrine 
-        Morphite            : Morphite
+        Tritanium   : Tritanium
+        Pyerite     : Pyerite 
+        Mexallon    : Mexallon
+        Isogen      : Isogen  
+        Nocxium     : Nocxium 
+        Megacyte    : Megacyte
+        Zydrine     : Zydrine 
+        Morphite    : Morphite
     }
 
     type IceYield = {
@@ -25,14 +25,14 @@ module RawMaterialRecords =
     }
         
     let BaseOreYield = {
-        Tritanium           = Tritanium 0
-        Pyerite             = Pyerite 0
-        Mexallon            = Mexallon 0
-        Isogen              = Isogen 0
-        Nocxium             = Nocxium 0
-        Megacyte            = Megacyte 0
-        Zydrine             = Zydrine 0
-        Morphite            = Morphite 0
+        Tritanium   = Tritanium 0
+        Pyerite     = Pyerite 0
+        Mexallon    = Mexallon 0
+        Isogen      = Isogen 0
+        Nocxium     = Nocxium 0
+        Megacyte    = Megacyte 0
+        Zydrine     = Zydrine 0
+        Morphite    = Morphite 0
     }
 
     let BaseIceYield = {
@@ -52,13 +52,13 @@ module RawMaterialRecords =
         IceQty : IceQty
     }
         
-    type IceType = {
+    type RawIce = {
         Name    : Name
         IceId   : IceId
         Qty     : IceQty
         Yield   : IceYield
         Volume  : Volume        
-        Ice     : RawIce
+        Ice     : IceType
     }
     
 
@@ -68,13 +68,13 @@ module RawMaterialRecords =
         OreQty : OreQty
     }
 
-    type OreType = {
+    type RawOre = {
         Name    : Name
         OreId   : OreId
         Qty     : OreQty
         Yield   : OreYield
         Volume  : Volume
-        Ore     : RawOre
+        Ore     : OreType
     }
 
 

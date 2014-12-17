@@ -5,8 +5,8 @@ module Ore =
     open EveData.RawMaterialTypes
     open EveData.RawMaterialRecords
     
-    let OreFactory (r:OreRarity) (c:Compressed) (n:RawOre) :OreType= 
-        OreData (n, r, c) |> fun x -> 
+    let OreFactory (r:OreRarity) (c:Compressed) (n:OreType) :RawOre= 
+        OreData (n) (r) (c) |> fun x -> 
         {
             Name    = x.Name
             OreId   = x.OreId
@@ -16,7 +16,7 @@ module Ore =
             Ore     = n 
         }
 
-    let Ore (x:Ore) (q:Qty) :OreType=         
+    let Ore (x:Ore) (q:Qty) :RawOre=         
         match x with 
         | CommonVeldspar    -> (Veldspar q.Value) |> OreFactory (Common) (IsNotCompressed)
         | UncommonVeldspar  -> (Veldspar q.Value) |> OreFactory (Uncommon) (IsNotCompressed)
