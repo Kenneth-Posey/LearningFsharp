@@ -25,7 +25,9 @@ module Text =
         PrettyPrint (string value)
         
     let PrettyPrintFromSingle (value:single) = 
-        PrettyPrint (string (bigint value))
+        match value with
+        | x when x < single infinity -> PrettyPrint (string (bigint value))
+        | _ -> "0"
 
     let PrettyPrintFromDouble (value:double) = 
         PrettyPrint (string (bigint value))

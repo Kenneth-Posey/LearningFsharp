@@ -1,7 +1,5 @@
 ﻿namespace EveData
 
-open EveData.RawMaterial
-
 module Ice = 
     open EveData.RawMaterial
     open EveData.RawMaterialTypes
@@ -15,7 +13,7 @@ module Ice =
             Qty     = data.IceQty
             Yield   = RawIceYield n 
             Volume  = RawIceVolume n c
-            Ice     = n
+            IceType = n
         }
 
     let Ice (x:Ice) (q:Qty) :RawIce = 
@@ -98,16 +96,16 @@ module Ice =
     
     module Functions =    
         open Types
-        let RefineValueIce (multiplier:single) (item:IRawIce) (value:IceValue) = 
-            let iceYield = item.GetYield ()
-            (   single iceYield.HeavyWater          * value.HeavyWater
-              + single iceYield.HeliumIsotopes      * value.HeliumIsotopes
-              + single iceYield.HydrogenIsotopes    * value.HydrogenIsotopes
-              + single iceYield.LiquidOzone         * value.LiquidOzone
-              + single iceYield.NitrogenIsotopes    * value.NitrogenIsotopes
-              + single iceYield.OxygenIsotopes      * value.OxygenIsotopes
-              + single iceYield.StrontiumClathrates * value.StrontiumClathrates
-            ) * multiplier
+        let RefineValueIce (item:RawIce) (value:IceValue) = 
+            let iceYield = item.Yield
+            (   single iceYield.HeavyWater.Value          * value.HeavyWater
+              + single iceYield.HeliumIsotopes.Value      * value.HeliumIsotopes
+              + single iceYield.HydrogenIsotopes.Value    * value.HydrogenIsotopes
+              + single iceYield.LiquidOzone.Value         * value.LiquidOzone
+              + single iceYield.NitrogenIsotopes.Value    * value.NitrogenIsotopes
+              + single iceYield.OxygenIsotopes.Value      * value.OxygenIsotopes
+              + single iceYield.StrontiumClathrates.Value * value.StrontiumClathrates
+            )
 
             
     module RawMaterials = 

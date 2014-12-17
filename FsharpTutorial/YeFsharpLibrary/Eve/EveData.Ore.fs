@@ -13,7 +13,7 @@ module Ore =
             Qty     = x.OreQty
             Yield   = RawOreYield n 
             Volume  = RawOreVolume n c
-            Ore     = n 
+            OreType = n 
         }
 
     let Ore (x:Ore) (q:Qty) :RawOre=         
@@ -202,17 +202,17 @@ module Ore =
             FactorOreYield baseYield 100.0f
 
         
-        let RefineValueOre (multiplier:single) (item:IRawOre) (value:OreValue) =
-            let mineralYield = item.GetYield ()
-            (   single mineralYield.Isogen    * value.Isogen 
-              + single mineralYield.Megacyte  * value.Megacyte
-              + single mineralYield.Mexallon  * value.Mexallon
-              + single mineralYield.Morphite  * value.Morphite
-              + single mineralYield.Nocxium   * value.Nocxium
-              + single mineralYield.Pyerite   * value.Pyerite
-              + single mineralYield.Tritanium * value.Tritanium
-              + single mineralYield.Zydrine   * value.Zydrine
-            ) * multiplier / 100.0f // There's 100 ore per refined amount
+        let RefineValueOre (item:RawOre) (value:OreValue) =
+            let mineralYield = item.Yield
+            (   single mineralYield.Isogen.Value    * value.Isogen 
+              + single mineralYield.Megacyte.Value  * value.Megacyte
+              + single mineralYield.Mexallon.Value  * value.Mexallon
+              + single mineralYield.Morphite.Value  * value.Morphite
+              + single mineralYield.Nocxium.Value   * value.Nocxium
+              + single mineralYield.Pyerite.Value   * value.Pyerite
+              + single mineralYield.Tritanium.Value * value.Tritanium
+              + single mineralYield.Zydrine.Value   * value.Zydrine
+            ) 
 
                
     module RawMaterials =  

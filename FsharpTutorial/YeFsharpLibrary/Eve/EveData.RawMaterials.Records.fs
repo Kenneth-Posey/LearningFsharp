@@ -58,7 +58,7 @@ module RawMaterialRecords =
         Qty     : IceQty
         Yield   : IceYield
         Volume  : Volume        
-        Ice     : IceType
+        IceType : IceType
     }
     
 
@@ -74,7 +74,7 @@ module RawMaterialRecords =
         Qty     : OreQty
         Yield   : OreYield
         Volume  : Volume
-        Ore     : OreType
+        OreType : OreType
     }
 
 

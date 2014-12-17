@@ -15,17 +15,17 @@ module Main =
         let OreList = Collections.AllOrePairs
            
         let mineralValue = Functions.LoadMineralJitaSell ()
-        let oreValue = Collections.Dynamic.LoadBaseOreValues 1.0f mineralValue
+        let oreValue = Collections.Dynamic.LoadBaseOreValues mineralValue
 
         let iceProductValue = Functions.LoadIceProductJitaSell ()
-        let iceValue = Collections.Dynamic.LoadBaseIceValues 1.0f iceProductValue
+        let iceValue = Collections.Dynamic.LoadBaseIceValues iceProductValue
 
 
 
         for location in Locations do
             for orePair in OreList do
                 let system = string location           // Gets the enum name
-                let name   = (fst orePair).GetName()
+                let name   = (fst orePair).Name.Value
 
                 let fast = PrettyPrintFromSingle <| Functions.FastProfit orePair (int location)
                 let best = PrettyPrintFromSingle <| Functions.BestProfit orePair (int location)

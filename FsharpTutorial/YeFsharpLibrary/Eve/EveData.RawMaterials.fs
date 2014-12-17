@@ -5,93 +5,93 @@ module RawMaterial =
     open EveData.RawMaterialRecords
     
     let MinimumRefineQty (x:OreType) :int = match x with
-        | Arkonor _     -> 200
-        | Bistot _      -> 200
-        | Crokite _     -> 1  
-        | DarkOchre _   -> 1 
-        | Gneiss _      -> 1    
-        | Hedbergite _  -> 1
-        | Hemorphite _  -> 1
-        | Jaspet _      -> 1    
-        | Kernite _     -> 1   
-        | Mercoxit _    -> 1  
-        | Omber _       -> 1     
-        | Plagioclase _ -> 1
-        | Pyroxeres _   -> 1 
-        | Scordite _    -> 1  
-        | Spodumain _   -> 1 
-        | Veldspar _    -> 1  
+        | Arkonor _     -> 100
+        | Bistot _      -> 100
+        | Crokite _     -> 100
+        | DarkOchre _   -> 100
+        | Gneiss _      -> 100  
+        | Hedbergite _  -> 100
+        | Hemorphite _  -> 100
+        | Jaspet _      -> 100  
+        | Kernite _     -> 100 
+        | Mercoxit _    -> 100
+        | Omber _       -> 100   
+        | Plagioclase _ -> 100
+        | Pyroxeres _   -> 100
+        | Scordite _    -> 100
+        | Spodumain _   -> 100
+        | Veldspar _    -> 100
 
     let RawOreYield (ore:OreType) :OreYield = 
         let qty x t = (x - (x % (MinimumRefineQty t)) / (x % (MinimumRefineQty t)))
         match ore with
-        | Arkonor q      -> qty q ore |> fun qty ->
-                            { BaseOreYield with Tritanium = Tritanium (6905 * qty)
-                                                Mexallon  = Mexallon  (1278 * qty)
-                                                Megacyte  = Megacyte  (230  * qty)
-                                                Zydrine   = Zydrine   (115  * qty) }
-        | Bistot q       -> qty q ore |> fun qty ->
-                            { BaseOreYield with Pyerite   = Pyerite   (16572 * qty)
-                                                Megacyte  = Megacyte  (118   * qty)
-                                                Zydrine   = Zydrine   (236   * qty) }
-        | Crokite q      -> qty q ore |> fun qty ->
-                            { BaseOreYield with Tritanium = Tritanium (20992 * qty)
-                                                Nocxium   = Nocxium   (275   * qty)
-                                                Zydrine   = Zydrine   (367   * qty) }
-        | DarkOchre q    -> qty q ore |> fun qty ->
-                            { BaseOreYield with Tritanium = Tritanium (8804 * qty)
-                                                Nocxium   = Nocxium   (173  * qty)
-                                                Zydrine   = Zydrine   (87   * qty) }
-        | Gneiss q       -> qty q ore |> fun qty ->
-                            { BaseOreYield with Tritanium = Tritanium (1278 * qty)
-                                                Mexallon  = Mexallon  (1278 * qty)
-                                                Isogen    = Isogen    (242  * qty)
-                                                Zydrine   = Zydrine   (60   * qty) }
-        | Hedbergite q   -> qty q ore |> fun qty ->
-                            { BaseOreYield with Tritanium = Tritanium (180 * qty)
-                                                Pyerite   = Pyerite   (72  * qty)
-                                                Mexallon  = Mexallon  (17  * qty)
-                                                Isogen    = Isogen    (59  * qty)
-                                                Nocxium   = Nocxium   (118 * qty)
-                                                Zydrine   = Zydrine   (8   * qty) }
-        | Hemorphite q   -> qty q ore |> fun qty ->
-                            { BaseOreYield with Pyerite   = Pyerite   (81  * qty)
-                                                Isogen    = Isogen    (196 * qty)
-                                                Nocxium   = Nocxium   (98  * qty)
-                                                Zydrine   = Zydrine   (9   * qty) }
-        | Jaspet q       -> qty q ore |> fun qty ->
-                            { BaseOreYield with Tritanium = Tritanium (72  * qty)
-                                                Pyerite   = Pyerite   (121 * qty)
-                                                Mexallon  = Mexallon  (144 * qty)
-                                                Nocxium   = Nocxium   (72  * qty)
-                                                Zydrine   = Zydrine   (3   * qty) }
-        | Kernite q      -> qty q ore |> fun qty ->
-                            { BaseOreYield with Tritanium = Tritanium (134 * qty)
-                                                Mexallon  = Mexallon  (267 * qty)
-                                                Isogen    = Isogen    (134 * qty) }
-        | Mercoxit q     -> qty q ore |> fun qty ->
-                            { BaseOreYield with Morphite  = Morphite  (293 * qty) }
-        | Omber q        -> qty q ore |> fun qty ->
-                            { BaseOreYield with Tritanium = Tritanium (85 * qty)
-                                                Pyerite   = Pyerite   (34 * qty)
-                                                Isogen    = Isogen    (85 * qty) }
-        | Plagioclase q  -> qty q ore |> fun qty -> 
-                            { BaseOreYield with Tritanium = Tritanium (107 * qty)
-                                                Pyerite   = Pyerite   (213 * qty)
-                                                Mexallon  = Mexallon  (107 * qty) }
-        | Pyroxeres q    -> qty q ore |> fun qty -> 
-                            { BaseOreYield with Tritanium = Tritanium (315 * qty)
-                                                Pyerite   = Pyerite   (25  * qty)
-                                                Mexallon  = Mexallon  (50  * qty)
-                                                Nocxium   = Nocxium   (5   * qty) }
-        | Scordite q     -> qty q ore |> fun qty -> 
-                            { BaseOreYield with Tritanium = Tritanium (346 * qty)
-                                                Pyerite   = Pyerite   (173 * qty) }
-        | Spodumain q    -> qty q ore |> fun qty ->
-                            { BaseOreYield with Tritanium = Tritanium (39221 * qty)
-                                                Pyerite   = Pyerite   (4972  * qty)
-                                                Megacyte  = Megacyte  (78    * qty) }
-        | Veldspar q     -> qty q ore |> fun qty -> 
+        | Arkonor q     -> qty q ore |> fun qty ->
+                           { BaseOreYield with Tritanium = Tritanium (6905 * qty)
+                                               Mexallon  = Mexallon  (1278 * qty)
+                                               Megacyte  = Megacyte  (230  * qty)
+                                               Zydrine   = Zydrine   (115  * qty) }
+        | Bistot q      -> qty q ore |> fun qty ->
+                           { BaseOreYield with Pyerite   = Pyerite   (16572 * qty)
+                                               Megacyte  = Megacyte  (118   * qty)
+                                               Zydrine   = Zydrine   (236   * qty) }
+        | Crokite q     -> qty q ore |> fun qty ->
+                           { BaseOreYield with Tritanium = Tritanium (20992 * qty)
+                                               Nocxium   = Nocxium   (275   * qty)
+                                               Zydrine   = Zydrine   (367   * qty) }
+        | DarkOchre q   -> qty q ore |> fun qty ->
+                           { BaseOreYield with Tritanium = Tritanium (8804 * qty)
+                                               Nocxium   = Nocxium   (173  * qty)
+                                               Zydrine   = Zydrine   (87   * qty) }
+        | Gneiss q      -> qty q ore |> fun qty ->
+                           { BaseOreYield with Tritanium = Tritanium (1278 * qty)
+                                               Mexallon  = Mexallon  (1278 * qty)
+                                               Isogen    = Isogen    (242  * qty)
+                                               Zydrine   = Zydrine   (60   * qty) }
+        | Hedbergite q  -> qty q ore |> fun qty ->
+                           { BaseOreYield with Tritanium = Tritanium (180 * qty)
+                                               Pyerite   = Pyerite   (72  * qty)
+                                               Mexallon  = Mexallon  (17  * qty)
+                                               Isogen    = Isogen    (59  * qty)
+                                               Nocxium   = Nocxium   (118 * qty)
+                                               Zydrine   = Zydrine   (8   * qty) }
+        | Hemorphite q  -> qty q ore |> fun qty ->
+                           { BaseOreYield with Pyerite   = Pyerite   (81  * qty)
+                                               Isogen    = Isogen    (196 * qty)
+                                               Nocxium   = Nocxium   (98  * qty)
+                                               Zydrine   = Zydrine   (9   * qty) }
+        | Jaspet q      -> qty q ore |> fun qty ->
+                           { BaseOreYield with Tritanium = Tritanium (72  * qty)
+                                               Pyerite   = Pyerite   (121 * qty)
+                                               Mexallon  = Mexallon  (144 * qty)
+                                               Nocxium   = Nocxium   (72  * qty)
+                                               Zydrine   = Zydrine   (3   * qty) }
+        | Kernite q     -> qty q ore |> fun qty ->
+                           { BaseOreYield with Tritanium = Tritanium (134 * qty)
+                                               Mexallon  = Mexallon  (267 * qty)
+                                               Isogen    = Isogen    (134 * qty) }
+        | Mercoxit q    -> qty q ore |> fun qty ->
+                           { BaseOreYield with Morphite  = Morphite  (293 * qty) }
+        | Omber q       -> qty q ore |> fun qty ->
+                           { BaseOreYield with Tritanium = Tritanium (85 * qty)
+                                               Pyerite   = Pyerite   (34 * qty)
+                                               Isogen    = Isogen    (85 * qty) }
+        | Plagioclase q -> qty q ore |> fun qty -> 
+                           { BaseOreYield with Tritanium = Tritanium (107 * qty)
+                                               Pyerite   = Pyerite   (213 * qty)
+                                               Mexallon  = Mexallon  (107 * qty) }
+        | Pyroxeres q   -> qty q ore |> fun qty -> 
+                           { BaseOreYield with Tritanium = Tritanium (315 * qty)
+                                               Pyerite   = Pyerite   (25  * qty)
+                                               Mexallon  = Mexallon  (50  * qty)
+                                               Nocxium   = Nocxium   (5   * qty) }
+        | Scordite q    -> qty q ore |> fun qty -> 
+                           { BaseOreYield with Tritanium = Tritanium (346 * qty)
+                                               Pyerite   = Pyerite   (173 * qty) }
+        | Spodumain q   -> qty q ore |> fun qty ->
+                           { BaseOreYield with Tritanium = Tritanium (39221 * qty)
+                                               Pyerite   = Pyerite   (4972  * qty)
+                                               Megacyte  = Megacyte  (78    * qty) }
+        | Veldspar q    -> qty q ore |> fun qty -> 
                             { BaseOreYield with Tritanium = Tritanium (415 * qty) }
 
 
@@ -155,100 +155,84 @@ module RawMaterial =
         
 
     let RawOreVolume (x:OreType) (y:Compressed) :Volume = Volume <| match x, y with
-        | (Veldspar x),     (IsNotCompressed)  -> 0.1f * single x
-        | (Veldspar x),     (IsCompressed)     -> 0.15f * single x
-        | (Scordite x),     (IsNotCompressed)  -> 0.15f * single x
-        | (Scordite x),     (IsCompressed)     -> 0.19f * single x
-        | (Pyroxeres x),    (IsNotCompressed)  -> 0.3f * single x
-        | (Pyroxeres x),    (IsCompressed)     -> 0.16f * single x
-        | (Plagioclase x),  (IsNotCompressed)  -> 0.35f * single x
-        | (Plagioclase x),  (IsCompressed)     -> 0.15f * single x
-        | (Omber x),        (IsNotCompressed)  -> 0.6f * single x
-        | (Omber x),        (IsCompressed)     -> 0.07f * single x
-        | (Kernite x),      (IsNotCompressed)  -> 1.2f * single x
-        | (Kernite x),      (IsCompressed)     -> 0.19f * single x
-        | (Jaspet x),       (IsNotCompressed)  -> 2.0f * single x
-        | (Jaspet x),       (IsCompressed)     -> 0.15f * single x
-        | (Hedbergite x),   (IsNotCompressed)  -> 3.0f * single x
-        | (Hedbergite x),   (IsCompressed)     -> 0.14f * single x
-        | (Hemorphite x),   (IsNotCompressed)  -> 3.0f * single x
-        | (Hemorphite x),   (IsCompressed)     -> 0.16f * single x
-        | (Gneiss x),       (IsNotCompressed)  -> 5.0f * single x
-        | (Gneiss x),       (IsCompressed)     -> 1.03f * single x
-        | (DarkOchre x),    (IsNotCompressed)  -> 8.0f * single x
-        | (DarkOchre x),    (IsCompressed)     -> 3.27f * single x
-        | (Spodumain x),    (IsNotCompressed)  -> 16.0f * single x
-        | (Spodumain x),    (IsCompressed)     -> 16.0f * single x
         | (Arkonor x),      (IsNotCompressed)  -> 16.0f * single x
         | (Arkonor x),      (IsCompressed)     -> 3.08f * single x
-        | (Crokite x),      (IsNotCompressed)  -> 16.0f * single x
-        | (Crokite x),      (IsCompressed)     -> 7.81f * single x
+
         | (Bistot x),       (IsNotCompressed)  -> 16.0f * single x
         | (Bistot x),       (IsCompressed)     -> 6.11f * single x
+
+        | (Crokite x),      (IsNotCompressed)  -> 16.0f * single x
+        | (Crokite x),      (IsCompressed)     -> 7.81f * single x
+
+        | (DarkOchre x),    (IsNotCompressed)  -> 8.00f * single x
+        | (DarkOchre x),    (IsCompressed)     -> 3.27f * single x
+
+        | (Gneiss x),       (IsNotCompressed)  -> 5.00f * single x
+        | (Gneiss x),       (IsCompressed)     -> 1.03f * single x
+
+        | (Hedbergite x),   (IsNotCompressed)  -> 3.00f * single x
+        | (Hedbergite x),   (IsCompressed)     -> 0.14f * single x
+
+        | (Hemorphite x),   (IsNotCompressed)  -> 3.00f * single x
+        | (Hemorphite x),   (IsCompressed)     -> 0.16f * single x
+
+        | (Jaspet x),       (IsNotCompressed)  -> 2.00f * single x
+        | (Jaspet x),       (IsCompressed)     -> 0.15f * single x
+
+        | (Kernite x),      (IsNotCompressed)  -> 1.20f * single x
+        | (Kernite x),      (IsCompressed)     -> 0.19f * single x
+
         | (Mercoxit x),     (IsNotCompressed)  -> 40.0f * single x
-        | (Mercoxit x),     (IsCompressed)     -> 0.1f * single x
+        | (Mercoxit x),     (IsCompressed)     -> 0.10f * single x
+
+        | (Omber x),        (IsNotCompressed)  -> 0.60f * single x
+        | (Omber x),        (IsCompressed)     -> 0.07f * single x
+
+        | (Plagioclase x),  (IsNotCompressed)  -> 0.35f * single x
+        | (Plagioclase x),  (IsCompressed)     -> 0.15f * single x
+
+        | (Pyroxeres x),    (IsNotCompressed)  -> 0.30f * single x
+        | (Pyroxeres x),    (IsCompressed)     -> 0.16f * single x
+
+        | (Scordite x),     (IsNotCompressed)  -> 0.15f * single x
+        | (Scordite x),     (IsCompressed)     -> 0.19f * single x
+
+        | (Spodumain x),    (IsNotCompressed)  -> 16.0f * single x
+        | (Spodumain x),    (IsCompressed)     -> 16.0f * single x 
+
+        | (Veldspar x),     (IsNotCompressed)  -> 0.10f * single x
+        | (Veldspar x),     (IsCompressed)     -> 0.15f * single x
 
 
     // All ice has the same volume so as long as the type matches, we're good
     let RawIceVolume (x:IceType) (y:Compressed) :Volume = Volume <| match x, y with 
-        | (BlueIce x),              (IsCompressed)      -> 1000.0f * single x
-        | (BlueIce x),              (IsNotCompressed)   -> 100.0f * single x
-        | (ClearIcicle x),          (IsCompressed)      -> 1000.0f * single x
-        | (ClearIcicle x),          (IsNotCompressed)   -> 100.0f * single x
-        | (DarkGlitter x),          (IsCompressed)      -> 1000.0f * single x
-        | (DarkGlitter x),          (IsNotCompressed)   -> 100.0f * single x
-        | (EnrichedClearIcicle x),  (IsCompressed)      -> 1000.0f * single x
-        | (EnrichedClearIcicle x),  (IsNotCompressed)   -> 100.0f * single x
-        | (Gelidus x),              (IsCompressed)      -> 1000.0f * single x
-        | (Gelidus x),              (IsNotCompressed)   -> 100.0f * single x
-        | (GlacialMass x),          (IsCompressed)      -> 1000.0f * single x
-        | (GlacialMass x),          (IsNotCompressed)   -> 100.0f * single x
-        | (GlareCrust x),           (IsCompressed)      -> 1000.0f * single x
-        | (GlareCrust x),           (IsNotCompressed)   -> 100.0f * single x
-        | (Krystallos x),           (IsCompressed)      -> 1000.0f * single x
-        | (Krystallos x),           (IsNotCompressed)   -> 100.0f * single x
-        | (PristineWhiteGlaze x),   (IsCompressed)      -> 1000.0f * single x
-        | (PristineWhiteGlaze x),   (IsNotCompressed)   -> 100.0f * single x
-        | (SmoothGlacialMass x),    (IsCompressed)      -> 1000.0f * single x
-        | (SmoothGlacialMass x),    (IsNotCompressed)   -> 100.0f * single x
-        | (ThickBlueIce x),         (IsCompressed)      -> 1000.0f * single x
-        | (ThickBlueIce x),         (IsNotCompressed)   -> 100.0f * single x
-        | (WhiteGlaze x),           (IsCompressed)      -> 1000.0f * single x
-        | (WhiteGlaze x),           (IsNotCompressed)   -> 100.0f * single x
+        | (BlueIce x),      (IsCompressed)  -> 100.0f * single x
+        | (ClearIcicle x),  (IsCompressed)  -> 100.0f * single x
+        | (DarkGlitter x),  (IsCompressed)  -> 100.0f * single x
+        | (Gelidus x),      (IsCompressed)  -> 100.0f * single x
+        | (GlacialMass x),  (IsCompressed)  -> 100.0f * single x
+        | (GlareCrust x),   (IsCompressed)  -> 100.0f * single x
+        | (Krystallos x),   (IsCompressed)  -> 100.0f * single x
+        | (WhiteGlaze x),   (IsCompressed)  -> 100.0f * single x
 
+        | (EnrichedClearIcicle x),  (IsCompressed) -> 100.0f * single x
+        | (PristineWhiteGlaze x),   (IsCompressed) -> 100.0f * single x
+        | (SmoothGlacialMass x),    (IsCompressed) -> 100.0f * single x
+        | (ThickBlueIce x),         (IsCompressed) -> 100.0f * single x
 
-    let OreCategoryName (x:OreType) :Name = Name <| match x with
-        | Veldspar _    -> "Veldspar"
-        | Scordite _    -> "Scordite"
-        | Pyroxeres _   -> "Pyroxeres"
-        | Plagioclase _ -> "Plagioclase"
-        | Omber _       -> "Omber"
-        | Kernite _     -> "Kernite"
-        | Jaspet _      -> "Jaspet"
-        | Hedbergite _  -> "Hedbergite"
-        | Hemorphite _  -> "Hemorphite"
-        | Gneiss _      -> "Gneiss"
-        | DarkOchre _   -> "Dark Ochre"
-        | Spodumain _   -> "Spodumain"
-        | Arkonor _     -> "Arkonor"
-        | Crokite _     -> "Crokite"
-        | Bistot _      -> "Bistot"
-        | Mercoxit _    -> "Mercoxit"     
+        | (BlueIce x),      (IsNotCompressed)   -> 1000.0f * single x
+        | (ClearIcicle x),  (IsNotCompressed)   -> 1000.0f * single x
+        | (DarkGlitter x),  (IsNotCompressed)   -> 1000.0f * single x
+        | (Gelidus x),      (IsNotCompressed)   -> 1000.0f * single x
+        | (GlacialMass x),  (IsNotCompressed)   -> 1000.0f * single x
+        | (GlareCrust x),   (IsNotCompressed)   -> 1000.0f * single x
+        | (Krystallos x),   (IsNotCompressed)   -> 1000.0f * single x
+        | (WhiteGlaze x),   (IsNotCompressed)   -> 1000.0f * single x
 
-
-    let IceCategoryName (x:IceType) :Name = Name <| match x with 
-        | ClearIcicle _         -> "Clear Icicle"
-        | EnrichedClearIcicle _ -> "Enriched Clear Icicle"
-        | BlueIce _             -> "Blue Ice"
-        | ThickBlueIce _        -> "Thick Blue Ice"
-        | GlacialMass _         -> "Glacial Mass"
-        | SmoothGlacialMass _   -> "Smooth Glacial Mass"
-        | WhiteGlaze _          -> "White Glaze"
-        | PristineWhiteGlaze _  -> "Pristine White Glaze"
-        | GlareCrust _          -> "Glare Crust"
-        | DarkGlitter _         -> "Dark Glitter"
-        | Gelidus _             -> "Gelidus"
-        | Krystallos _          -> "Krystallos"
+        | (EnrichedClearIcicle x),  (IsNotCompressed)   -> 1000.0f * single x
+        | (PristineWhiteGlaze x),   (IsNotCompressed)   -> 1000.0f * single x
+        | (SmoothGlacialMass x),    (IsNotCompressed)   -> 1000.0f * single x
+        | (ThickBlueIce x),         (IsNotCompressed)   -> 1000.0f * single x
 
 
     let OreData (x:OreType) (y:OreRarity) (z:Compressed) :OreData = 
@@ -412,4 +396,35 @@ module RawMaterial =
                 | WhiteGlaze qty,  IsNotCompressed -> 16265, "White Glaze", qty
                 | WhiteGlaze qty,  IsCompressed    -> 28444, "Compressed White Glaze", qty
             
+    let OreCategoryName (x:OreType) :Name = Name <| match x with
+        | Veldspar _    -> "Veldspar"
+        | Scordite _    -> "Scordite"
+        | Pyroxeres _   -> "Pyroxeres"
+        | Plagioclase _ -> "Plagioclase"
+        | Omber _       -> "Omber"
+        | Kernite _     -> "Kernite"
+        | Jaspet _      -> "Jaspet"
+        | Hedbergite _  -> "Hedbergite"
+        | Hemorphite _  -> "Hemorphite"
+        | Gneiss _      -> "Gneiss"
+        | DarkOchre _   -> "Dark Ochre"
+        | Spodumain _   -> "Spodumain"
+        | Arkonor _     -> "Arkonor"
+        | Crokite _     -> "Crokite"
+        | Bistot _      -> "Bistot"
+        | Mercoxit _    -> "Mercoxit"     
 
+
+    let IceCategoryName (x:IceType) :Name = Name <| match x with 
+        | ClearIcicle _         -> "Clear Icicle"
+        | EnrichedClearIcicle _ -> "Enriched Clear Icicle"
+        | BlueIce _             -> "Blue Ice"
+        | ThickBlueIce _        -> "Thick Blue Ice"
+        | GlacialMass _         -> "Glacial Mass"
+        | SmoothGlacialMass _   -> "Smooth Glacial Mass"
+        | WhiteGlaze _          -> "White Glaze"
+        | PristineWhiteGlaze _  -> "Pristine White Glaze"
+        | GlareCrust _          -> "Glare Crust"
+        | DarkGlitter _         -> "Dark Glitter"
+        | Gelidus _             -> "Gelidus"
+        | Krystallos _          -> "Krystallos"

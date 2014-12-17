@@ -3,8 +3,6 @@
 module Functions = 
     open EveData
     open EveData.RawMaterialRecords
-    open EveData.RawMaterialTypes
-    open EveData.RawMaterial
     open EveData.Ore.Types
     open EveData.Ice.Types
     open Market.Parser
@@ -76,40 +74,26 @@ module Functions =
     let LoadIceProductJitaSell () = LoadIceProductJita (fun x -> fst x, (snd x).lowSell)
     let LoadIceProductJitaBuy  () = LoadIceProductJita (fun x -> fst x, (snd x).highBuy)
 
-    let TransformOreForParser (oreList:List<IRawOre>) (mineralPrices:OreValue) = 
-        let LoadValue multiplier ore = Ore.Functions.RefineValueOre multiplier ore mineralPrices
+    let TransformOreForParser (oreList:List<RawOre>) (mineralPrices:OreValue) = 
+        let LoadValue ore = Ore.Functions.RefineValueOre ore mineralPrices
         [
             for ore in oreList do
-                let multiplier = match ore.IsTiny () with 
-                                 | true  ->  100.0f
-                                 | false ->  1.0f  
                 yield {
-                    name  = ore.GetName ()
-                    price = LoadValue multiplier ore
-                    id    = ore.GetBase ()
-                }
-                yield {
-                    name  = ore.GetName5 ()
-                    price = LoadValue (multiplier * 1.05f) ore
-                    id    = ore.GetBase5 ()
-                }
-                yield {
-                    name  = ore.GetName10 ()
-                    price = LoadValue (multiplier * 1.10f) ore
-                    id    = ore.GetBase10 ()
+                    name  = ore.Name.Value
+                    price = LoadValue ore
+                    id    = ore.OreId.Value
                 }
         ]
 
 
-    let TransformIceForParser (iceList:List<IRawIce>) (iceProductPrices:IceValue) = 
-        let LoadValue ice = Ice.Functions.RefineValueIce 1.0f ice iceProductPrices
+    let TransformIceForParser (iceList:List<RawIce>) (iceProductPrices:IceValue) = 
+        let LoadValue ice = Ice.Functions.RefineValueIce ice iceProductPrices
         [
             for ice in iceList do
-                let multiplier = 1.0f
                 yield {
-                    name  = ice.GetName ()
+                    name  = ice.Name.Value
                     price = LoadValue ice
-                    id    = ice.GetBase ()
+                    id    = ice.IceId.Value
                 }
         ]
 
@@ -195,12 +179,12 @@ module Functions =
         |> SumItems 
 
     
-    let GetCodes (item:IOre * IOre) = 
-        string ( (fst item).GetBase () ) , 
-        string ( (snd item).GetBase () )
+    let GetCodes (item:RawOre * RawOre) = 
+        string ( (fst item).OreId.Value ) , 
+        string ( (snd item).OreId.Value )
 
 
-    let FastProfit (item:IOre * IOre) (location:int) = 
+    let FastProfit (item:RawOre * RawOre) (location:int) = 
         let raw, comp  = GetCodes item
         let location = string location
         let buy100kRaw = LoadBuyData  raw  location 100000
@@ -209,7 +193,7 @@ module Functions =
         sell1kComp - buy100kRaw
 
 
-    let BestProfit (item: IOre * IOre) (location:int) =
+    let BestProfit (item: RawOre * RawOre) (location:int) =
         let raw, comp = GetCodes item
         let location = string location
         let rawSnapshot = LoadMarketSnapshot location 100000 raw
