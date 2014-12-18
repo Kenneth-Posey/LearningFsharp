@@ -8,6 +8,7 @@ open Market.Functions
 open Format.Text
 
 module Main = 
+
     [<EntryPoint>]
     let main (args:string[]) = 
         

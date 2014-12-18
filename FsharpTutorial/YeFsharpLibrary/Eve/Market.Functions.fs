@@ -203,3 +203,13 @@ module Functions =
         let sell1kComp   = compSnapshot.lowSell
 
         sell1kComp - buy100kRaw
+
+    
+    type numbers = 
+    | Eins
+    | Zwei
+    | Drei
+
+    let num x = match x with
+                | Eins -> 1
+                | Zwei -> 2
