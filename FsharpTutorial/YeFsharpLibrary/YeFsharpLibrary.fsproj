@@ -80,6 +80,19 @@
     <Compile Include="Eve\EveData.Collections.fs" />
     <Compile Include="Eve\Market.Functions.fs" />
     <Compile Include="Eve\old-oop-code.fs" />
+    <Compile Include="EveDDD\Product.Types.fs" />
+    <Compile Include="EveDDD\Product.Records.fs" />
+    <Compile Include="EveDDD\Product.fs" />
+    <Compile Include="EveDDD\Ore.Types.fs" />
+    <Compile Include="EveDDD\Ore.Records.fs" />
+    <Compile Include="EveDDD\Ore.fs" />
+    <Compile Include="EveDDD\Ice.Types.fs" />
+    <Compile Include="EveDDD\Ice.Records.fs" />
+    <Compile Include="EveDDD\Ice.fs" />
+    <Compile Include="EveDDD\Market.Types.fs" />
+    <Compile Include="EveDDD\Market.Records.fs" />
+    <Compile Include="EveDDD\Market.fs" />
+    
     <Compile Include="Interop\CollectionProvider.fs" />
     <Compile Include="Interop\DataProvider.fs" />
     <Compile Include="Tests\UnitTest.fs" />
@@ -88,8 +101,10 @@
     <None Include="Tutorial.fsx" />
     <Content Include="license.txt" />
     <Content Include="packages.config" />
+    <!--
     <None Include="SqlServerTypes\x86\SqlServerSpatial110.dll" />
     <None Include="SqlServerTypes\x64\SqlServerSpatial110.dll" />
+    -->
     <None Include="github-note.fsx" />
   </ItemGroup>
   <ItemGroup>

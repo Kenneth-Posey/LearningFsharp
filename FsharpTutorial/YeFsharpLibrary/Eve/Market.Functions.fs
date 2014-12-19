@@ -171,6 +171,7 @@ module Functions =
                     SumRec items.Tail total
                 | length when length = 0 -> 
                     total
+                | _ -> total 
             SumRec items 0.0
 
         rawList 
@@ -203,13 +204,3 @@ module Functions =
         let sell1kComp   = compSnapshot.lowSell
 
         sell1kComp - buy100kRaw
-
-    
-    type numbers = 
-    | Eins
-    | Zwei
-    | Drei
-
-    let num x = match x with
-                | Eins -> 1
-                | Zwei -> 2

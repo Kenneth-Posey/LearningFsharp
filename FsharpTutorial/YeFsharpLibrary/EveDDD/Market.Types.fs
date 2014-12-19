@@ -1,0 +1,4 @@
+namespace EveOnline
+
+module MarketTypes = 
+    ()
