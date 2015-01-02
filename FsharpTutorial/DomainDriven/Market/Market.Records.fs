@@ -14,7 +14,6 @@ module Records =
         for rawOre in FSharpType.GetUnionCases typeof<OreType> do     
             yield FSharpValue.MakeUnion(rawOre, [| box 1 |])
                   |> unbox |> OreFactory (Common) (IsNotCompressed)
-
     ]
 
     let CompressedRawOreList :RawOre list= [

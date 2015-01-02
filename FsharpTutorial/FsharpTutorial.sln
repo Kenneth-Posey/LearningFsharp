@@ -16,7 +16,7 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "YeFsharpConsole", "YeFsharp
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ObjectOrientedDesign", "ObjectOriented\ObjectOrientedDesign.fsproj", "{69D7C496-0D70-4254-920C-03D5EDD81D88}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DomainDriven", "DomainDriven\DomainDriven.fsproj", "{D0BAA48E-7842-457D-8CB4-B4F2069CBC63}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DomainDrivenDesign", "DomainDriven\DomainDrivenDesign.fsproj", "{D0BAA48E-7842-457D-8CB4-B4F2069CBC63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
