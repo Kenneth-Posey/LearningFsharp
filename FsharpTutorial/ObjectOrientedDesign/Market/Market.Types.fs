@@ -1,2 +1,4 @@
-﻿module Market
+﻿namespace EveOnline.MarketDomain
 
+module Types = 
+    ()

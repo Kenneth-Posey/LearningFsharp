@@ -1,2 +1,6 @@
-﻿module Ice
+﻿namespace EveOnline.IceDomain
+
+module Records = 
+    ()
+
 

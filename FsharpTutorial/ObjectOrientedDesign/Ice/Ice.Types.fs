@@ -1,2 +1,5 @@
-﻿module Ice
+﻿namespace EveOnline.IceDomain
+
+module Types = 
+    ()
 

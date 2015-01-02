@@ -1,2 +1,6 @@
-﻿module Product
+﻿namespace EveOnline.ProductDomain
+
+module Records = 
+    ()
+
 

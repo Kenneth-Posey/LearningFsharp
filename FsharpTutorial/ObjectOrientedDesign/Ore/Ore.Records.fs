@@ -1,2 +1,6 @@
-﻿module Ore
+﻿namespace EveOnline.OreDomain
+
+module Records = 
+    ()
+
 
