@@ -1,6 +1,8 @@
 ﻿// Learn more about F# at http://fsharp.net. See the 'F# Tutorial' project
 // for more guidance on F# programming.
 
-#load "PortableLibrary1.fs"
-open DomainDrivenDesign
+#load "Library1.fs"
+open ObjectOriented
+
+// Define your library scripting code here
 

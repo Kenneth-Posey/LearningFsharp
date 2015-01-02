@@ -10,30 +10,29 @@ module Records =
     open EveOnline.IceDomain.Ice
     open Microsoft.FSharp.Reflection
     
-//
     let RawOreList :RawOre list = [
         for rawOre in FSharpType.GetUnionCases typeof<OreType> do     
-            let ore = FSharpValue.MakeUnion(rawOre, [|1|]) :?> OreType
-            yield OreFactory (Common) (IsNotCompressed) (ore)
+            yield FSharpValue.MakeUnion(rawOre, [| box 1 |])
+                  |> unbox |> OreFactory (Common) (IsNotCompressed)
 
     ]
 
     let CompressedRawOreList :RawOre list= [
         for rawOre in FSharpType.GetUnionCases typeof<OreType> do     
-            let ore = FSharpValue.MakeUnion(rawOre, [|1|]) :?> OreType
-            yield OreFactory (Common) (IsCompressed) (ore)
+            yield FSharpValue.MakeUnion(rawOre, [| box 1 |])
+                  |> unbox |> OreFactory (Common) (IsCompressed)
     ]
 
     let RawIceList :RawIce list = [
         for rawIce in FSharpType.GetUnionCases typeof<IceType> do
-            let ice = FSharpValue.MakeUnion(rawIce, [|1|]) :?> IceType
-            yield IceFactory (IsNotCompressed) (ice)
+            yield FSharpValue.MakeUnion(rawIce, [| box 1 |])
+                  |> unbox |> IceFactory (IsNotCompressed)
     ]
 
     let CompressedRawIceList :RawIce list = [
         for rawIce in FSharpType.GetUnionCases typeof<IceType> do   
-            let ice = FSharpValue.MakeUnion(rawIce, [|1|]) :?> IceType
-            yield IceFactory (IsCompressed) (ice)
+            yield FSharpValue.MakeUnion(rawIce, [| box 1 |])
+                  |> unbox |> IceFactory (IsNotCompressed)
     ]
 
 

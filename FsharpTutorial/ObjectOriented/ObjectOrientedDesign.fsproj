@@ -5,14 +5,13 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>8643c513-07fb-4978-a7aa-f137e3e3d6af</ProjectGuid>
+    <ProjectGuid>69d7c496-0d70-4254-920c-03d5edd81d88</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>DomainDrivenDesign</RootNamespace>
-    <AssemblyName>DomainDrivenDesign</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <RootNamespace>ObjectOriented</RootNamespace>
+    <AssemblyName>ObjectOriented</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
-    <Name>DomainDrivenDesign</Name>
-    <TargetFrameworkProfile />
+    <Name>ObjectOrientedDesign</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,8 +21,8 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\DomainDrivenDesign.XML</DocumentationFile>
-    <WarningsAsErrors>25;26;</WarningsAsErrors>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,8 +31,34 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\DomainDrivenDesign.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\ObjectOriented.XML</DocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Product\Product.Types.fs" />
+    <Compile Include="Product\Product.Records.fs" />
+    <Compile Include="Product\Product.fs" />
+    <Compile Include="Ice\Ice.Types.fs" />
+    <Compile Include="Ice\Ice.Records.fs" />
+    <Compile Include="Ice\Ice.fs" />
+    <Compile Include="Ore\Ore.Types.fs" />
+    <Compile Include="Ore\Ore.Records.fs" />
+    <Compile Include="Ore\Ore.fs" />
+    <Compile Include="Market\Market.Types.fs" />
+    <Compile Include="Market\Market.Records.fs" />
+    <Compile Include="Market\Market.Parser.fs" />
+    <Compile Include="Market\Market.fs" />
+    <Compile Include="Library1.fs" />
+    <None Include="Script.fsx" />
+  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
@@ -50,29 +75,6 @@
     </Otherwise>
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
-  <ItemGroup>
-    <Compile Include="Product\Product.Types.fs" />
-    <Compile Include="Product\Product.Records.fs" />
-    <Compile Include="Product\Product.fs" />
-    <Compile Include="Ice\Ice.Types.fs" />
-    <Compile Include="Ice\Ice.Records.fs" />
-    <Compile Include="Ice\Ice.fs" />
-    <Compile Include="Ore\Ore.Types.fs" />
-    <Compile Include="Ore\Ore.Records.fs" />
-    <Compile Include="Ore\Ore.fs" />
-    <Compile Include="Market\Market.Types.fs" />
-    <Compile Include="Market\Market.Records.fs" />
-    <Compile Include="Market\Market.Parser.fs" />
-    <Compile Include="Market\Market.fs" />
-    <Compile Include="PortableLibrary1.fs" />
-    <None Include="Script.fsx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="FSharp.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
