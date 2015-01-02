@@ -34,25 +34,34 @@
     <WarningLevel>3</WarningLevel>
     <DocumentationFile>bin\Release\ObjectOrientedDesign.XML</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">12</MinimumVisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets" />
   <ItemGroup>
-    <Compile Include="Product\" />
-    <Compile Include="Ice\" />
-    <Compile Include="Ore\" />
-    <Compile Include="Market\" />
+    <Compile Include="Product\Product.Types.fs" />
+    <Compile Include="Product\Product.Records.fs" />
+    <Compile Include="Product\Product.fs" />
+    <Compile Include="Ice\Ice.Types.fs" />
+    <Compile Include="Ice\Ice.Records.fs" />
+    <Compile Include="Ice\Ice.fs" />
+    <Compile Include="Ore\Ore.Types.fs" />
+    <Compile Include="Ore\Ore.Records.fs" />
+    <Compile Include="Ore\Ore.fs" />
+    <Compile Include="Market\Market.Types.fs" />
+    <Compile Include="Market\Market.Records.fs" />
+    <Compile Include="Market\Market.Parser.fs" />
+    <Compile Include="Market\Market.fs" />
+    <Compile Include="PortableLibrary1.fs" />
+    <None Include="Script.fsx" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="FSharp.Core">
       <Name>FSharp.Core</Name>
       <AssemblyName>FSharp.Core.dll</AssemblyName>
       <HintPath>$(MSBuildExtensionsPath32)\..\Reference Assemblies\Microsoft\FSharp\.NETCore\$(TargetFSharpCoreVersion)\FSharp.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="PortableLibrary1.fs" />
-    <None Include="Script.fsx" />
-  </ItemGroup>
-  <PropertyGroup>
-    <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">12</MinimumVisualStudioVersion>
-  </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.Portable.FSharp.Targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

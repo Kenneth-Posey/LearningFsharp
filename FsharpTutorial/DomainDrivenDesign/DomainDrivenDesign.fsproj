@@ -35,10 +35,19 @@
     <DocumentationFile>bin\Release\DomainDrivenDesign.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Product\" />
-    <Compile Include="Ice\" />
-    <Compile Include="Ore\" />
-    <Compile Include="Market\" />
+    <Compile Include="Product\Product.Types.fs" />
+    <Compile Include="Product\Product.Records.fs" />
+    <Compile Include="Product\Product.fs" />
+    <Compile Include="Ice\Ice.Types.fs" />
+    <Compile Include="Ice\Ice.Records.fs" />
+    <Compile Include="Ice\Ice.fs" />
+    <Compile Include="Ore\Ore.Types.fs" />
+    <Compile Include="Ore\Ore.Records.fs" />
+    <Compile Include="Ore\Ore.fs" />
+    <Compile Include="Market\Market.Types.fs" />
+    <Compile Include="Market\Market.Records.fs" />
+    <Compile Include="Market\Market.Parser.fs" />
+    <Compile Include="Market\Market.fs" />
     <Reference Include="FSharp.Core">
       <Name>FSharp.Core</Name>
       <AssemblyName>FSharp.Core.dll</AssemblyName>
