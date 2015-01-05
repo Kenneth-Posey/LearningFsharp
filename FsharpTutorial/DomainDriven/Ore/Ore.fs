@@ -147,9 +147,9 @@ module Ore =
 
     let OreData (x:OreType) (y:OreRarity) (z:Compressed) :OreData = 
         (fun (x, y, z) -> { 
-            OreId  = OreId (Id x)
-            Name   = Name y
-            OreQty = OreQty (Qty z)
+                OreId  = OreId (Id x)
+                Name   = Name y
+                OreQty = OreQty (Qty z)
             }) <| match (x, y, z) with
                 | Arkonor qty,  Common,     IsNotCompressed   -> 22, "Arkonor", qty     
                 | Arkonor qty,  Uncommon,   IsNotCompressed   -> 17425, "Crimson Arkonor", qty 
@@ -281,6 +281,8 @@ module Ore =
         | Crokite _     -> "Crokite"
         | Bistot _      -> "Bistot"
         | Mercoxit _    -> "Mercoxit"     
+
+
     let OreFactory (r:OreRarity) (c:Compressed) (n:OreType) :RawOre= 
         OreData (n) (r) (c) |> fun x -> 
         {
@@ -291,6 +293,7 @@ module Ore =
             Volume  = RawOreVolume n c
             OreType = n 
         }
+
 
     let Ore (x:Ore) (q:Qty) :RawOre=         
         match x with 
