@@ -101,8 +101,8 @@ module Parser =
         
 
     let LoadData item location = 
-        (item, location)
-        ||> (fun item loc -> Market.QuickLook + "?typeid=" + item + "&usesystem=" + loc)
+        item, location
+        |> (fun (item, loc) -> Market.QuickLook + "?typeid=" + item + "&usesystem=" + loc)
         |> LoadUrl 
         |> ParseQuickLook
 

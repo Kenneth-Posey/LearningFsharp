@@ -1,15 +1,13 @@
 ﻿namespace MainProgram
 
 open EveData
-open EveData.Collections
 open Market
-open Market.Functions
 
 open Format.Text
 
 module Main = 
 
-    [<EntryPoint>]
+    // [<EntryPoint>]
     let main (args:string[]) = 
         
         let Locations = Collections.Locations

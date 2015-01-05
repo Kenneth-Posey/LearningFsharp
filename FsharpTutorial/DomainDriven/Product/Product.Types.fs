@@ -1,6 +1,34 @@
 ﻿namespace EveOnline.ProductDomain
 
 module Types = 
+
+    type Mineral = 
+    | Isogen    
+    | Megacyte  
+    | Mexallon  
+    | Morphite 
+    | Nocxium   
+    | Pyerite   
+    | Tritanium 
+    | Zydrine   
+                
+    type IceProduct = 
+    | HeavyWater
+    | HeliumIsotopes
+    | HydrogenIsotopes
+    | LiquidOzone
+    | NitrogenIsotopes
+    | OxygenIsotopes
+    | StrontiumClathrates
+    
+    type Compressed = 
+    | IsCompressed
+    | IsNotCompressed
+
+    type Refined = 
+    | Mineral    of Mineral
+    | IceProduct of IceProduct
+
     // Minerals
     type Tritanium = Tritanium of int with
         member this.Value = 
@@ -34,7 +62,6 @@ module Types =
         member this.Value = 
             this |> (fun (Morphite x) -> x)
 
-
     // Ice Products
     type HeavyWater = HeavyWater of int with
         member this.Value = 
@@ -64,7 +91,6 @@ module Types =
         member this.Value = 
             this |> (fun (StrontiumClathrates x) -> x)
 
-
     // General Properties
     type TypeId = TypeId of int with
         member this.Value = 
@@ -77,12 +103,6 @@ module Types =
     type Volume = Volume of single with
         member this.Value = 
             this |> (fun (Volume x) -> x)
-        
-
-    type Compressed = 
-    | IsCompressed
-    | IsNotCompressed
-    
     
     type Id = Id of int with
         member this.Value = 

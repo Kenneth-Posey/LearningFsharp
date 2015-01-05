@@ -5,20 +5,27 @@ module Types =
     open EveOnline.ProductDomain.Records
 
     
-    type SystemName =
-    | Jita    = 30000142
-    | Dodixie = 30002659
-    | Amarr   = 30002187
-    | Hek     = 30002053
-    | Rens    = 30002510
-        
+    type System =
+    | Jita    
+    | Dodixie 
+    | Amarr   
+    | Hek     
+    | Rens    
+    
+    let SystemId x = match x with
+    | Jita    -> 30000142
+    | Dodixie -> 30002659
+    | Amarr   -> 30002187
+    | Hek     -> 30002053
+    | Rens    -> 30002510
+
 
     let Locations = [
-        SystemName.Jita    
-        SystemName.Amarr   
-        SystemName.Dodixie 
-        SystemName.Rens    
-        SystemName.Hek     
+        Jita    
+        Amarr   
+        Dodixie 
+        Rens    
+        Hek     
     ]
     
 

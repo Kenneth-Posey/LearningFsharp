@@ -79,8 +79,7 @@
     <Compile Include="Market\Market.Records.fs" />
     <Compile Include="Market\Market.Parser.fs" />
     <Compile Include="Market\Market.fs" />
-    <Compile Include="Library1.fs" />
-    <None Include="Script.fsx" />
+    <Compile Include="Data\Data.Collections.fs" />
     <Content Include="packages.config" />
     <Content Include="app.config" />
     <None Include="SqlServerTypes\x86\SqlServerSpatial110.dll" />

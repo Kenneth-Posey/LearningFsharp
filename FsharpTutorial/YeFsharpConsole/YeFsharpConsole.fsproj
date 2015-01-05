@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="scripts\RunningImagesearch.fs" />
     <Compile Include="Main.fs" />
+    <Compile Include="dddmain.fs" />
     <Content Include="app.config" />
     <Content Include="packages.config" />
     <None Include="SqlServerTypes\x86\SqlServerSpatial110.dll" />
@@ -115,6 +116,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
+    <ProjectReference Include="..\DomainDriven\DomainDrivenDesign.fsproj">
+      <Name>DomainDrivenDesign</Name>
+      <Project>{d0baa48e-7842-457d-8cb4-b4f2069cbc63}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\YeFsharpLibrary\YeFsharpLibrary.fsproj">
       <Name>YeFsharpLibrary</Name>
       <Project>{20b439fc-8cc8-4621-9c17-824c431f7766}</Project>

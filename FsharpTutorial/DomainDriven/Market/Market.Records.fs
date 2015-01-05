@@ -46,6 +46,7 @@ module Records =
     
         
     type MarketPrices =  {
+        typeId   : int
         highBuy  : single
         lowSell  : single
         lowBuy   : single

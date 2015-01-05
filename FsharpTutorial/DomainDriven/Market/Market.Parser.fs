@@ -6,7 +6,7 @@ module Parser =
     open EveOnline.MarketDomain.Records
     open EveOnline.MarketDomain.Providers
 
-    let ParseQuickLook (data:string) =
+    let ParseQuickLook (typeId:int) (data:string) =
         let providerData = MarketOrder.QuickLookResult.Parse(data).Quicklook
 
         let buyOrders = providerData.BuyOrders.Orders
@@ -55,6 +55,7 @@ module Parser =
             buyOrders  = boundedBuyOrders
             sellOrders = boundedSellOrders
             prices = {
+                typeId     = typeId
                 lowSell    = lowSell
                 highSell   = highSell
                 lowBuy     = lowBuy
@@ -93,17 +94,18 @@ module Parser =
         | false -> 0
         
 
-    let LoadData item location = 
-        (item, location)
+    let LoadData (item:int) (location:int) = 
+        (string item, string location)
         ||> (fun item loc -> QuickLook + "?typeid=" + item + "&usesystem=" + loc)
         |> LoadUrl 
-        |> ParseQuickLook
+        |> ParseQuickLook item
 
 
-    let LoadMarketSnapshot location amount item = 
+    let LoadMarketSnapshot location amount (item:int) = 
         LoadData item location
         |> (fun x -> 
             {
+                typeId   = item
                 lowBuy   = x.prices.lowBuy   * single amount
                 highBuy  = x.prices.highBuy  * single amount
                 lowSell  = x.prices.lowSell  * single amount
