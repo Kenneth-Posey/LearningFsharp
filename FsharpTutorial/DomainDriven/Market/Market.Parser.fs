@@ -2,11 +2,10 @@
 
 module Parser = 
     open Utility.UtilityFunctions
-    open EveOnline.MarketDomain.Types
-    open EveOnline.MarketDomain.Records
     open EveOnline.MarketDomain.Providers
+    open EveOnline.MarketDomain.Records
 
-    let ParseQuickLook (typeId:int) (data:string) =
+    let ParseQuickLook (typeId:int) (data:string) :ParsedData<Order list, Order list> =
         let providerData = MarketOrder.QuickLookResult.Parse(data).Quicklook
 
         let buyOrders = providerData.BuyOrders.Orders
@@ -52,8 +51,8 @@ module Parser =
         
         // Implicit record creation
         {
-            buyOrders  = boundedBuyOrders
-            sellOrders = boundedSellOrders
+            buyOrders  = boundedBuyOrders  |> List.ofArray |> List.map (fun x -> new Order(x, new BuyOrder()))
+            sellOrders = boundedSellOrders |> List.ofArray |> List.map (fun x -> new Order(x, new SellOrder()))
             prices = {
                 typeId     = typeId
                 lowSell    = lowSell
@@ -63,6 +62,21 @@ module Parser =
             }
         }
     
+    
+        
+    let SortBuyFunc (x:Order) (y:Order) =
+        match x.Price <> y.Price with
+        | true when x.Price > y.Price -> 1
+        | true when x.Price < y.Price -> -1
+        | _ -> 0
+
+       
+    let SortSellFunc (x:Order) (y:Order) =
+        match x.Price <> y.Price with
+        | true when x.Price > y.Price -> -1
+        | true when x.Price < y.Price -> 1
+        | _ -> 0
+
 
     let OrderProcessor (quantity:int) (orders:List<Order>) =
         let Iterate (quantity:int) (orders:List<Order>) =
@@ -78,57 +92,5 @@ module Parser =
         match (quantity = 0) || (orders.Length = 0) with
         | true  -> 0.0f                                                 
         | false -> Iterate quantity orders
-
-
-    let SortBuyFunc (x:Order) (y:Order) =
-        match x.Price <> y.Price with
-        | true when x.Price > y.Price -> 1
-        | true when x.Price < y.Price -> -1
-        | false -> 0
-       
-
-    let SortSellFunc (x:Order) (y:Order) =
-        match x.Price <> y.Price with
-        | true when x.Price > y.Price -> -1
-        | true when x.Price < y.Price -> 1
-        | false -> 0
-        
-
-    let LoadData (item:int) (location:int) = 
-        (string item, string location)
-        ||> (fun item loc -> QuickLook + "?typeid=" + item + "&usesystem=" + loc)
-        |> LoadUrl 
-        |> ParseQuickLook item
-
-
-    let LoadMarketSnapshot location amount (item:int) = 
-        LoadData item location
-        |> (fun x -> 
-            {
-                typeId   = item
-                lowBuy   = x.prices.lowBuy   * single amount
-                highBuy  = x.prices.highBuy  * single amount
-                lowSell  = x.prices.lowSell  * single amount
-                highSell = x.prices.highSell * single amount
-            })
-
-        
-    let LoadBuyData item location amount = 
-        LoadData item location
-        |> (fun x -> x.sellOrders)
-        |> List.ofArray
-        |> List.map (fun x -> new Order(x, new SellOrder()))
-        |> List.sortWith SortSellFunc
-        |> OrderProcessor amount
-
-
-    let LoadSellData item location amount = 
-        LoadData item location
-        |> (fun x -> x.buyOrders)
-        |> List.ofArray
-        |> List.map (fun x -> new Order(x, new BuyOrder()))
-        |> List.sortWith SortBuyFunc
-        |> OrderProcessor amount
-
 
 

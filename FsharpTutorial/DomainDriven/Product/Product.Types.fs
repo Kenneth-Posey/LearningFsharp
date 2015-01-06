@@ -25,10 +25,6 @@ module Types =
     | IsCompressed
     | IsNotCompressed
 
-    type Refined = 
-    | Mineral    of Mineral
-    | IceProduct of IceProduct
-
     // Minerals
     type Tritanium = Tritanium of int with
         member this.Value = 

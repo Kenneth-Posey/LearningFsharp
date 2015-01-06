@@ -8,7 +8,29 @@ module Records =
     open EveOnline.IceDomain.Types
     open EveOnline.IceDomain.Records
     open EveOnline.IceDomain.Ice
+    open EveOnline.MarketDomain.Types
     open Microsoft.FSharp.Reflection
+
+    let RefinedProducts = 
+        [
+            Mineral Mineral.Isogen
+            Mineral Mineral.Megacyte 
+            Mineral Mineral.Mexallon 
+            Mineral Mineral.Morphite 
+            Mineral Mineral.Nocxium  
+            Mineral Mineral.Pyerite  
+            Mineral Mineral.Tritanium
+            Mineral Mineral.Zydrine  
+
+            IceProduct IceProduct.HeavyWater
+            IceProduct IceProduct.HeliumIsotopes
+            IceProduct IceProduct.HydrogenIsotopes
+            IceProduct IceProduct.LiquidOzone
+            IceProduct IceProduct.NitrogenIsotopes
+            IceProduct IceProduct.OxygenIsotopes
+            IceProduct IceProduct.StrontiumClathrates
+        ]
+
     
     let RawOreList :RawOre list = [
         for rawOre in FSharpType.GetUnionCases typeof<OreType> do     
