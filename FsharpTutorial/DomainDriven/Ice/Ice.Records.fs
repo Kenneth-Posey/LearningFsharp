@@ -26,15 +26,14 @@ module Records =
 
 
     type IceData = {
-        IceId : IceId
+        IceId : TypeId
         Name : Name
-        IceQty : IceQty
     }
         
     type RawIce = {
         Name    : Name
-        IceId   : IceId
-        Qty     : IceQty
+        IceId   : TypeId
+        Qty     : Qty
         Yield   : IceYield
         Volume  : Volume        
         IceType : IceType

@@ -17,24 +17,6 @@ module Main =
             SystemName.Hek     
         ]
 
-        let Ores = [
-            Ore.CommonArkonor
-            Ore.CommonBistot
-            Ore.CommonCrokite
-            Ore.CommonDarkOchre
-            Ore.CommonGneiss
-            Ore.CommonHedbergite
-            Ore.CommonHemorphite
-            Ore.CommonJaspet
-            Ore.CommonKernite
-            Ore.CommonMercoxit
-            Ore.CommonOmber
-            Ore.CommonPlagioclase
-            Ore.CommonPyroxeres
-            Ore.CommonScordite
-            Ore.CommonSpodumain
-            Ore.CommonVeldspar
-        ]
 
 
 

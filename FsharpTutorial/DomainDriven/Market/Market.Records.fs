@@ -35,25 +35,25 @@ module Records =
     let RawOreList :RawOre list = [
         for rawOre in FSharpType.GetUnionCases typeof<OreType> do     
             yield FSharpValue.MakeUnion(rawOre, [| box 1 |])
-                  |> unbox |> OreFactory (Common) (IsNotCompressed)
+                  |> unbox |> OreFactory (Common) (IsNotCompressed) (Qty 1)
     ]
 
     let CompressedRawOreList :RawOre list= [
         for rawOre in FSharpType.GetUnionCases typeof<OreType> do     
             yield FSharpValue.MakeUnion(rawOre, [| box 1 |])
-                  |> unbox |> OreFactory (Common) (IsCompressed)
+                  |> unbox |> OreFactory (Common) (IsCompressed) (Qty 1)
     ]
 
     let RawIceList :RawIce list = [
         for rawIce in FSharpType.GetUnionCases typeof<IceType> do
             yield FSharpValue.MakeUnion(rawIce, [| box 1 |])
-                  |> unbox |> IceFactory (IsNotCompressed)
+                  |> unbox |> IceFactory (IsNotCompressed) (Qty 1)
     ]
 
     let CompressedRawIceList :RawIce list = [
         for rawIce in FSharpType.GetUnionCases typeof<IceType> do   
             yield FSharpValue.MakeUnion(rawIce, [| box 1 |])
-                  |> unbox |> IceFactory (IsNotCompressed)
+                  |> unbox |> IceFactory (IsNotCompressed) (Qty 1)
     ]
 
 

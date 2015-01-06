@@ -100,26 +100,7 @@ module Types =
         member this.Value = 
             this |> (fun (Volume x) -> x)
     
-    type Id = Id of int with
-        member this.Value = 
-            this |> (fun (Id x) -> x)
-
-    type OreId = OreId of Id with
-        member this.Value = 
-            this |> (fun (OreId (Id x)) -> x)
-
-    type IceId = IceId of Id with
-        member this.Value = 
-            this |> (fun (IceId (Id x)) -> x)
-
     type Qty = Qty of int with
         member this.Value = 
             this |> (fun (Qty x) -> x)
 
-    type OreQty = OreQty of Qty with
-        member this.Value = 
-            this |> (fun (OreQty (Qty x)) -> x)
-
-    type IceQty = IceQty of Qty with
-        member this.Value = 
-            this |> (fun (IceQty (Qty x)) -> x)

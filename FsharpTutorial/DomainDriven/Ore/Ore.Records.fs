@@ -27,15 +27,14 @@ module Records =
     }
 
     type OreData = {
-        OreId  : OreId
+        OreId  : TypeId
         Name   : Name
-        OreQty : OreQty
     }
 
     type RawOre = {
         Name    : Name
-        OreId   : OreId
-        Qty     : OreQty
+        OreId   : TypeId
+        Qty     : Qty
         Yield   : OreYield
         Volume  : Volume
         OreType : OreType
