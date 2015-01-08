@@ -10,11 +10,22 @@
     <RootNamespace>YeFsharpLibrary</RootNamespace>
     <AssemblyName>YeFsharpLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
     <Name>YeFsharpLibrary</Name>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\eve-contracts\evetool\EVETool\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '11.0'">
+      <PropertyGroup>
+        <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -23,12 +34,14 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>5</WarningLevel>
-    <DocumentationFile>bin\Debug\YeFsharpLibrary.XML</DocumentationFile>
-    <NoWarn>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>58
     </NoWarn>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningsAsErrors>
     </WarningsAsErrors>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,7 +50,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\YeFsharpLibrary.XML</DocumentationFile>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
@@ -98,8 +111,7 @@
       <HintPath>..\..\..\eve-contracts\evetool\EVETool\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FSharp.Core">
-      <HintPath>..\packages\FSharp.Core.3.0.0.2\lib\net40\FSharp.Core.dll</HintPath>
+    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
     </Reference>
     <Reference Include="FSharp.Data">

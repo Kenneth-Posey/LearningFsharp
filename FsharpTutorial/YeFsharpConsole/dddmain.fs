@@ -10,7 +10,12 @@ module Main =
     [<EntryPoint>]
     let main (args:string[]) = 
         
-        let result = loadItems Jita [IceProduct IceProduct.HeavyWater]
+        let result = loadItems Jita <| 
+            [
+                IceProduct IceProduct.HeavyWater
+                IceProduct IceProduct.HeliumIsotopes
+
+            ]
 
 
 

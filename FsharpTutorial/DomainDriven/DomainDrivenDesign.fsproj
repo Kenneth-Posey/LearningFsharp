@@ -10,23 +10,38 @@
     <RootNamespace>DomainDriven</RootNamespace>
     <AssemblyName>DomainDriven</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
     <Name>DomainDrivenDesign</Name>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '11.0'">
+      <PropertyGroup>
+        <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <Tailcalls>false</Tailcalls>
+    <Optimize>true</Optimize>
+    <Tailcalls>true</Tailcalls>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
+    <NoWarn>
+      58
+    </NoWarn>
     <DocumentationFile>
     </DocumentationFile>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningsAsErrors>25;26;</WarningsAsErrors>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,6 +51,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
     <DocumentationFile>bin\Release\DomainDriven.XML</DocumentationFile>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
@@ -84,23 +100,13 @@
     <Compile Include="Data\Data.Collections.fs" />
     <Content Include="packages.config" />
     <Content Include="app.config" />
-    <None Include="SqlServerTypes\x86\SqlServerSpatial110.dll" />
-    <None Include="SqlServerTypes\x64\SqlServerSpatial110.dll" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Data">
       <HintPath>..\packages\FSharp.Data.2.1.0\lib\net40\FSharp.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FSharp.Data.SqlClient">
-      <HintPath>..\packages\FSharp.Data.SqlClient.1.4.4\lib\net40\FSharp.Data.SqlClient.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="FSharp.Data.TypeProviders, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="Microsoft.SqlServer.Types">
-      <HintPath>..\packages\Microsoft.SqlServer.Types.11.0.0\lib\net20\Microsoft.SqlServer.Types.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
