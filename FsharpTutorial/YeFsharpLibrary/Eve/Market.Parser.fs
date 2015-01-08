@@ -101,8 +101,8 @@ module Parser =
         
 
     let LoadData item location = 
-        item, location
-        |> (fun (item, loc) -> Market.QuickLook + "?typeid=" + item + "&usesystem=" + loc)
+        (item, location)
+        ||> (fun item loc -> Market.QuickLook + "?typeid=" + item + "&usesystem=" + loc)
         |> LoadUrl 
         |> ParseQuickLook
 
@@ -121,7 +121,7 @@ module Parser =
     let LoadBuyData item location amount = 
         LoadData item location
         |> (fun x -> x.sellOrders)
-        // |> List.ofArray
+        |> List.ofArray
         |> List.map (fun x -> new Order(x, new SellOrder()))
         |> List.sortWith SortSellFunc
         |> OrderProcessor amount
@@ -130,7 +130,7 @@ module Parser =
     let LoadSellData item location amount = 
         LoadData item location
         |> (fun x -> x.buyOrders)
-        // |> List.ofArray
+        |> List.ofArray
         |> List.map (fun x -> new Order(x, new BuyOrder()))
         |> List.sortWith SortBuyFunc
         |> OrderProcessor amount

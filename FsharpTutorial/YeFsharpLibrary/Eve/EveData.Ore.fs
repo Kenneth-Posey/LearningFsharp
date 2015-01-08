@@ -1,11 +1,8 @@
 ﻿namespace EveData
 
-module Ore = 
-    open EveData.RawMaterial
-    open EveData.RawMaterialTypes
-    open EveData.RawMaterialRecords
+open EveData.RawMaterials
 
-    // Old OOP style version
+module Ore = 
     module Types =   
         type SimpleOre = {
             Name   : string
@@ -86,23 +83,22 @@ module Ore =
             FactorOreYield baseYield 100.0f
 
         
-        let RefineValueOre (item:RawOre) (value:OreValue) =
-            let mineralYield = item.Yield
-            (   single mineralYield.Isogen.Value    * value.Isogen 
-              + single mineralYield.Megacyte.Value  * value.Megacyte
-              + single mineralYield.Mexallon.Value  * value.Mexallon
-              + single mineralYield.Morphite.Value  * value.Morphite
-              + single mineralYield.Nocxium.Value   * value.Nocxium
-              + single mineralYield.Pyerite.Value   * value.Pyerite
-              + single mineralYield.Tritanium.Value * value.Tritanium
-              + single mineralYield.Zydrine.Value   * value.Zydrine
-            ) 
+        let RefineValueOre (multiplier:single) (item:IRawOre) (value:OreValue) =
+            let mineralYield = item.GetYield ()
+            (   single mineralYield.Isogen    * value.Isogen 
+              + single mineralYield.Megacyte  * value.Megacyte
+              + single mineralYield.Mexallon  * value.Mexallon
+              + single mineralYield.Morphite  * value.Morphite
+              + single mineralYield.Nocxium   * value.Nocxium
+              + single mineralYield.Pyerite   * value.Pyerite
+              + single mineralYield.Tritanium * value.Tritanium
+              + single mineralYield.Zydrine   * value.Zydrine
+            ) * multiplier / 100.0f // There's 100 ore per refined amount
 
                
     module RawMaterials =  
         open Functions      
         open Types   
-
         type Veldspar () =
             interface IRawOre with
                 override this.GetName () = "Veldspar"
@@ -512,8 +508,8 @@ module Ore =
 
         type CompScordite () =
             interface ICompressedOre with
-                override this.GetName () =   "Compressed Scordite"
-                override this.GetName5 () =  "Compressed Condensed Scordite"
+                override this.GetName () = "Compressed Scordite"
+                override this.GetName5 () = "Compressed Condensed Scordite"
                 override this.GetName10 () = "Compressed Massive Scordite"
                 override this.GetBase () = CompScordite.Base
                 override this.GetBase5 () = CompScordite.Base5
@@ -531,8 +527,8 @@ module Ore =
 
         type CompPyroxeres () =       
             interface ICompressedOre with           
-                override this.GetName () =   "Compressed Pyroxeres"
-                override this.GetName5 () =  "Compressed Solid Pyroxeres"
+                override this.GetName () = "Compressed Pyroxeres"
+                override this.GetName5 () = "Compressed Solid Pyroxeres"
                 override this.GetName10 () = "Compressed Viscous Pyroxeres"
                 override this.GetBase () = CompPyroxeres.Base
                 override this.GetBase5 () = CompPyroxeres.Base5
@@ -550,8 +546,8 @@ module Ore =
         
         type CompPlagioclase () =
             interface ICompressedOre with
-                override this.GetName () =   "Compressed Plagioclase"
-                override this.GetName5 () =  "Compressed Azure Plagioclase"
+                override this.GetName () = "Compressed Plagioclase"
+                override this.GetName5 () = "Compressed Azure Plagioclase"
                 override this.GetName10 () = "Compressed Rich Plagioclase"
                 override this.GetBase () = CompPlagioclase.Base
                 override this.GetBase5 () = CompPlagioclase.Base5
@@ -569,8 +565,8 @@ module Ore =
 
         type CompOmber () =
             interface ICompressedOre with
-                override this.GetName () =   "Compressed Omber"
-                override this.GetName5 () =  "Compressed Silvery Omber"
+                override this.GetName () = "Compressed Omber"
+                override this.GetName5 () = "Compressed Silvery Omber"
                 override this.GetName10 () = "Compressed Golden Omber"
                 override this.GetBase () = CompOmber.Base
                 override this.GetBase5 () = CompOmber.Base5
@@ -588,8 +584,8 @@ module Ore =
 
         type CompKernite () =
             interface ICompressedOre with
-                override this.GetName () =   "Compressed Kernite"
-                override this.GetName5 () =  "Compressed Luminous Kernite"
+                override this.GetName () = "Compressed Kernite"
+                override this.GetName5 () = "Compressed Luminous Kernite"
                 override this.GetName10 () = "Compressed Fiery Kernite"
                 override this.GetBase () = CompKernite.Base
                 override this.GetBase5 () = CompKernite.Base5
@@ -607,8 +603,8 @@ module Ore =
 
         type CompJaspet () =                
             interface ICompressedOre with
-                override this.GetName () =   "Compressed Jaspet"
-                override this.GetName5 () =  "Compressed Pure Jaspet"
+                override this.GetName () = "Compressed Jaspet"
+                override this.GetName5 () = "Compressed Pure Jaspet"
                 override this.GetName10 () = "Compressed Pristine Jaspet"
                 override this.GetBase () = CompJaspet.Base
                 override this.GetBase5 () = CompJaspet.Base5
@@ -626,8 +622,8 @@ module Ore =
 
         type CompHemorphite () =             
             interface ICompressedOre with     
-                override this.GetName () =   "Compressed Hemorphite"
-                override this.GetName5 () =  "Compressed Vivid Hemorphite"
+                override this.GetName () = "Compressed Hemorphite"
+                override this.GetName5 () = "Compressed Vivid Hemorphite"
                 override this.GetName10 () = "Compressed Radiant Hemorphite"
                 override this.GetBase () = CompHemorphite.Base
                 override this.GetBase5 () = CompHemorphite.Base5
@@ -645,8 +641,8 @@ module Ore =
 
         type CompHedbergite () =        
             interface ICompressedOre with          
-                override this.GetName () =   "Compressed Hedbergite"
-                override this.GetName5 () =  "Compressed Vitric Hedbergite"
+                override this.GetName () = "Compressed Hedbergite"
+                override this.GetName5 () = "Compressed Vitric Hedbergite"
                 override this.GetName10 () = "Compressed Glazed Hedbergite"
                 override this.GetBase () = CompHedbergite.Base
                 override this.GetBase5 () = CompHedbergite.Base5
@@ -664,8 +660,8 @@ module Ore =
 
         type CompGneiss () =
             interface ICompressedOre with
-                override this.GetName () =   "Compressed Gneiss"
-                override this.GetName5 () =  "Compressed Iridescent Gneiss"
+                override this.GetName () = "Compressed Gneiss"
+                override this.GetName5 () = "Compressed Iridescent Gneiss"
                 override this.GetName10 () = "Compressed Prismatic Gneiss"
                 override this.GetBase () = CompGneiss.Base
                 override this.GetBase5 () = CompGneiss.Base5
@@ -683,8 +679,8 @@ module Ore =
 
         type CompDarkOchre () =
             interface ICompressedOre with
-                override this.GetName () =   "Compressed Dark Ochre"
-                override this.GetName5 () =  "Compressed Onyx Ochre"
+                override this.GetName () = "Compressed Dark Ochre"
+                override this.GetName5 () = "Compressed Onyx Ochre"
                 override this.GetName10 () = "Compressed Obsidian Ochre"
                 override this.GetBase () = CompDarkOchre.Base
                 override this.GetBase5 () = CompDarkOchre.Base5
@@ -702,8 +698,8 @@ module Ore =
 
         type CompSpodumain () =
             interface ICompressedOre with
-                override this.GetName () =   "Compressed Spodumain"
-                override this.GetName5 () =  "Compressed Bright Spodumain"
+                override this.GetName () = "Compressed Spodumain"
+                override this.GetName5 () = "Compressed Bright Spodumain"
                 override this.GetName10 () = "Compressed Gleaming Spodumain"
                 override this.GetBase () = CompSpodumain.Base
                 override this.GetBase5 () = CompSpodumain.Base5
@@ -721,8 +717,8 @@ module Ore =
 
         type CompCrokite () =
             interface ICompressedOre with
-                override this.GetName () =   "Compressed Crokite"
-                override this.GetName5 () =  "Compressed Sharp Crokite"
+                override this.GetName () = "Compressed Crokite"
+                override this.GetName5 () = "Compressed Sharp Crokite"
                 override this.GetName10 () = "Compressed Crystalline Crokite"
                 override this.GetBase () = CompCrokite.Base
                 override this.GetBase5 () = CompCrokite.Base5
@@ -740,8 +736,8 @@ module Ore =
 
         type CompBistot () =
             interface ICompressedOre with
-                override this.GetName () =   "Compressed Bistot"
-                override this.GetName5 () =  "Compressed Triclinic Bistot"
+                override this.GetName () = "Compressed Bistot"
+                override this.GetName5 () = "Compressed Triclinic Bistot"
                 override this.GetName10 () = "Compressed Monoclinic Bistot"
                 override this.GetBase () = CompBistot.Base
                 override this.GetBase5 () = CompBistot.Base5
@@ -759,8 +755,8 @@ module Ore =
 
         type CompArkonor () =
             interface ICompressedOre with
-                override this.GetName () =   "Compressed Arkonor"
-                override this.GetName5 () =  "Compressed Crimson Arkonor"
+                override this.GetName () = "Compressed Arkonor"
+                override this.GetName5 () = "Compressed Crimson Arkonor"
                 override this.GetName10 () = "Compressed Prime Arkonor"
                 override this.GetBase () = CompArkonor.Base
                 override this.GetBase5 () = CompArkonor.Base5
@@ -778,8 +774,8 @@ module Ore =
 
         type CompMercoxit () =
             interface ICompressedOre with
-                override this.GetName () =   "Compressed Mercoxit"
-                override this.GetName5 () =  "Compressed Magma Mercoxit"
+                override this.GetName () = "Compressed Mercoxit"
+                override this.GetName5 () = "Compressed Magma Mercoxit"
                 override this.GetName10 () = "Compressed Vitreous Mercoxit"
                 override this.GetBase () = CompMercoxit.Base
                 override this.GetBase5 () = CompMercoxit.Base5

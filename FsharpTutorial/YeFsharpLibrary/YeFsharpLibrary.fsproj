@@ -27,7 +27,8 @@
     <NoWarn>
     </NoWarn>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <WarningsAsErrors>25;26;</WarningsAsErrors>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -69,8 +70,6 @@
     <Compile Include="Simulator\Mouse.fs" />
     <Compile Include="Simulator\Keyboard.fs" />
     <Compile Include="Simulator\FsharpImaging.fs" />
-    <Compile Include="Eve\EveData.RawMaterials.Types.fs" />
-    <Compile Include="Eve\EveData.RawMaterials.Records.fs" />
     <Compile Include="Eve\EveData.RawMaterials.fs" />
     <Compile Include="Eve\EveData.Ore.fs" />
     <Compile Include="Eve\EveData.Ice.fs" />
