@@ -47,5 +47,7 @@ module Types =
     | IceType    of IceType
     
                 
-
+    type OrderType = 
+    | BuyOrder
+    | SellOrder
 

@@ -23,8 +23,7 @@ module Records =
         OxygenIsotopes      = OxygenIsotopes 0    
         StrontiumClathrates = StrontiumClathrates 0
     }
-
-
+    
     type IceData = {
         IceId : TypeId
         Name : Name
@@ -38,4 +37,3 @@ module Records =
         Volume  : Volume        
         IceType : IceType
     }
-

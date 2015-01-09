@@ -104,3 +104,6 @@ module Types =
         member this.Value = 
             this |> (fun (Qty x) -> x)
 
+    type Price = Price of single with
+        member this.Value =     
+            this |> (fun (Price x) -> x)
