@@ -39,15 +39,3 @@ module Types =
         Hek     
     ]
         
-
-    type Material = 
-    | Mineral    of Mineral
-    | IceProduct of IceProduct
-    | OreType    of OreType
-    | IceType    of IceType
-    
-                
-    type OrderType = 
-    | BuyOrder
-    | SellOrder
-

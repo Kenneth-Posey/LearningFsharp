@@ -92,12 +92,12 @@
     <Compile Include="Ore\Ore.Types.fs" />
     <Compile Include="Ore\Ore.Records.fs" />
     <Compile Include="Ore\Ore.fs" />
+    <Compile Include="Data\Data.Collections.fs" />
     <Compile Include="Market\Market.Providers.fs" />
     <Compile Include="Market\Market.Types.fs" />
     <Compile Include="Market\Market.Records.fs" />
     <Compile Include="Market\Market.Parser.fs" />
     <Compile Include="Market\Market.fs" />
-    <Compile Include="Data\Data.Collections.fs" />
     <Content Include="packages.config" />
     <Content Include="app.config" />
   </ItemGroup>

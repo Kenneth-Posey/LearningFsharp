@@ -9,63 +9,7 @@ module Records =
     open EveOnline.IceDomain.Records
     open EveOnline.IceDomain.Ice
     open EveOnline.MarketDomain.Types
-    open Microsoft.FSharp.Reflection
-
-    let RefinedProducts = 
-        [
-            Mineral Mineral.Isogen
-            Mineral Mineral.Megacyte 
-            Mineral Mineral.Mexallon 
-            Mineral Mineral.Morphite 
-            Mineral Mineral.Nocxium  
-            Mineral Mineral.Pyerite  
-            Mineral Mineral.Tritanium
-            Mineral Mineral.Zydrine  
-
-            IceProduct IceProduct.HeavyWater
-            IceProduct IceProduct.HeliumIsotopes
-            IceProduct IceProduct.HydrogenIsotopes
-            IceProduct IceProduct.LiquidOzone
-            IceProduct IceProduct.NitrogenIsotopes
-            IceProduct IceProduct.OxygenIsotopes
-            IceProduct IceProduct.StrontiumClathrates
-        ]
-
-    
-    let RawOreList :RawOre list = [
-        for rawOre in FSharpType.GetUnionCases typeof<OreType> do     
-            yield FSharpValue.MakeUnion(rawOre, [| box 1 |])
-                  |> unbox |> OreFactory (Common) (IsNotCompressed) (Qty 1)
-    ]
-
-    let CompressedRawOreList :RawOre list= [
-        for rawOre in FSharpType.GetUnionCases typeof<OreType> do     
-            yield FSharpValue.MakeUnion(rawOre, [| box 1 |])
-                  |> unbox |> OreFactory (Common) (IsCompressed) (Qty 1)
-    ]
-
-    let RawIceList :RawIce list = [
-        for rawIce in FSharpType.GetUnionCases typeof<IceType> do
-            yield FSharpValue.MakeUnion(rawIce, [| box 1 |])
-                  |> unbox |> IceFactory (IsNotCompressed) (Qty 1)
-    ]
-
-    let CompressedRawIceList :RawIce list = [
-        for rawIce in FSharpType.GetUnionCases typeof<IceType> do   
-            yield FSharpValue.MakeUnion(rawIce, [| box 1 |])
-                  |> unbox |> IceFactory (IsNotCompressed) (Qty 1)
-    ]
-
-
-    let AllOrePairs = List.zip RawOreList CompressedRawOreList
-    let AllOreList = RawOreList @ CompressedRawOreList
-
-    let AllIcePairs = List.zip RawIceList CompressedRawIceList
-    let AllIceList  = RawIceList @ CompressedRawIceList
-
-    // let AllIDPairs = MineralIDPairs @ IceProductIDPairs @ RawIceIDPairs @ RawOreIDPairs
-
-    
+    open Microsoft.FSharp.Reflection   
         
     type MarketPrices =  {
         typeId   : int
@@ -88,7 +32,7 @@ module Records =
     type QuickLookProvider = MarketOrder.QuickLookResult
     type SellOrderProvider = MarketOrder.QuickLookResult.Order
     type BuyOrderProvider  = MarketOrder.QuickLookResult.Order2
-
+    
     type BuyOrder () =
         member val OrderType = "Buy" with get
         member this.GetType () = typeof<BuyOrderProvider>
@@ -97,7 +41,7 @@ module Records =
         member val OrderType = "Sell" with get
         member this.GetType () = typeof<SellOrderProvider>
 
-    type Order (region, station, stationName, security, range, price, volRemain, minVolume, orderType) as this =
+    type Order (region, station, stationName, security, range, price, volRemain, minVolume, orderType) =
         member val Region      = region
         member val Station     = station    
         member val StationName = stationName

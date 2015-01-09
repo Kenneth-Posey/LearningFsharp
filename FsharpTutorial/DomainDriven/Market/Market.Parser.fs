@@ -2,6 +2,7 @@
 
 module Parser = 
     open Utility.UtilityFunctions
+    open EveOnline.MarketDomain.Types
     open EveOnline.MarketDomain.Providers
     open EveOnline.MarketDomain.Records
 
