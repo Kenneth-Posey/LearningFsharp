@@ -72,8 +72,6 @@
     <Compile Include="Market\Market.Records.fs" />
     <Compile Include="Market\Market.Parser.fs" />
     <Compile Include="Market\Market.fs" />
-    <Compile Include="Library1.fs" />
-    <None Include="Script.fsx" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
