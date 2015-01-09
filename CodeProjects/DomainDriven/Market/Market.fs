@@ -2,12 +2,12 @@
 
 module Market = 
     open EveOnline.ProductDomain.Types
+    open EveOnline.ProductDomain.UnionTypes
     open EveOnline.ProductDomain.Records
     open EveOnline.ProductDomain.Product
     open EveOnline.OreDomain.Types
     open EveOnline.OreDomain.Records
     open EveOnline.OreDomain.Ore
-    open EveOnline.IceDomain.Types
     open EveOnline.IceDomain.Records
     open EveOnline.IceDomain.Ice
     open EveOnline.MarketDomain.Types
@@ -16,8 +16,8 @@ module Market =
     open EveOnline.DataDomain.Collections
 
     // functions for finding the typeid of a material type
-    let IceTypeId x = (IceData (x) (IsNotCompressed)).IceId.Value
-    let OreTypeId x = (OreData (x) (Common) (IsNotCompressed)).OreId.Value
+    let IceTypeId x = IceTypeId (x) (IsNotCompressed)
+    let OreTypeId x = (OreData (x) (Common) (IsNotCompressed)).OreId
 
     let TypeId x = 
         match x with
@@ -43,7 +43,7 @@ module Market =
         item 
         |> baseUrl location
         |> loadUrl
-        |> parse (TypeId item)
+        |> parse (TypeId item).Value
 
     // load a list of material's data
     let loadItems (loc:System) (items:Material list) = 
@@ -70,13 +70,13 @@ module Market =
             | SellOrder -> (loadItem loc item).prices.lowSell
 
         {
-            HeavyWater          = loadItem <| IceProduct IceProduct.HeavyWater 
-            HeliumIsotopes      = loadItem <| IceProduct IceProduct.HeliumIsotopes
-            HydrogenIsotopes    = loadItem <| IceProduct IceProduct.HydrogenIsotopes
-            LiquidOzone         = loadItem <| IceProduct IceProduct.LiquidOzone
-            NitrogenIsotopes    = loadItem <| IceProduct IceProduct.NitrogenIsotopes
-            OxygenIsotopes      = loadItem <| IceProduct IceProduct.OxygenIsotopes
-            StrontiumClathrates = loadItem <| IceProduct IceProduct.StrontiumClathrates
+            HeavyWater          = loadItem <| IceProduct HeavyWater 
+            HeliumIsotopes      = loadItem <| IceProduct HeliumIsotopes
+            HydrogenIsotopes    = loadItem <| IceProduct HydrogenIsotopes
+            LiquidOzone         = loadItem <| IceProduct LiquidOzone
+            NitrogenIsotopes    = loadItem <| IceProduct NitrogenIsotopes
+            OxygenIsotopes      = loadItem <| IceProduct OxygenIsotopes
+            StrontiumClathrates = loadItem <| IceProduct StrontiumClathrates
         }
 
     // loads mineral prices based on the highest buy offer or lowest sell offer in system
@@ -87,14 +87,14 @@ module Market =
             | SellOrder -> (loadItem loc item).prices.lowSell
 
         {
-            Tritanium = loadItem <| Mineral Mineral.Tritanium
-            Pyerite   = loadItem <| Mineral Mineral.Pyerite
-            Mexallon  = loadItem <| Mineral Mineral.Mexallon
-            Isogen    = loadItem <| Mineral Mineral.Isogen
-            Nocxium   = loadItem <| Mineral Mineral.Nocxium
-            Megacyte  = loadItem <| Mineral Mineral.Megacyte
-            Zydrine   = loadItem <| Mineral Mineral.Zydrine
-            Morphite  = loadItem <| Mineral Mineral.Morphite
+            Tritanium = loadItem <| Mineral Tritanium
+            Pyerite   = loadItem <| Mineral Pyerite
+            Mexallon  = loadItem <| Mineral Mexallon
+            Isogen    = loadItem <| Mineral Isogen
+            Nocxium   = loadItem <| Mineral Nocxium
+            Megacyte  = loadItem <| Mineral Megacyte
+            Zydrine   = loadItem <| Mineral Zydrine
+            Morphite  = loadItem <| Mineral Morphite
         }
 
     // calculates the maximum market value of the yield of a single ice block

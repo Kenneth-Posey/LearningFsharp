@@ -2,29 +2,6 @@
 
 module Types = 
 
-    type Mineral = 
-    | Isogen    
-    | Megacyte  
-    | Mexallon  
-    | Morphite 
-    | Nocxium   
-    | Pyerite   
-    | Tritanium 
-    | Zydrine   
-                
-    type IceProduct = 
-    | HeavyWater
-    | HeliumIsotopes
-    | HydrogenIsotopes
-    | LiquidOzone
-    | NitrogenIsotopes
-    | OxygenIsotopes
-    | StrontiumClathrates
-    
-    type Compressed = 
-    | IsCompressed
-    | IsNotCompressed
-
     // Minerals
     type Tritanium = Tritanium of int with
         member this.Value = 
@@ -107,3 +84,29 @@ module Types =
     type Price = Price of single with
         member this.Value =     
             this |> (fun (Price x) -> x)
+
+    type Compressed = 
+    | IsCompressed
+    | IsNotCompressed
+
+
+module UnionTypes = 
+
+    type Mineral = 
+    | Isogen    
+    | Megacyte  
+    | Mexallon  
+    | Morphite 
+    | Nocxium   
+    | Pyerite   
+    | Tritanium 
+    | Zydrine   
+                
+    type IceProduct = 
+    | HeavyWater
+    | HeliumIsotopes
+    | HydrogenIsotopes
+    | LiquidOzone
+    | NitrogenIsotopes
+    | OxygenIsotopes
+    | StrontiumClathrates

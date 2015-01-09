@@ -1,16 +1,9 @@
 namespace EveOnline.DataDomain
 
 module Collections = 
-    open EveOnline.ProductDomain.Types
-    open EveOnline.ProductDomain.Records
-    open EveOnline.ProductDomain.Product
+    open EveOnline.ProductDomain.UnionTypes
     open EveOnline.OreDomain.Types
-    open EveOnline.OreDomain.Records
-    open EveOnline.OreDomain.Ore
     open EveOnline.IceDomain.Types
-    open EveOnline.IceDomain.Records
-    open EveOnline.IceDomain.Ice
-    open Microsoft.FSharp.Reflection
 
     type SystemName =
     | Jita    = 30000142
@@ -32,22 +25,22 @@ module Collections =
 
     let RefinedProducts = 
         [
-            Mineral Mineral.Isogen
-            Mineral Mineral.Megacyte 
-            Mineral Mineral.Mexallon 
-            Mineral Mineral.Morphite 
-            Mineral Mineral.Nocxium  
-            Mineral Mineral.Pyerite  
-            Mineral Mineral.Tritanium
-            Mineral Mineral.Zydrine  
+            Mineral Isogen
+            Mineral Megacyte 
+            Mineral Mexallon 
+            Mineral Morphite 
+            Mineral Nocxium  
+            Mineral Pyerite  
+            Mineral Tritanium
+            Mineral Zydrine  
 
-            IceProduct IceProduct.HeavyWater
-            IceProduct IceProduct.HeliumIsotopes
-            IceProduct IceProduct.HydrogenIsotopes
-            IceProduct IceProduct.LiquidOzone
-            IceProduct IceProduct.NitrogenIsotopes
-            IceProduct IceProduct.OxygenIsotopes
-            IceProduct IceProduct.StrontiumClathrates
+            IceProduct HeavyWater
+            IceProduct HeliumIsotopes
+            IceProduct HydrogenIsotopes
+            IceProduct LiquidOzone
+            IceProduct NitrogenIsotopes
+            IceProduct OxygenIsotopes
+            IceProduct StrontiumClathrates
         ]
 
     let IceList = 

@@ -2,6 +2,7 @@
 
 module Records = 
     open EveOnline.ProductDomain.Types
+    open EveOnline.ProductDomain.UnionTypes
 
     type MineralData = {
         TypeId  : TypeId
