@@ -1,4 +1,0 @@
-namespace EveOnline
-
-module OreTypes = 
-    ()

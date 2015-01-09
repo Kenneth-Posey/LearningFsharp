@@ -1,4 +1,0 @@
-﻿namespace EveData
-
-module Input = 
-    ()
