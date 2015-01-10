@@ -27,7 +27,7 @@ module Market =
         | OreType x     -> OreTypeId x
 
     let StringId x = 
-        string (TypeId x)
+        string (TypeId x).Value
 
     // functions for composing the parser urls
     let loadUrl = Utility.UtilityFunctions.LoadUrl

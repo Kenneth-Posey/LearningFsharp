@@ -6,6 +6,7 @@ module Parser =
     open EveOnline.MarketDomain.Providers
     open EveOnline.MarketDomain.Records
 
+    // to-do: fix the hell out of this code
     let ParseQuickLook (typeId:int) (data:string) :ParsedData<Order list, Order list> =
         let providerData = MarketOrder.QuickLookResult.Parse(data).Quicklook
 

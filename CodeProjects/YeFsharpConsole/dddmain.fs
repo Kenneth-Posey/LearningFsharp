@@ -20,7 +20,7 @@ module Main =
         // let mineralPrices = loadMineralPrices (OrderType.BuyOrder) (Jita)
 
         for ice in IceList do
-            System.Console.WriteLine ( "Ice " + (IceData (ice) (IsNotCompressed)).Name.Value
+            System.Console.WriteLine ( "Ice " + (RawIceName ice).Value
                 + " with value: " 
                 + string (refineIceValue (RawIceYield ice) (iceProductPrices)).Value
             )
