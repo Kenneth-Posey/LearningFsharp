@@ -5,60 +5,56 @@ module Ore =
     open EveOnline.OreDomain.Types
     open EveOnline.OreDomain.Records
     
-    let RawOreVolume (x:OreType) (y:Compressed) :Volume = 
-        Volume <| 
-            match x, y with
-            | Arkonor,      IsNotCompressed  -> 16.0f
-            | Arkonor,      IsCompressed     -> 3.08f
+    let RawOreVolume (x:OreType) :Volume =
+        Volume <|
+            match x with
+            | Arkonor      -> 16.0f
+            | Bistot       -> 16.0f
+            | Crokite      -> 16.0f
+            | DarkOchre    -> 8.00f
+            | Gneiss       -> 5.00f
+            | Hedbergite   -> 3.00f
+            | Hemorphite   -> 3.00f
+            | Jaspet       -> 2.00f
+            | Kernite      -> 1.20f
+            | Mercoxit     -> 40.0f
+            | Omber        -> 0.60f
+            | Plagioclase  -> 0.35f
+            | Pyroxeres    -> 0.30f
+            | Scordite     -> 0.15f
+            | Spodumain    -> 16.0f
+            | Veldspar     -> 0.10f
+            
+    let CompressedOreVolume (x:OreType) :Volume = 
+        Volume <|
+            match x with
+            | Arkonor      -> 3.08f
+            | Bistot       -> 6.11f
+            | Crokite      -> 7.81f
+            | DarkOchre    -> 3.27f
+            | Gneiss       -> 1.03f
+            | Hedbergite   -> 0.14f
+            | Hemorphite   -> 0.16f
+            | Jaspet       -> 0.15f
+            | Kernite      -> 0.19f
+            | Mercoxit     -> 0.10f
+            | Omber        -> 0.07f
+            | Plagioclase  -> 0.15f
+            | Pyroxeres    -> 0.16f
+            | Scordite     -> 0.19f
+            | Spodumain    -> 16.0f
+            | Veldspar     -> 0.15f
 
-            | Bistot,       IsNotCompressed  -> 16.0f
-            | Bistot,       IsCompressed     -> 6.11f
+    let OreVolume (x:OreType) (y:Compressed) :Volume = 
+        match y with
+        | IsCompressed -> CompressedOreVolume x
+        | IsNotCompressed -> RawOreVolume x
 
-            | Crokite,      IsNotCompressed  -> 16.0f
-            | Crokite,      IsCompressed     -> 7.81f
-
-            | DarkOchre,    IsNotCompressed  -> 8.00f
-            | DarkOchre,    IsCompressed     -> 3.27f
-
-            | Gneiss,       IsNotCompressed  -> 5.00f
-            | Gneiss,       IsCompressed     -> 1.03f
-
-            | Hedbergite,   IsNotCompressed  -> 3.00f
-            | Hedbergite,   IsCompressed     -> 0.14f
-
-            | Hemorphite,   IsNotCompressed  -> 3.00f
-            | Hemorphite,   IsCompressed     -> 0.16f
-
-            | Jaspet,       IsNotCompressed  -> 2.00f
-            | Jaspet,       IsCompressed     -> 0.15f
-
-            | Kernite,      IsNotCompressed  -> 1.20f
-            | Kernite,      IsCompressed     -> 0.19f
-
-            | Mercoxit,     IsNotCompressed  -> 40.0f
-            | Mercoxit,     IsCompressed     -> 0.10f
-
-            | Omber,        IsNotCompressed  -> 0.60f
-            | Omber,        IsCompressed     -> 0.07f
-
-            | Plagioclase,  IsNotCompressed  -> 0.35f
-            | Plagioclase,  IsCompressed     -> 0.15f
-
-            | Pyroxeres,    IsNotCompressed  -> 0.30f
-            | Pyroxeres,    IsCompressed     -> 0.16f
-
-            | Scordite,     IsNotCompressed  -> 0.15f
-            | Scordite,     IsCompressed     -> 0.19f
-
-            | Spodumain,    IsNotCompressed  -> 16.0f
-            | Spodumain,    IsCompressed     -> 16.0f
-
-            | Veldspar,     IsNotCompressed  -> 0.10f
-            | Veldspar,     IsCompressed     -> 0.15f
 
     let MinimumRefineQty (x:OreType) :int = // All ore now has refine qty of 100
         match x with
         | _       -> 100
+
 
     let RawOreYield (ore:OreType) :OreYield = 
         match ore with
@@ -264,7 +260,7 @@ module Ore =
             OreType = n 
             Qty     = q
             Yield   = RawOreYield n 
-            Volume  = RawOreVolume n c
+            Volume  = OreVolume n c
         }
 
 

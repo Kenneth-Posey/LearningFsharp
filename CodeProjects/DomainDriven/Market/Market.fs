@@ -96,26 +96,54 @@ module Market =
             Zydrine   = loadItem <| Mineral Zydrine
             Morphite  = loadItem <| Mineral Morphite
         }
-
+        
+    let refineValueProcessor (pairs:(int *single) list) :Price =
+        pairs
+        |> List.map (fun (x:int, y:single) -> (single x, y))
+        |> List.fold (fun acc (refine, price) -> (refine * price) + acc) 0.0f
+        |> Price
+    
     // calculates the maximum market value of the yield of a single ice block
-    let refineIceValue (refine:IceYield) (prices:IceProductPrices) :Price = 
-        Price <| 
-            single refine.HeavyWater.Value * prices.HeavyWater.Value
-            + single refine.HeliumIsotopes.Value * prices.HeliumIsotopes.Value
-            + single refine.HydrogenIsotopes.Value * prices.HydrogenIsotopes.Value
-            + single refine.LiquidOzone.Value * prices.LiquidOzone.Value
-            + single refine.NitrogenIsotopes.Value * prices.NitrogenIsotopes.Value
-            + single refine.OxygenIsotopes.Value * prices.OxygenIsotopes.Value
-            + single refine.StrontiumClathrates.Value * prices.StrontiumClathrates.Value
+    let refineIceValue (refine:IceYield) (prices:IceProductPrices) :Price =     
+        [
+            refine.HeavyWater.Value,          prices.HeavyWater.Value
+            refine.HeliumIsotopes.Value,      prices.HeliumIsotopes.Value
+            refine.HydrogenIsotopes.Value,    prices.HydrogenIsotopes.Value
+            refine.LiquidOzone.Value,         prices.LiquidOzone.Value
+            refine.NitrogenIsotopes.Value,    prices.NitrogenIsotopes.Value
+            refine.OxygenIsotopes.Value,      prices.OxygenIsotopes.Value
+            refine.StrontiumClathrates.Value, prices.StrontiumClathrates.Value
+        ]
+        |> refineValueProcessor
+        
+    let refineOreValue (refine:OreYield) (prices:MineralPrices) :Price =
+        [
+            refine.Isogen.Value, prices.Isogen.Value
+
+        ]
+        //|> List.map (fun (x, y) -> (x.Value, y.Value))
+        |> refineValueProcessor
+
+        
+    // calculates the maximum market value of the yield of a single ice block
+    let refineIceValuev1 (refine:IceYield) (prices:IceProductPrices) :Price = 
+        single refine.HeavyWater.Value * prices.HeavyWater.Value
+        + single refine.HeliumIsotopes.Value * prices.HeliumIsotopes.Value
+        + single refine.HydrogenIsotopes.Value * prices.HydrogenIsotopes.Value
+        + single refine.LiquidOzone.Value * prices.LiquidOzone.Value
+        + single refine.NitrogenIsotopes.Value * prices.NitrogenIsotopes.Value
+        + single refine.OxygenIsotopes.Value * prices.OxygenIsotopes.Value
+        + single refine.StrontiumClathrates.Value * prices.StrontiumClathrates.Value
+        |> Price
 
     // calculates the maximum market value of the yield of a single refining run (100 units)
-    let refineOreValue (refine:OreYield) (prices:MineralPrices) :Price =
-        Price <|    
-            single refine.Isogen.Value * prices.Isogen.Value
-            + single refine.Megacyte.Value * prices.Megacyte.Value
-            + single refine.Mexallon.Value * prices.Mexallon.Value
-            + single refine.Morphite.Value * prices.Morphite.Value
-            + single refine.Nocxium.Value * prices.Nocxium.Value
-            + single refine.Pyerite.Value * prices.Pyerite.Value
-            + single refine.Tritanium.Value * prices.Tritanium.Value
-            + single refine.Zydrine.Value * prices.Zydrine.Value
+    let refineOreValuev1 (refine:OreYield) (prices:MineralPrices) :Price =
+        single refine.Isogen.Value * prices.Isogen.Value
+        + single refine.Megacyte.Value * prices.Megacyte.Value
+        + single refine.Mexallon.Value * prices.Mexallon.Value
+        + single refine.Morphite.Value * prices.Morphite.Value
+        + single refine.Nocxium.Value * prices.Nocxium.Value
+        + single refine.Pyerite.Value * prices.Pyerite.Value
+        + single refine.Tritanium.Value * prices.Tritanium.Value
+        + single refine.Zydrine.Value * prices.Zydrine.Value
+        |> Price

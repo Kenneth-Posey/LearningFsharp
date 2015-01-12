@@ -160,8 +160,8 @@ module Generator =
 
     type UniformGenerator (range:SingleRange, ?seed:int) as this = 
         do
-            this.min = range.Min
-            this.length = range.Length
+            this.min <- range.Min
+            this.length <- range.Length
             this.rand <- new UniformOneGenerator(defaultArg seed 0)
             
         member val Range = new SingleRange( this.min, this.min + this.length ) with get
