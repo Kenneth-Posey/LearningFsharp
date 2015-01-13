@@ -20,14 +20,14 @@ module Main =
         for ice in IceList do
             System.Console.WriteLine ( "Ice " + (Name ice).Value
                 + " with value: " 
-                + string (refineValue (GetYield ice) (iceProductPrices)).Value
+                + string (GetRefineValue (GetYield ice) (iceProductPrices)).Value
             )
             
             
         for ore in OreList do
             System.Console.WriteLine ( "Ore " + (Name ore).Value
                 + " with value: "
-                + string (refineValue (GetYield ore) (mineralPrices)).Value
+                + string (GetRefineValue (GetYield ore) (mineralPrices)).Value
             )
 
         0 

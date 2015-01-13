@@ -53,8 +53,8 @@ module Parser =
             |> List.ofArray
             |> List.sortWith (fun x y -> 
                 match x.Price <> y.Price with
-                | true when x.Price < y.Price -> 1
                 | true when x.Price > y.Price -> -1
+                | true when x.Price < y.Price -> 1
                 | _ -> 0 )
 
         let lowBuy = single buyOrders.Head.Price * 0.8f
