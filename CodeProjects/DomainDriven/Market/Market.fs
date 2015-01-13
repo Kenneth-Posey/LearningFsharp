@@ -8,12 +8,15 @@ module Market =
     open EveOnline.OreDomain.Types
     open EveOnline.OreDomain.Records
     open EveOnline.OreDomain.Ore
+    open EveOnline.IceDomain.Types
     open EveOnline.IceDomain.Records
     open EveOnline.IceDomain.Ice
     open EveOnline.MarketDomain.Types
     open EveOnline.MarketDomain.Records
     open EveOnline.MarketDomain.Parser
     open EveOnline.DataDomain.Collections
+
+    // functions for shifting material type functions into their subtype functions
 
     // functions for finding the typeid of a material type
     let IceTypeId x = IceTypeId (x) (IsNotCompressed)
@@ -28,6 +31,17 @@ module Market =
 
     let StringId x = 
         string (TypeId x).Value
+
+    // functions for finding the name of a material type
+    let IceName x = RawIceName (x)
+    let OreName x = RawOreName (x)
+
+    let Name x = 
+        match x with
+        | Mineral x    -> MineralName x
+        | IceProduct x -> IceProductName x
+        | IceType x -> IceName x
+        | OreType x -> OreName x
 
     // functions for composing the parser urls
     let loadUrl = Utility.UtilityFunctions.LoadUrl
@@ -61,6 +75,7 @@ module Market =
         data.buyOrders
         |> List.sortWith SortBuyFunc
         |> OrderProcessor amount
+
 
     // loads ice product prices based on the highest buy offer or lowest sell offer in system
     let loadIceProductPrices (orderType:OrderType) (loc:System) :IceProductPrices = 
@@ -97,32 +112,75 @@ module Market =
             Morphite  = loadItem <| Mineral Morphite
         }
         
+    
+    type RefinePrice = 
+    | MineralPrices of MineralPrices
+    | IceProductPrices of IceProductPrices
+
+
+    // functions for finding the yield of a refinable type
+    type RefineYield = 
+    | IceYield of IceYield 
+    | OreYield of OreYield
+
+    let GetYield x :RefineYield = 
+        match x with
+        | IceType x -> IceYield <| RawIceYield x
+        | OreType x -> OreYield <| RawOreYield x
+        | IceProduct _ -> IceYield <| BaseIceYield
+        | Mineral _ -> OreYield <| BaseOreYield
+    
+    type RefinedProduct = 
+    | Mineral
+    | IceProduct
+
+    let GetPrice material order loc :RefinePrice = 
+        match material with
+        | Mineral     -> MineralPrices    <| loadMineralPrices order loc
+        | IceProduct  -> IceProductPrices <| loadIceProductPrices order loc
+        
     let refineValueProcessor (pairs:(int *single) list) :Price =
-        pairs
-        |> List.map (fun (x:int, y:single) -> (single x, y))
-        |> List.fold (fun acc (refine, price) -> (refine * price) + acc) 0.0f
-        |> Price
+        let accumulator = (fun total (refine, price) -> total + (single refine * price))
+        pairs |> List.fold accumulator (0.0f) |> Price
     
     // calculates the maximum market value of the yield of a single ice block
-    let refineIceValue (refine:IceYield) (prices:IceProductPrices) :Price =     
+    let refineIceValue (refine:IceYield) (price:RefinePrice) :Price =          
+        let price = price |> fun x -> match x with
+                     | IceProductPrices x -> x
+                     | _ -> BaseIceProductPrices
         [
-            refine.HeavyWater.Value,          prices.HeavyWater.Value
-            refine.HeliumIsotopes.Value,      prices.HeliumIsotopes.Value
-            refine.HydrogenIsotopes.Value,    prices.HydrogenIsotopes.Value
-            refine.LiquidOzone.Value,         prices.LiquidOzone.Value
-            refine.NitrogenIsotopes.Value,    prices.NitrogenIsotopes.Value
-            refine.OxygenIsotopes.Value,      prices.OxygenIsotopes.Value
-            refine.StrontiumClathrates.Value, prices.StrontiumClathrates.Value
+            refine.HeliumIsotopes.Value,    price.HeliumIsotopes.Value
+            refine.HydrogenIsotopes.Value,  price.HydrogenIsotopes.Value
+            refine.NitrogenIsotopes.Value,  price.NitrogenIsotopes.Value
+            refine.OxygenIsotopes.Value,    price.OxygenIsotopes.Value
+            
+            refine.HeavyWater.Value,        price.HeavyWater.Value
+            refine.LiquidOzone.Value,       price.LiquidOzone.Value
+            refine.StrontiumClathrates.Value,   price.StrontiumClathrates.Value
         ]
         |> refineValueProcessor
         
-    let refineOreValue (refine:OreYield) (prices:MineralPrices) :Price =
+    let refineOreValue (refine:OreYield) (price:RefinePrice) :Price =
+        let price = price |> fun x -> match x with
+                     | MineralPrices x -> x
+                     | _ -> BaseMineralPrices
         [
-            refine.Isogen.Value, prices.Isogen.Value
-
+            refine.Isogen.Value,      price.Isogen.Value
+            refine.Megacyte.Value,    price.Megacyte.Value
+            refine.Mexallon.Value,    price.Mexallon.Value
+            refine.Morphite.Value,    price.Morphite.Value
+            refine.Nocxium.Value,     price.Nocxium.Value
+            refine.Pyerite.Value,     price.Pyerite.Value
+            refine.Tritanium.Value,   price.Tritanium.Value
+            refine.Zydrine.Value,     price.Zydrine.Value
         ]
-        //|> List.map (fun (x, y) -> (x.Value, y.Value))
         |> refineValueProcessor
+    
+    open EveOnline.ProductDomain.Records
+    let refineValue (refine:RefineYield) (price:RefinePrice) :Price =
+        match refine with
+        | OreYield x -> refineOreValue x price
+        | IceYield x -> refineIceValue x price
 
         
     // calculates the maximum market value of the yield of a single ice block

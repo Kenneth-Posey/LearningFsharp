@@ -231,7 +231,7 @@ module Ore =
             | Veldspar,  Rare,      IsCompressed      -> 28432, "Compressed Dense Veldspar" 
             
 
-    let OreCategoryName (x:OreType) :Name = 
+    let RawOreName (x:OreType) :Name = 
         Name <| 
             match x with
             | Veldspar      -> "Veldspar"
