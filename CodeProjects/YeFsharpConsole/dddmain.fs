@@ -16,18 +16,19 @@ module Main =
         let getPrice x = GetPrice x (OrderType.BuyOrder) (Jita)
         let iceProductPrices = getPrice (RefinedProduct.IceProduct) 
         let mineralPrices = getPrice (RefinedProduct.Mineral)
+        let refineValue x y = string (GetRefineValue x y).Value
 
         for ice in IceList do
             System.Console.WriteLine ( "Ice " + (Name ice).Value
                 + " with value: " 
-                + string (GetRefineValue (GetYield ice) (iceProductPrices)).Value
+                + refineValue (GetYield ice) (iceProductPrices)
             )
             
             
         for ore in OreList do
             System.Console.WriteLine ( "Ore " + (Name ore).Value
                 + " with value: "
-                + string (GetRefineValue (GetYield ore) (mineralPrices)).Value
+                + refineValue (GetYield ore) (mineralPrices)
             )
 
         0 

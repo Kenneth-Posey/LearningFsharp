@@ -44,9 +44,9 @@ module Market =
 
 
     // load a material's data
-    let loadItem (location:System) (item:Material)= 
+    let loadItem (loc:System) (item:Material)= 
         StringId item
-        |> baseUrl location
+        |> baseUrl loc
         |> loadUrl
         |> parse 
 
@@ -91,25 +91,10 @@ module Market =
             Zydrine   = loadItem <| Mineral Zydrine
             Morphite  = loadItem <| Mineral Morphite
         }
-
-
-    // functions for finding the yield of a refinable type
-    let GetYield (x:Material) :RefineYield = 
-        match x with
-        | IceType x -> IceYield <| RawIceYield x
-        | OreType x -> OreYield <| RawOreYield x
-        | Material.IceProduct _ -> IceYield <| BaseIceYield
-        | Material.Mineral _ -> OreYield <| BaseOreYield
-    
-
-    let GetPrice material order loc :RefinePrice = 
-        match material with
-        | RefinedProduct.Mineral     -> MineralPrices    <| loadMineralPrices order loc
-        | RefinedProduct.IceProduct  -> IceProductPrices <| loadIceProductPrices order loc
         
-
+        
+    let accumulator = (fun total (refine, price) -> total + (single refine * price))
     let refineValueProcessor (pairs:(int *single) list) :Price =
-        let accumulator = (fun total (refine, price) -> total + (single refine * price))
         pairs |> List.fold accumulator (0.0f) |> Price
 
     
@@ -151,9 +136,25 @@ module Market =
                 refine.Zydrine.Value,     price.Zydrine.Value
             ])
         |> refineValueProcessor
+        
+
+    // main yield function
+    let GetYield (x:Material) :RefineYield = 
+        match x with
+        | IceType x -> IceYield <| RawIceYield x
+        | OreType x -> OreYield <| RawOreYield x
+        | Material.IceProduct _ -> IceYield <| BaseIceYield
+        | Material.Mineral _ -> OreYield <| BaseOreYield
+    
+
+    // main refined product price function
+    let GetPrice material order loc :RefinePrice = 
+        match material with
+        | RefinedProduct.Mineral     -> MineralPrices    <| loadMineralPrices order loc
+        | RefinedProduct.IceProduct  -> IceProductPrices <| loadIceProductPrices order loc
 
 
-    // Main "refine" function
+    // main refine function
     let GetRefineValue (refine:RefineYield) (price:RefinePrice) :Price =
         match refine with
         | OreYield x -> refineOreValue x price
