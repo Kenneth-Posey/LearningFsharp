@@ -3,7 +3,9 @@
 module Types = 
     open EveOnline.ProductDomain.Types
     open EveOnline.OreDomain.Types
+    open EveOnline.OreDomain.Records
     open EveOnline.IceDomain.Types
+    open EveOnline.IceDomain.Records
     open EveOnline.ProductDomain.Records
 
     
@@ -39,3 +41,15 @@ module Types =
         Hek     
     ]
         
+    type RefinePrice = 
+    | MineralPrices of MineralPrices
+    | IceProductPrices of IceProductPrices
+
+    type RefineYield = 
+    | IceYield of IceYield 
+    | OreYield of OreYield
+
+    type RefinedProduct = 
+    | Mineral
+    | IceProduct
+

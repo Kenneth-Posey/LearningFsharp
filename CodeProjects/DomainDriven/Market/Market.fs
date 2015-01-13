@@ -16,8 +16,6 @@ module Market =
     open EveOnline.MarketDomain.Parser
     open EveOnline.DataDomain.Collections
 
-    // functions for shifting material type functions into their subtype functions
-
     // functions for finding the typeid of a material type
     let IceTypeId x = IceTypeId (x) (IsNotCompressed)
     let OreTypeId x = (OreData (x) (Common) (IsNotCompressed)).OreId
@@ -32,6 +30,7 @@ module Market =
     let StringId x = 
         string (TypeId x).Value
 
+
     // functions for finding the name of a material type
     let IceName x = RawIceName (x)
     let OreName x = RawOreName (x)
@@ -43,38 +42,18 @@ module Market =
         | IceType x -> IceName x
         | OreType x -> OreName x
 
-    // functions for composing the parser urls
-    let loadUrl = Utility.UtilityFunctions.LoadUrl
-    let composeUrl = Utility.UtilityFunctions.ComposeUrl
-    let parse = EveOnline.MarketDomain.Parser.ParseQuickLook
-    let baseUrl = (fun loc item -> 
-                      EveOnline.MarketDomain.Providers.QuickLook + 
-                      "?typeid=" + StringId item + "&usesystem=" + 
-                      string (SystemId loc) )
 
     // load a material's data
     let loadItem (location:System) (item:Material)= 
-        item 
+        StringId item
         |> baseUrl location
         |> loadUrl
-        |> parse (TypeId item).Value
+        |> parse 
 
     // load a list of material's data
     let loadItems (loc:System) (items:Material list) = 
         items
         |> List.map (fun x -> loadItem loc x)
-
-    // calculates the cost of buying X item based on available orders
-    let calcbuy amount data =
-        data.sellOrders
-        |> List.sortWith SortSellFunc
-        |> OrderProcessor amount
-
-    // calculates the income of selling X item based on available orders
-    let calcSell amount data = 
-        data.buyOrders
-        |> List.sortWith SortBuyFunc
-        |> OrderProcessor amount
 
 
     // loads ice product prices based on the highest buy offer or lowest sell offer in system
@@ -94,6 +73,7 @@ module Market =
             StrontiumClathrates = loadItem <| IceProduct StrontiumClathrates
         }
 
+
     // loads mineral prices based on the highest buy offer or lowest sell offer in system
     let loadMineralPrices (orderType:OrderType) (loc:System) :MineralPrices =
         let loadItem (item:Material) = Price <|
@@ -111,38 +91,27 @@ module Market =
             Zydrine   = loadItem <| Mineral Zydrine
             Morphite  = loadItem <| Mineral Morphite
         }
-        
-    
-    type RefinePrice = 
-    | MineralPrices of MineralPrices
-    | IceProductPrices of IceProductPrices
 
 
     // functions for finding the yield of a refinable type
-    type RefineYield = 
-    | IceYield of IceYield 
-    | OreYield of OreYield
-
-    let GetYield x :RefineYield = 
+    let GetYield (x:Material) :RefineYield = 
         match x with
         | IceType x -> IceYield <| RawIceYield x
         | OreType x -> OreYield <| RawOreYield x
-        | IceProduct _ -> IceYield <| BaseIceYield
-        | Mineral _ -> OreYield <| BaseOreYield
+        | Material.IceProduct _ -> IceYield <| BaseIceYield
+        | Material.Mineral _ -> OreYield <| BaseOreYield
     
-    type RefinedProduct = 
-    | Mineral
-    | IceProduct
 
     let GetPrice material order loc :RefinePrice = 
         match material with
-        | Mineral     -> MineralPrices    <| loadMineralPrices order loc
-        | IceProduct  -> IceProductPrices <| loadIceProductPrices order loc
+        | RefinedProduct.Mineral     -> MineralPrices    <| loadMineralPrices order loc
+        | RefinedProduct.IceProduct  -> IceProductPrices <| loadIceProductPrices order loc
         
     let refineValueProcessor (pairs:(int *single) list) :Price =
         let accumulator = (fun total (refine, price) -> total + (single refine * price))
         pairs |> List.fold accumulator (0.0f) |> Price
     
+
     // calculates the maximum market value of the yield of a single ice block
     let refineIceValue (refine:IceYield) (price:RefinePrice) :Price =          
         let price = price |> fun x -> match x with
@@ -176,7 +145,7 @@ module Market =
         ]
         |> refineValueProcessor
     
-    open EveOnline.ProductDomain.Records
+    //open EveOnline.ProductDomain.Records
     let refineValue (refine:RefineYield) (price:RefinePrice) :Price =
         match refine with
         | OreYield x -> refineOreValue x price

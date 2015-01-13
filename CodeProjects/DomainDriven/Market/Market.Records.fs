@@ -12,7 +12,6 @@ module Records =
     open Microsoft.FSharp.Reflection   
         
     type MarketPrices =  {
-        typeId   : int
         highBuy  : single
         lowSell  : single
         lowBuy   : single
