@@ -118,7 +118,7 @@ module Market =
         |> refineValueProcessor
 
     
-    // calculates the maximum market value of the yield of 100 ore units    
+    // calculates the maximum market value of the yield of 100 ore units (one refine unit)   
     let refineOreValue (refine:OreYield) (price:RefinePrice) :Price =
         price 
         |> function
@@ -159,3 +159,14 @@ module Market =
         match refine with
         | OreYield x -> refineOreValue x price
         | IceYield x -> refineIceValue x price
+        
+
+    // If I have the volume of 100 units and the value of 100 units, I can work out
+    // the value per m^3 by dividing the value by the volume
+    let GetOreVolumePrice (volume:Volume) (price:RefinePrice) (ore:OreType) :Price =         
+        GetYield (OreType ore)
+        |> fun oreYield -> GetRefineValue oreYield price
+        |> fun refine -> refine, OreVolume ore IsNotCompressed
+        |> fun (refine, unitVolume) -> refine.Value / unitVolume.Value * volume.Value
+        |> Price
+        
