@@ -136,6 +136,14 @@ module Market =
                 refine.Zydrine.Value,     price.Zydrine.Value
             ])
         |> refineValueProcessor
+    
+
+    // main volume function
+    let GetVolume (com:Compressed) (mat:Material) :Volume = 
+        match mat with
+        | OreType x -> OreVolume x com
+        | IceType _ -> RawIceVolume com
+        | _ -> Volume 0.1f // to-do: insert actual refined product volumes
         
 
     // main yield function
@@ -143,8 +151,8 @@ module Market =
         match x with
         | IceType x -> IceYield <| RawIceYield x
         | OreType x -> OreYield <| RawOreYield x
-        | Material.IceProduct _ -> IceYield <| BaseIceYield
-        | Material.Mineral _ -> OreYield <| BaseOreYield
+        | IceProduct _ -> IceYield <| BaseIceYield
+        | Mineral _ -> OreYield <| BaseOreYield
     
 
     // main refined product price function
@@ -163,10 +171,10 @@ module Market =
 
     // If I have the volume of 100 units and the value of 100 units, I can work out
     // the value per m^3 by dividing the value by the volume
-    let GetOreVolumePrice (volume:Volume) (price:RefinePrice) (ore:OreType) :Price =         
-        GetYield (OreType ore)
-        |> fun oreYield -> GetRefineValue oreYield price
-        |> fun refine -> refine, OreVolume ore IsNotCompressed
-        |> fun (refine, unitVolume) -> refine.Value / unitVolume.Value * volume.Value
+    let GetVolumePrice (vol:Volume) price com mat :Price =         
+        GetYield mat
+        |> fun _yield -> GetRefineValue _yield price
+        |> fun refine -> refine, GetVolume com mat
+        |> fun (refine, unitVolume) -> refine.Value / unitVolume.Value * vol.Value
         |> Price
         
