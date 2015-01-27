@@ -126,14 +126,14 @@ module Market =
            | _ -> BaseMineralPrices
         |> (fun price -> 
             [
-                refine.Isogen.Value,      price.Isogen.Value
-                refine.Megacyte.Value,    price.Megacyte.Value
-                refine.Mexallon.Value,    price.Mexallon.Value
-                refine.Morphite.Value,    price.Morphite.Value
-                refine.Nocxium.Value,     price.Nocxium.Value
-                refine.Pyerite.Value,     price.Pyerite.Value
-                refine.Tritanium.Value,   price.Tritanium.Value
-                refine.Zydrine.Value,     price.Zydrine.Value
+                refine.Isogen.Value,      price.Isogen.Value    * 0.01f
+                refine.Megacyte.Value,    price.Megacyte.Value  * 0.01f
+                refine.Mexallon.Value,    price.Mexallon.Value  * 0.01f
+                refine.Morphite.Value,    price.Morphite.Value  * 0.01f
+                refine.Nocxium.Value,     price.Nocxium.Value   * 0.01f
+                refine.Pyerite.Value,     price.Pyerite.Value   * 0.01f
+                refine.Tritanium.Value,   price.Tritanium.Value * 0.01f
+                refine.Zydrine.Value,     price.Zydrine.Value   * 0.01f
             ])
         |> refineValueProcessor
     
