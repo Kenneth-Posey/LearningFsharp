@@ -90,10 +90,9 @@ module Parser =
     let loadUrl = Utility.UtilityFunctions.LoadUrl
     let composeUrl = Utility.UtilityFunctions.ComposeUrl
     let parse = ParseQuickLook
-    let baseUrl = (fun loc item -> 
-                        EveOnline.MarketDomain.Providers.QuickLook + "?typeid=" + item 
-                        + "&usesystem=" + string (SystemId loc) 
-                    )
+    let baseUrl = (fun loc item -> EveOnline.MarketDomain.Providers.QuickLook + 
+                                   "?typeid=" + item + 
+                                   "&usesystem=" + string (SystemId loc) )
 
 
     // calculates the cost of buying X item based on available orders

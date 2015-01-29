@@ -37,10 +37,10 @@ module Market =
 
     let Name x = 
         match x with
-        | Mineral x    -> MineralName x
-        | IceProduct x -> IceProductName x
         | IceType x -> IceName x
         | OreType x -> OreName x
+        | Mineral x    -> MineralName x
+        | IceProduct x -> IceProductName x
 
 
     // load a material's data

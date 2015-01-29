@@ -93,6 +93,8 @@
     <Compile Include="Ore\Ore.Records.fs" />
     <Compile Include="Ore\Ore.fs" />
     <Compile Include="Data\Data.Collections.fs" />
+    <Compile Include="Industry\Blueprint.fs" />
+    <Compile Include="Industry\Job.fs" />
     <Compile Include="Market\Market.Providers.fs" />
     <Compile Include="Market\Market.Types.fs" />
     <Compile Include="Market\Market.Records.fs" />
