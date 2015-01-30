@@ -83,6 +83,9 @@
     <Compile Include="Utility\Format.fs" />
     <Compile Include="Utility\Utility.fs" />
     <None Include="Utility\fsharp-calculator.fsx" />
+    <Compile Include="Geography\Geography.Celestial.fs" />
+    <Compile Include="Geography\Geography.Station.fs" />
+    <Compile Include="Geography\Geography.Starbase.fs" />
     <Compile Include="Geography\Geography.System.fs" />
     <Compile Include="Product\Product.Types.fs" />
     <Compile Include="Product\Product.Records.fs" />
