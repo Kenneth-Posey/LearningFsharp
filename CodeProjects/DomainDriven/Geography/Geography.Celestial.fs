@@ -8,3 +8,12 @@ module Celestial =
     | Moon
     | Stargate
     
+    type Deployable = 
+    | MobileTractorUnit
+    | MobileDepot
+    | LargeWarpBubble
+    | MediumWarpBubble
+    | SmallWarpBubble
+    | ProbeScreen
+    | MicroJump
+    | Container

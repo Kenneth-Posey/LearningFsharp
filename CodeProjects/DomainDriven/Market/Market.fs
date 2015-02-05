@@ -15,6 +15,7 @@ module Market =
     open EveOnline.MarketDomain.Records
     open EveOnline.MarketDomain.Parser
     open EveOnline.DataDomain.Collections
+    open EveOnline.Geography.System
 
     // functions for finding the typeid of a material type
     let IceTypeId x = IceTypeId (x) (IsNotCompressed)
@@ -44,20 +45,20 @@ module Market =
 
 
     // load a material's data
-    let loadItem (loc:System) (item:Material)= 
+    let loadItem (loc:TradeHub) (item:Material)= 
         StringId item
         |> baseUrl loc
         |> loadUrl
         |> parse 
 
     // load a list of material's data
-    let loadItems (loc:System) (items:Material list) = 
+    let loadItems (loc:TradeHub) (items:Material list) = 
         items
         |> List.map (fun x -> loadItem loc x)
 
 
     // loads ice product prices based on the highest buy offer or lowest sell offer in system
-    let loadIceProductPrices (orderType:OrderType) (loc:System) :IceProductPrices = 
+    let loadIceProductPrices (orderType:OrderType) (loc:TradeHub) :IceProductPrices = 
         let loadItem (item:Material) = Price <|
             match orderType with
             | BuyOrder  -> (loadItem loc item).prices.highBuy
@@ -75,7 +76,7 @@ module Market =
 
 
     // loads mineral prices based on the highest buy offer or lowest sell offer in system
-    let loadMineralPrices (orderType:OrderType) (loc:System) :MineralPrices =
+    let loadMineralPrices (orderType:OrderType) (loc:TradeHub) :MineralPrices =
         let loadItem (item:Material) = Price <|
             match orderType with
             | BuyOrder  -> (loadItem loc item).prices.highBuy

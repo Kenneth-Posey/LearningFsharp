@@ -1,8 +1,7 @@
 ﻿namespace EveOnline.MarketDomain
 
 module Parser = 
-    open Utility.UtilityFunctions
-    open EveOnline.MarketDomain.Types
+    open EveOnline.Geography.System
     open EveOnline.MarketDomain.Providers
     open EveOnline.MarketDomain.Records
     
