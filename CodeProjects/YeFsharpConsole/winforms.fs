@@ -41,10 +41,6 @@ module Winforms =
             this.SetupForm ()
 
         member this.SetupForm () =
-            
-            this.BackColor <- Color.Black
-            this.Height <- 600
-            this.Width <- 600
 
             let invader = new PictureBox ()
             invader.Load("../../resources/alien.jpg")

@@ -19,7 +19,7 @@ module Main =
         Application.EnableVisualStyles ()
         Application.SetCompatibleTextRenderingDefault false
         
-        let r = new Winforms.TestForm ()
+        let r = new MainProgramTemplate.MainForm ()
         r |> Application.Run
         
         // let getPrice x = GetPrice x (OrderType.BuyOrder) (Jita)

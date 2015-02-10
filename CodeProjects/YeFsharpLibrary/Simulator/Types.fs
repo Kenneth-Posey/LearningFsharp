@@ -6,6 +6,7 @@ module SimulatorTypes =
     module Mouse = 
         module Constants = 
             /// Available mouse buttons
+
             type ButtonCode = 
                 static member Left   = 0x2
                 static member Right  = 0x8
@@ -104,7 +105,6 @@ module SimulatorTypes =
 
     module Hook = 
         open System
-        open System.Windows.Forms
         
         type HookProc = delegate of int * int * IntPtr -> int
     

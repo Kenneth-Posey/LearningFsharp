@@ -36,9 +36,7 @@
     <WarningLevel>5</WarningLevel>
     <DocumentationFile>
     </DocumentationFile>
-    <NoWarn>
-      58
-    </NoWarn>
+    <NoWarn>58, 20</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -70,7 +68,12 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="scripts\RunningImagesearch.fs" />
-    <Compile Include="Main.fs" />
+    <Compile Include="interface\control\display\product.fs" />
+    <Compile Include="interface\control\display\ore.fs" />
+    <Compile Include="interface\control\display\ice.fs" />
+    <Compile Include="interface\template\main.fs" />
+    <Compile Include="interface\template\menu.fs" />
+    <None Include="Main.fsx" />
     <Compile Include="winforms.fs" />
     <Compile Include="dddmain.fs" />
     <Content Include="app.config" />

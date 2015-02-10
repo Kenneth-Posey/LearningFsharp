@@ -8,7 +8,6 @@ module Market =
     open EveOnline.OreDomain.Types
     open EveOnline.OreDomain.Records
     open EveOnline.OreDomain.Ore
-    open EveOnline.IceDomain.Types
     open EveOnline.IceDomain.Records
     open EveOnline.IceDomain.Ice
     open EveOnline.MarketDomain.Types
