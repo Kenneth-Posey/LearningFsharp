@@ -11,6 +11,9 @@
     <AssemblyName>ObjectOriented</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <Name>ObjectOrientedDesign</Name>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>1e4cfb9a</NuGetPackageImportStamp>
   </PropertyGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '11.0'">
@@ -49,30 +52,6 @@
     <DocumentationFile>bin\Release\ObjectOriented.XML</DocumentationFile>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Product\Product.Types.fs" />
-    <Compile Include="Product\Product.Records.fs" />
-    <Compile Include="Product\Product.fs" />
-    <Compile Include="Ice\Ice.Types.fs" />
-    <Compile Include="Ice\Ice.Records.fs" />
-    <Compile Include="Ice\Ice.fs" />
-    <Compile Include="Ore\Ore.Types.fs" />
-    <Compile Include="Ore\Ore.Records.fs" />
-    <Compile Include="Ore\Ore.fs" />
-    <Compile Include="Market\Market.Types.fs" />
-    <Compile Include="Market\Market.Records.fs" />
-    <Compile Include="Market\Market.Parser.fs" />
-    <Compile Include="Market\Market.fs" />
-  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
@@ -89,6 +68,37 @@
     </Otherwise>
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <ItemGroup>
+    <Compile Include="Product\Product.Types.fs" />
+    <Compile Include="Product\Product.Records.fs" />
+    <Compile Include="Product\Product.fs" />
+    <Compile Include="Ice\Ice.Types.fs" />
+    <Compile Include="Ice\Ice.Records.fs" />
+    <Compile Include="Ice\Ice.fs" />
+    <Compile Include="Ore\Ore.Types.fs" />
+    <Compile Include="Ore\Ore.Records.fs" />
+    <Compile Include="Ore\Ore.fs" />
+    <Compile Include="Market\Market.Types.fs" />
+    <Compile Include="Market\Market.Records.fs" />
+    <Compile Include="Market\Market.Parser.fs" />
+    <Compile Include="Market\Market.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

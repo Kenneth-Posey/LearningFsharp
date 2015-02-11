@@ -13,6 +13,7 @@
     <Name>YeFsharpLibrary</Name>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\eve-contracts\evetool\EVETool\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>d2853d48</NuGetPackageImportStamp>
   </PropertyGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '11.0'">

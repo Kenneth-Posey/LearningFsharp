@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{92B89259-D7B2-4B60-8D29-DACD58FA7C81}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +17,8 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ObjectOrientedDesign", "ObjectOriented\ObjectOrientedDesign.fsproj", "{69D7C496-0D70-4254-920C-03D5EDD81D88}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DomainDrivenDesign", "DomainDriven\DomainDrivenDesign.fsproj", "{D0BAA48E-7842-457D-8CB4-B4F2069CBC63}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Monogame", "Monogame\Monogame.fsproj", "{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -137,6 +139,31 @@ Global
 		{D0BAA48E-7842-457D-8CB4-B4F2069CBC63}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D0BAA48E-7842-457D-8CB4-B4F2069CBC63}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D0BAA48E-7842-457D-8CB4-B4F2069CBC63}.Release|x86.ActiveCfg = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (3.5)|Any CPU.ActiveCfg = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (3.5)|Any CPU.Build.0 = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (3.5)|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (3.5)|Mixed Platforms.Build.0 = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (3.5)|x86.ActiveCfg = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (4.0)|Any CPU.ActiveCfg = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (4.0)|Any CPU.Build.0 = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (4.0)|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (4.0)|Mixed Platforms.Build.0 = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (4.0)|x86.ActiveCfg = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (4.5)|Any CPU.ActiveCfg = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (4.5)|Any CPU.Build.0 = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (4.5)|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (4.5)|Mixed Platforms.Build.0 = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release (4.5)|x86.ActiveCfg = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5E5365E0-E9DD-4D72-ABB3-1AE31E3E940E}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
