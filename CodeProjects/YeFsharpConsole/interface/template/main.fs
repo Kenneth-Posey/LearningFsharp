@@ -7,7 +7,9 @@ module MainProgramTemplate =
     open System.Threading
 
     type Repeat (func) =
-        member this.Bind(x, f) = func (f x)
+        member this.Bind(x, f) =          
+            func (f x)
+            ()
         member this.Return(x) = x
         member this.Zero() = ()
 
@@ -15,8 +17,13 @@ module MainProgramTemplate =
         inherit Form()            
         
         // obj -> EventArgs -> unit
-        let exit_Click (_:obj) (_:EventArgs) :unit=
+        let Event e = new EventHandler (e)
+
+        let Exit_Click s e = 
             Application.Exit ()
+
+        let About_Click s e = 
+            ()
 
         do 
             this.SetupForm ()
@@ -30,17 +37,18 @@ module MainProgramTemplate =
             
             
         member this.SetupMenu () = 
-            this.Menu <- new MainMenu ()
-
-            let menu1 = new MenuItem ("File")
-            let menu2 = new MenuItem ("About")
+            let fileMenu = new MenuItem ("File")
+            let helpMenu = new MenuItem ("Help")
             
-            let exit = new EventHandler(exit_Click)
+            [
+                fileMenu, [
+                    // new MenuItem("Item1")
+                    new MenuItem("Exit", Event Exit_Click)
+                ]
+                helpMenu, [
+                    new MenuItem("About", Event About_Click)
+                ]
+            ] 
+            |> List.iter (fun (menu, items) -> menu.MenuItems.AddRange (Array.ofList items))
 
-            (new Repeat (ignore)) {
-                menu1.MenuItems.Add("Item 1")       
-                menu1.MenuItems.Add("Exit", exit)   
-                menu2.MenuItems.Add("About")        
-                this.Menu.MenuItems.Add(menu1)      
-                this.Menu.MenuItems.Add(menu2)     
-            }
+            this.Menu <- new MainMenu [| fileMenu; helpMenu |]
