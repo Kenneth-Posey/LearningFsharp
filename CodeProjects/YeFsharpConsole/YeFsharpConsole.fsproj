@@ -79,6 +79,7 @@
     <Compile Include="interface\control\display\product.fs" />
     <Compile Include="interface\control\display\ore.fs" />
     <Compile Include="interface\control\display\ice.fs" />
+    <Compile Include="interface\control\display\controls.fs" />
     <Compile Include="interface\template\main.fs" />
     <Compile Include="interface\template\menu.fs" />
     <None Include="Main.fsx" />
