@@ -73,6 +73,9 @@
     <None Include="Game1.cs" />
     <Compile Include="Game1.fs" />
     <Compile Include="Program.fs" />
+    <Content Include="alien.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
