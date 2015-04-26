@@ -14,7 +14,7 @@ module Main =
 
     open System.Windows.Forms
 
-    [<EntryPoint>]
+    // [<EntryPoint>]
     let main (_) = 
         Application.EnableVisualStyles ()
         Application.SetCompatibleTextRenderingDefault false

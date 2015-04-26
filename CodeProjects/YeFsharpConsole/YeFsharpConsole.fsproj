@@ -9,11 +9,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>YeFsharpConsole</RootNamespace>
     <AssemblyName>YeFsharpConsole</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.3</TargetFrameworkVersion>
     <Name>YeFsharpConsole</Name>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>cd0e6e89</NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '11.0'">
@@ -39,7 +40,7 @@
     </DocumentationFile>
     <NoWarn>58, 20</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
-    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -85,10 +86,22 @@
     <None Include="Main.fsx" />
     <Compile Include="winforms.fs" />
     <Compile Include="dddmain.fs" />
+    <Compile Include="cocossharp.fs" />
     <Content Include="app.config" />
     <Content Include="packages.config" />
+    <None Include="SDL.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="BitMiracle.LibTiff.NET">
+      <HintPath>..\packages\CocosSharp.Windows.1.3.2.0\lib\NET40\BitMiracle.LibTiff.NET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="box2d">
+      <HintPath>..\packages\CocosSharp.Windows.1.3.2.0\lib\NET40\box2d.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
     </Reference>
@@ -100,14 +113,29 @@
       <HintPath>..\packages\FSharp.Data.TypeProviders.0.0.1\lib\net40\FSharp.Data.TypeProviders.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <ProjectReference Include="..\DomainDriven\DomainDrivenDesign.fsproj">
-      <Name>DomainDrivenDesign</Name>
-      <Project>{d0baa48e-7842-457d-8cb4-b4f2069cbc63}</Project>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\CocosSharp.Windows.1.3.2.0\lib\NET40\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
-    </ProjectReference>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553" />
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553" />
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553" />
+    <Reference Include="Microsoft.Xna.Framework.Input.Touch, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553" />
+    <Reference Include="Microsoft.Xna.Framework.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553" />
+    <Reference Include="MonoGame.Framework">
+      <HintPath>..\packages\MonoGame.Binaries.3.2.3-alpha\build\MonoTouch\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK">
+      <HintPath>..\packages\MonoGame.Framework.WindowsGL.3.3.0.0\lib\net40\OpenTK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="Tao.Sdl">
+      <HintPath>..\packages\MonoGame.Framework.WindowsGL.3.3.0.0\lib\net40\Tao.Sdl.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
